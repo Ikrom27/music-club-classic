@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.palette:palette-ktx:1.0.0")
     implementation("com.android.volley:volley:1.2.1")
     kapt("androidx.room:room-compiler:2.6.1")
+    //UI
+    implementation("androidx.percentlayout:percentlayout:1.0.0")
     //OTHER
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

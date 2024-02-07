@@ -1,16 +1,15 @@
-package com.ikrom.music_club_classic.ui.adapters
+package com.ikrom.music_club_classic.ui.base_adapters
 
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CompositeAdapter(
-    private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, DelegateAdapter.BaseViewHolder>>
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val items = ArrayList<DelegateAdapterItem>()
+    private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.BaseViewHolder>>
+): BaseAdapterHandler<IDelegateAdapterItem, RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        val currentItem = items[position]
+        val currentItem = mItems[position]
         for (i in 0 until delegates.size()){
             if(delegates[i].isForViewType(currentItem)){
                 return delegates.keyAt(i)
@@ -23,10 +22,6 @@ class CompositeAdapter(
         return delegates[viewType].createViewHolder(parent)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         onBindViewHolder(holder, position, mutableListOf())
     }
@@ -35,24 +30,19 @@ class CompositeAdapter(
         val delegateAdapter = delegates[getItemViewType(position)]
 
         if (delegateAdapter != null) {
-            val delegatePayloads = payloads.map { it as DelegateAdapterItem.Payloadable }
-            delegateAdapter.onBindViewHolder(items[position], holder, delegatePayloads)
+            val delegatePayloads = payloads.map { it as IDelegateAdapterItem.Payloadable }
+            delegateAdapter.onBindViewHolder(mItems[position], holder, delegatePayloads)
         } else {
             throw NullPointerException("can not find adapter for position $position")
         }
     }
 
-    fun swapData(newData: List<DelegateAdapterItem>){
-        items.clear()
-        items.addAll(newData)
-    }
-
     class Builder(){
         private var count: Int = 0
-        private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, DelegateAdapter.BaseViewHolder>> = SparseArray()
+        private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.BaseViewHolder>> = SparseArray()
 
-        fun add(delegateAdapter: DelegateAdapter<out DelegateAdapterItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as DelegateAdapter<DelegateAdapterItem, DelegateAdapter.BaseViewHolder>)
+        fun add(delegateAdapter: DelegateAdapter<out IDelegateAdapterItem, *>): Builder {
+            delegates.put(count++, delegateAdapter as DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.BaseViewHolder>)
             return this
         }
 

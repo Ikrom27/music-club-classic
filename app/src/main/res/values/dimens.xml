@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="large_track_cover">225dp</dimen>
+    <dimen name="large_track_cover">196dp</dimen>
+    <dimen name="horizontal_padding">18dp</dimen>
+    <dimen name="button_size">24dp</dimen>
 </resources>
