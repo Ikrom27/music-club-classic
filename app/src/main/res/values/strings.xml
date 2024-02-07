@@ -11,6 +11,7 @@
 
     <!-- Notification -->
     <string name="download">Download</string>
+    <string name="example">example</string>
 
     <!-- Noun -->
     <plurals name="n_song">
