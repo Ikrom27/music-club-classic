@@ -33,7 +33,7 @@ class YoutubeMusicDataSource: IMusicServiceDataSource {
         val responseLiveData = MutableLiveData<List<Album>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.newReleaseAlbums().onSuccess { result ->
-                responseLiveData.value = result.map{ it.toAlbum() }
+                responseLiveData.postValue(result.map{ it.toAlbum() })
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
             }
@@ -45,7 +45,7 @@ class YoutubeMusicDataSource: IMusicServiceDataSource {
         val responseLiveData = MutableLiveData<List<Track>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.album(albumId).onSuccess { result ->
-                responseLiveData.value = result.songs.map { it.toTrack() }
+                responseLiveData.postValue(result.songs.map { it.toTrack() })
             }.onFailure {
                 Log.e(TAG, "get album ${albumId} tracks failure")
             }
@@ -57,7 +57,7 @@ class YoutubeMusicDataSource: IMusicServiceDataSource {
         val responseLiveData = MutableLiveData(SearchSuggestions(emptyList(), emptyList()))
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.searchSuggestions(query).onSuccess { result ->
-                responseLiveData.value = result
+                responseLiveData.postValue(result)
             }
         }
         return responseLiveData
