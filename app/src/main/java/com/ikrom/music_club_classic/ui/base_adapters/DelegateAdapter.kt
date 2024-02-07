@@ -17,13 +17,13 @@ interface IDelegateAdapterItem {
     }
 }
 
-abstract class DelegateAdapter<T : IDelegateAdapterItem, in VH: DelegateAdapter.BaseViewHolder>(
+abstract class DelegateAdapter<T : IDelegateAdapterItem, in VH: DelegateAdapter.DelegateViewHolder>(
     private val classType: Class<out T>
 ) {
     abstract fun createViewHolder(binding: View): RecyclerView.ViewHolder
 
     abstract fun getLayoutId(): Int
-    abstract class BaseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    abstract class DelegateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         abstract fun bind(item: IDelegateAdapterItem)
     }
 
@@ -33,7 +33,7 @@ abstract class DelegateAdapter<T : IDelegateAdapterItem, in VH: DelegateAdapter.
     }
 
     fun onBindViewHolder(item: T, viewHolder: RecyclerView.ViewHolder, payloads: List<IDelegateAdapterItem.Payloadable>) {
-        (viewHolder as BaseViewHolder).bind(item)
+        (viewHolder as DelegateViewHolder).bind(item)
     }
 
     fun isForViewType(item: IDelegateAdapterItem): Boolean {

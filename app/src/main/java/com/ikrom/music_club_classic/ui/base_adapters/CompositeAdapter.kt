@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CompositeAdapter(
-    private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.BaseViewHolder>>
+    private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>>
 ): BaseAdapterHandler<IDelegateAdapterItem, RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
@@ -39,10 +39,10 @@ class CompositeAdapter(
 
     class Builder(){
         private var count: Int = 0
-        private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.BaseViewHolder>> = SparseArray()
+        private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>> = SparseArray()
 
         fun add(delegateAdapter: DelegateAdapter<out IDelegateAdapterItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.BaseViewHolder>)
+            delegates.put(count++, delegateAdapter as DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>)
             return this
         }
 

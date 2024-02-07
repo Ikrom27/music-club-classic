@@ -19,6 +19,7 @@ class HomeFragment : Fragment() {
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(HorizontalTracksDelegate())
         .add(PlayerCardDelegate())
+        .add(NewReleasesDelegate())
         .build()
 
     override fun onCreateView(
@@ -28,8 +29,14 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
+        setAdapter(recyclerView)
+        return view
+    }
+
+    fun setAdapter(recyclerView: RecyclerView){
         val testData = listOf(
-            HorizontalTracksDelegateItem(title = "Beatles", tracks = homeViewModel.getTracks("Beatles"))
+            HorizontalTracksDelegateItem(title = "Beatles", tracks = homeViewModel.getTracks("Beatles")),
+            NewReleasesDelegateItem(title = "New releases", albums = homeViewModel.getNewReleases())
         )
         compositeAdapter.setItems(testData)
         homeViewModel.getTracks("Beatles").observe(viewLifecycleOwner) { tracks ->
@@ -39,6 +46,5 @@ class HomeFragment : Fragment() {
         }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = compositeAdapter
-        return view
     }
 }

@@ -27,7 +27,7 @@ data class PlayerDelegateItem(
 class PlayerCardDelegate: DelegateAdapter<PlayerDelegateItem, PlayerCardDelegate.PlayerCardViewHolder>(
     PlayerDelegateItem::class.java
 ) {
-    class PlayerCardViewHolder(itemView: View): BaseViewHolder(itemView){
+    class PlayerCardViewHolder(itemView: View): DelegateViewHolder(itemView){
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_track_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_track_author)
