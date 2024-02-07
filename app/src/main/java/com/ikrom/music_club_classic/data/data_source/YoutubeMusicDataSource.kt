@@ -11,7 +11,6 @@ import com.ikrom.music_club_classic.extensions.toAlbum
 import com.ikrom.music_club_classic.extensions.toTrack
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 
@@ -21,7 +20,7 @@ class YoutubeMusicDataSource: IMusicServiceDataSource {
         val tracksLiveData = MutableLiveData<List<Track>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).onSuccess { result ->
-                tracksLiveData.value = result.items.map { (it as SongItem).toTrack()}
+                tracksLiveData.postValue(result.items.map { (it as SongItem).toTrack()})
                 Log.d("YoutubeMusicDataSource", "Find results: ${tracksLiveData.value?.size}")
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
