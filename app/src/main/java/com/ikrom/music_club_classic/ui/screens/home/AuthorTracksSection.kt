@@ -9,8 +9,9 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.ui.base_adapters.DelegateAdapter
 import com.ikrom.music_club_classic.ui.base_adapters.IDelegateAdapterItem
+import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
 
-data class HorizontalTracksDelegateItem(
+data class AuthorTracksDelegateItem(
     val title: String,
     val tracks: LiveData<List<Track>>
 ): IDelegateAdapterItem {
@@ -23,8 +24,8 @@ data class HorizontalTracksDelegateItem(
     }
 }
 
-class HorizontalTracksDelegate: DelegateAdapter<HorizontalTracksDelegateItem, HorizontalTracksDelegate.TrackViewHolder>(
-    HorizontalTracksDelegateItem::class.java) {
+class AuthorTracksDelegate: DelegateAdapter<AuthorTracksDelegateItem, AuthorTracksDelegate.TrackViewHolder>(
+    AuthorTracksDelegateItem::class.java) {
 
     override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
         return TrackViewHolder(binding)
@@ -38,16 +39,27 @@ class HorizontalTracksDelegate: DelegateAdapter<HorizontalTracksDelegateItem, Ho
         val title = itemView.findViewById<TextView>(R.id.section_title)
         val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
         val adapter = LargeTracksAdapter()
-        val layout = LinearLayoutManager(itemView.context)
 
         override fun bind(item: IDelegateAdapterItem) {
             title.text = item.id() as String
-            layout.orientation = LinearLayoutManager.HORIZONTAL
-            recyclerView.layoutManager = layout
             (item.content() as LiveData<List<Track>>).observeForever { tracks ->
                 adapter.setItems(tracks)
             }
+            setupRecycleView()
+        }
+
+        fun setupRecycleView(){
+            val layout = LinearLayoutManager(itemView.context)
+            layout.orientation = LinearLayoutManager.HORIZONTAL
+            recyclerView.layoutManager = layout
             recyclerView.adapter = adapter
+            recyclerView.addItemDecoration(MarginItemDecoration(
+                startSpace = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
+                endSpace =  itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
+                betweenSpace = itemView.resources.getDimensionPixelSize(R.dimen.items_margin),
+                isHorizontal = true
+            ))
+            recyclerView.invalidateItemDecorations()
         }
     }
 }

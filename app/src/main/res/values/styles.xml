@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TextViewTitles">
-        <item name="singleLine">true</item>
+        <item name="maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
     <style name="TextViewTitles.ItemPrimaryTitle">

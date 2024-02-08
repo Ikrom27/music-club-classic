@@ -10,6 +10,7 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.ui.base_adapters.DelegateAdapter
 import com.ikrom.music_club_classic.ui.base_adapters.IDelegateAdapterItem
+import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
 
 data class NewReleasesDelegateItem(
     val title: String,
@@ -31,20 +32,31 @@ class NewReleasesDelegate: DelegateAdapter<NewReleasesDelegateItem, NewReleasesD
     inner class NewReleasesViewHolder(itemView: View):
         DelegateViewHolder(itemView)
     {
-        val title = itemView.findViewById<TextView>(R.id.section_title)
-        val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
-        val adapter = NewReleasesAdapter()
-        val layout = LinearLayoutManager(itemView.context)
+        private val title = itemView.findViewById<TextView>(R.id.section_title)
+        private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
+        private val adapter = NewReleasesAdapter()
 
         override fun bind(item: IDelegateAdapterItem) {
             title.text = item.id() as String
-            layout.orientation = LinearLayoutManager.HORIZONTAL
-            recyclerView.layoutManager = layout
             (item.content() as LiveData<List<Album>>).observeForever { albums ->
                 adapter.setItems(albums)
             }
-            Log.d("NewReleasesViewHolder", "binding")
+            setupRecycleView()
+        }
+
+        private fun setupRecycleView(){
+            val layout = LinearLayoutManager(itemView.context)
+            layout.orientation = LinearLayoutManager.HORIZONTAL
             recyclerView.adapter = adapter
+            recyclerView.layoutManager = layout
+            recyclerView.addItemDecoration(
+                MarginItemDecoration(
+                    startSpace = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
+                    endSpace = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
+                    betweenSpace = itemView.resources.getDimensionPixelSize(R.dimen.items_margin),
+                    isHorizontal = true
+                )
+            )
         }
     }
 

@@ -37,6 +37,10 @@ class CompositeAdapter(
         }
     }
 
+    fun getItems() :ArrayList<IDelegateAdapterItem>{
+        return mItems
+    }
+
     class Builder(){
         private var count: Int = 0
         private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>> = SparseArray()

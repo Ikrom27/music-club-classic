@@ -5,11 +5,15 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class MarginItemDecoration(
-    private val startSpace: Int,
-    private val endSpace: Int,
-    private val betweenSpace: Int,
-    private val isHorizontal: Boolean = false
-): RecyclerView.ItemDecoration() {
+    private val startSpace: Int = 0,
+    private val endSpace: Int = 0,
+    private var betweenSpace: Int = 0,
+    private val isHorizontal: Boolean = false): RecyclerView.ItemDecoration() {
+
+    init {
+        betweenSpace /= 2
+    }
+
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
