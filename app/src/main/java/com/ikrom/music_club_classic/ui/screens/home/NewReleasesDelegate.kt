@@ -53,6 +53,6 @@ class NewReleasesDelegate: DelegateAdapter<NewReleasesDelegateItem, NewReleasesD
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_horizontal_list
+        return R.layout.section_nested_list
     }
 }

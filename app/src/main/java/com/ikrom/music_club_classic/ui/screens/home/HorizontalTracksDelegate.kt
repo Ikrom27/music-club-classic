@@ -31,7 +31,7 @@ class HorizontalTracksDelegate: DelegateAdapter<HorizontalTracksDelegateItem, Ho
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_horizontal_list
+        return R.layout.section_nested_list
     }
 
     inner class TrackViewHolder(itemView: View): DelegateViewHolder(itemView){

@@ -47,6 +47,6 @@ class PlayerCardDelegate: DelegateAdapter<PlayerDelegateItem, PlayerCardDelegate
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_player_card
+        return R.layout.section_player
     }
 }
