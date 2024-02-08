@@ -4,5 +4,5 @@
     <dimen name="horizontal_padding">18dp</dimen>
     <dimen name="button_size">24dp</dimen>
     <dimen name="corner_radius_medium">12dp</dimen>
-    <dimen name="section_padding">40dp</dimen>
+    <dimen name="section_padding">18dp</dimen>
 </resources>

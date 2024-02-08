@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
+import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,5 +47,7 @@ class HomeFragment : Fragment() {
         }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = compositeAdapter
+        val padding = resources.getDimensionPixelSize(R.dimen.section_padding)
+        recyclerView.addItemDecoration(MarginItemDecoration(padding, padding*5, padding))
     }
 }
