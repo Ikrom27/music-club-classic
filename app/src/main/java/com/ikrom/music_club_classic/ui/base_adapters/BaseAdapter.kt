@@ -22,5 +22,16 @@ abstract class BaseAdapter<T>:
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         holder.bind(mItems[position])
+        holder.itemView.setOnClickListener {
+            mCallBack?.onItemClick(mItems[position], holder.itemView)
+        }
+        holder.itemView.setOnLongClickListener {
+            if (mCallBack == null){
+                false
+            } else {
+                mCallBack!!.onLongClick(mItems[position], holder.itemView)
+                true
+            }
+        }
     }
 }

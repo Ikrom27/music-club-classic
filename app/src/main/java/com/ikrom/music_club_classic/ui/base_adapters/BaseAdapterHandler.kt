@@ -5,6 +5,15 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
     protected val mItems = ArrayList<T>()
+    protected var mCallBack: BaseAdapterCallBack<T>? = null
+
+    fun attachCallBack(callBack: BaseAdapterCallBack<T>?){
+        mCallBack = callBack
+    }
+
+    fun detachCallBack(){
+        mCallBack = null
+    }
 
     override fun getItemCount(): Int {
         return mItems.size

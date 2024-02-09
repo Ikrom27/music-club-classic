@@ -5,11 +5,13 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.data.repository.MusicServiceRepository
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import javax.inject.Inject
 
 class PlayerConnection @Inject constructor(
-    val player: ExoPlayer
+    val player: ExoPlayer,
+    val repository: MusicServiceRepository
 ): Player.Listener {
     private var currentMediaItem = MutableLiveData(player.currentMediaItem)
     val playbackState = MutableLiveData(player.playbackState)

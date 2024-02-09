@@ -9,19 +9,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.playback.PlayerConnection
+import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+    @Inject
+    lateinit var playerConnection: PlayerConnection
     private val homeViewModel: HomeViewModel by viewModels()
-    private val compositeAdapter = CompositeAdapter.Builder()
-        .add(ArtistTracksDelegate())
-        .add(PlayerCardDelegate())
-        .add(NewReleasesDelegate())
-        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,11 +31,20 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
-        setAdapter(recyclerView)
+        setupAdapter(recyclerView)
         return view
     }
 
-    fun setAdapter(recyclerView: RecyclerView){
+    private fun setupAdapter(recyclerView: RecyclerView){
+        val compositeAdapter = CompositeAdapter.Builder()
+            .add(ArtistTracksDelegate(object : BaseAdapterCallBack<Track>(){
+                override fun onItemClick(item: Track, view: View) {
+                    playerConnection.playNow(item)
+                }
+            }))
+            .add(PlayerCardDelegate())
+            .add(NewReleasesDelegate())
+            .build()
         val testData = listOf(
             AuthorTracksDelegateItem(title = "Beatles", tracks = homeViewModel.getTracks("Beatles")),
             NewReleasesDelegateItem(title = "New releases", albums = homeViewModel.getNewReleases()),

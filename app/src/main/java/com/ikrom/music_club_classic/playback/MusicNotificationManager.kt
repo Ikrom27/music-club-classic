@@ -80,7 +80,7 @@ class MusicNotificationManager @Inject constructor (
             }
     }
 
-    public fun stopForeground(mediaSessionService: MediaSessionService){
+    fun stopForeground(mediaSessionService: MediaSessionService){
         mediaSessionService.stopForeground(Service.STOP_FOREGROUND_REMOVE)
     }
 
@@ -127,9 +127,6 @@ class MusicNotificationManager @Inject constructor (
         ): Bitmap? {
             val iconUri = controller.get().mediaMetadata.artworkUri
             return if (currentIconUri != iconUri || currentBitmap == null) {
-
-                // Cache the bitmap for the current song so that successive calls to
-                // `getCurrentLargeIcon` don't cause the bitmap to be recreated.
                 currentIconUri = iconUri
                 serviceScope.launch {
                     currentBitmap = iconUri?.let {

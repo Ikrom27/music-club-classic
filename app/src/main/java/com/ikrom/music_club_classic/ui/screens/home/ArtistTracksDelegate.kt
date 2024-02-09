@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.base_adapters.BaseDelegateAdapter
 import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
@@ -16,7 +17,9 @@ data class AuthorTracksDelegateItem(
     val tracks: LiveData<List<Track>>
 ): IDelegateItem
 
-class ArtistTracksDelegate: BaseDelegateAdapter<AuthorTracksDelegateItem, ArtistTracksDelegate.TrackViewHolder>(
+class ArtistTracksDelegate(
+    val callBack: BaseAdapterCallBack<Track>? = null
+): BaseDelegateAdapter<AuthorTracksDelegateItem, ArtistTracksDelegate.TrackViewHolder>(
     AuthorTracksDelegateItem::class.java) {
 
     override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
@@ -37,10 +40,11 @@ class ArtistTracksDelegate: BaseDelegateAdapter<AuthorTracksDelegateItem, Artist
             item.tracks.observeForever { tracks ->
                 adapter.setItems(tracks)
             }
-            setupRecycleView()
+            setupAdapter()
         }
 
-        fun setupRecycleView(){
+        fun setupAdapter(){
+            adapter.attachCallBack(callBack)
             recyclerView.layoutManager = LinearLayoutManager(itemView.context)
                 .apply { orientation = LinearLayoutManager.HORIZONTAL}
             recyclerView.adapter = adapter
