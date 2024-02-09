@@ -22,7 +22,7 @@ class NewReleasesDelegate: BaseDelegateAdapter<NewReleasesDelegateItem, NewRelea
     inner class NewReleasesViewHolder(itemView: View):
         DelegateViewHolder<NewReleasesDelegateItem>(itemView)
     {
-        private val title = itemView.findViewById<TextView>(R.id.section_title)
+        private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
         private val adapter = NewReleasesAdapter()
 

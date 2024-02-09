@@ -20,6 +20,7 @@ class PlayerCardDelegate: BaseDelegateAdapter<PlayerDelegateItem, PlayerCardDele
     PlayerDelegateItem::class.java
 ) {
     class PlayerCardViewHolder(itemView: View): DelegateViewHolder<PlayerDelegateItem>(itemView){
+        private val sectionTitle = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_track_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_track_author)
@@ -31,6 +32,7 @@ class PlayerCardDelegate: BaseDelegateAdapter<PlayerDelegateItem, PlayerCardDele
                 .into(trackCover)
             trackTitle.text = track?.title
             trackAuthor.text = track?.album?.artists.getNames()
+            sectionTitle.text = item.title
         }
     }
 

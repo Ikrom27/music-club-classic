@@ -31,7 +31,7 @@ class ArtistTracksDelegate(
     }
 
     inner class TrackViewHolder(itemView: View): DelegateViewHolder<AuthorTracksDelegateItem>(itemView){
-        private val title = itemView.findViewById<TextView>(R.id.section_title)
+        private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
         private val adapter = LargeTracksAdapter()
 

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/section_title"
+        android:id="@+id/tv_ection_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextViewTitles.ItemLargeTitle"
@@ -21,5 +21,5 @@
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/section_title_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/section_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_ection_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>
