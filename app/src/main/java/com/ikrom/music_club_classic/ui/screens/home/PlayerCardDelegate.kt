@@ -8,31 +8,23 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.getNames
-import com.ikrom.music_club_classic.ui.base_adapters.DelegateAdapter
-import com.ikrom.music_club_classic.ui.base_adapters.IDelegateAdapterItem
+import com.ikrom.music_club_classic.ui.base_adapters.BaseDelegateAdapter
+import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
 
 data class PlayerDelegateItem(
     val title: String,
-    val content: Track
-): IDelegateAdapterItem {
-    override fun id(): Any {
-        return title
-    }
+    val track: Track
+): IDelegateItem
 
-    override fun content(): Any {
-        return content
-    }
-}
-
-class PlayerCardDelegate: DelegateAdapter<PlayerDelegateItem, PlayerCardDelegate.PlayerCardViewHolder>(
+class PlayerCardDelegate: BaseDelegateAdapter<PlayerDelegateItem, PlayerCardDelegate.PlayerCardViewHolder>(
     PlayerDelegateItem::class.java
 ) {
-    class PlayerCardViewHolder(itemView: View): DelegateViewHolder(itemView){
+    class PlayerCardViewHolder(itemView: View): DelegateViewHolder<PlayerDelegateItem>(itemView){
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_track_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_track_author)
-        override fun bind(item: IDelegateAdapterItem) {
-            val track = (item as PlayerDelegateItem).content
+        override fun bind(item: PlayerDelegateItem) {
+            val track = item.track
             Glide
                 .with(itemView.context)
                 .load(track.album.cover)

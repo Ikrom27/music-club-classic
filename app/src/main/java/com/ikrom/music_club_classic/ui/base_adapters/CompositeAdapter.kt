@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CompositeAdapter(
-    private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>>
-): BaseAdapterHandler<IDelegateAdapterItem, RecyclerView.ViewHolder>() {
+    private val delegates: SparseArray<BaseDelegateAdapter<IDelegateItem, BaseDelegateAdapter.DelegateViewHolder<IDelegateItem>>>
+): BaseAdapterHandler<IDelegateItem, RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val currentItem = mItems[position]
@@ -30,23 +30,19 @@ class CompositeAdapter(
         val delegateAdapter = delegates[getItemViewType(position)]
 
         if (delegateAdapter != null) {
-            val delegatePayloads = payloads.map { it as IDelegateAdapterItem.Payloadable }
-            delegateAdapter.onBindViewHolder(mItems[position], holder, delegatePayloads)
+            payloads.map { it as IDelegateItem.Payloadable }
+            delegateAdapter.onBindViewHolder(mItems[position], holder)
         } else {
             throw NullPointerException("can not find adapter for position $position")
         }
     }
 
-    fun getItems() :ArrayList<IDelegateAdapterItem>{
-        return mItems
-    }
-
     class Builder(){
         private var count: Int = 0
-        private val delegates: SparseArray<DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>> = SparseArray()
+        private val delegates: SparseArray<BaseDelegateAdapter<IDelegateItem, BaseDelegateAdapter.DelegateViewHolder<IDelegateItem>>> = SparseArray()
 
-        fun add(delegateAdapter: DelegateAdapter<out IDelegateAdapterItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as DelegateAdapter<IDelegateAdapterItem, DelegateAdapter.DelegateViewHolder>)
+        fun add(delegateAdapter: BaseDelegateAdapter<out IDelegateItem, *>): Builder {
+            delegates.put(count++, delegateAdapter as BaseDelegateAdapter<IDelegateItem, BaseDelegateAdapter.DelegateViewHolder<IDelegateItem>>)
             return this
         }
 
