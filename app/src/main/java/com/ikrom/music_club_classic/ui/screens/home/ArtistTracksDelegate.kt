@@ -6,39 +6,44 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.ui.base_adapters.BaseDelegateAdapter
 import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
 
-data class NewReleasesDelegateItem(
+data class AuthorTracksDelegateItem(
     val title: String,
-    val albums: LiveData<List<Album>>
+    val tracks: LiveData<List<Track>>
 ): IDelegateItem
 
-class NewReleasesDelegate: BaseDelegateAdapter<NewReleasesDelegateItem, NewReleasesDelegate.NewReleasesViewHolder>(
-    NewReleasesDelegateItem::class.java
-){
-    inner class NewReleasesViewHolder(itemView: View):
-        DelegateViewHolder<NewReleasesDelegateItem>(itemView)
-    {
+class ArtistTracksDelegate: BaseDelegateAdapter<AuthorTracksDelegateItem, ArtistTracksDelegate.TrackViewHolder>(
+    AuthorTracksDelegateItem::class.java) {
+
+    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+        return TrackViewHolder(binding)
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.section_nested_list
+    }
+
+    inner class TrackViewHolder(itemView: View): DelegateViewHolder<AuthorTracksDelegateItem>(itemView){
         private val title = itemView.findViewById<TextView>(R.id.section_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
-        private val adapter = NewReleasesAdapter()
+        private val adapter = LargeTracksAdapter()
 
-        override fun bind(item: NewReleasesDelegateItem) {
+        override fun bind(item: AuthorTracksDelegateItem) {
             title.text = item.title
-            item.albums.observeForever { albums ->
-                adapter.setItems(albums)
+            item.tracks.observeForever { tracks ->
+                adapter.setItems(tracks)
             }
             setupRecycleView()
         }
 
-        private fun setupRecycleView(){
-            val layout = LinearLayoutManager(itemView.context)
-            layout.orientation = LinearLayoutManager.HORIZONTAL
+        fun setupRecycleView(){
+            recyclerView.layoutManager = LinearLayoutManager(itemView.context)
+                .apply { orientation = LinearLayoutManager.HORIZONTAL}
             recyclerView.adapter = adapter
-            recyclerView.layoutManager = layout
             if (recyclerView.itemDecorationCount == 0) {
                 recyclerView.addItemDecoration(MarginItemDecoration(
                     startSpace = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
@@ -48,13 +53,5 @@ class NewReleasesDelegate: BaseDelegateAdapter<NewReleasesDelegateItem, NewRelea
                 ))
             }
         }
-    }
-
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
-        return NewReleasesViewHolder(binding)
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.section_nested_list
     }
 }

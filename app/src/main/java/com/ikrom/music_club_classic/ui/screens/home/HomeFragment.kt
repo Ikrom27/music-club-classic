@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
+import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private val compositeAdapter = CompositeAdapter.Builder()
-        .add(HorizontalTracksDelegate())
+        .add(ArtistTracksDelegate())
         .add(PlayerCardDelegate())
         .add(NewReleasesDelegate())
         .build()
@@ -35,16 +36,21 @@ class HomeFragment : Fragment() {
 
     fun setAdapter(recyclerView: RecyclerView){
         val testData = listOf(
-            HorizontalTracksDelegateItem(title = "Beatles", tracks = homeViewModel.getTracks("Beatles")),
-            NewReleasesDelegateItem(title = "New releases", albums = homeViewModel.getNewReleases())
+            AuthorTracksDelegateItem(title = "Beatles", tracks = homeViewModel.getTracks("Beatles")),
+            NewReleasesDelegateItem(title = "New releases", albums = homeViewModel.getNewReleases()),
+            AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park"))
         )
         compositeAdapter.setItems(testData)
-        homeViewModel.getTracks("Beatles").observe(viewLifecycleOwner) { tracks ->
+        homeViewModel.getTracks("Imagine dragons").observe(viewLifecycleOwner) { tracks ->
             if(tracks.isNotEmpty()){
-                compositeAdapter.addToStart(PlayerDelegateItem(title = "Last play", content = tracks.first()))
+                compositeAdapter.addToStart(PlayerDelegateItem(title = "Last play", track = tracks.first()))
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = compositeAdapter
+        val padding = resources.getDimensionPixelSize(R.dimen.section_margin)
+        if (recyclerView.itemDecorationCount == 0){
+            recyclerView.addItemDecoration(MarginItemDecoration(padding, padding*10, padding))
+        }
     }
 }

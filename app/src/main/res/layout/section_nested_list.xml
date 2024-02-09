@@ -8,6 +8,8 @@
         android:id="@+id/section_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/TextViewTitles.ItemLargeTitle"
+        android:layout_marginHorizontal="@dimen/content_horizontal_margin"
         android:text="@string/example"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/section_title_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/section_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>
