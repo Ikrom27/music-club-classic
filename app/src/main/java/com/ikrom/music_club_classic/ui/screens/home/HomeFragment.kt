@@ -46,14 +46,15 @@ class HomeFragment : Fragment() {
             .add(NewReleasesDelegate())
             .build()
         val testData = listOf(
-            AuthorTracksDelegateItem(title = "Beatles", tracks = homeViewModel.getTracks("Beatles")),
+            PlayerDelegateItem(title = "Last play", track = null),
+            AuthorTracksDelegateItem(title = "Alan walker", tracks = homeViewModel.getTracks("Alan walker")),
             NewReleasesDelegateItem(title = "New releases", albums = homeViewModel.getNewReleases()),
-            AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park"))
+            AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park")),
         )
         compositeAdapter.setItems(testData)
         homeViewModel.getTracks("Imagine dragons").observe(viewLifecycleOwner) { tracks ->
             if(tracks.isNotEmpty()){
-                compositeAdapter.addToStart(PlayerDelegateItem(title = "Last play", track = tracks.first()))
+                compositeAdapter.updateItem(0, PlayerDelegateItem(title = "Last play", track = tracks.first()))
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(context)

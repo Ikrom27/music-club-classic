@@ -13,7 +13,7 @@ import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
 
 data class PlayerDelegateItem(
     val title: String,
-    val track: Track
+    val track: Track?
 ): IDelegateItem
 
 class PlayerCardDelegate: BaseDelegateAdapter<PlayerDelegateItem, PlayerCardDelegate.PlayerCardViewHolder>(
@@ -27,10 +27,10 @@ class PlayerCardDelegate: BaseDelegateAdapter<PlayerDelegateItem, PlayerCardDele
             val track = item.track
             Glide
                 .with(itemView.context)
-                .load(track.album.cover)
+                .load(track?.album?.cover)
                 .into(trackCover)
-            trackTitle.text = track.title
-            trackAuthor.text = track.album.artists.getNames()
+            trackTitle.text = track?.title
+            trackAuthor.text = track?.album?.artists.getNames()
         }
     }
 
