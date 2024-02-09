@@ -26,23 +26,17 @@ class MusicPlayerService: MediaSessionService() {
     lateinit var notificationManager: MusicNotificationManager
     private lateinit var mediaSession: MediaSession
 
-    init {
-        Log.d(TAG, "Service init")
-    }
-
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? =
+    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession =
         mediaSession
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "Service start")
         mediaSession = MediaSession.Builder(this, player).build()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        Log.d(TAG, "onStartCommand")
         notificationManager.start(this, mediaSession)
         return START_STICKY_COMPATIBILITY
     }

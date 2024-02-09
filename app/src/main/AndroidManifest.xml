@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -16,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicClubClassic"
         tools:targetApi="31">
+        <service
+            android:name=".playback.MusicPlayerService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService"/>
+            </intent-filter>
+        </service>
         <activity
             android:name=".MainActivity"
             android:exported="true">
