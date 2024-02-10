@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.PlayerConnection
 import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
@@ -42,7 +43,17 @@ class HomeFragment : Fragment() {
                     playerConnection.playNow(item)
                 }
             }))
-            .add(PlayerCardDelegate())
+            .add(PlayerCardDelegate(
+                isPlaying = playerConnection.isPlaying,
+                currentMediaItem= playerConnection.getCurrentMediaItem(),
+                lifecycleOwner = viewLifecycleOwner,
+                onPlayPauseClick = {
+                    onPlayPauseClick(it)
+                },
+                onSkipClick = {
+
+                }
+            ))
             .add(NewReleasesDelegate())
             .build()
         val testData = listOf(
@@ -63,5 +74,12 @@ class HomeFragment : Fragment() {
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(MarginItemDecoration(padding, padding*10, padding))
         }
+    }
+
+    private fun onPlayPauseClick(track: Track){
+        if (playerConnection.getCurrentMediaItem().value?.mediaId == track.videoId){
+            playerConnection.player.togglePlayPause()
+        }
+        playerConnection.playNow(track)
     }
 }
