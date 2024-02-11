@@ -7,14 +7,9 @@ import android.os.Bundle
 import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.bumptech.glide.Glide
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.MusicPlayerService
 import com.ikrom.music_club_classic.playback.PlayerConnection
-import com.ikrom.music_club_classic.ui.components.MiniPlayerView
+import com.ikrom.music_club_classic.ui.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,36 +23,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val intent = Intent(this, MusicPlayerService::class.java)
-        startForegroundService(intent)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, MainFragment())
+                .commit()
+        }
         setStatusBarColor()
-        setupMiniPlayer()
-    }
-
-    fun setupMiniPlayer(){
-        val miniPlayerView = findViewById<MiniPlayerView>(R.id.mini_player)
-        miniPlayerView.setOnButtonClickListener { playerConnection.player.togglePlayPause() }
-        playerConnection.getCurrentMediaItem().observe(this) {
-            if (it != null){
-                miniPlayerView.show()
-                miniPlayerView.title = it.mediaMetadata.title.toString()
-                miniPlayerView.subTitle = it.mediaMetadata.artist.toString()
-                Glide
-                    .with(this)
-                    .load(it.mediaMetadata.artworkUri?.toString())
-                    .into(miniPlayerView.getThumbnailImageView())
-            }
-        }
-        playerConnection.isPlaying.observe(this) {
-            miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val navView = findViewById<BottomNavigationView>(R.id.bottom_navigation_bar)
-        val navController = findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupWithNavController(navView, navController);
+        setupPlayerService()
     }
 
     override fun onDestroy() {
@@ -69,5 +41,11 @@ class MainActivity : AppCompatActivity() {
     private fun setStatusBarColor(){
         val window: Window = window
         window.statusBarColor = Color.TRANSPARENT
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setupPlayerService(){
+        val intent = Intent(this, MusicPlayerService::class.java)
+        startForegroundService(intent)
     }
 }
