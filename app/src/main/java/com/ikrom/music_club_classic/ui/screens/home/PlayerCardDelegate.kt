@@ -33,8 +33,8 @@ class PlayerCardDelegate(
     inner class PlayerCardViewHolder(itemView: View): DelegateViewHolder<PlayerDelegateItem>(itemView){
         private val sectionTitle = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
-        private val trackTitle = itemView.findViewById<TextView>(R.id.tv_track_title)
-        private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_track_author)
+        private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
+        private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_subtitle)
         private val btnPlayPause = itemView.findViewById<ImageButton>(R.id.btn_play_pause)
         private val btnSkip = itemView.findViewById<ImageButton>(R.id.btn_skip)
 

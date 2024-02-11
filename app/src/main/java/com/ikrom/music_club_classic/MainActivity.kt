@@ -1,9 +1,7 @@
 package com.ikrom.music_club_classic
 
-import android.R.color
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Window
@@ -11,13 +9,21 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.MusicPlayerService
+import com.ikrom.music_club_classic.playback.PlayerConnection
+import com.ikrom.music_club_classic.ui.components.MiniPlayerView
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var playerConnection: PlayerConnection
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,23 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MusicPlayerService::class.java)
         startForegroundService(intent)
         setStatusBarColor()
+        setupMiniPlayer()
+    }
+
+    fun setupMiniPlayer(){
+        val miniPlayerView = findViewById<MiniPlayerView>(R.id.mini_player)
+        miniPlayerView.setOnButtonClickListener { playerConnection.player.togglePlayPause() }
+        playerConnection.getCurrentMediaItem().observe(this) {
+            miniPlayerView.title = it?.mediaMetadata?.title.toString()
+            miniPlayerView.subTitle = it?.mediaMetadata?.artist.toString()
+            Glide
+                .with(this)
+                .load(it?.mediaMetadata?.artworkUri?.toString())
+                .into(miniPlayerView.getThumbnailImageView())
+        }
+        playerConnection.isPlaying.observe(this) {
+            miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
+        }
     }
 
     override fun onStart() {

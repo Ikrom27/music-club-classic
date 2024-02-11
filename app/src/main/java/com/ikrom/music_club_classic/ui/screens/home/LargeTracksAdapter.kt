@@ -21,8 +21,8 @@ class LargeTracksAdapter: BaseAdapter<Track>() {
 
     inner class TrackViewHolder(itemView: View): BaseViewHolder<Track>(itemView) {
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
-        private val trackTitle = itemView.findViewById<TextView>(R.id.tv_track_title)
-        private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_track_author)
+        private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
+        private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_subtitle)
         @SuppressLint("CheckResult")
         override fun bind(item: Track) {
             Glide
