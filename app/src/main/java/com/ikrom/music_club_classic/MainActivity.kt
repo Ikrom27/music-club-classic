@@ -38,12 +38,15 @@ class MainActivity : AppCompatActivity() {
         val miniPlayerView = findViewById<MiniPlayerView>(R.id.mini_player)
         miniPlayerView.setOnButtonClickListener { playerConnection.player.togglePlayPause() }
         playerConnection.getCurrentMediaItem().observe(this) {
-            miniPlayerView.title = it?.mediaMetadata?.title.toString()
-            miniPlayerView.subTitle = it?.mediaMetadata?.artist.toString()
-            Glide
-                .with(this)
-                .load(it?.mediaMetadata?.artworkUri?.toString())
-                .into(miniPlayerView.getThumbnailImageView())
+            if (it != null){
+                miniPlayerView.show()
+                miniPlayerView.title = it.mediaMetadata.title.toString()
+                miniPlayerView.subTitle = it.mediaMetadata.artist.toString()
+                Glide
+                    .with(this)
+                    .load(it.mediaMetadata.artworkUri?.toString())
+                    .into(miniPlayerView.getThumbnailImageView())
+            }
         }
         playerConnection.isPlaying.observe(this) {
             miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
