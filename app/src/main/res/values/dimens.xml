@@ -7,7 +7,9 @@
     <dimen name="corner_radius_medium">12dp</dimen>
     <dimen name="corner_radius_small">8dp</dimen>
 
+    <!-- Height -->
     <dimen name="mini_player_height">72dp</dimen>
+    <dimen name="bottom_nav_bar_height">75dp</dimen>
 
     <!-- Margins -->
     <dimen name="section_margin">14dp</dimen>

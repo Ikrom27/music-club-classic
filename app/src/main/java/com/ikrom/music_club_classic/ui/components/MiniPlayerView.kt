@@ -75,7 +75,6 @@ class MiniPlayerView : FrameLayout {
         titleTextView = findViewById(R.id.tv_title)
         subTitleTextView = findViewById(R.id.tv_subtitle)
         button = findViewById(R.id.btn_player)
-        setup()
     }
 
     private fun getStuffFromXML(attrs: AttributeSet?) {
@@ -88,25 +87,9 @@ class MiniPlayerView : FrameLayout {
         data.recycle()
     }
 
-    fun setup(){
-        container.animate().duration = 500
-        hide()
-    }
-
     fun setOnButtonClickListener(onClickListener: OnClickListener) = button.setOnClickListener(onClickListener)
     fun setOnLayoutClickListener(onClickListener: OnClickListener) = container.setOnClickListener(onClickListener)
     fun getThumbnailImageView() : ImageView = thumbnailImageView
-    fun hide() {
-        container.visibility = View.GONE
-        container.animate()
-            .translationY(1000f)
-    }
-
-    fun show() {
-        container.visibility = View.VISIBLE
-        container.animate()
-            .translationY(0f)
-    }
 }
 
 
