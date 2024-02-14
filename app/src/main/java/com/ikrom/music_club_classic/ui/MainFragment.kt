@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
@@ -17,6 +18,7 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.PlayerConnection
 import com.ikrom.music_club_classic.ui.components.MiniPlayerView
+import com.ikrom.music_club_classic.ui.screens.PlayerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,6 +31,7 @@ class MainFragment : Fragment() {
     private lateinit var navigationView: BottomNavigationView
     private lateinit var behavior: BottomSheetBehavior<FrameLayout>
     private lateinit var slidingView: FrameLayout
+    private lateinit var playerContainer: FrameLayout
     private var navController: NavController? = null
     private var navBarHeight: Float = 0f
     private var miniPlayerHeight: Float = 0f
@@ -38,14 +41,18 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
+        navBarHeight = requireActivity().resources.getDimension(R.dimen.bottom_nav_bar_height)
+        miniPlayerHeight = requireActivity().resources.getDimension(R.dimen.mini_player_height)
+        binding(view)
+        setupSlidingView()
+        return view
+    }
+
+    private fun binding(view: View){
         navigationView = view.findViewById(R.id.bottom_navigation_bar)
         miniPlayerView = view.findViewById(R.id.mini_player)
         slidingView = view.findViewById(R.id.layout_sliding_view)
-        navBarHeight = requireActivity().resources.getDimension(R.dimen.bottom_nav_bar_height)
-        miniPlayerHeight = requireActivity().resources.getDimension(R.dimen.mini_player_height)
-        setupMiniPlayer()
-        setupSlidingView()
-        return view
+        playerContainer = view.findViewById(R.id.fragment_player_container)
     }
 
     private fun setupMiniPlayer() {
@@ -76,6 +83,14 @@ class MainFragment : Fragment() {
 
     private fun setupSlidingView(){
         setupBehavior()
+        setupMiniPlayer()
+        setupPlayerFragment()
+    }
+
+    private fun setupPlayerFragment() {
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.fragment_player_container, PlayerFragment())
+        }
     }
 
     private fun setupBehavior(){
@@ -83,18 +98,39 @@ class MainFragment : Fragment() {
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         behavior.peekHeight = miniPlayerHeight.toInt() + navBarHeight.toInt()
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                hidingPreviewProgress(slideOffset)
-                navigationView.translationY = slideOffset * navBarHeight
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED){
+                    playerContainer.alpha = 0f
+                }
             }
 
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                miniPlayerAlphaProgress(slideOffset)
+                playerContainerAlphaProgress(slideOffset)
+                navigationView.translationY = slideOffset * navBarHeight
+            }
         })
     }
 
-    private fun hidingPreviewProgress(progress: Float){
-        miniPlayerView.alpha = 1 - progress
+    private fun miniPlayerAlphaProgress(progress: Float){
+//        miniPlayerView.alpha = 1 - progress
+
+        val threshold = 0.3f
+        if (progress <= threshold) {
+            miniPlayerView.alpha = 1f - progress / threshold
+        } else {
+            miniPlayerView.alpha = 0f
+        }
+    }
+
+    private fun playerContainerAlphaProgress(progress: Float){
+        val threshold = 0.3f
+        if (progress >= threshold) {
+            val alpha = (progress - threshold) / (1 - threshold)
+            playerContainer.alpha = alpha
+        } else {
+            playerContainer.alpha = 0f
+        }
     }
 
     override fun onStart() {

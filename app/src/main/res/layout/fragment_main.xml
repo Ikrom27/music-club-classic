@@ -18,20 +18,21 @@
         style="@style/BottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/bottom_panel_color"
         app:behavior_hideable="false"
         app:enableEdgeToEdge="true"
         app:behavior_peekHeight="0dp"
         app:gestureInsetBottomIgnored="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
         <FrameLayout
-            android:id="@+id/frame_player_screen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/fragment_player_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"/>
         <com.ikrom.music_club_classic.ui.components.MiniPlayerView
             android:id="@+id/mini_player"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutBackgroundColor="@color/bottom_panel_color"/>
+            android:layout_height="wrap_content"/>
     </FrameLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
