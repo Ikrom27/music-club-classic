@@ -30,9 +30,16 @@
         <item name="background">?android:attr/windowBackground</item>
     </style>
 
+    <!-- Buttons -->
+    <style name="BaseImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:backgroundTint">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">22dp</item>
+    </style>
+
     <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet">
         <item name="paddingBottomSystemWindowInsets">false</item>
         <item name="android:maxWidth">@empty</item>
-        <item name="shapeAppearance">?attr/shapeAppearanceCornerMedium</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceCornerExtraSmall</item>
     </style>
 </resources>
