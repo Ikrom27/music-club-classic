@@ -12,12 +12,6 @@ import com.ikrom.music_club_classic.data.model.Track
 val Player.currentMetaData: MediaMetadata?
     get() = currentMediaItem?.mediaMetadata
 
-fun Player.togglePlayPause() {
-    if (currentMediaItem != null){
-        playWhenReady = !playWhenReady
-    }
-}
-
 @OptIn(UnstableApi::class)
 fun Track.toMediaItem(): MediaItem {
     return MediaItem.Builder()

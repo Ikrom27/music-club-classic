@@ -27,8 +27,12 @@ class MusicServiceRepository @Inject constructor(
         return youtubeService.getAlbumTracks(albumId)
     }
 
-    suspend fun getSearchSuggestions(query: String): MutableLiveData<SearchSuggestions>{
+    fun getSearchSuggestions(query: String): MutableLiveData<SearchSuggestions>{
         return youtubeService.getSearchSuggestions(query)
+    }
+
+    fun getTrackById(id: String): MutableLiveData<Track>{
+        return youtubeService.getTrackById(id)
     }
 
     suspend fun addToSearchHistory(searchHistory: SearchHistory){

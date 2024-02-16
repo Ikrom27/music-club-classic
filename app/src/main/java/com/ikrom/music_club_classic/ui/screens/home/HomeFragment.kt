@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
@@ -44,8 +43,8 @@ class HomeFragment : Fragment() {
                 }
             }))
             .add(PlayerCardDelegate(
-                isPlaying = playerHandler.isPlaying,
-                currentMediaItem= playerHandler.currentMediaItem,
+                isPlaying = playerHandler.isPlayingLiveData,
+                currentMediaItem= playerHandler.currentMediaItemLiveData,
                 lifecycleOwner = viewLifecycleOwner,
                 onPlayPauseClick = {
                     onPlayPauseClick(it)
@@ -77,8 +76,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun onPlayPauseClick(track: Track){
-        if (playerHandler.currentMediaItem.value?.mediaId == track.videoId){
-            playerHandler.player.togglePlayPause()
+        if (playerHandler.currentMediaItemLiveData.value?.mediaId == track.videoId){
+            playerHandler.togglePlayPause()
         }
         playerHandler.playNow(track)
     }

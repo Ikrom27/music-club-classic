@@ -28,6 +28,18 @@ class YoutubeMusicDataSource: IMusicServiceDataSource {
         }
         return tracksLiveData
     }
+    
+    override fun getTrackById(id: String): MutableLiveData<Track> {
+        val trackLiveData = MutableLiveData<Track>()
+        CoroutineScope(Dispatchers.IO).launch {
+            YouTube.search(id, YouTube.SearchFilter.FILTER_SONG).onSuccess { result ->
+                trackLiveData.postValue((result.items.first() as SongItem).toTrack())
+            }.onFailure {
+                Log.e(TAG, "onFailure error: $it")
+            }
+        }
+        return trackLiveData
+    }
 
     override fun getNewReleaseAlbums(): MutableLiveData<List<Album>> {
         val responseLiveData = MutableLiveData<List<Album>>(ArrayList())

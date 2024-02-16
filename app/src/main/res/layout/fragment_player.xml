@@ -144,7 +144,7 @@
         android:id="@+id/ib_to_repeat"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/ic_repeat"
+        android:src="@drawable/ic_repeat_off"
         app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ib_play_pause" />

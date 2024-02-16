@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.extensions
 
+import androidx.media3.common.MediaItem
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Artist
 import com.ikrom.music_club_classic.data.model.Track
@@ -23,3 +24,28 @@ fun TrackEntity.toTrack(): Track {
         )
     )
 }
+
+fun MediaItem.toTrackEntity(
+    albumId: String,
+    artistId: String,
+): TrackEntity {
+    return TrackEntity(
+        videoId = this.mediaId,
+        title = this.mediaMetadata.title.toString(),
+        albumId = albumId,
+        albumTitle = this.mediaMetadata.albumTitle.toString(),
+        cover = this.mediaMetadata.artworkUri.toString(),
+        year = this.mediaMetadata.releaseYear,
+        artistId = artistId,
+        artistName = this.mediaMetadata.artist.toString()
+    )
+}
+
+//val videoId: String,
+//val title: String,
+//val albumId: String,
+//val albumTitle: String,
+//val cover: String,
+//val year: Int?,
+//val artistId: String,
+//val artistName: String

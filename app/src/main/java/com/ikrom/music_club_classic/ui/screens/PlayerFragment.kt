@@ -12,11 +12,13 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.media3.common.Player
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
-import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.PlayerHandler
+import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,6 +27,7 @@ class PlayerFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
+    private val playerViewModel: PlayerViewModel by viewModels()
     private lateinit var trackCover: ImageView
     private lateinit var trackTitle: TextView
     private lateinit var trackAuthor: TextView
@@ -67,8 +70,22 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        playerHandler.isPlaying.observe(viewLifecycleOwner) {
+        playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
             btnPlayPause.setImageResource(if (it) R.drawable.ic_pause else R.drawable.ic_play)
+        }
+        playerHandler.repeatModeLiveData.observe(viewLifecycleOwner) {repeatMode ->
+            when(repeatMode) {
+                Player.REPEAT_MODE_OFF -> btnToRepeat.setImageResource(R.drawable.ic_repeat_off)
+                Player.REPEAT_MODE_ONE -> btnToRepeat.setImageResource(R.drawable.ic_repeat_one)
+                Player.REPEAT_MODE_ALL -> btnToRepeat.setImageResource(R.drawable.ic_repeat_all)
+            }
+        }
+        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) {mediaItem ->
+            if (mediaItem != null) {
+                playerViewModel.isFavorite(mediaItem.mediaId).observe(viewLifecycleOwner) {
+                    btnToFavorite.setImageResource(if (it) R.drawable.ic_favorite else R.drawable.ic_favorite_bordered)
+                }
+            }
         }
     }
 
@@ -87,7 +104,7 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setSeekbarMaxValue(){
-        playerHandler.totalDuration.observe(viewLifecycleOwner) {
+        playerHandler.totalDurationLiveData.observe(viewLifecycleOwner) {
             seekBarPlayer.max = it.toInt()
             totalTime.text = it.toTimeString()
         }
@@ -106,7 +123,7 @@ class PlayerFragment : Fragment() {
 
     private fun setupButtonsListener() {
         btnPlayPause.setOnClickListener {
-            playerHandler.player.togglePlayPause()
+            playerHandler.togglePlayPause()
         }
         btnSkipNext.setOnClickListener {
             playerHandler.player.seekToNext()
@@ -114,12 +131,16 @@ class PlayerFragment : Fragment() {
         btnSkipPrevious.setOnClickListener {
             playerHandler.player.seekToPrevious()
         }
-        btnToFavorite.setOnClickListener {}
-        btnToRepeat.setOnClickListener {}
+        btnToRepeat.setOnClickListener {
+            playerHandler.toggleRepeat()
+        }
+        btnToFavorite.setOnClickListener {
+            playerViewModel.toggleToFavorite(playerHandler.currentMediaItemLiveData.value!!)
+        }
     }
 
     private fun setupContent() {
-        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {currentItem ->
+        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) { currentItem ->
             if (currentItem != null) {
                 Glide
                     .with(requireContext())

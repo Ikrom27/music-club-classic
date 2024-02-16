@@ -1,6 +1,7 @@
 package com.ikrom.music_club_classic.playback
 
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediaItem
@@ -44,5 +45,21 @@ class PlayerHandler @Inject constructor(
     fun addToQueue(items: List<MediaItem>) {
         player.addMediaItems(items)
         player.prepare()
+    }
+
+    fun toggleRepeat(){
+        when(player.repeatMode) {
+            Player.REPEAT_MODE_OFF -> player.repeatMode = Player.REPEAT_MODE_ONE
+            Player.REPEAT_MODE_ONE -> player.repeatMode = Player.REPEAT_MODE_ALL
+            Player.REPEAT_MODE_ALL -> player.repeatMode = Player.REPEAT_MODE_OFF
+        }
+    }
+
+    fun toggleShuffle(){
+        player.shuffleModeEnabled = !player.shuffleModeEnabled
+    }
+
+    fun togglePlayPause() {
+        player.playWhenReady = !player.playWhenReady
     }
 }

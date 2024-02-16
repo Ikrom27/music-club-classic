@@ -15,7 +15,6 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.components.MiniPlayerView
 import com.ikrom.music_club_classic.ui.screens.PlayerFragment
@@ -68,7 +67,7 @@ class MainFragment : Fragment() {
     }
 
     private fun bindMiniPlayer(){
-        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {
+        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) {
             if (it != null){
                 miniPlayerView.title = it.mediaMetadata.title.toString()
                 miniPlayerView.subTitle = it.mediaMetadata.artist.toString()
@@ -78,18 +77,18 @@ class MainFragment : Fragment() {
                     .into(miniPlayerView.getThumbnailImageView())
             }
         }
-        playerHandler.isPlaying.observe(viewLifecycleOwner) {
+        playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
             miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
         }
     }
 
     private fun setupMiniPlayerButtons(){
-        miniPlayerView.setOnButtonClickListener { playerHandler.player.togglePlayPause() }
+        miniPlayerView.setOnButtonClickListener { playerHandler.togglePlayPause() }
         miniPlayerView.setOnLayoutClickListener {behavior.state = BottomSheetBehavior.STATE_EXPANDED}
     }
 
     private fun setSlidingViewHideAnimation(){
-        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {
+        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) {
             if (it == null){
                 slidingView.animate().translationY(WEINDOW_HEIGHT)
             }

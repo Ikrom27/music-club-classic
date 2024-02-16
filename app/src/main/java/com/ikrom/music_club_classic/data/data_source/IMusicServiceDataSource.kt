@@ -11,4 +11,5 @@ interface IMusicServiceDataSource {
     fun getNewReleaseAlbums(): MutableLiveData<List<Album>>
     fun getAlbumTracks(albumId: String): MutableLiveData<List<Track>>
     fun getSearchSuggestions(query: String): MutableLiveData<SearchSuggestions>
+    fun getTrackById(id: String): MutableLiveData<Track>
 }
