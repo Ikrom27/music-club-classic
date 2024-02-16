@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.extensions.toTimeString
 import com.ikrom.music_club_classic.extensions.togglePlayPause
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,8 @@ class PlayerFragment : Fragment() {
     private lateinit var btnToFavorite: ImageButton
     private lateinit var btnToRepeat: ImageButton
     private lateinit var seekBarPlayer: SeekBar
+    private lateinit var progressTime: TextView
+    private lateinit var totalTime: TextView
 
     private val mHandler = Handler(Looper.getMainLooper())
 
@@ -59,6 +62,8 @@ class PlayerFragment : Fragment() {
         btnToFavorite = view.findViewById(R.id.ib_to_favorite)
         btnToRepeat = view.findViewById(R.id.ib_to_repeat)
         seekBarPlayer = view.findViewById(R.id.slider_player_progress)
+        totalTime = view.findViewById(R.id.tv_total_time)
+        progressTime = view.findViewById(R.id.tv_progress_time)
     }
 
     private fun setupButtons() {
@@ -76,7 +81,6 @@ class PlayerFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 playerHandler.player.seekTo(seekBar?.progress!!.toLong())
             }
-
         })
         setSeekbarMaxValue()
         updateSeekBarPosition()
@@ -85,14 +89,16 @@ class PlayerFragment : Fragment() {
     private fun setSeekbarMaxValue(){
         playerHandler.totalDuration.observe(viewLifecycleOwner) {
             seekBarPlayer.max = it.toInt()
+            totalTime.text = it.toTimeString()
         }
     }
 
     private fun updateSeekBarPosition(){
         requireActivity().runOnUiThread(object : Runnable {
             override fun run() {
-                val position = playerHandler.player.currentPosition.toInt()
-                seekBarPlayer.progress = position
+                val position = playerHandler.player.currentPosition
+                seekBarPlayer.progress = position.toInt()
+                progressTime.text = position.toTimeString()
                 mHandler.postDelayed(this, 100)
             }
         })
