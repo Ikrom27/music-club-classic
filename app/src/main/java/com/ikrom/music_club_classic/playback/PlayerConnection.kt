@@ -33,7 +33,14 @@ class PlayerConnection @Inject constructor(
 
     override fun onEvents(player: Player, events: Player.Events) {
         super.onEvents(player, events)
-        totalDuration.value = player.duration
+        totalDuration.postValue(player.duration)
+    }
+
+    override fun onPositionDiscontinuity(
+        oldPosition: Player.PositionInfo,
+        newPosition: Player.PositionInfo,
+        reason: Int
+    ) {
         currentPosition.value = player.currentPosition
     }
 
