@@ -2,6 +2,7 @@ package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ class PlayerFragment : Fragment() {
     private lateinit var btnToRepeat: ImageButton
     private lateinit var seekBarPlayer: SeekBar
 
-    private val mHandler = Handler()
+    private val mHandler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
