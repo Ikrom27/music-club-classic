@@ -33,16 +33,17 @@ class MainFragment : Fragment() {
     private lateinit var slidingView: FrameLayout
     private lateinit var playerContainer: FrameLayout
     private var navController: NavController? = null
-    private var navBarHeight: Float = 0f
-    private var miniPlayerHeight: Float = 0f
+
+    private var NAV_BAR_HEIGHT: Float = 0f
+    private var MINI_PLAYER_HEIGHT: Float = 0f
+    private var WEINDOW_HEIGHT: Float = 0f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-        navBarHeight = requireActivity().resources.getDimension(R.dimen.bottom_nav_bar_height)
-        miniPlayerHeight = requireActivity().resources.getDimension(R.dimen.mini_player_height)
+        setupConstants()
         binding(view)
         setupSlidingView()
         return view
@@ -53,6 +54,12 @@ class MainFragment : Fragment() {
         miniPlayerView = view.findViewById(R.id.mini_player)
         slidingView = view.findViewById(R.id.layout_sliding_view)
         playerContainer = view.findViewById(R.id.fragment_player_container)
+    }
+
+    private fun setupConstants(){
+        NAV_BAR_HEIGHT = requireContext().resources.getDimension(R.dimen.bottom_nav_bar_height)
+        MINI_PLAYER_HEIGHT = requireContext().resources.getDimension(R.dimen.mini_player_height)
+        WEINDOW_HEIGHT = requireContext().resources.displayMetrics.heightPixels.toFloat()
     }
 
     private fun setupMiniPlayer() {
@@ -81,7 +88,19 @@ class MainFragment : Fragment() {
         miniPlayerView.setOnLayoutClickListener {behavior.state = BottomSheetBehavior.STATE_EXPANDED}
     }
 
+    private fun setSlidingViewHideAnimation(){
+        playerConnection.getCurrentMediaItem().observe(viewLifecycleOwner) {
+            if (it == null){
+                slidingView.animate().translationY(WEINDOW_HEIGHT)
+            }
+            else {
+                slidingView.animate().translationY(0F)
+            }
+        }
+    }
+
     private fun setupSlidingView(){
+        setSlidingViewHideAnimation()
         setupBehavior()
         setupMiniPlayer()
         setupPlayerFragment()
@@ -96,7 +115,7 @@ class MainFragment : Fragment() {
     private fun setupBehavior(){
         behavior = BottomSheetBehavior.from(slidingView)
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        behavior.peekHeight = miniPlayerHeight.toInt() + navBarHeight.toInt()
+        behavior.peekHeight = MINI_PLAYER_HEIGHT.toInt() + NAV_BAR_HEIGHT.toInt()
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED){
@@ -107,14 +126,12 @@ class MainFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 miniPlayerAlphaProgress(slideOffset)
                 playerContainerAlphaProgress(slideOffset)
-                navigationView.translationY = slideOffset * navBarHeight
+                navigationView.translationY = slideOffset * NAV_BAR_HEIGHT
             }
         })
     }
 
     private fun miniPlayerAlphaProgress(progress: Float){
-//        miniPlayerView.alpha = 1 - progress
-
         val threshold = 0.3f
         if (progress <= threshold) {
             miniPlayerView.alpha = 1f - progress / threshold
