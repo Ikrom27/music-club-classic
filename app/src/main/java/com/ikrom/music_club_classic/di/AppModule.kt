@@ -18,6 +18,7 @@ import com.ikrom.music_club_classic.playback.MusicNotificationManager
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import com.ikrom.music_club_classic.playback.MusicPlayerService
 import com.ikrom.music_club_classic.playback.PlayerConnection
+import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -121,8 +122,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providePlayerConnection(
+    fun providePlayerHandler(
         player: ExoPlayer,
-        repository: MusicServiceRepository,
-    ) : PlayerConnection = PlayerConnection(player, repository)
+    ) : PlayerHandler = PlayerHandler(player)
 }

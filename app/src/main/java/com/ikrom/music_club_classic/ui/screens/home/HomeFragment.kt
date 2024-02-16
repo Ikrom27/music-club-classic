@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.togglePlayPause
-import com.ikrom.music_club_classic.playback.PlayerConnection
+import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     @Inject
-    lateinit var playerConnection: PlayerConnection
+    lateinit var playerHandler: PlayerHandler
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -40,12 +40,12 @@ class HomeFragment : Fragment() {
         val compositeAdapter = CompositeAdapter.Builder()
             .add(ArtistTracksDelegate(object : BaseAdapterCallBack<Track>(){
                 override fun onItemClick(item: Track, view: View) {
-                    playerConnection.playNow(item)
+                    playerHandler.playNow(item)
                 }
             }))
             .add(PlayerCardDelegate(
-                isPlaying = playerConnection.isPlaying,
-                currentMediaItem= playerConnection.getCurrentMediaItem(),
+                isPlaying = playerHandler.isPlaying,
+                currentMediaItem= playerHandler.currentMediaItem,
                 lifecycleOwner = viewLifecycleOwner,
                 onPlayPauseClick = {
                     onPlayPauseClick(it)
@@ -77,9 +77,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun onPlayPauseClick(track: Track){
-        if (playerConnection.getCurrentMediaItem().value?.mediaId == track.videoId){
-            playerConnection.player.togglePlayPause()
+        if (playerHandler.currentMediaItem.value?.mediaId == track.videoId){
+            playerHandler.player.togglePlayPause()
         }
-        playerConnection.playNow(track)
+        playerHandler.playNow(track)
     }
 }

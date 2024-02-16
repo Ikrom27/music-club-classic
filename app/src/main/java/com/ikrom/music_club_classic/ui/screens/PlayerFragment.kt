@@ -1,10 +1,7 @@
 package com.ikrom.music_club_classic.ui.screens
 
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,21 +10,18 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.media3.common.Player
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.google.android.material.slider.Slider
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.togglePlayPause
-import com.ikrom.music_club_classic.playback.PlayerConnection
+import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlayerFragment : Fragment() {
     @Inject
-    lateinit var playerConnection: PlayerConnection
+    lateinit var playerHandler: PlayerHandler
 
     private lateinit var trackCover: ImageView
     private lateinit var trackTitle: TextView
@@ -67,7 +61,7 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        playerConnection.isPlaying.observe(viewLifecycleOwner) {
+        playerHandler.isPlaying.observe(viewLifecycleOwner) {
             btnPlayPause.setImageResource(if (it) R.drawable.ic_pause else R.drawable.ic_play)
         }
     }
@@ -79,19 +73,16 @@ class PlayerFragment : Fragment() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                playerConnection.player.seekTo(seekBar?.progress!!.toLong())
+                playerHandler.player.seekTo(seekBar?.progress!!.toLong())
             }
 
         })
-        playerConnection.totalDuration.observe(viewLifecycleOwner) {
-            if (it>0){
-                val duration = it
-                seekBarPlayer.max = duration.toInt()
-            }
+        playerHandler.totalDuration.observe(viewLifecycleOwner) {
+            seekBarPlayer.max = it.toInt()
         }
         requireActivity().runOnUiThread(object : Runnable {
             override fun run() {
-                val position = playerConnection.player.currentPosition.toInt()
+                val position = playerHandler.player.currentPosition.toInt()
                 seekBarPlayer.progress = position
                 mHandler.postDelayed(this, 100)
             }
@@ -100,13 +91,13 @@ class PlayerFragment : Fragment() {
 
     private fun setupButtonsListener() {
         btnPlayPause.setOnClickListener {
-            playerConnection.player.togglePlayPause()
+            playerHandler.player.togglePlayPause()
         }
         btnSkipNext.setOnClickListener {
-            playerConnection.player.seekToNext()
+            playerHandler.player.seekToNext()
         }
         btnSkipPrevious.setOnClickListener {
-            playerConnection.player.seekToPrevious()
+            playerHandler.player.seekToPrevious()
         }
         btnToFavorite.setOnClickListener {}
 
@@ -114,7 +105,7 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupContent() {
-        playerConnection.getCurrentMediaItem().observe(viewLifecycleOwner) {mediaItem ->
+        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {mediaItem ->
             if (mediaItem != null) {
                 Glide
                     .with(requireContext())

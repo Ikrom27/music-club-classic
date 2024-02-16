@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.togglePlayPause
-import com.ikrom.music_club_classic.playback.PlayerConnection
+import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.components.MiniPlayerView
 import com.ikrom.music_club_classic.ui.screens.PlayerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     @Inject
-    lateinit var playerConnection: PlayerConnection
+    lateinit var playerHandler: PlayerHandler
 
     private lateinit var miniPlayerView: MiniPlayerView
     private lateinit var navigationView: BottomNavigationView
@@ -68,7 +68,7 @@ class MainFragment : Fragment() {
     }
 
     private fun bindMiniPlayer(){
-        playerConnection.getCurrentMediaItem().observe(viewLifecycleOwner) {
+        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {
             if (it != null){
                 miniPlayerView.title = it.mediaMetadata.title.toString()
                 miniPlayerView.subTitle = it.mediaMetadata.artist.toString()
@@ -78,18 +78,18 @@ class MainFragment : Fragment() {
                     .into(miniPlayerView.getThumbnailImageView())
             }
         }
-        playerConnection.isPlaying.observe(viewLifecycleOwner) {
+        playerHandler.isPlaying.observe(viewLifecycleOwner) {
             miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
         }
     }
 
     private fun setupMiniPlayerButtons(){
-        miniPlayerView.setOnButtonClickListener { playerConnection.player.togglePlayPause() }
+        miniPlayerView.setOnButtonClickListener { playerHandler.player.togglePlayPause() }
         miniPlayerView.setOnLayoutClickListener {behavior.state = BottomSheetBehavior.STATE_EXPANDED}
     }
 
     private fun setSlidingViewHideAnimation(){
-        playerConnection.getCurrentMediaItem().observe(viewLifecycleOwner) {
+        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {
             if (it == null){
                 slidingView.animate().translationY(WEINDOW_HEIGHT)
             }

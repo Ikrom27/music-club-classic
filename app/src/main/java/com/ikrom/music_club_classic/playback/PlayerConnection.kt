@@ -9,19 +9,12 @@ import com.ikrom.music_club_classic.data.repository.MusicServiceRepository
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import javax.inject.Inject
 
-class PlayerConnection @Inject constructor(
-    val player: ExoPlayer,
-    val repository: MusicServiceRepository
+open class PlayerConnection (
+    player: ExoPlayer,
 ): Player.Listener {
-    private var currentMediaItem = MutableLiveData(player.currentMediaItem)
-    val playbackState = MutableLiveData(player.playbackState)
-    val isPlaying = MutableLiveData(player.playWhenReady)
-    var currentPosition = MutableLiveData(0L)
-    var totalDuration =  MutableLiveData(0L)
-
-    init {
-        player.addListener(this)
-    }
+    open var currentMediaItem = MutableLiveData(player.currentMediaItem)
+    open val isPlaying = MutableLiveData(player.playWhenReady)
+    open var totalDuration =  MutableLiveData(0L)
 
     override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
         currentMediaItem.value = mediaItem
@@ -32,51 +25,8 @@ class PlayerConnection @Inject constructor(
     }
 
     override fun onEvents(player: Player, events: Player.Events) {
-        super.onEvents(player, events)
-        totalDuration.postValue(player.duration)
-    }
-
-    override fun onPositionDiscontinuity(
-        oldPosition: Player.PositionInfo,
-        newPosition: Player.PositionInfo,
-        reason: Int
-    ) {
-        currentPosition.value = player.currentPosition
-    }
-
-    fun playNow(tracks: List<Track>){
-        if (player.currentMediaItem != tracks.first().toMediaItem()){
-            player.clearMediaItems()
-            player.setMediaItems(tracks.map { it.toMediaItem() })
-            player.prepare()
-            player.playWhenReady = true
+        if (player.duration > 0L){
+            totalDuration.postValue(player.duration)
         }
-    }
-
-    fun playNow(track: Track){
-        playNow(listOf(track))
-    }
-
-    fun playNext(item: MediaItem){
-        playNext(listOf(item))
-    }
-
-    fun playNext(items: List<MediaItem>) {
-        player.addMediaItems(if (player.mediaItemCount == 0) 0 else player.currentMediaItemIndex + 1, items)
-        player.prepare()
-        player.playWhenReady = true
-    }
-
-    fun addToQueue(item: MediaItem) {
-        addToQueue(listOf(item))
-    }
-
-    fun addToQueue(items: List<MediaItem>) {
-        player.addMediaItems(items)
-        player.prepare()
-    }
-
-    fun getCurrentMediaItem(): MutableLiveData<MediaItem?> {
-        return currentMediaItem
     }
 }
