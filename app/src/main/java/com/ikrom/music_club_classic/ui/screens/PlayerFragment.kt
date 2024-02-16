@@ -78,9 +78,17 @@ class PlayerFragment : Fragment() {
             }
 
         })
+        setSeekbarMaxValue()
+        updateSeekBarPosition()
+    }
+
+    private fun setSeekbarMaxValue(){
         playerHandler.totalDuration.observe(viewLifecycleOwner) {
             seekBarPlayer.max = it.toInt()
         }
+    }
+
+    private fun updateSeekBarPosition(){
         requireActivity().runOnUiThread(object : Runnable {
             override fun run() {
                 val position = playerHandler.player.currentPosition.toInt()
@@ -101,19 +109,18 @@ class PlayerFragment : Fragment() {
             playerHandler.player.seekToPrevious()
         }
         btnToFavorite.setOnClickListener {}
-
         btnToRepeat.setOnClickListener {}
     }
 
     private fun setupContent() {
-        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {mediaItem ->
-            if (mediaItem != null) {
+        playerHandler.currentMediaItem.observe(viewLifecycleOwner) {currentItem ->
+            if (currentItem != null) {
                 Glide
                     .with(requireContext())
-                    .load(mediaItem.mediaMetadata.artworkUri)
+                    .load(currentItem.mediaMetadata.artworkUri)
                     .into(trackCover)
-                trackTitle.text = mediaItem.mediaMetadata.title
-                trackAuthor.text = mediaItem.mediaMetadata.artist
+                trackTitle.text = currentItem.mediaMetadata.title
+                trackAuthor.text = currentItem.mediaMetadata.artist
             }
         }
     }
