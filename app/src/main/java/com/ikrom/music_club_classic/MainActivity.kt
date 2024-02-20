@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.Window
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.ikrom.music_club_classic.playback.MusicPlayerService
@@ -49,5 +50,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupPlayerService(){
         val intent = Intent(this, MusicPlayerService::class.java)
         startForegroundService(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
     }
 }
