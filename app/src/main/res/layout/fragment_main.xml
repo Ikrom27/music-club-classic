@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainFragment">
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -13,6 +14,7 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/bottom_navigation_graph"/>
+
     <FrameLayout
         android:id="@+id/layout_sliding_view"
         style="@style/BottomSheetStyle"
@@ -34,13 +36,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </FrameLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_nav_bar_height"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bottom_panel_color"
         android:layout_gravity="bottom"
+        android:background="@color/bottom_panel_color"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
