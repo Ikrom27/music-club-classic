@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_library" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.ikrom.music_club_classic.ui.screens.ProfileFragment"
+        android:name="com.ikrom.music_club_classic.ui.screens.account.AccountFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

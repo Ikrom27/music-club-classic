@@ -8,4 +8,12 @@
         <attr name="btnIcon" format="reference"/>
         <attr name="layoutBackgroundColor" format="color"/>
     </declare-styleable>
+
+    <!-- IconButton -->
+    <declare-styleable name="IconButton">
+        <attr name="text" format="string"/>
+        <attr name="tint" format="color"/>
+        <attr name="leadingIcon" format="reference"/>
+        <attr name="android:gravity" format="integer"/>
+    </declare-styleable>
 </resources>
