@@ -20,8 +20,8 @@ class LocalDataSource @Inject constructor(dataBase: AppDataBase) {
         return appDao.countById(id) > 0
     }
 
-    suspend fun getAllTracks(): MutableLiveData<List<Track>> {
-        return MutableLiveData(appDao.getAllTracks().map {it.toTrack() })
+    suspend fun getAllTracks(): List<Track> {
+        return appDao.getAllTracks().map {it.toTrack() }
     }
 
     suspend fun deleteTrackById(id: String){

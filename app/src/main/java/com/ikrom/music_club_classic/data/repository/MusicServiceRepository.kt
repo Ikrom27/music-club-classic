@@ -47,7 +47,7 @@ class MusicServiceRepository @Inject constructor(
         localDataSource.deleteSearchHistory(query)
     }
 
-    suspend fun getFavoriteTracks(): MutableLiveData<List<Track>>{
+    suspend fun getFavoriteTracks(): List<Track>{
         return localDataSource.getAllTracks()
     }
 
