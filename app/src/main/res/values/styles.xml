@@ -20,7 +20,7 @@
 
     <!-- CardStyle -->
     <style name="AppCardViewStyle" parent="CardView">
-        <item name="cardBackgroundColor">@color/grey_20</item>
+        <item name="android:backgroundTint">@color/grey_20</item>
         <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">@dimen/corner_radius_medium</item>
     </style>

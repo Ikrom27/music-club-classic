@@ -12,6 +12,7 @@ import com.ikrom.innertube.models.SearchSuggestions
 import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.innertube.models.WatchEndpoint.WatchEndpointMusicSupportedConfigs.WatchEndpointMusicConfig.Companion.MUSIC_VIDEO_TYPE_ATV
+import com.ikrom.innertube.models.YouTubeClient
 import com.ikrom.innertube.models.YouTubeClient.Companion.ANDROID_MUSIC
 import com.ikrom.innertube.models.YouTubeClient.Companion.TVHTML5
 import com.ikrom.innertube.models.YouTubeClient.Companion.WEB

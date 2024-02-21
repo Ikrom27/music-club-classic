@@ -24,5 +24,5 @@
         android:id="@+id/profileFragment"
         android:name="com.ikrom.music_club_classic.ui.screens.account.AccountFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_account" />
 </navigation>

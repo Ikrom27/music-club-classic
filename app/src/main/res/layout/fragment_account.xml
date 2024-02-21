@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.account.AccountFragment"
-    android:paddingHorizontal="@dimen/content_horizontal_margin">
+    tools:context=".ui.screens.account.AccountFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_content"
+        android:paddingHorizontal="@dimen/content_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
+    <WebView
+        android:id="@+id/web_view_authorization"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
