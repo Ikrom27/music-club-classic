@@ -11,13 +11,15 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import com.ikrom.music_club_classic.data.data_source.IMusicServiceDataSource
 import com.ikrom.music_club_classic.data.data_source.LocalDataSource
+import com.ikrom.music_club_classic.data.data_source.AccountLocalDataStore
+import com.ikrom.music_club_classic.data.data_source.AccountRemoteDataStore
 import com.ikrom.music_club_classic.data.data_source.YoutubeMusicDataSource
+import com.ikrom.music_club_classic.data.repository.AccountRepository
 import com.ikrom.music_club_classic.data.repository.MusicServiceRepository
 import com.ikrom.music_club_classic.data.room.AppDataBase
 import com.ikrom.music_club_classic.playback.MusicNotificationManager
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import com.ikrom.music_club_classic.playback.MusicPlayerService
-import com.ikrom.music_club_classic.playback.PlayerConnection
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.Module
 import dagger.Provides
@@ -125,4 +127,22 @@ class AppModule {
     fun providePlayerHandler(
         player: ExoPlayer,
     ) : PlayerHandler = PlayerHandler(player)
+
+    @Provides
+    @Singleton
+    fun provideAccountLocalDataSource(
+        @ApplicationContext context: Context,
+    ) : AccountLocalDataStore = AccountLocalDataStore(context)
+
+    @Provides
+    @Singleton
+    fun provideAccountRemoteDataSource(
+    ) : AccountRemoteDataStore = AccountRemoteDataStore()
+
+    @Provides
+    @Singleton
+    fun provideAccountRepository(
+        localDataStore: AccountLocalDataStore,
+        remoteDataStore: AccountRemoteDataStore
+    ) : AccountRepository = AccountRepository(localDataStore, remoteDataStore)
 }
