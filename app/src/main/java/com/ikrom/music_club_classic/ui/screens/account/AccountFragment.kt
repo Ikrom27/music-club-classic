@@ -72,23 +72,25 @@ class AccountFragment : Fragment() {
     }
 
     fun getHeader(): IDelegateItem{
-        viewModel.getAccountInfo().observe(viewLifecycleOwner) {
-            if (it != null){
-                adapter.updateItem(0,
-                    HeaderDelegateItem(
-                        "",
-                        it.name
-                    ))
-            }
-        }
-        return HeaderDelegateItem("", "")
+//        viewModel.getAccountInfo().observe(viewLifecycleOwner) {
+//            if (it != null){
+//                adapter.updateItem(0,
+//                    HeaderDelegateItem(
+//                        "",
+//                        it.name
+//                    ))
+//            }
+//        }
+        return HeaderDelegateItem(
+            "https://img.joinfo.com/i/2017/04/800x0/58df809bd1e8a.jpg",
+            "Donald John Trump")
     }
 
     fun getMainButtons(): IDelegateItem{
         return ButtonsDelegateItem(
             listOf(
                 IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_profile
+                    it.leadingIcon = R.drawable.ic_language
                     it.text = "Language"
                     it.addTailContent(
                         TextView(requireContext()).also { textView ->
@@ -99,7 +101,7 @@ class AccountFragment : Fragment() {
                     )
                 },
                 IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_profile
+                    it.leadingIcon = R.drawable.ic_storage
                     it.text = "Storage"
                     it.addTailContent(
                         ImageView(requireContext()).also { imageView ->
@@ -110,7 +112,7 @@ class AccountFragment : Fragment() {
                     )
                 },
                 IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_profile
+                    it.leadingIcon = R.drawable.ic_audio_quality
                     it.text = "Audio quality"
                     it.addTailContent(
                         TextView(requireContext()).also { textView ->
@@ -128,11 +130,11 @@ class AccountFragment : Fragment() {
         return ButtonsDelegateItem(
             listOf(
                 IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_profile
+                    it.leadingIcon = R.drawable.ic_clean
                     it.text = "Clean search history"
                 },
                 IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_profile
+                    it.leadingIcon = R.drawable.ic_clean
                     it.text = "Clean listened history"
                 },
             )
