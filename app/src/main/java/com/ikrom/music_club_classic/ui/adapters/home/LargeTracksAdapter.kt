@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.screens.home
+package com.ikrom.music_club_classic.ui.adapters.home
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.getNames
-import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 
 class LargeTracksAdapter: BaseAdapter<Track>() {
     override fun getViewHolder(binding: View): BaseViewHolder<Track> {

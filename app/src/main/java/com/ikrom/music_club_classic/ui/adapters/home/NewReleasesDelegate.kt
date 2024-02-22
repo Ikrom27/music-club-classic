@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.screens.home
+package com.ikrom.music_club_classic.ui.adapters.home
 
 import android.view.View
 import android.widget.TextView
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.ui.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
-import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 
 data class NewReleasesDelegateItem(
     val title: String,
@@ -40,12 +40,14 @@ class NewReleasesDelegate: BaseDelegateAdapter<NewReleasesDelegateItem, NewRelea
             recyclerView.adapter = adapter
             recyclerView.layoutManager = layout
             if (recyclerView.itemDecorationCount == 0) {
-                recyclerView.addItemDecoration(MarginItemDecoration(
+                recyclerView.addItemDecoration(
+                    MarginItemDecoration(
                     startSpace = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
                     endSpace =  itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin),
                     betweenSpace = itemView.resources.getDimensionPixelSize(R.dimen.items_margin),
                     isHorizontal = true
-                ))
+                )
+                )
             }
         }
     }

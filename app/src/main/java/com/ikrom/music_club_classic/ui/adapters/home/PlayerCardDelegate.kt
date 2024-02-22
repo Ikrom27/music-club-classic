@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.screens.home
+package com.ikrom.music_club_classic.ui.adapters.home
 
 import android.view.View
 import android.widget.ImageButton
@@ -13,8 +13,8 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.getNames
-import com.ikrom.music_club_classic.ui.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 
 data class PlayerDelegateItem(
     val title: String,

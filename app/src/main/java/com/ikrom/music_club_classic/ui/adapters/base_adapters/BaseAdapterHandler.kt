@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.base_adapters
+package com.ikrom.music_club_classic.ui.adapters.base_adapters
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView

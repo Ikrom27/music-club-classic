@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.screens.account
+package com.ikrom.music_club_classic.ui.screens
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -7,9 +7,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.CookieManager
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -19,9 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
-import com.ikrom.music_club_classic.ui.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.base_adapters.IDelegateItem
-import com.ikrom.music_club_classic.ui.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.ui.adapters.account.ButtonsAdapter
+import com.ikrom.music_club_classic.ui.adapters.account.ButtonsDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.account.HeaderAdapter
+import com.ikrom.music_club_classic.ui.adapters.account.HeaderDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.AccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +72,7 @@ class AccountFragment : Fragment() {
         )
     }
 
-    fun getHeader(): IDelegateItem{
+    fun getHeader(): IDelegateItem {
 //        viewModel.getAccountInfo().observe(viewLifecycleOwner) {
 //            if (it != null){
 //                adapter.updateItem(0,
@@ -86,7 +87,7 @@ class AccountFragment : Fragment() {
             "Donald John Trump")
     }
 
-    fun getMainButtons(): IDelegateItem{
+    fun getMainButtons(): IDelegateItem {
         return ButtonsDelegateItem(
             listOf(
                 IconButton(requireContext()).also {

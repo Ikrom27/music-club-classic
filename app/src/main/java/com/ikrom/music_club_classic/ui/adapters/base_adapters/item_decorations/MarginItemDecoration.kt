@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.base_adapters.item_decorations
+package com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations
 
 import android.graphics.Rect
 import android.view.View
