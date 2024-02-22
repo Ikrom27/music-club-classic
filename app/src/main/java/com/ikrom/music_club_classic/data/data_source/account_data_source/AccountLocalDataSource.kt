@@ -1,8 +1,8 @@
-package com.ikrom.music_club_classic.data.data_source
+package com.ikrom.music_club_classic.data.data_source.account_data_source
 
 import android.content.Context
 
-class AccountLocalDataStore(context: Context) {
+class AccountLocalDataSource(context: Context) {
 
     private val sharedPreferences = context.getSharedPreferences("profile_preferences", Context.MODE_PRIVATE)
 

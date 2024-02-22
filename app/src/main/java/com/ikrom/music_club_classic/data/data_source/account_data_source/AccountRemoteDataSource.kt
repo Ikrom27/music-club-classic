@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.data.data_source
+package com.ikrom.music_club_classic.data.data_source.account_data_source
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AccountRemoteDataStore {
+class AccountRemoteDataSource {
     fun getAccountInfo(): LiveData<AccountInfo> {
         val accountInfo = MutableLiveData<AccountInfo>()
         CoroutineScope(Dispatchers.IO).launch {

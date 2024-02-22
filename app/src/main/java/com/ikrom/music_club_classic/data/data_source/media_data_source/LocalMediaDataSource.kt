@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.data.data_source
+package com.ikrom.music_club_classic.data.data_source.media_data_source
 
 import androidx.lifecycle.MutableLiveData
 import com.ikrom.music_club_classic.data.model.SearchHistory
@@ -7,10 +7,9 @@ import com.ikrom.music_club_classic.data.model.TrackEntity
 import com.ikrom.music_club_classic.data.room.AppDao
 import com.ikrom.music_club_classic.data.room.AppDataBase
 import com.ikrom.music_club_classic.extensions.toTrack
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class LocalDataSource @Inject constructor(dataBase: AppDataBase) {
+class LocalMediaDataSource @Inject constructor(dataBase: AppDataBase) {
     private val appDao: AppDao = dataBase.dao()
     suspend fun insertTrack(track: TrackEntity) {
         appDao.insertTrack(track)

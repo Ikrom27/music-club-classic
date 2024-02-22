@@ -9,13 +9,13 @@ import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
-import com.ikrom.music_club_classic.data.data_source.IMusicServiceDataSource
-import com.ikrom.music_club_classic.data.data_source.LocalDataSource
-import com.ikrom.music_club_classic.data.data_source.AccountLocalDataStore
-import com.ikrom.music_club_classic.data.data_source.AccountRemoteDataStore
-import com.ikrom.music_club_classic.data.data_source.YoutubeMusicDataSource
+import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
+import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
+import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
+import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountRemoteDataSource
+import com.ikrom.music_club_classic.data.data_source.media_data_source.YoutubeDataSource
 import com.ikrom.music_club_classic.data.repository.AccountRepository
-import com.ikrom.music_club_classic.data.repository.MusicServiceRepository
+import com.ikrom.music_club_classic.data.repository.MediaRepository
 import com.ikrom.music_club_classic.data.room.AppDataBase
 import com.ikrom.music_club_classic.playback.MusicNotificationManager
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
@@ -41,7 +41,7 @@ annotation class DownloadCacheScope
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class YoutubeDataSource
+annotation class YoutubeDataSourceScope
 
 
 @Module
@@ -49,21 +49,22 @@ annotation class YoutubeDataSource
 class AppModule {
     @Provides
     @Singleton
-    fun provideMusicServiceRepository(
-        @YoutubeDataSource youtubeMusicDataSource: IMusicServiceDataSource,
-        localDataSource: LocalDataSource
-    ): MusicServiceRepository = MusicServiceRepository(youtubeMusicDataSource, localDataSource)
+    fun provideMediaRepository(
+        @YoutubeDataSourceScope youtubeMusicDataSource: IMediaDataSource,
+        localMediaDataSource: LocalMediaDataSource,
+        accountLocalDataSource: AccountLocalDataSource
+    ): MediaRepository = MediaRepository(youtubeMusicDataSource, localMediaDataSource, accountLocalDataSource)
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(
+    fun provideLocalMediaDataSource(
         dataBase: AppDataBase
-    ): LocalDataSource = LocalDataSource(dataBase)
+    ): LocalMediaDataSource = LocalMediaDataSource(dataBase)
 
     @Provides
     @Singleton
-    @YoutubeDataSource
-    fun provideYoutubeDataSource(): IMusicServiceDataSource = YoutubeMusicDataSource()
+    @YoutubeDataSourceScope
+    fun provideYoutubeDataSource(): IMediaDataSource = YoutubeDataSource()
 
     @Provides
     @Singleton
@@ -132,17 +133,17 @@ class AppModule {
     @Singleton
     fun provideAccountLocalDataSource(
         @ApplicationContext context: Context,
-    ) : AccountLocalDataStore = AccountLocalDataStore(context)
+    ) : AccountLocalDataSource = AccountLocalDataSource(context)
 
     @Provides
     @Singleton
     fun provideAccountRemoteDataSource(
-    ) : AccountRemoteDataStore = AccountRemoteDataStore()
+    ) : AccountRemoteDataSource = AccountRemoteDataSource()
 
     @Provides
     @Singleton
     fun provideAccountRepository(
-        localDataStore: AccountLocalDataStore,
-        remoteDataStore: AccountRemoteDataStore
+        localDataStore: AccountLocalDataSource,
+        remoteDataStore: AccountRemoteDataSource
     ) : AccountRepository = AccountRepository(localDataStore, remoteDataStore)
 }

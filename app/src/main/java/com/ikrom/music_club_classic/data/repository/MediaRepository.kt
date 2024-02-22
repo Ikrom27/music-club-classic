@@ -1,22 +1,36 @@
 package com.ikrom.music_club_classic.data.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.ikrom.innertube.YouTube
+import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SearchSuggestions
-import com.ikrom.music_club_classic.data.data_source.IMusicServiceDataSource
-import com.ikrom.music_club_classic.data.data_source.LocalDataSource
+import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
+import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
+import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.SearchHistory
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toTrackEntity
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class MusicServiceRepository @Inject constructor(
-    private val youtubeService: IMusicServiceDataSource,
-    private val localDataSource: LocalDataSource
+class MediaRepository @Inject constructor(
+    private val youtubeService: IMediaDataSource,
+    private val localMediaDataSource: LocalMediaDataSource,
+    private val accountLocalDataSource: AccountLocalDataSource
 ) {
+    init {
+        val cookie = accountLocalDataSource.getCookie()
+        YouTube.cookie = cookie
+        Log.d("MusicServiceRepository", cookie)
+    }
+
     fun getTracksByQuery(query: String): MutableLiveData<List<Track>> {
         return youtubeService.getTracksByQuery(query)
+    }
+
+    fun getLikedPlayLists(): MutableLiveData<List<PlaylistItem>>{
+        return youtubeService.getLikedPlayLists()
     }
 
     fun getNewReleases(): MutableLiveData<List<Album>> {
@@ -36,30 +50,30 @@ class MusicServiceRepository @Inject constructor(
     }
 
     suspend fun addToSearchHistory(searchHistory: SearchHistory){
-        localDataSource.addQueryToHistory(searchHistory)
+        localMediaDataSource.addQueryToHistory(searchHistory)
     }
 
     suspend fun getSearchHistoryList(query: String): MutableLiveData<List<SearchHistory>>{
-        return localDataSource.getSearchHistoryList(query)
+        return localMediaDataSource.getSearchHistoryList(query)
     }
 
     suspend fun deleteFromSearchHistory(query: String) {
-        localDataSource.deleteSearchHistory(query)
+        localMediaDataSource.deleteSearchHistory(query)
     }
 
     suspend fun getFavoriteTracks(): List<Track>{
-        return localDataSource.getAllTracks()
+        return localMediaDataSource.getAllTracks()
     }
 
     suspend fun addToFavorite(track: Track){
-        localDataSource.insertTrack(track.toTrackEntity())
+        localMediaDataSource.insertTrack(track.toTrackEntity())
     }
 
     suspend fun isFavorite(id: String): Boolean{
-        return localDataSource.isFavorite(id)
+        return localMediaDataSource.isFavorite(id)
     }
 
     suspend fun deleteTrackById(id: String){
-        localDataSource.deleteTrackById(id)
+        localMediaDataSource.deleteTrackById(id)
     }
 }

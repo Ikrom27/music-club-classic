@@ -4,13 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ikrom.innertube.YouTube
 import com.ikrom.innertube.models.AccountInfo
-import com.ikrom.music_club_classic.data.data_source.AccountLocalDataStore
-import com.ikrom.music_club_classic.data.data_source.AccountRemoteDataStore
+import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
+import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountRemoteDataSource
 import javax.inject.Inject
 
 class AccountRepository @Inject constructor(
-    val localDataStore: AccountLocalDataStore,
-    val remoteDataStore: AccountRemoteDataStore,
+    val localDataStore: AccountLocalDataSource,
+    val remoteDataStore: AccountRemoteDataSource,
 ) {
     init {
         YouTube.cookie = getCookie()
