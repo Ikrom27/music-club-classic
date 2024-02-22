@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.screens.LibraryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_playlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="library" />
+        android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+        />
 
 </FrameLayout>

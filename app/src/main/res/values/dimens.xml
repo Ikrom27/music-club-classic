@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="large_track_cover">177dp</dimen>
+    <dimen name="medium_track_cover">96dp</dimen>
     <dimen name="button_size">24dp</dimen>
 
     <!-- Radius -->

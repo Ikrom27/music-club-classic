@@ -5,56 +5,57 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.ui.adapters.library.PlayListAdapter
+import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LibraryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class LibraryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PlayListAdapter
+    private val viewModel: LibraryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library, container, false)
+        val view = inflater.inflate(R.layout.fragment_library, container, false)
+        bindViews(view)
+        setupAdapter()
+        setupRecyclerView()
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LibraryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LibraryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun bindViews(view: View){
+        recyclerView = view.findViewById(R.id.rv_playlist)
+    }
+
+    private fun setupAdapter(){
+        adapter = PlayListAdapter {  }
+        viewModel.getLikedPlayLists().observe(requireActivity()) {
+            if (!it.isNullOrEmpty()){
+                adapter.setItems(it)
             }
+        }
+    }
+
+    private fun setupRecyclerView(){
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+        val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
+        val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
+        val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
+        if (recyclerView.itemDecorationCount == 0){
+            recyclerView.addItemDecoration(
+                MarginItemDecoration(
+                    margin,
+                    playerHeight + navbarHeight + margin,
+                    margin))
+        }
     }
 }
