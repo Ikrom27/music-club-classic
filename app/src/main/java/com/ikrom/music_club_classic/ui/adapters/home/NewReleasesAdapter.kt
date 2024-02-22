@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.screens.home
+package com.ikrom.music_club_classic.ui.adapters.home
 
 import android.view.View
 import android.widget.ImageView
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.extensions.getNames
-import com.ikrom.music_club_classic.ui.base_adapters.BaseAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
 
 class NewReleasesAdapter: BaseAdapter<Album>() {
