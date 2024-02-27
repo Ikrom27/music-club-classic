@@ -83,7 +83,8 @@ class HomeFragment : Fragment() {
                 MarginItemDecoration(
                     margin,
                     playerHeight + navbarHeight + margin,
-                    margin))
+                    margin)
+            )
         }
     }
 

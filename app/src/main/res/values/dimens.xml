@@ -12,8 +12,13 @@
     <dimen name="mini_player_height">72dp</dimen>
     <dimen name="bottom_nav_bar_height">75dp</dimen>
 
+    <!-- Icon size -->
+    <dimen name="icon_small">24dp</dimen>
+    <dimen name="icon_medium">70dp</dimen>
+
     <!-- Margins -->
     <dimen name="section_margin">14dp</dimen>
+    <dimen name="medium_items_margin">16dp</dimen>
     <dimen name="section_title_margin">14dp</dimen>
     <dimen name="items_margin">16dp</dimen>
     <dimen name="content_horizontal_margin">20dp</dimen>
