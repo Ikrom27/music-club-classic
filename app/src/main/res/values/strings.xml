@@ -13,6 +13,7 @@
     <string name="download">Download</string>
     <string name="example">example</string>
     <string name="example_long">it is long examole for your test</string>
+    <string name="search">Search...</string>
 
     <!-- Noun -->
     <plurals name="n_song">

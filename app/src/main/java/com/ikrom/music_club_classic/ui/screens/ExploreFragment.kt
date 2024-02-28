@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textfield.TextInputEditText
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.playback.PlayerHandler
@@ -25,6 +30,10 @@ class ExploreFragment : Fragment() {
     lateinit var playerHandler: PlayerHandler
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var toolbar: MaterialToolbar
+    private lateinit var searchField: TextInputEditText
+    private lateinit var clearButton: ImageButton
+
     private val adapter = SearchAdapter(
         onItemClick =  { onItemClick(it) },
         onMoreButtonClick =  { onMoreButtonClick(it) })
@@ -38,17 +47,41 @@ class ExploreFragment : Fragment() {
         bindViews(view)
         setupAdapter()
         setupRecycleView()
+        setupToolbar()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.updateSearchList("suzume")
+        searchField.doOnTextChanged { text, start, before, count ->
+            viewModel.updateSearchList(text.toString())
+        }
+        setupButtons()
     }
 
     fun bindViews(view: View){
         recyclerView = view.findViewById(R.id.rv_content)
+        toolbar = view.findViewById(R.id.toolbar)
+        searchField = view.findViewById(R.id.et_input_field)
+        clearButton = view.findViewById(R.id.ib_clear)
     }
+
+    fun setupToolbar(){
+        val color = ContextCompat.getColor(requireContext(), R.color.grey_70)
+
+        toolbar.setNavigationIcon(R.drawable.ic_array_back)
+        toolbar.setNavigationIconTint(color)
+
+        clearButton.setImageResource(R.drawable.ic_close)
+        clearButton.setColorFilter(color)
+    }
+
+    fun setupButtons(){
+        clearButton.setOnClickListener {
+            searchField.setText("")
+        }
+    }
+
 
     fun setupAdapter(){
         viewModel.searchList.observe(viewLifecycleOwner){
