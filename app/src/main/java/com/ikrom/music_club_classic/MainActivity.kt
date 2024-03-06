@@ -2,9 +2,12 @@ package com.ikrom.music_club_classic
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
@@ -20,6 +23,8 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var playerHandler: PlayerHandler
+
+    private var shouldStopService = true
 
     @SuppressLint("CommitTransaction")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,6 +42,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        destroyService()
+    }
+
+    private fun destroyService(){
         val intent = Intent(this, MusicPlayerService::class.java)
         stopService(intent)
     }

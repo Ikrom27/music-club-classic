@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
@@ -15,9 +16,12 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
+import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.components.MiniPlayerView
 import com.ikrom.music_club_classic.ui.screens.PlayerFragment
+import com.ikrom.music_club_classic.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,6 +29,7 @@ import javax.inject.Inject
 class MainFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
+    val viewModel: MainViewModel by viewModels()
 
     private lateinit var miniPlayerView: MiniPlayerView
     private lateinit var navigationView: BottomNavigationView
@@ -80,6 +85,9 @@ class MainFragment : Fragment() {
         playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
             miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
         }
+        if (viewModel.bottomSheetState == BottomSheetBehavior.STATE_EXPANDED){
+            miniPlayerView.alpha = 0f
+        }
     }
 
     private fun setupMiniPlayerButtons(){
@@ -88,7 +96,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setSlidingViewHideAnimation(){
-        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) {
+        playerHandler.currentMediaItemLiveData.observe(requireActivity()) {
             if (it == null){
                 slidingView.animate().translationY(WEINDOW_HEIGHT)
             }
@@ -113,40 +121,22 @@ class MainFragment : Fragment() {
 
     private fun setupBehavior(){
         behavior = BottomSheetBehavior.from(slidingView)
-        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        behavior.state = viewModel.bottomSheetState
         behavior.peekHeight = MINI_PLAYER_HEIGHT.toInt() + NAV_BAR_HEIGHT.toInt()
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED){
                     playerContainer.alpha = 0f
                 }
+                viewModel.bottomSheetState = newState
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                miniPlayerAlphaProgress(slideOffset)
-                playerContainerAlphaProgress(slideOffset)
+                miniPlayerAlphaProgress(miniPlayerView, slideOffset)
+                playerContainerAlphaProgress(playerContainer, slideOffset)
                 navigationView.translationY = slideOffset * NAV_BAR_HEIGHT
             }
         })
-    }
-
-    private fun miniPlayerAlphaProgress(progress: Float){
-        val threshold = 0.3f
-        if (progress <= threshold) {
-            miniPlayerView.alpha = 1f - progress / threshold
-        } else {
-            miniPlayerView.alpha = 0f
-        }
-    }
-
-    private fun playerContainerAlphaProgress(progress: Float){
-        val threshold = 0.3f
-        if (progress >= threshold) {
-            val alpha = (progress - threshold) / (1 - threshold)
-            playerContainer.alpha = alpha
-        } else {
-            playerContainer.alpha = 0f
-        }
     }
 
     override fun onStart() {
