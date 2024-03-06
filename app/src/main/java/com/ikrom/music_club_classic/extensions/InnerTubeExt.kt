@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.extensions
 
+import android.util.Log
 import com.ikrom.innertube.models.AlbumItem
 import com.ikrom.innertube.models.ItemArtist
 import com.ikrom.innertube.models.SongItem
@@ -28,24 +29,29 @@ fun String.resize(
 }
 
 
-fun SongItem.toTrack(): Track {
-    return Track(
-        title = this.title,
-        videoId = this.id,
-        album = Album(
-            id = this.itemAlbum!!.id,
-            title = this.itemAlbum!!.name,
-            artists = this.itemArtists.map{ artist ->
-                Artist(
-                    id = artist.id,
-                    name = artist.name
-                )
-            },
-            cover = this.thumbnail.resize(1024, 1024),
-            year = null
+fun SongItem.toTrack(): Track? {
+    return try {
+        Track(
+            title = this.title,
+            videoId = this.id,
+            album = Album(
+                id = this.itemAlbum!!.id,
+                title = this.itemAlbum!!.name,
+                artists = this.itemArtists.map { artist ->
+                    Artist(
+                        id = artist.id,
+                        name = artist.name
+                    )
+                },
+                cover = this.thumbnail.resize(1024, 1024),
+                year = null
             )
-    )
+        )
+    } catch (e: NullPointerException) {
+        null
+    }
 }
+
 
 
 fun ItemArtist.toArtist(): Artist {

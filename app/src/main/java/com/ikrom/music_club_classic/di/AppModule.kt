@@ -127,7 +127,8 @@ class AppModule {
     @Singleton
     fun providePlayerHandler(
         player: ExoPlayer,
-    ) : PlayerHandler = PlayerHandler(player)
+        repository: MediaRepository
+    ) : PlayerHandler = PlayerHandler(player, repository)
 
     @Provides
     @Singleton

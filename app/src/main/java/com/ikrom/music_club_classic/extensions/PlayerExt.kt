@@ -7,10 +7,19 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.playback.PlayerHandler
 
 
 val Player.currentMetaData: MediaMetadata?
     get() = currentMediaItem?.mediaMetadata
+
+fun Player.isLastPlaying(): Boolean{
+    return currentMediaItemIndex + 1 >= mediaItemCount
+}
+
+fun Player.hasOldTracks(n: Int): Boolean{
+    return currentMediaItemIndex > n
+}
 
 @OptIn(UnstableApi::class)
 fun Track.toMediaItem(): MediaItem {

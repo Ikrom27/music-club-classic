@@ -6,6 +6,7 @@ import com.ikrom.innertube.YouTube
 import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SearchSuggestions
 import com.ikrom.innertube.models.SongItem
+import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Track
@@ -17,13 +18,28 @@ import kotlinx.coroutines.launch
 
 
 class YoutubeDataSource: IMediaDataSource {
+    private var continuation = ""
+
     override fun getTracksByQuery(query: String): MutableLiveData<List<Track>> {
         val responseLiveData = MutableLiveData<List<Track>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).onSuccess { result ->
-                responseLiveData.postValue(result.items.map { (it as SongItem).toTrack()})
+                val tracks = result.items.mapNotNull { (it as SongItem).toTrack() }
+                responseLiveData.postValue(tracks)
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
+            }
+        }
+        return responseLiveData
+    }
+
+    override fun getRadioTracks(endpoint: WatchEndpoint): MutableLiveData<List<Track>> {
+        val responseLiveData = MutableLiveData<List<Track>>(ArrayList())
+        CoroutineScope(Dispatchers.IO).launch {
+            YouTube.next(endpoint, continuation).onSuccess {result ->
+                val tracks = result.items.mapNotNull { it.toTrack() }
+                continuation = result.continuation ?: ""
+                responseLiveData.postValue(tracks.drop(1))
             }
         }
         return responseLiveData
@@ -69,7 +85,7 @@ class YoutubeDataSource: IMediaDataSource {
         val responseLiveData = MutableLiveData<List<Track>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.album(albumId).onSuccess { result ->
-                responseLiveData.postValue(result.songs.map { it.toTrack() })
+                responseLiveData.postValue(result.songs.map { it.toTrack()!! })
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
             }

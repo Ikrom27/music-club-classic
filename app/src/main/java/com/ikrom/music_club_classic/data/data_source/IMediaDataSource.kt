@@ -5,6 +5,7 @@ import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.innertube.models.SearchSuggestions
+import com.ikrom.innertube.models.WatchEndpoint
 
 interface IMediaDataSource {
     fun getTracksByQuery(query: String): MutableLiveData<List<Track>>
@@ -13,4 +14,5 @@ interface IMediaDataSource {
     fun getSearchSuggestions(query: String): MutableLiveData<SearchSuggestions>
     fun getTrackById(id: String): MutableLiveData<Track>
     fun getLikedPlayLists(): MutableLiveData<List<PlaylistItem>>
+    fun getRadioTracks(endpoint: WatchEndpoint): MutableLiveData<List<Track>>
 }

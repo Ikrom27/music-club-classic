@@ -2,14 +2,21 @@ package com.ikrom.music_club_classic.playback
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
+import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.data.repository.MediaRepository
+import com.ikrom.music_club_classic.extensions.hasOldTracks
+import com.ikrom.music_club_classic.extensions.isLastPlaying
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import javax.inject.Inject
 
 class PlayerHandler @Inject constructor(
-    val player: ExoPlayer
+    val player: ExoPlayer,
+    val repository: MediaRepository
 ): PlayerConnection(player) {
+    private val playerQueue: MutableList<MediaItem> = mutableListOf()
 
     init {
         player.addListener(this)
@@ -61,5 +68,29 @@ class PlayerHandler @Inject constructor(
 
     fun togglePlayPause() {
         player.playWhenReady = !player.playWhenReady
+    }
+
+    override fun onTracksChanged(tracks: Tracks) {
+        super.onTracksChanged(tracks)
+        if(player.hasOldTracks(SAVE_LAST_TRACK_NUM)){
+            removeOldTracks()
+        }
+        if (player.isLastPlaying()) {
+            addRecommendedTracks()
+        }
+    }
+
+    private fun addRecommendedTracks(){
+        repository.getRadioTracks(WatchEndpoint(player.currentMediaItem?.mediaId)).observeForever { trackList ->
+            playNext(trackList.map{it.toMediaItem()}.shuffled())
+        }
+    }
+
+    private fun removeOldTracks(){
+        player.removeMediaItems(0, player.currentMediaItemIndex - SAVE_LAST_TRACK_NUM)
+    }
+
+    companion object {
+        private const val SAVE_LAST_TRACK_NUM = 20
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ikrom.innertube.YouTube
 import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SearchSuggestions
+import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
@@ -35,6 +36,10 @@ class MediaRepository @Inject constructor(
 
     fun getNewReleases(): MutableLiveData<List<Album>> {
         return youtubeService.getNewReleaseAlbums()
+    }
+
+    fun getRadioTracks(endpoint: WatchEndpoint): MutableLiveData<List<Track>>{
+        return youtubeService.getRadioTracks(endpoint)
     }
 
     fun getAlbumTracks(albumId: String): MutableLiveData<List<Track>> {
