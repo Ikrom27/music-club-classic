@@ -9,8 +9,10 @@ import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toAlbum
+import com.ikrom.music_club_classic.extensions.toPlayList
 import com.ikrom.music_club_classic.extensions.toTrack
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,11 +47,11 @@ class YoutubeDataSource: IMediaDataSource {
         return responseLiveData
     }
 
-    override fun getLikedPlayLists(): MutableLiveData<List<PlaylistItem>> {
-        val responseLiveData = MutableLiveData<List<PlaylistItem>>(ArrayList())
+    override fun getLikedPlayLists(): MutableLiveData<List<PlayList>> {
+        val responseLiveData = MutableLiveData<List<PlayList>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.likedPlaylists().onSuccess { result ->
-                responseLiveData.postValue(result)
+                responseLiveData.postValue(result.map { it.toPlayList() })
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
             }

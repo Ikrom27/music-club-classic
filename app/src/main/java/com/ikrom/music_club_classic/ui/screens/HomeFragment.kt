@@ -16,8 +16,8 @@ import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.home.ArtistTracksDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.AuthorTracksDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.home.NewReleasesDelegate
-import com.ikrom.music_club_classic.ui.adapters.home.NewReleasesDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.home.CardDelegate
+import com.ikrom.music_club_classic.ui.adapters.home.CardDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.home.PlayerCardDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.PlayerDelegateItem
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
@@ -59,12 +59,12 @@ class HomeFragment : Fragment() {
 
                 }
             ))
-            .add(NewReleasesDelegate())
+            .add(CardDelegate())
             .build()
         val testData = listOf(
             PlayerDelegateItem(title = "Last play", track = null),
             AuthorTracksDelegateItem(title = "Alan walker", tracks = homeViewModel.getTracks("Alan walker")),
-            NewReleasesDelegateItem(title = "New releases", albums = homeViewModel.getNewReleases()),
+            CardDelegateItem(title = "New releases", playLists = homeViewModel.getLikedPlayLists()),
             AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park")),
         )
         compositeAdapter.setItems(testData)

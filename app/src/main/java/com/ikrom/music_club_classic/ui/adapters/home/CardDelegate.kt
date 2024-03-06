@@ -6,30 +6,30 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 
-data class NewReleasesDelegateItem(
+data class CardDelegateItem(
     val title: String,
-    val albums: LiveData<List<Album>>
+    val playLists: LiveData<List<PlayList>>
 ): IDelegateItem
 
-class NewReleasesDelegate: BaseDelegateAdapter<NewReleasesDelegateItem, NewReleasesDelegate.NewReleasesViewHolder>(
-    NewReleasesDelegateItem::class.java
+class CardDelegate: BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewHolder>(
+    CardDelegateItem::class.java
 ){
-    inner class NewReleasesViewHolder(itemView: View):
-        DelegateViewHolder<NewReleasesDelegateItem>(itemView)
+    inner class CardViewHolder(itemView: View):
+        DelegateViewHolder<CardDelegateItem>(itemView)
     {
         private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
-        private val adapter = NewReleasesAdapter()
+        private val adapter = CardAdapter()
 
-        override fun bind(item: NewReleasesDelegateItem) {
+        override fun bind(item: CardDelegateItem) {
             title.text = item.title
-            item.albums.observeForever { albums ->
-                adapter.setItems(albums)
+            item.playLists.observeForever { playLists ->
+                adapter.setItems(playLists)
             }
             setupRecycleView()
         }
@@ -53,7 +53,7 @@ class NewReleasesDelegate: BaseDelegateAdapter<NewReleasesDelegateItem, NewRelea
     }
 
     override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
-        return NewReleasesViewHolder(binding)
+        return CardViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {

@@ -8,12 +8,13 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 
 class PlayListAdapter(
     val onButtonClickListener: () -> Unit
-): BaseAdapter<PlaylistItem>() {
-    override fun getViewHolder(binding: View): BaseViewHolder<PlaylistItem> {
+): BaseAdapter<PlayList>() {
+    override fun getViewHolder(binding: View): BaseViewHolder<PlayList> {
         return PlayListViewHolder(binding)
     }
 
@@ -21,13 +22,13 @@ class PlayListAdapter(
         return R.layout.item_library_playlist
     }
 
-    inner class PlayListViewHolder(itemView: View): BaseViewHolder<PlaylistItem>(itemView){
+    inner class PlayListViewHolder(itemView: View): BaseViewHolder<PlayList>(itemView){
         private val coverView: ImageView = itemView.findViewById(R.id.iv_playlist_cover)
         private val titleView: TextView = itemView.findViewById(R.id.tv_title)
         private val subTitleView: TextView = itemView.findViewById(R.id.tv_subtitle)
         private val button: ImageButton = itemView.findViewById(R.id.ib_more)
 
-        override fun bind(item: PlaylistItem) {
+        override fun bind(item: PlayList) {
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)

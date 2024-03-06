@@ -27,7 +27,7 @@ class LargeTracksAdapter: BaseAdapter<Track>() {
         override fun bind(item: Track) {
             Glide
                 .with(itemView.context)
-                .load(item.album.cover)
+                .load(item.album.thumbnail)
                 .centerCrop()
                 .into(trackCover)
             trackTitle.text = item.title

@@ -6,35 +6,36 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
 
-class NewReleasesAdapter: BaseAdapter<Album>() {
-    inner class NewReleasesViewHolder(itemView: View): BaseViewHolder<Album>(itemView){
-        private val albumCover = itemView.findViewById<ImageView>(R.id.iv_album_cover)
+class CardAdapter: BaseAdapter<PlayList>() {
+    inner class CardViewHolder(itemView: View): BaseViewHolder<PlayList>(itemView){
+        private val cover = itemView.findViewById<ImageView>(R.id.iv_cover)
         private val backgroundImage = itemView.findViewById<ImageView>(R.id.iv_background_image)
-        private val albumTitle = itemView.findViewById<TextView>(R.id.tv_album_title)
-        private val albumAuthor = itemView.findViewById<TextView>(R.id.tv_album_author)
-        override fun bind(item: Album) {
+        private val title = itemView.findViewById<TextView>(R.id.tv_title)
+        private val subtitle = itemView.findViewById<TextView>(R.id.tv_subtitle)
+        override fun bind(item: PlayList) {
             Glide
                 .with(itemView.context)
-                .load(item.cover)
-                .into(albumCover)
+                .load(item.thumbnail)
+                .into(cover)
             Glide
                 .with(itemView.context)
-                .load(item.cover)
+                .load(item.thumbnail)
                 .centerCrop()
                 .transform(BlurTransformation(128))
                 .into(backgroundImage)
-            albumTitle.text = item.title
-            albumAuthor.text = item.artists.getNames()
+            title.text = item.title
+            subtitle.text = item.author?.name
         }
 
     }
 
-    override fun getViewHolder(binding: View): BaseViewHolder<Album> {
-        return NewReleasesViewHolder(binding)
+    override fun getViewHolder(binding: View): BaseViewHolder<PlayList> {
+        return CardViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {

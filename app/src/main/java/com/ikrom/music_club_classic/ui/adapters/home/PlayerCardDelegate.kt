@@ -42,7 +42,7 @@ class PlayerCardDelegate(
             val track = item.track
             Glide
                 .with(itemView.context)
-                .load(track?.album?.cover)
+                .load(track?.album?.thumbnail)
                 .into(trackCover)
             trackTitle.text = track?.title
             trackAuthor.text = track?.album?.artists.getNames()

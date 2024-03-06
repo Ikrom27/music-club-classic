@@ -1,11 +1,12 @@
 package com.ikrom.music_club_classic.extensions
 
-import android.util.Log
 import com.ikrom.innertube.models.AlbumItem
 import com.ikrom.innertube.models.ItemArtist
+import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SongItem
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Artist
+import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
 
 
@@ -43,7 +44,7 @@ fun SongItem.toTrack(): Track? {
                         name = artist.name
                     )
                 },
-                cover = this.thumbnail.resize(1024, 1024),
+                thumbnail = this.thumbnail.resize(1024, 1024),
                 year = null
             )
         )
@@ -67,8 +68,17 @@ fun AlbumItem.toAlbum(): Album {
         id = this.id,
         title = this.title,
         artists = this.itemArtists!!.map{it.toArtist()},
-        cover = this.thumbnail.resize(1024, 1024),
+        thumbnail = this.thumbnail.resize(1024, 1024),
         year = this.year
+    )
+}
+
+fun PlaylistItem.toPlayList(): PlayList {
+    return PlayList(
+        id = id,
+        title = title,
+        author = author?.toArtist(),
+        thumbnail =  thumbnail
     )
 }
 

@@ -15,7 +15,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
         <ImageView
-            android:id="@+id/iv_album_cover"
+            android:id="@+id/iv_cover"
             android:layout_width="@dimen/large_track_cover"
             android:layout_height="@dimen/large_track_cover"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,15 +31,15 @@
             android:background="@color/dark_transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_album_cover">
+            app:layout_constraintTop_toBottomOf="@+id/iv_cover">
             <TextView
-                android:id="@+id/tv_album_title"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextViewTitles.ItemPrimaryTitle"
                 android:text="@string/example" />
             <TextView
-                android:id="@+id/tv_album_author"
+                android:id="@+id/tv_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextViewTitles.ItemPrimaryTitle"

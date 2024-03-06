@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
@@ -26,7 +25,7 @@ class SearchAdapter(
         override fun bind(item: Track) {
             Glide
                 .with(itemView.context)
-                .load(item.album.cover)
+                .load(item.album.thumbnail)
                 .into(cover)
             titleTextView.text = item.title
             subtitleTextView.text= item.album.artists.getNames()

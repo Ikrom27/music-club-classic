@@ -7,7 +7,6 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.playback.PlayerHandler
 
 
 val Player.currentMetaData: MediaMetadata?
@@ -32,7 +31,7 @@ fun Track.toMediaItem(): MediaItem {
             MediaMetadata.Builder()
                 .setTitle(this.title)
                 .setArtist(this.album.artists.getNames())
-                .setArtworkUri(this.album.cover.toUri())
+                .setArtworkUri(this.album.thumbnail.toUri())
                 .build()
         )
         .build()
