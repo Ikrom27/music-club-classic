@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
-    private var shouldStopService = true
+    private var isExiting = false // Флаг для определения выхода из приложения
 
     @SuppressLint("CommitTransaction")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -40,9 +40,18 @@ class MainActivity : AppCompatActivity() {
         setupPlayerService()
     }
 
+    override fun onStop() {
+        super.onStop()
+        if (isFinishing) {
+            isExiting = true
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        destroyService()
+        if (isExiting) {
+            destroyService()
+        }
     }
 
     private fun destroyService(){

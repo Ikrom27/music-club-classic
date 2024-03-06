@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,11 @@ class MainFragment : Fragment() {
         setupConstants()
         binding(view)
         setupSlidingView()
+        if (viewModel.bottomSheetState == BottomSheetBehavior.STATE_EXPANDED){
+            miniPlayerView.alpha = 0f
+            playerContainer.alpha = 1f
+            navigationView.translationY = NAV_BAR_HEIGHT
+        }
         return view
     }
 
@@ -84,9 +90,6 @@ class MainFragment : Fragment() {
         }
         playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
             miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
-        }
-        if (viewModel.bottomSheetState == BottomSheetBehavior.STATE_EXPANDED){
-            miniPlayerView.alpha = 0f
         }
     }
 

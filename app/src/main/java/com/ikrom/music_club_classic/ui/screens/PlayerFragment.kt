@@ -1,8 +1,10 @@
 package com.ikrom.music_club_classic.ui.screens
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +48,10 @@ class PlayerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_player, container, false)
+        val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        Log.d("PLAYER", if (isPortrait) "portret" else "land")
+        val view = inflater.inflate(
+            if (isPortrait) R.layout.fragment_player else R.layout.fragment_player_horizontal, container, false)
         bindViews(view)
         setupContent()
         setupButtons()
@@ -132,6 +137,7 @@ class PlayerFragment : Fragment() {
             playerHandler.player.seekToPrevious()
         }
         btnToRepeat.setOnClickListener {
+            Log.d("ASDAAD", "REPEAT")
             playerHandler.toggleRepeat()
         }
         btnToFavorite.setOnClickListener {
