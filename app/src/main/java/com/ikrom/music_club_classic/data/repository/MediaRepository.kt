@@ -47,6 +47,10 @@ class MediaRepository @Inject constructor(
         return youtubeService.getAlbumTracks(albumId)
     }
 
+    fun getPlaylistTracks(albumId: String): MutableLiveData<List<Track>> {
+        return youtubeService.getPlaylistTracks(albumId)
+    }
+
     fun getSearchSuggestions(query: String): MutableLiveData<SearchSuggestions>{
         return youtubeService.getSearchSuggestions(query)
     }

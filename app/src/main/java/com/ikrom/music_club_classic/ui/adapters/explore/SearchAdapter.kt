@@ -16,7 +16,7 @@ class SearchAdapter(
     val onMoreButtonClick: (Track) -> Unit
 ): BaseAdapter<Track>() {
     inner class SearchViewHolder(itemView: View): BaseViewHolder<Track>(itemView) {
-        val cover: ImageView = itemView.findViewById(R.id.iv_cover)
+        val cover: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
         val subtitleTextView: TextView = itemView.findViewById(R.id.tv_subtitle)
 //        val downloadIcon: ImageView = itemView.findViewById(R.id.ic_downloaded)

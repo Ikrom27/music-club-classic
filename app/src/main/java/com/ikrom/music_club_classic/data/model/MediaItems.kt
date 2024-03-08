@@ -1,7 +1,5 @@
 package com.ikrom.music_club_classic.data.model
 
-import com.ikrom.innertube.models.ItemArtist
-
 
 data class Track(
     val title: String,
@@ -29,6 +27,6 @@ data class Artist(
 data class PlayList(
     val id: String,
     val title: String,
-    val author: Artist?,
+    val artists: Artist?,
     val thumbnail: String,
 )

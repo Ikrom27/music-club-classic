@@ -43,8 +43,8 @@
     </fragment>
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.ikrom.music_club_classic.ui.screens.AlbumFragment"
+        android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"
         android:label="fragment_album_fragment"
-        tools:layout="@layout/fragment_album_fragment" />
+        tools:layout="@layout/fragment_playlist" />
 
 </navigation>

@@ -1,15 +1,11 @@
 package com.ikrom.music_club_classic.ui.components
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -71,7 +67,7 @@ class MiniPlayerView : FrameLayout {
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.layout_mini_player, this, true)
         container = findViewById(R.id.linearLayout_container)
-        thumbnailImageView = findViewById(R.id.iv_thumbnail)
+        thumbnailImageView = findViewById(R.id.iv_thumbnail_card)
         titleTextView = findViewById(R.id.tv_title)
         subTitleTextView = findViewById(R.id.tv_subtitle)
         button = findViewById(R.id.btn_player)

@@ -1,12 +1,10 @@
 package com.ikrom.music_club_classic.ui.adapters.library
 
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
@@ -34,7 +32,7 @@ class PlayListAdapter(
                 .load(item.thumbnail)
                 .into(coverView)
             titleView.text = item.title
-            subTitleView.text = item.author?.name
+            subTitleView.text = item.artists?.name
             button.setOnClickListener{ onButtonClickListener() }
         }
 

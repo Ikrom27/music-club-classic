@@ -19,7 +19,7 @@ data class CardDelegateItem(
 ): IDelegateItem
 
 class CardDelegate(
-    val navController: NavController
+    val onItemClick: (PlayList) -> Unit
 ): BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewHolder>(
     CardDelegateItem::class.java,){
     inner class CardViewHolder(itemView: View):
@@ -59,7 +59,7 @@ class CardDelegate(
         private fun setupClicks(){
             adapter.attachCallBack(object : BaseAdapterCallBack<PlayList>(){
                 override fun onItemClick(item: PlayList, view: View) {
-                    navController.navigate(R.id.action_homeFragment_to_albumFragment)
+                    onItemClick(item)
                 }
             })
         }

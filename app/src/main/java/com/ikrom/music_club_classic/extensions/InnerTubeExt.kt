@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.extensions
 
+import android.util.Log
 import com.ikrom.innertube.models.AlbumItem
 import com.ikrom.innertube.models.ItemArtist
 import com.ikrom.innertube.models.PlaylistItem
@@ -36,8 +37,8 @@ fun SongItem.toTrack(): Track? {
             title = this.title,
             videoId = this.id,
             album = Album(
-                id = this.itemAlbum!!.id,
-                title = this.itemAlbum!!.name,
+                id = this.itemAlbum?.id ?: "null album",
+                title = this.itemAlbum?.id ?: "null title",
                 artists = this.itemArtists.map { artist ->
                     Artist(
                         id = artist.id,
@@ -77,7 +78,7 @@ fun PlaylistItem.toPlayList(): PlayList {
     return PlayList(
         id = id,
         title = title,
-        author = author?.toArtist(),
+        artists = author?.toArtist(),
         thumbnail =  thumbnail
     )
 }

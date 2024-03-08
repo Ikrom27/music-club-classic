@@ -16,4 +16,5 @@ interface IMediaDataSource {
     fun getTrackById(id: String): MutableLiveData<Track>
     fun getLikedPlayLists(): MutableLiveData<List<PlayList>>
     fun getRadioTracks(endpoint: WatchEndpoint): MutableLiveData<List<Track>>
+    fun getPlaylistTracks(albumId: String): MutableLiveData<List<Track>>
 }

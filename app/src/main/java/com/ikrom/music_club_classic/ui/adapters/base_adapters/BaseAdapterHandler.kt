@@ -41,6 +41,12 @@ abstract class BaseAdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.
         addToPosition(0, item)
     }
 
+    fun addItems(items: List<T>){
+        val startPosition = mItems.size - 1
+        mItems += items
+        notifyItemRangeChanged(startPosition, mItems.size)
+    }
+
     fun addToEnd(item: T){
         addToPosition(mItems.size - 1, item)
     }

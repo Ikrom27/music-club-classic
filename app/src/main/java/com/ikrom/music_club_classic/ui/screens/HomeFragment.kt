@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ import com.ikrom.music_club_classic.ui.adapters.home.CardDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.home.PlayerCardDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.PlayerDelegateItem
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
+import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,6 +33,7 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
     private val homeViewModel: HomeViewModel by viewModels()
+    private val playListViewModel: PlayListViewModel by activityViewModels()
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -63,7 +66,10 @@ class HomeFragment : Fragment() {
 
                 }
             ))
-            .add(CardDelegate(navController))
+            .add(CardDelegate {
+                playListViewModel.currentPlaylist.postValue(it)
+                navController.navigate(R.id.action_homeFragment_to_albumFragment)
+            })
             .build()
         val testData = listOf(
             PlayerDelegateItem(title = "Last play", track = null),

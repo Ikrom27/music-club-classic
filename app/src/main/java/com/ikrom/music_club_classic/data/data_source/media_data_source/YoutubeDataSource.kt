@@ -95,6 +95,18 @@ class YoutubeDataSource: IMediaDataSource {
         return responseLiveData
     }
 
+    override fun getPlaylistTracks(albumId: String): MutableLiveData<List<Track>> {
+        val responseLiveData = MutableLiveData<List<Track>>(ArrayList())
+        CoroutineScope(Dispatchers.IO).launch {
+            YouTube.playlist(albumId).onSuccess { result ->
+                responseLiveData.postValue(result.songs.map { it.toTrack()!! })
+            }.onFailure {
+                Log.e(TAG, "onFailure error: $it")
+            }
+        }
+        return responseLiveData
+    }
+
     override fun getSearchSuggestions(query: String): MutableLiveData<SearchSuggestions> {
         val responseLiveData = MutableLiveData(SearchSuggestions(emptyList(), emptyList()))
         CoroutineScope(Dispatchers.IO).launch {
