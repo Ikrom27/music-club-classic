@@ -3,10 +3,12 @@ package com.ikrom.music_club_classic.ui.adapters.home
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.PlayList
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
@@ -16,9 +18,10 @@ data class CardDelegateItem(
     val playLists: LiveData<List<PlayList>>
 ): IDelegateItem
 
-class CardDelegate: BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewHolder>(
-    CardDelegateItem::class.java
-){
+class CardDelegate(
+    val navController: NavController
+): BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewHolder>(
+    CardDelegateItem::class.java,){
     inner class CardViewHolder(itemView: View):
         DelegateViewHolder<CardDelegateItem>(itemView)
     {
@@ -31,7 +34,9 @@ class CardDelegate: BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewH
             item.playLists.observeForever { playLists ->
                 adapter.setItems(playLists)
             }
+
             setupRecycleView()
+            setupClicks()
         }
 
         private fun setupRecycleView(){
@@ -49,6 +54,14 @@ class CardDelegate: BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewH
                 )
                 )
             }
+        }
+
+        private fun setupClicks(){
+            adapter.attachCallBack(object : BaseAdapterCallBack<PlayList>(){
+                override fun onItemClick(item: PlayList, view: View) {
+                    navController.navigate(R.id.action_homeFragment_to_albumFragment)
+                }
+            })
         }
     }
 

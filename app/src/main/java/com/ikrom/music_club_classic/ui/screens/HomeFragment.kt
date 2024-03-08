@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
@@ -29,6 +31,7 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
     private val homeViewModel: HomeViewModel by viewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +40,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
+        navController = requireParentFragment().findNavController()
         setupAdapter(recyclerView)
         return view
     }
@@ -59,7 +63,7 @@ class HomeFragment : Fragment() {
 
                 }
             ))
-            .add(CardDelegate())
+            .add(CardDelegate(navController))
             .build()
         val testData = listOf(
             PlayerDelegateItem(title = "Last play", track = null),
