@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:focusable="true">
+    android:layout_height="90dp"
+    android:focusable="true"
+    android:paddingVertical="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cover_card"
@@ -15,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
-            android:id="@+id/iv_cover"
+            android:id="@+id/iv_thumbnail"
             android:layout_width="@dimen/icon_medium"
             android:layout_height="@dimen/icon_medium" />
     </androidx.cardview.widget.CardView>
@@ -28,6 +29,8 @@
         android:layout_marginHorizontal="@dimen/icon_small"
         android:gravity="start"
         android:maxWidth="0dp"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintBottom_toBottomOf="@+id/cover_card"
         app:layout_constraintEnd_toStartOf="@+id/ib_more"
         app:layout_constraintStart_toEndOf="@+id/cover_card"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,13 +51,14 @@
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
         app:layout_constraintStart_toEndOf="@+id/tv_title"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
     <ImageButton
         android:id="@+id/ib_more"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/icon_medium"
         android:padding="0dp"
+        android:src="@drawable/ic_more_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

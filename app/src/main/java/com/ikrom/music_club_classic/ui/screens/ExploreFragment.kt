@@ -109,9 +109,8 @@ class ExploreFragment : Fragment() {
         val margin = resources.getDimensionPixelSize(R.dimen.medium_items_margin)
         recyclerView.addItemDecoration(
             MarginItemDecoration(
-                margin,
-                playerHeight + navbarHeight + margin,
-                margin)
+                startSpace = margin,
+                endSpace = playerHeight + navbarHeight + margin,)
         )
     }
 }
