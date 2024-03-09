@@ -21,11 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@color/bg_bottom_bar"
+        android:clickable="true"
         app:behavior_hideable="false"
         app:enableEdgeToEdge="true"
         app:behavior_peekHeight="0dp"
         app:gestureInsetBottomIgnored="true"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:focusable="true">
         <FrameLayout
             android:id="@+id/fragment_player_container"
             android:layout_width="match_parent"
