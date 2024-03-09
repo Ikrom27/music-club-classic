@@ -72,15 +72,14 @@ class HomeFragment : Fragment() {
             })
             .build()
         val testData = listOf(
-            PlayerDelegateItem(title = "Last play", track = null),
-            AuthorTracksDelegateItem(title = "Alan walker", tracks = homeViewModel.getTracks("Alan walker")),
-            CardDelegateItem(title = "New releases", playLists = homeViewModel.getLikedPlayLists()),
+            PlayerDelegateItem(title = "Quick pick", track = null),
+            CardDelegateItem(title = "Liked playlists", playLists = homeViewModel.getLikedPlayLists()),
             AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park")),
         )
         compositeAdapter.setItems(testData)
-        homeViewModel.getTracks("Imagine dragons").observe(viewLifecycleOwner) { tracks ->
+        homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
             if(tracks.isNotEmpty()){
-                compositeAdapter.updateItem(0, PlayerDelegateItem(title = "Last play", track = tracks.first()))
+                compositeAdapter.updateItem(0, PlayerDelegateItem(title = "Quick pick", track = tracks[0]))
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(context)

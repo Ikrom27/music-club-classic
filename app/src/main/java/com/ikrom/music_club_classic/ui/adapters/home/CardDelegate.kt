@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.ui.adapters.home
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.LiveData
@@ -34,7 +35,6 @@ class CardDelegate(
             item.playLists.observeForever { playLists ->
                 adapter.setItems(playLists)
             }
-
             setupRecycleView()
             setupClicks()
         }

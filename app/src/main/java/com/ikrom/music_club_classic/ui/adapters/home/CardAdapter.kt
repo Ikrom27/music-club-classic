@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.ui.adapters.home
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -26,6 +27,7 @@ class CardAdapter: BaseAdapter<PlayList>() {
                 .centerCrop()
                 .transform(BlurTransformation(128))
                 .into(backgroundImage)
+            Log.d("Playlist", "${item.id} ${item.title}")
             title.text = item.title
             subtitle.text = item.artists?.name
         }

@@ -16,6 +16,10 @@ class AccountRepository @Inject constructor(
         YouTube.cookie = getCookie()
     }
 
+    fun isAuthorised(): Boolean {
+        return getCookie() != ""
+    }
+
     fun getCookie(): String{
         return localDataStore.getCookie()
     }

@@ -17,6 +17,7 @@ import com.ikrom.music_club_classic.data.data_source.media_data_source.YoutubeDa
 import com.ikrom.music_club_classic.data.repository.AccountRepository
 import com.ikrom.music_club_classic.data.repository.MediaRepository
 import com.ikrom.music_club_classic.data.room.AppDataBase
+import com.ikrom.music_club_classic.domain.RecommendedUseCase
 import com.ikrom.music_club_classic.playback.MusicNotificationManager
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import com.ikrom.music_club_classic.playback.MusicPlayerService
@@ -147,4 +148,11 @@ class AppModule {
         localDataStore: AccountLocalDataSource,
         remoteDataStore: AccountRemoteDataSource
     ) : AccountRepository = AccountRepository(localDataStore, remoteDataStore)
+
+    @Provides
+    @Singleton
+    fun provideRecommendedUseCase(
+        mediaRepository: MediaRepository,
+        accountRepository: AccountRepository
+    ) : RecommendedUseCase = RecommendedUseCase(mediaRepository, accountRepository)
 }

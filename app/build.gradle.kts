@@ -65,6 +65,8 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     //UI
     implementation("androidx.percentlayout:percentlayout:1.0.0")
+    //LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     //OTHER
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
