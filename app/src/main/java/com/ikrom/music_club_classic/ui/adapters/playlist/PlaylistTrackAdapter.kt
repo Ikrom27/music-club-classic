@@ -34,6 +34,7 @@ class PlaylistTrackAdapter(
             Glide
                 .with(itemView.context)
                 .load(item.track.album.thumbnail)
+                .centerCrop()
                 .into(thumbnail)
             title.text = item.track.title
             subtitle.text = item.track.album.artists.getNames()

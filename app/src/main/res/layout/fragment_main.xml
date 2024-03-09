@@ -20,7 +20,7 @@
         style="@style/BottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/bottom_panel_color"
+        android:backgroundTint="@color/bg_bottom_bar"
         app:behavior_hideable="false"
         app:enableEdgeToEdge="true"
         app:behavior_peekHeight="0dp"
@@ -33,16 +33,27 @@
             android:alpha="0"/>
         <com.ikrom.music_club_classic.ui.components.MiniPlayerView
             android:id="@+id/mini_player"
+            android:background="@color/bg_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_separator"
+        android:layout_marginBottom="@dimen/bottom_nav_bar_height"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="bottom"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_nav_bar_height"
         android:layout_gravity="bottom"
-        android:background="@color/bottom_panel_color"
-        app:labelVisibilityMode="labeled"
+        android:background="@color/bg_bottom_bar"
+        app:itemActiveIndicatorStyle="@color/transparent"
+        app:itemIconTint="@drawable/selector_bottom_navbar"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_menu" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
