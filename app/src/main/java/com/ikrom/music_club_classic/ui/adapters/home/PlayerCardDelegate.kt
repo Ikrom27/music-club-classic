@@ -43,6 +43,7 @@ class PlayerCardDelegate(
             Glide
                 .with(itemView.context)
                 .load(track?.album?.thumbnail)
+                .centerCrop()
                 .into(trackCover)
             trackTitle.text = track?.title
             trackAuthor.text = track?.album?.artists.getNames()
