@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -15,7 +16,7 @@ import com.ikrom.music_club_classic.R
 
 @SuppressLint("ViewConstructor")
 class MiniPlayerView : FrameLayout {
-    private lateinit var container: LinearLayout
+    private lateinit var container: View
     private lateinit var thumbnailImageView: ImageView
     private lateinit var titleTextView: TextView
     private lateinit var subTitleTextView: TextView
@@ -66,7 +67,7 @@ class MiniPlayerView : FrameLayout {
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.layout_mini_player, this, true)
-        container = findViewById(R.id.linearLayout_container)
+        container = findViewById(R.id.container)
         thumbnailImageView = findViewById(R.id.iv_thumbnail_card)
         titleTextView = findViewById(R.id.tv_title)
         subTitleTextView = findViewById(R.id.tv_subtitle)

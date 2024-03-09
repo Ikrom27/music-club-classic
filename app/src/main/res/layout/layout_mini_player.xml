@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout_container"
+    android:id="@+id/container"
     android:gravity="center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/mini_player_height"
-    android:paddingHorizontal="@dimen/content_horizontal_margin">
+    android:layout_height="@dimen/mini_player_height">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_20"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/corner_radius_small">
+        android:layout_marginStart="@dimen/content_horizontal_margin"
+        app:cardCornerRadius="@dimen/corner_radius_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/iv_thumbnail_card"
             android:layout_width="56dp"
@@ -19,25 +29,35 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
-        android:orientation="vertical">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_player"
+        app:layout_constraintStart_toEndOf="@+id/cardView_thumbnail"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <ImageButton
         android:id="@+id/btn_player"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:backgroundTint="@color/transparent"/>
-</LinearLayout>
+        android:backgroundTint="@color/transparent"
+        android:layout_marginEnd="@dimen/content_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
