@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_screen"
         android:title="@string/home_screen"
         android:icon="@drawable/ic_home"
         />
@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_explore"
         />
     <item
-        android:id="@+id/libraryFragment"
+        android:id="@+id/library_screen"
         android:title="@string/library_screen"
         android:icon="@drawable/ic_library"
         />

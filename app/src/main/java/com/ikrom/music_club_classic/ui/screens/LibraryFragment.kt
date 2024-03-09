@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.data.model.PlayList
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.library.PlayListAdapter
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
+import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +24,7 @@ class LibraryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlayListAdapter
     private val viewModel: LibraryViewModel by activityViewModels()
+    private val playListViewModel: PlayListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +43,13 @@ class LibraryFragment : Fragment() {
 
     private fun setupAdapter(){
         adapter = PlayListAdapter {  }
+        adapter.attachCallBack(object : BaseAdapterCallBack<PlayList>(){
+            override fun onItemClick(item: PlayList, view: View) {
+                playListViewModel.setPlaylist(item)
+                requireParentFragment().findNavController().navigate(R.id.action_libraryFragment_to_albumFragment)
+            }
+
+        })
         viewModel.getLikedPlayLists().observe(requireActivity()) {
             if (!it.isNullOrEmpty()){
                 adapter.setItems(it)
