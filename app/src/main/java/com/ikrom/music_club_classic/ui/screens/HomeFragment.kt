@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
                 }
             ))
             .add(CardDelegate {
-                playListViewModel.currentPlaylist.postValue(it)
+                playListViewModel.setPlaylist(it)
                 navController.navigate(R.id.action_homeFragment_to_albumFragment)
             })
             .build()

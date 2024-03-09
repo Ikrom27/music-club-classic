@@ -25,6 +25,7 @@ class PlaylistTrackAdapter(
     PlaylistTrackDelegateItem::class.java
 ) {
     inner class PlaylistTrackHolder(itemView: View): DelegateViewHolder<PlaylistTrackDelegateItem>(itemView) {
+        val container: View = itemView.findViewById(R.id.container)
         val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val title: TextView = itemView.findViewById(R.id.tv_title)
         val subtitle: TextView = itemView.findViewById(R.id.tv_subtitle)
@@ -38,9 +39,16 @@ class PlaylistTrackAdapter(
                 .into(thumbnail)
             title.text = item.track.title
             subtitle.text = item.track.album.artists.getNames()
+            setupButtons(item.track)
+        }
+
+        private fun setupButtons(track: Track){
             moreButton.setOnClickListener {
-                onMoreButtonClick(item.track)
+                onMoreButtonClick(track)
                 Log.d("click", "boob")
+            }
+            container.setOnClickListener{
+                onItemClick(track)
             }
         }
     }
