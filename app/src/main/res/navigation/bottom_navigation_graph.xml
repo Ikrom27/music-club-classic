@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_albumFragment"
-            app:destination="@id/albumFragment" />
+            app:destination="@id/albumFragment"
+            app:popUpTo="@+id/homeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
@@ -21,7 +23,9 @@
         tools:layout="@layout/fragment_explore" >
         <action
             android:id="@+id/action_exploreFragment_to_albumFragment"
-            app:destination="@id/albumFragment" />
+            app:destination="@id/albumFragment"
+            app:popUpTo="@+id/exploreFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
@@ -30,17 +34,15 @@
         tools:layout="@layout/fragment_library" >
         <action
             android:id="@+id/action_libraryFragment_to_albumFragment"
-            app:destination="@id/albumFragment" />
+            app:destination="@id/albumFragment"
+            app:popUpTo="@+id/exploreFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.ikrom.music_club_classic.ui.screens.AccountFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_account" >
-        <action
-            android:id="@+id/action_profileFragment_to_albumFragment"
-            app:destination="@id/albumFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/albumFragment"
         android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"

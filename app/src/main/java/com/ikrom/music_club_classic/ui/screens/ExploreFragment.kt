@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,7 @@ class ExploreFragment : Fragment() {
     private val adapter = SearchAdapter(
         onItemClick =  { onItemClick(it) },
         onMoreButtonClick =  { onMoreButtonClick(it) })
-    val viewModel: ExploreViewModel by viewModels()
+    val viewModel: ExploreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

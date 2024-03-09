@@ -32,7 +32,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private val playListViewModel: PlayListViewModel by activityViewModels()
     private lateinit var navController: NavController
 
