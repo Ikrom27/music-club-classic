@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Music Club Classic</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- App names -->
+    <string name="app_name_first_part">music</string>
+    <string name="app_name_second_part">Club</string>
 
     <!-- Navigation bar -->
     <string name="home_screen">Home</string>

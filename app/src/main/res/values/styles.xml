@@ -34,7 +34,7 @@
     <style name="BaseImageButton" parent="Widget.AppCompat.ImageButton">
         <item name="android:backgroundTint">@color/transparent</item>
         <item name="android:scaleType">fitCenter</item>
-        <item name="android:padding">22dp</item>
+        <item name="android:padding">0dp</item>
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet">

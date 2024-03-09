@@ -91,18 +91,20 @@
 
     <ImageButton
         android:id="@+id/ic_more_button"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/icon_medium_plus"
+        android:layout_height="@dimen/icon_medium_plus"
+        android:background="@drawable/bg_cyrcle"
+        android:backgroundTint="@color/grey_10"
+        android:padding="8dp"
         android:src="@drawable/ic_more_horizontal"
-        android:padding="22dp"
-        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_track_title" />
 
     <ImageButton
         android:id="@+id/ib_play_pause"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/icon_extra_large"
+        android:layout_height="@dimen/icon_extra_large"
+        android:padding="20dp"
         android:background="@drawable/bg_cyrcle"
         android:backgroundTint="@color/grey_10"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,8 +114,8 @@
 
     <ImageButton
         android:id="@+id/ib_skip_next"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/icon_medium"
+        android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_skip_next"
         app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
         app:layout_constraintEnd_toStartOf="@+id/ib_to_repeat"
@@ -122,8 +124,8 @@
 
     <ImageButton
         android:id="@+id/ib_skip_previous"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/icon_medium"
+        android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_skip_next"
         android:scaleX="-1"
         app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
@@ -133,8 +135,8 @@
 
     <ImageButton
         android:id="@+id/ib_to_favorite"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/icon_medium"
+        android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_favorite"
         app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
         app:layout_constraintStart_toStartOf="parent"
@@ -142,8 +144,8 @@
 
     <ImageButton
         android:id="@+id/ib_to_repeat"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/icon_medium"
+        android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_repeat_off"
         app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
         app:layout_constraintEnd_toEndOf="parent"

@@ -17,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="@dimen/icon_medium"
-            android:layout_height="@dimen/icon_medium" />
+            android:layout_width="@dimen/thumbnail_medium"
+            android:layout_height="@dimen/thumbnail_medium" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -61,6 +61,5 @@
         android:src="@drawable/ic_more_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

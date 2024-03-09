@@ -15,25 +15,27 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             android:translationZ="1dp"
+            android:background="@color/bg_top_bar"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_marginEnd="@dimen/content_horizontal_margin">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_input_field"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/search"
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:background="@null"/>
                 <ImageButton
                     android:id="@+id/ib_clear"
-                    android:layout_width="@dimen/icon_small"
-                    android:layout_height="@dimen/icon_small"
-                    android:padding="5dp"/>
+                    android:src="@drawable/ic_close"
+                    android:layout_width="@dimen/icon_extra_small"
+                    android:layout_height="@dimen/icon_extra_small"/>
             </LinearLayout>
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
