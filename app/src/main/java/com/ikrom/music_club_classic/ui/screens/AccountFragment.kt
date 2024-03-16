@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
@@ -34,6 +36,7 @@ class AccountFragment : Fragment() {
         .add(ButtonsAdapter())
         .build()
     private lateinit var recycleView: RecyclerView
+    private lateinit var navController: NavController
 
     private val viewModel: AccountViewModel by viewModels()
 
@@ -44,6 +47,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_account, container, false)
+        navController = requireParentFragment().findNavController()
         bindViews(view)
         setupAdapterData()
         setupAdapter(view)
@@ -138,8 +142,14 @@ class AccountFragment : Fragment() {
                     it.leadingIcon = R.drawable.ic_clean
                     it.text = "Clean listened history"
                 },
+                IconButton(requireContext()).also {
+                    it.leadingIcon = com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark
+                    it.text = "Sign in"
+                    it.setOnClickListener {
+                        navController.navigate(R.id.action_profileFragment_to_webAuthorizationFragment)
+                    }
+                })
             )
-        )
     }
 
     fun getExitButton(): IDelegateItem {

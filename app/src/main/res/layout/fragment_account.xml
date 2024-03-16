@@ -11,9 +11,4 @@
         android:paddingHorizontal="@dimen/content_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <WebView
-        android:id="@+id/web_view_authorization"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,9 +47,22 @@
             android:label="fragment_album_fragment"
             tools:layout="@layout/fragment_playlist" />
     </navigation>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.ikrom.music_club_classic.ui.screens.AccountFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_account" />
+    <navigation
+        android:id="@+id/account_screen"
+        app:startDestination="@id/profileFragment">
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.ikrom.music_club_classic.ui.screens.AccountFragment"
+            android:label="fragment_profile"
+            tools:layout="@layout/fragment_account" >
+            <action
+                android:id="@+id/action_profileFragment_to_webAuthorizationFragment"
+                app:destination="@id/webAuthorizationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/webAuthorizationFragment"
+            android:name="com.ikrom.music_club_classic.ui.screens.WebAuthorizationFragment"
+            android:label="fragment_web_authorization"
+            tools:layout="@layout/fragment_web_authorization" />
+    </navigation>
 </navigation>

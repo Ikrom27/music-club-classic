@@ -79,6 +79,11 @@ class IconButton: FrameLayout {
         data.recycle()
     }
 
+    override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener(l)
+        container.setOnClickListener(l)
+    }
+
     fun addTailContent(view: View){
         tailContentView.addView(view)
     }
