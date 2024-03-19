@@ -12,6 +12,8 @@
     <!-- ActionBar -->
     <declare-styleable name="ActionBar">
     </declare-styleable>
+    <declare-styleable name="SearchBar">
+    </declare-styleable>
 
     <!-- IconButton -->
     <declare-styleable name="IconButton">

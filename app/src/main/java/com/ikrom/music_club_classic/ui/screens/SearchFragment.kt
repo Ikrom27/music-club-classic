@@ -23,6 +23,7 @@ import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.explore.SearchAdapter
+import com.ikrom.music_club_classic.ui.components.SearchBar
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,17 +33,16 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
-    private lateinit var navController: NavController
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var toolbar: MaterialToolbar
-    private lateinit var searchField: TextInputEditText
-    private lateinit var clearButton: ImageButton
-    private lateinit var btnBack: ImageButton
+    private val viewModel: SearchViewModel by activityViewModels()
 
     private val adapter = SearchAdapter(
         onItemClick =  { onItemClick(it) },
-        onMoreButtonClick =  { onMoreButtonClick(it) })
-    val viewModel: SearchViewModel by activityViewModels()
+        onMoreButtonClick =  { onMoreButtonClick(it) }
+    )
+
+    private lateinit var navController: NavController
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchBar: SearchBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,27 +60,24 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchField.doOnTextChanged { text, start, before, count ->
+        searchBar.doOnTextChanged{ text, _, _, _ ->
             viewModel.updateSearchList(text.toString())
         }
         setupButtons()
     }
 
-    fun bindViews(view: View){
+    private fun bindViews(view: View){
         navController = requireParentFragment().findNavController()
         recyclerView = view.findViewById(R.id.rv_content)
-        toolbar = view.findViewById(R.id.toolbar)
-        searchField = view.findViewById(R.id.et_input_field)
-        clearButton = view.findViewById(R.id.ib_clear)
-        btnBack = view.findViewById(R.id.btn_back)
+        searchBar = view.findViewById(R.id.search_bar)
     }
 
-    fun setupButtons(){
-        clearButton.setOnClickListener {
-            searchField.setText("")
-        }
-        btnBack.setOnClickListener{
+    private fun setupButtons(){
+        searchBar.setOnBackClick {
             navController.navigateUp()
+        }
+        searchBar.setOnCleanClick {
+            searchBar.searchField.setText("")
         }
     }
 
