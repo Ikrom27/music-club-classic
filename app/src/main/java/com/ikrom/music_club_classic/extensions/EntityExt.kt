@@ -41,6 +41,20 @@ fun MediaItem.toTrackEntity(
     )
 }
 
+fun Track.toTrackEntity(): TrackEntity {
+    return TrackEntity(
+        videoId = this.videoId,
+        title = this.title,
+        albumId = this.album.id,
+        albumTitle = this.album.title,
+        cover = this.album.thumbnail,
+        year = this.album.year,
+        artistId = this.album.artists?.firstOrNull()?.id.orEmpty(),
+        artistName = this.album.artists?.firstOrNull()?.name.orEmpty()
+    )
+}
+
+
 //val videoId: String,
 //val title: String,
 //val albumId: String,
