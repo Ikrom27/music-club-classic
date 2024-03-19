@@ -9,6 +9,10 @@
         <attr name="layoutBackgroundColor" format="color"/>
     </declare-styleable>
 
+    <!-- ActionBar -->
+    <declare-styleable name="ActionBar">
+    </declare-styleable>
+
     <!-- IconButton -->
     <declare-styleable name="IconButton">
         <attr name="text" format="string"/>

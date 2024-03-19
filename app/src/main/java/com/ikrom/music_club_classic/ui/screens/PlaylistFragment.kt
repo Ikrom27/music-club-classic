@@ -69,7 +69,6 @@ class PlaylistFragment : Fragment() {
         }
         btnBack.setOnClickListener{
             navController.navigateUp()
-            Log.d("Playlist", "fuuuuu0uuuuucvusidf")
         }
     }
 

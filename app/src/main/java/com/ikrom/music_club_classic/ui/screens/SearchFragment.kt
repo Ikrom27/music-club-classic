@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -48,6 +50,9 @@ class SearchFragment : Fragment() {
         setupAdapter()
         setupRecycleView()
         setupToolbar()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireParentFragment().findNavController().navigateUp()
+        }
         return view
     }
 

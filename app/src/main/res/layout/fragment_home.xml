@@ -8,71 +8,10 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
+        <com.ikrom.music_club_classic.ui.components.ActionBar
+            app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/my_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways"
-                android:background="@color/bg_top_bar"
-                android:translationZ="1dp"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-                <TextView
-                    android:id="@+id/tv_app_name_first"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name_first_part"
-                    android:fontFamily="@font/youtube_sans_medium"
-                    android:textSize="28sp"
-                    android:layout_marginStart="@dimen/content_horizontal_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_app_name_second"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name_second_part"
-                    android:layout_marginStart="6dp"
-                    android:textSize="28sp"
-                    android:fontFamily="@font/youtube_sans_medium"
-                    android:textColor="?attr/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_app_name_first"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btn_connect"
-                    android:layout_width="@dimen/icon_small"
-                    android:layout_height="@dimen/icon_small"
-                    android:src="@drawable/ic_connect"
-                    android:layout_marginEnd="@dimen/content_horizontal_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_search"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btn_search"
-                    android:layout_width="@dimen/icon_small"
-                    android:layout_height="@dimen/icon_small"
-                    android:src="@drawable/ic_search"
-                    android:layout_marginEnd="@dimen/content_horizontal_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bg_separator"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:layout_editor_absoluteX="20dp" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main"
             android:layout_width="match_parent"
