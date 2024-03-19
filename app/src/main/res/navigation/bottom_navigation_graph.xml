@@ -36,6 +36,8 @@
                 app:destination="@id/albumFragment"/>
             <action
                 android:id="@+id/action_exploreFragment_to_searchFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
                 app:destination="@id/searchFragment" />
         </fragment>
         <fragment
