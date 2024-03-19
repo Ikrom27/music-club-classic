@@ -37,6 +37,13 @@
         <item name="android:padding">0dp</item>
     </style>
 
+    <!-- -->
+    <style name="separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/bg_separator</item>
+    </style>
+
     <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet">
         <item name="paddingBottomSystemWindowInsets">false</item>
         <item name="android:maxWidth">@empty</item>

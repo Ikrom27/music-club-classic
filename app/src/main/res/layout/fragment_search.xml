@@ -17,27 +17,53 @@
             android:translationZ="1dp"
             android:background="@color/bg_top_bar"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginEnd="@dimen/content_horizontal_margin">
+
+                <ImageButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/icon_medium"
+                    android:layout_height="@dimen/icon_medium"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_array_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/grey_70" />
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_input_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/search"
                     android:maxLines="1"
-                    android:background="@null"/>
+                    android:layout_margin="@dimen/content_horizontal_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ib_clear"
+                    app:layout_constraintStart_toEndOf="@+id/btn_back"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageButton
                     android:id="@+id/ib_clear"
+                    android:layout_width="@dimen/icon_medium"
+                    android:layout_height="@dimen/icon_medium"
+                    android:padding="7dp"
                     android:src="@drawable/ic_close"
-                    android:layout_width="@dimen/icon_extra_small"
-                    android:layout_height="@dimen/icon_extra_small"/>
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/grey_70"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.MaterialToolbar>
+        <View
+            style="@style/separator"
+            android:layout_gravity="bottom"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

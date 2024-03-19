@@ -40,9 +40,7 @@
     </FrameLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bg_separator"
+        style="@style/separator"
         android:layout_marginBottom="@dimen/bottom_nav_bar_height"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_gravity="bottom"/>

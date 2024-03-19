@@ -11,6 +11,7 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,10 +32,12 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
+    private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
     private lateinit var toolbar: MaterialToolbar
     private lateinit var searchField: TextInputEditText
     private lateinit var clearButton: ImageButton
+    private lateinit var btnBack: ImageButton
 
     private val adapter = SearchAdapter(
         onItemClick =  { onItemClick(it) },
@@ -49,7 +52,6 @@ class SearchFragment : Fragment() {
         bindViews(view)
         setupAdapter()
         setupRecycleView()
-        setupToolbar()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             requireParentFragment().findNavController().navigateUp()
         }
@@ -65,25 +67,20 @@ class SearchFragment : Fragment() {
     }
 
     fun bindViews(view: View){
+        navController = requireParentFragment().findNavController()
         recyclerView = view.findViewById(R.id.rv_content)
         toolbar = view.findViewById(R.id.toolbar)
         searchField = view.findViewById(R.id.et_input_field)
         clearButton = view.findViewById(R.id.ib_clear)
-    }
-
-    fun setupToolbar(){
-        val color = ContextCompat.getColor(requireContext(), R.color.grey_70)
-
-        toolbar.setNavigationIcon(R.drawable.ic_array_back)
-        toolbar.setNavigationIconTint(color)
-
-        clearButton.setImageResource(R.drawable.ic_close)
-        clearButton.setColorFilter(color)
+        btnBack = view.findViewById(R.id.btn_back)
     }
 
     fun setupButtons(){
         clearButton.setOnClickListener {
             searchField.setText("")
+        }
+        btnBack.setOnClickListener{
+            navController.navigateUp()
         }
     }
 
@@ -103,7 +100,6 @@ class SearchFragment : Fragment() {
 
     fun onItemClick(track: Track){
         playerHandler.playNow(track)
-        Log.d("click", "boob")
     }
 
     fun setupRecycleView(){
@@ -117,5 +113,9 @@ class SearchFragment : Fragment() {
                 startSpace = margin,
                 endSpace = playerHeight + navbarHeight + margin,)
         )
+    }
+
+    companion object {
+        private const val TAG = "SearchFragment"
     }
 }
