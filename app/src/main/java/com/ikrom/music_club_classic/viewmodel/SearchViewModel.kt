@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ExploreViewModel @Inject constructor(
+class SearchViewModel @Inject constructor(
     val repository: MediaRepository
 ): ViewModel() {
     val searchList = MutableLiveData<List<Track>>()

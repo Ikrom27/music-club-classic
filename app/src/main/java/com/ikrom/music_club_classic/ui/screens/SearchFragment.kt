@@ -10,7 +10,6 @@ import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -21,12 +20,12 @@ import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.explore.SearchAdapter
-import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
+import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment() {
+class SearchFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
@@ -38,13 +37,13 @@ class ExploreFragment : Fragment() {
     private val adapter = SearchAdapter(
         onItemClick =  { onItemClick(it) },
         onMoreButtonClick =  { onMoreButtonClick(it) })
-    val viewModel: ExploreViewModel by activityViewModels()
+    val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_explore, container, false)
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
         bindViews(view)
         setupAdapter()
         setupRecycleView()
