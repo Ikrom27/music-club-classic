@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +42,11 @@ class PlaylistFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var compositeAdapter: CompositeAdapter
+    private lateinit var btnBack: ImageButton
+    private lateinit var btnSearch: ImageButton
+    private lateinit var btnMore: ImageButton
+    private lateinit var navController: NavController
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,11 +55,22 @@ class PlaylistFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_playlist, container, false)
         currentPlaylist = viewModel.currentPlaylist.value
         trackList = viewModel.playlistItems
+        navController = requireParentFragment().findNavController()
         setupAdapter()
         bindViews(view)
         setupContent()
-        setBackButton()
+        setupButtons()
         return view
+    }
+
+    private fun setupButtons(){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            navController.navigateUp()
+        }
+        btnBack.setOnClickListener{
+            navController.navigateUp()
+            Log.d("Playlist", "fuuuuu0uuuuucvusidf")
+        }
     }
 
     private fun setupAdapter() {
@@ -82,16 +100,13 @@ class PlaylistFragment : Fragment() {
             .build()
     }
 
-    private fun setBackButton(){
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            requireParentFragment().findNavController().navigateUp()
-        }
-    }
-
     private fun bindViews(view: View){
         recyclerView = view.findViewById(R.id.rv_tracks)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = compositeAdapter
+        btnBack = view.findViewById(R.id.btn_back)
+        btnMore = view.findViewById(R.id.btn_more)
+        btnSearch = view.findViewById(R.id.btn_search)
     }
 
     private fun setupContent() {
