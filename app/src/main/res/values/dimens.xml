@@ -11,6 +11,7 @@
     <!-- Height -->
     <dimen name="mini_player_height">72dp</dimen>
     <dimen name="bottom_nav_bar_height">75dp</dimen>
+    <dimen name="app_bar_height">56dp</dimen>
 
     <!-- Icon size -->
     <dimen name="icon_extra_small">12dp</dimen>
