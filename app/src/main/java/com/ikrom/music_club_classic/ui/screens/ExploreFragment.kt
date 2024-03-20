@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -15,12 +16,14 @@ import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegate
 import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegateItem
 import com.ikrom.music_club_classic.ui.components.AppBar
+import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment() {
     private val viewModel: ExploreViewModel by viewModels()
+    private val albumViewModel: AlbumViewModel by activityViewModels()
 
     private lateinit var appBar: AppBar
     private lateinit var navController: NavController
@@ -46,9 +49,9 @@ class ExploreFragment : Fragment() {
         viewModel.newReleasesList.observe(viewLifecycleOwner){
             if(it.isNotEmpty()){
                 if (adapter.itemCount > 1){
-                    adapter.updateItem(0, NewReleasesDelegateItem("NewReleases", it))
+                    adapter.updateItem(0, NewReleasesDelegateItem("New Releases", it))
                 } else {
-                    adapter.setItems(listOf(NewReleasesDelegateItem("NewReleases", it)))
+                    adapter.setItems(listOf(NewReleasesDelegateItem("New Releases", it)))
                 }
             }
         }
@@ -62,7 +65,8 @@ class ExploreFragment : Fragment() {
     private fun setupAdapter() {
         adapter = CompositeAdapter.Builder()
             .add(NewReleasesDelegate {
-                navController.navigate(R.id.action_homeFragment_to_albumFragment)
+                albumViewModel.setAlbum(it)
+                navController.navigate(R.id.exploreFragment_to_albumFragment)
             })
             .build()
     }

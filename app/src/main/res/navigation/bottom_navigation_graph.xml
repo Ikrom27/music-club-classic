@@ -15,10 +15,10 @@
             tools:layout="@layout/fragment_home" >
             <action
                 android:id="@+id/action_homeFragment_to_albumFragment"
-                app:destination="@id/albumFragment"/>
+                app:destination="@id/playlistFragment"/>
         </fragment>
         <fragment
-            android:id="@+id/albumFragment"
+            android:id="@+id/playlistFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"
             android:label="fragment_album_fragment"
             tools:layout="@layout/fragment_playlist" />
@@ -33,12 +33,15 @@
             tools:layout="@layout/fragment_explore" >
             <action
                 android:id="@+id/action_homeFragment_to_albumFragment"
-                app:destination="@id/albumFragment"/>
+                app:destination="@id/playlistFragment"/>
             <action
                 android:id="@+id/action_exploreFragment_to_searchFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:destination="@id/searchFragment" />
+            <action
+                android:id="@+id/exploreFragment_to_albumFragment"
+                app:destination="@id/albumFragment" />
         </fragment>
         <fragment
             android:id="@+id/searchFragment"
@@ -46,10 +49,15 @@
             android:label="fragment_search"
             tools:layout="@layout/fragment_search" />
         <fragment
-            android:id="@+id/albumFragment"
+            android:id="@+id/playlistFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"
             android:label="fragment_album_fragment"
             tools:layout="@layout/fragment_playlist" />
+        <fragment
+            android:id="@+id/albumFragment"
+            android:name="com.ikrom.music_club_classic.ui.screens.AlbumFragment"
+            android:label="fragment_album"
+            tools:layout="@layout/fragment_album" />
     </navigation>
     <navigation
         android:id="@+id/library_screen"
@@ -61,12 +69,12 @@
             tools:layout="@layout/fragment_library" >
             <action
                 android:id="@+id/action_libraryFragment_to_albumFragment"
-                app:destination="@id/albumFragment"/>
+                app:destination="@id/playlistFragment"/>
         </fragment>
         <fragment
-            android:id="@+id/albumFragment"
+            android:id="@+id/playlistFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"
-            android:label="fragment_album_fragment"
+            android:label="fragment_playlsit"
             tools:layout="@layout/fragment_playlist" />
     </navigation>
     <navigation
