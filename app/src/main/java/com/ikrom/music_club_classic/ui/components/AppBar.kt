@@ -7,7 +7,7 @@ import android.widget.ImageButton
 import com.google.android.material.appbar.AppBarLayout
 import com.ikrom.music_club_classic.R
 
-class ActionBar: AppBarLayout {
+class AppBar: AppBarLayout {
     private lateinit var btnSearch: ImageButton
     private lateinit var btnConnectDevice: ImageButton
 
@@ -44,6 +44,6 @@ class ActionBar: AppBarLayout {
     }
 
     fun getStuffFromXML(attrs: AttributeSet?){
-        val data = context.obtainStyledAttributes(attrs, R.styleable.ActionBar)
+        val data = context.obtainStyledAttributes(attrs, R.styleable.AppBar)
     }
 }

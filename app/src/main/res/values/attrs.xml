@@ -10,7 +10,7 @@
     </declare-styleable>
 
     <!-- ActionBar -->
-    <declare-styleable name="ActionBar">
+    <declare-styleable name="AppBar">
     </declare-styleable>
     <declare-styleable name="SearchBar">
     </declare-styleable>

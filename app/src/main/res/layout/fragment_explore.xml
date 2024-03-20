@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.screens.ExploreFragment">
 
-    <com.ikrom.music_club_classic.ui.components.ActionBar
+    <com.ikrom.music_club_classic.ui.components.AppBar
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

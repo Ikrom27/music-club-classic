@@ -14,7 +14,7 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegate
 import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegateItem
-import com.ikrom.music_club_classic.ui.components.ActionBar
+import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ExploreFragment : Fragment() {
     private val viewModel: ExploreViewModel by viewModels()
 
-    private lateinit var actionBar: ActionBar
+    private lateinit var appBar: AppBar
     private lateinit var navController: NavController
 
     private lateinit var adapter: CompositeAdapter
@@ -68,13 +68,13 @@ class ExploreFragment : Fragment() {
     }
 
     private fun setupButtons(view: View) {
-        actionBar.setOnSearchClick {
+        appBar.setOnSearchClick {
             navController.navigate(R.id.action_exploreFragment_to_searchFragment)
         }
     }
 
     fun bindViews(view: View){
-        actionBar = view.findViewById(R.id.action_bar)
+        appBar = view.findViewById(R.id.action_bar)
         recyclerView = view.findViewById(R.id.rv_content)
     }
 }
