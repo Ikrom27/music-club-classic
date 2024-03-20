@@ -1,37 +1,33 @@
 package com.ikrom.music_club_classic.ui.adapters.explore
 
-import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.lifecycle.LiveData
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 
-data class CardDelegateItem(
+data class NewReleasesDelegateItem(
     val title: String,
     val albums: List<Album>
 ): IDelegateItem
 
-class CardDelegate(
+class NewReleasesDelegate(
     val onItemClick: (Album) -> Unit
-): BaseDelegateAdapter<CardDelegateItem, CardDelegate.CardViewHolder>(
-    CardDelegateItem::class.java,){
+): BaseDelegateAdapter<NewReleasesDelegateItem, NewReleasesDelegate.CardViewHolder>(
+    NewReleasesDelegateItem::class.java,){
     inner class CardViewHolder(itemView: View):
-        DelegateViewHolder<CardDelegateItem>(itemView)
+        DelegateViewHolder<NewReleasesDelegateItem>(itemView)
     {
         private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
-        private val adapter = CardAdapter()
+        private val adapter = NewReleasesAdapter()
 
-        override fun bind(item: CardDelegateItem) {
+        override fun bind(item: NewReleasesDelegateItem) {
             title.text = item.title
             adapter.setItems(item.albums)
             setupRecycleView()

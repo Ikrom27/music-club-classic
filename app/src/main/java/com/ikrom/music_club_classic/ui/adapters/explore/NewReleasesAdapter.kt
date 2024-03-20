@@ -7,12 +7,11 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
 
-class CardAdapter: BaseAdapter<Album>() {
+class NewReleasesAdapter: BaseAdapter<Album>() {
     inner class CardViewHolder(itemView: View): BaseViewHolder<Album>(itemView){
         private val cover = itemView.findViewById<ImageView>(R.id.iv_thumbnail)
         private val backgroundImage = itemView.findViewById<ImageView>(R.id.iv_background_image)

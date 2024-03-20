@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.explore.CardDelegate
-import com.ikrom.music_club_classic.ui.adapters.explore.CardDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegate
+import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegateItem
 import com.ikrom.music_club_classic.ui.components.ActionBar
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,9 +46,9 @@ class ExploreFragment : Fragment() {
         viewModel.newReleasesList.observe(viewLifecycleOwner){
             if(it.isNotEmpty()){
                 if (adapter.itemCount > 1){
-                    adapter.updateItem(0, CardDelegateItem("NewReleases", it))
+                    adapter.updateItem(0, NewReleasesDelegateItem("NewReleases", it))
                 } else {
-                    adapter.setItems(listOf(CardDelegateItem("NewReleases", it)))
+                    adapter.setItems(listOf(NewReleasesDelegateItem("NewReleases", it)))
                 }
             }
         }
@@ -61,7 +61,7 @@ class ExploreFragment : Fragment() {
 
     private fun setupAdapter() {
         adapter = CompositeAdapter.Builder()
-            .add(CardDelegate {
+            .add(NewReleasesDelegate {
                 navController.navigate(R.id.action_homeFragment_to_albumFragment)
             })
             .build()
