@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="onGradientColor">#1AECECEC</color>
+
+    <color name="sheet_handle_color">#1AECECEC</color>
     <color name="app_background_color">@color/black</color>
     <color name="bg_bottom_bar">@color/app_background_color</color>
     <color name="bg_top_bar">@color/app_background_color</color>

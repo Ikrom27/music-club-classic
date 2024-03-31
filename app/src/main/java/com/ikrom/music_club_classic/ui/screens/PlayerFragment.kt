@@ -1,6 +1,12 @@
 package com.ikrom.music_club_classic.ui.screens
 
+import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,10 +19,18 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.media3.common.Player
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
 import com.ikrom.music_club_classic.playback.PlayerHandler
@@ -30,6 +44,7 @@ class PlayerFragment : Fragment() {
     lateinit var playerHandler: PlayerHandler
 
     private val playerViewModel: PlayerViewModel by viewModels()
+    private lateinit var container: ConstraintLayout
     private lateinit var trackCover: ImageView
     private lateinit var trackTitle: TextView
     private lateinit var trackAuthor: TextView
@@ -41,6 +56,7 @@ class PlayerFragment : Fragment() {
     private lateinit var seekBarPlayer: SeekBar
     private lateinit var progressTime: TextView
     private lateinit var totalTime: TextView
+    private lateinit var handle: View
 
     private val mHandler = Handler(Looper.getMainLooper())
 
@@ -72,6 +88,8 @@ class PlayerFragment : Fragment() {
         seekBarPlayer = view.findViewById(R.id.slider_player_progress)
         totalTime = view.findViewById(R.id.tv_total_time)
         progressTime = view.findViewById(R.id.tv_progress_time)
+        container = view.findViewById(R.id.container)
+        handle = view.findViewById(R.id.handle)
     }
 
     private fun setupButtons() {
@@ -137,12 +155,40 @@ class PlayerFragment : Fragment() {
             playerHandler.player.seekToPrevious()
         }
         btnToRepeat.setOnClickListener {
-            Log.d("ASDAAD", "REPEAT")
             playerHandler.toggleRepeat()
         }
         btnToFavorite.setOnClickListener {
             playerViewModel.toggleToFavorite(playerHandler.currentMediaItemLiveData.value!!)
         }
+    }
+
+    private fun setupBackground(resource: Drawable) {
+        val bitmap = (resource as BitmapDrawable).bitmap
+
+        Palette.from(bitmap).generate { palette ->
+            val dominantColor = darkenColor(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK)
+            val mutedColor = darkenColor(palette?.getMutedColor( Color.WHITE) ?: Color.WHITE)
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                intArrayOf(mutedColor, dominantColor)
+            )
+            container.background = gradientDrawable
+        }
+    }
+
+    private fun darkenColor(color: Int): Int {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(color, hsv)
+        val luminance = ColorUtils.calculateLuminance(color)
+        if (luminance > 0.4){
+            hsv[2] *= 0.3f
+        } else {
+            hsv[2] *= 0.8f
+        }
+        if (hsv[1] > 0.5){
+            hsv[1] *= 0.4f
+        }
+        return Color.HSVToColor(hsv)
     }
 
     private fun setupContent() {
@@ -151,6 +197,30 @@ class PlayerFragment : Fragment() {
                 Glide
                     .with(requireContext())
                     .load(currentItem.mediaMetadata.artworkUri)
+                    .centerCrop()
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Toast.makeText(requireContext(), "Fail to load image", Toast.LENGTH_SHORT).show()
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            model: Any,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            setupBackground(resource)
+                            return false
+                        }
+
+                    })
                     .into(trackCover)
                 trackTitle.text = currentItem.mediaMetadata.title
                 trackAuthor.text = currentItem.mediaMetadata.artist

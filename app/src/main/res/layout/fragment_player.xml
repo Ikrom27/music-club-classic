@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
-    tools:context=".ui.screens.PlayerFragment">
+    android:paddingHorizontal="@dimen/content_horizontal_margin"
+    tools:context=".ui.screens.PlayerFragment"
+    android:clipToPadding="false">
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/handle"
         android:layout_width="80dp"
-        android:layout_height="4dp"
+        android:layout_height="6dp"
         android:layout_marginTop="@dimen/content_horizontal_margin"
+        android:elevation="20dp"
+        android:translationZ="20dp"
         android:background="@drawable/bg_rounded_rectangle_20"
-        android:backgroundTint="@color/grey_20"
+        android:backgroundTint="@color/sheet_handle_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,6 +27,8 @@
         android:id="@+id/cardView_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="20dp"
+        android:translationZ="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,25 +43,21 @@
 
     <TextView
         android:id="@+id/tv_track_title"
-        style="@style/TextViewTitles.ItemPrimaryTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TextViewPlayerTitle"
         android:layout_marginTop="30dp"
-        android:gravity="start"
         android:textSize="26sp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toStartOf="@+id/ic_more_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView_thumbnail" />
 
     <TextView
         android:id="@+id/tv_track_author"
-        style="@style/TextViewTitles.ItemSecondaryTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TextViewPlayerTitle"
         android:layout_marginTop="8dp"
-        android:gravity="start"
         android:textColor="?attr/colorPrimary"
         android:textSize="20sp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toStartOf="@+id/ic_more_button"
         app:layout_constraintStart_toStartOf="@+id/tv_track_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_track_title" />
@@ -94,9 +97,10 @@
         android:layout_width="@dimen/icon_medium_plus"
         android:layout_height="@dimen/icon_medium_plus"
         android:background="@drawable/bg_cyrcle"
-        android:backgroundTint="@color/grey_10"
+        android:backgroundTint="@color/onGradientColor"
         android:padding="8dp"
         android:src="@drawable/ic_more_horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_track_author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_track_title" />
 
@@ -106,7 +110,7 @@
         android:layout_height="@dimen/icon_extra_large"
         android:padding="20dp"
         android:background="@drawable/bg_cyrcle"
-        android:backgroundTint="@color/grey_10"
+        android:backgroundTint="@color/onGradientColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
