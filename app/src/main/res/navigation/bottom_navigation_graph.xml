@@ -21,7 +21,16 @@
             android:id="@+id/playlistFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"
             android:label="fragment_album_fragment"
-            tools:layout="@layout/fragment_playlist" />
+            tools:layout="@layout/fragment_playlist" >
+            <action
+                android:id="@+id/action_playlistFragment_to_searchFragment"
+                app:destination="@id/searchFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/searchFragment"
+            android:name="com.ikrom.music_club_classic.ui.screens.SearchFragment"
+            android:label="fragment_search"
+            tools:layout="@layout/fragment_search" />
     </navigation>
     <navigation
         android:id="@+id/explore_screen"

@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.adapters.explore
+package com.ikrom.music_club_classic.ui.adapters.search
 
 import android.util.Log
 import android.view.View
