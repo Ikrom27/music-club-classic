@@ -5,6 +5,7 @@ import android.opengl.Visibility
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.appbar.AppBarLayout
@@ -15,7 +16,7 @@ class SearchBar: AppBarLayout {
     private lateinit var btnBack: ImageButton
     private lateinit var btnClean: ImageButton
 
-    lateinit var searchField: TextInputEditText
+    lateinit var searchField: EditText
 
     constructor(context: Context) : super(context) {
         init(context)

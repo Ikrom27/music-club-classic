@@ -22,10 +22,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/grey_70" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/et_input_field"
             style="@style/SearchBar"
             android:layout_marginHorizontal="8dp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_clear"
             app:layout_constraintStart_toEndOf="@+id/btn_back"
