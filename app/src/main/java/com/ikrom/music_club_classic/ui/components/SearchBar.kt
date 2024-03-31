@@ -1,8 +1,10 @@
 package com.ikrom.music_club_classic.ui.components
 
 import android.content.Context
+import android.opengl.Visibility
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageButton
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.appbar.AppBarLayout
@@ -50,7 +52,16 @@ class SearchBar: AppBarLayout {
     ){
         searchField.doOnTextChanged { text, start, before, count ->
             action(text, start, before, count)
+            if(text.isNullOrEmpty()){
+                changeCleanButtonVisibility(View.GONE)
+            } else {
+                changeCleanButtonVisibility(View.VISIBLE)
+            }
         }
+    }
+
+    fun changeCleanButtonVisibility(visibility: Int){
+        btnClean.visibility = visibility
     }
 
     fun setOnBackClick(onClick: () -> Unit){
