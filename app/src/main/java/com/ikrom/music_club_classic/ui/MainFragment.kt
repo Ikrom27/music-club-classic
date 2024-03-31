@@ -90,6 +90,7 @@ class MainFragment : Fragment() {
                 Glide
                     .with(this)
                     .load(it.mediaMetadata.artworkUri?.toString())
+                    .centerCrop()
                     .into(miniPlayerView.getThumbnailImageView())
             }
         }
