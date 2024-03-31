@@ -1,10 +1,8 @@
 package com.ikrom.music_club_classic.ui.screens
 
-import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -22,6 +20,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.media3.common.Player
@@ -34,6 +35,7 @@ import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
 import com.ikrom.music_club_classic.playback.PlayerHandler
+import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -69,6 +71,7 @@ class PlayerFragment : Fragment() {
         val view = inflater.inflate(
             if (isPortrait) R.layout.fragment_player else R.layout.fragment_player_horizontal, container, false)
         bindViews(view)
+        setupMarginFromStatusBar(handle)
         setupContent()
         setupButtons()
         setupButtonsListener()

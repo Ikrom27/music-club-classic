@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
@@ -22,6 +23,7 @@ import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.components.MiniPlayerView
 import com.ikrom.music_club_classic.ui.screens.PlayerFragment
+import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,6 +36,7 @@ class MainFragment : Fragment() {
 
     private lateinit var miniPlayerView: MiniPlayerView
     private lateinit var navigationView: BottomNavigationView
+    private lateinit var navHostFragment: FragmentContainerView
     private lateinit var behavior: BottomSheetBehavior<FrameLayout>
     private lateinit var slidingView: FrameLayout
     private lateinit var playerContainer: FrameLayout
@@ -51,6 +54,7 @@ class MainFragment : Fragment() {
         setupConstants()
         binding(view)
         setupSlidingView()
+        setupMarginFromStatusBar(navHostFragment)
         if (viewModel.bottomSheetState == BottomSheetBehavior.STATE_EXPANDED){
             miniPlayerView.alpha = 0f
             playerContainer.alpha = 1f
@@ -64,6 +68,7 @@ class MainFragment : Fragment() {
         miniPlayerView = view.findViewById(R.id.mini_player)
         slidingView = view.findViewById(R.id.layout_sliding_view)
         playerContainer = view.findViewById(R.id.fragment_player_container)
+        navHostFragment = view.findViewById(R.id.nav_host_fragment)
     }
 
     private fun setupConstants(){

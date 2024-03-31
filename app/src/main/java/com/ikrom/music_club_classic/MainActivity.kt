@@ -10,6 +10,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("CommitTransaction")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main)
