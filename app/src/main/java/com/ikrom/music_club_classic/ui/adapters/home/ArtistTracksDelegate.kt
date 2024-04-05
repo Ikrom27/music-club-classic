@@ -43,7 +43,7 @@ class ArtistTracksDelegate(
             setupAdapter()
         }
 
-        fun setupAdapter(){
+        private fun setupAdapter(){
             adapter.attachCallBack(callBack)
             recyclerView.layoutManager = LinearLayoutManager(itemView.context)
                 .apply { orientation = LinearLayoutManager.HORIZONTAL}

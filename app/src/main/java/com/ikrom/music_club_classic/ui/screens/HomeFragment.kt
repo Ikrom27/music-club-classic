@@ -23,6 +23,8 @@ import com.ikrom.music_club_classic.ui.adapters.home.CardDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.CardDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.home.PlayerCardDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.PlayerDelegateItem
+import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
+import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
     lateinit var playerHandler: PlayerHandler
     private val homeViewModel: HomeViewModel by activityViewModels()
     private val playListViewModel: PlayListViewModel by activityViewModels()
+    private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -53,6 +56,12 @@ class HomeFragment : Fragment() {
             .add(ArtistTracksDelegate(object : BaseAdapterCallBack<Track>(){
                 override fun onItemClick(item: Track, view: View) {
                     playerHandler.playNow(item)
+                }
+
+                override fun onLongClick(item: Track, view: View) {
+                    bottomMenuViewModel.trackLiveData.postValue(item)
+                    val bottomMenu = BottomMenuFragment()
+                    bottomMenu.show(parentFragmentManager, bottomMenu.tag)
                 }
             }))
             .add(PlayerCardDelegate(
