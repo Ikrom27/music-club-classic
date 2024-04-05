@@ -50,9 +50,14 @@ class PlayerHandler @Inject constructor(
     }
 
     fun addToQueue(items: List<MediaItem>) {
-        player.addMediaItems(items)
+        if (player.mediaItemCount - player.currentMediaItemIndex - 1 == 0){
+            player.addMediaItems(items)
+        } else {
+            player.addMediaItems(player.mediaItemCount-1, items)
+        }
         player.prepare()
     }
+
 
     fun toggleRepeat(){
         when(player.repeatMode) {
@@ -81,8 +86,18 @@ class PlayerHandler @Inject constructor(
     }
 
     private fun addRecommendedTracks(){
-        repository.getRadioTracks(WatchEndpoint(player.currentMediaItem?.mediaId)).observeForever { trackList ->
-            playNext(trackList.map{it.toMediaItem()}.shuffled())
+        if (playerQueue.size < 2){
+            repository.getRadioTracks(WatchEndpoint(player.currentMediaItem?.mediaId)).observeForever { trackList ->
+                if (trackList.isNotEmpty()){
+                    playerQueue += trackList.map{it.toMediaItem()}.shuffled()
+                    if(player.hasNextMediaItem()){
+
+                    }
+                    addToQueue(playerQueue.removeFirst())
+                }
+            }
+        } else {
+            addToQueue(playerQueue.removeFirst())
         }
     }
 
