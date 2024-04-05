@@ -70,4 +70,7 @@
         <item name="android:maxWidth">@empty</item>
         <item name="shapeAppearance">?attr/shapeAppearanceCornerExtraSmall</item>
     </style>
+    <style name="BottomSheetMenu"
+        parent="Widget.Material3.BottomSheet">
+    </style>
 </resources>

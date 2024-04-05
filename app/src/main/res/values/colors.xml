@@ -20,6 +20,7 @@
     <color name="bg_bottom_bar">@color/app_background_color</color>
     <color name="bg_top_bar">@color/app_background_color</color>
     <color name="bg_separator">#171717</color>
+    <color name="bg_separator_80">#CC434343</color>
     <color name="bg_surface">@color/grey_20</color>
     <color name="bg_item_not_selected">#7e7e7e</color>
 </resources>

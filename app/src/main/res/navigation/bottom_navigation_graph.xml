@@ -16,6 +16,9 @@
             <action
                 android:id="@+id/action_homeFragment_to_albumFragment"
                 app:destination="@id/playlistFragment"/>
+            <action
+                android:id="@+id/action_homeFragment_to_albumFragment2"
+                app:destination="@id/albumFragment" />
         </fragment>
         <fragment
             android:id="@+id/playlistFragment"
@@ -31,6 +34,11 @@
             android:name="com.ikrom.music_club_classic.ui.screens.SearchFragment"
             android:label="fragment_search"
             tools:layout="@layout/fragment_search" />
+        <fragment
+            android:id="@+id/albumFragment"
+            android:name="com.ikrom.music_club_classic.ui.screens.AlbumFragment"
+            android:label="fragment_album"
+            tools:layout="@layout/fragment_album" />
     </navigation>
     <navigation
         android:id="@+id/explore_screen"

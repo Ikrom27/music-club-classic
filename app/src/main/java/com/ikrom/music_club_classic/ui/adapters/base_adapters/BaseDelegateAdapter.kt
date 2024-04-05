@@ -5,13 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-interface IDelegateItem {
-    fun payload(other: Any): Payloadable = Payloadable.None
-
-    interface Payloadable {
-        object None: Payloadable
-    }
-}
+interface IDelegateItem
 
 abstract class BaseDelegateAdapter<T : IDelegateItem, in VH: BaseDelegateAdapter.DelegateViewHolder<T>>(
     private val classType: Class<out T>

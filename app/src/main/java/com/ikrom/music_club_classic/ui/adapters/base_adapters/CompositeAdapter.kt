@@ -30,7 +30,6 @@ class CompositeAdapter(
         val delegateAdapter = delegates[getItemViewType(position)]
 
         if (delegateAdapter != null) {
-            payloads.map { it as IDelegateItem.Payloadable }
             delegateAdapter.onBindViewHolder(mItems[position], holder)
         } else {
             throw NullPointerException("can not find adapter for position $position")
