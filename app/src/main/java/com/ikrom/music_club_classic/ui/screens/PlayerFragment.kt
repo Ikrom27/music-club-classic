@@ -59,6 +59,9 @@ class PlayerFragment : Fragment() {
     private lateinit var progressTime: TextView
     private lateinit var totalTime: TextView
     private lateinit var handle: View
+    private lateinit var btnCast: ImageButton
+    private lateinit var btnQueue: ImageButton
+    private lateinit var btnCaptions: ImageButton
 
     private val mHandler = Handler(Looper.getMainLooper())
 
@@ -93,6 +96,9 @@ class PlayerFragment : Fragment() {
         progressTime = view.findViewById(R.id.tv_progress_time)
         container = view.findViewById(R.id.container)
         handle = view.findViewById(R.id.handle)
+        btnCast = view.findViewById(R.id.ib_cast)
+        btnQueue = view.findViewById(R.id.ib_queue)
+        btnCaptions = view.findViewById(R.id.ib_captions)
     }
 
     private fun setupButtons() {
@@ -162,6 +168,18 @@ class PlayerFragment : Fragment() {
         }
         btnToFavorite.setOnClickListener {
             playerViewModel.toggleToFavorite(playerHandler.currentMediaItemLiveData.value!!)
+        }
+        btnCast.setOnClickListener {
+            // TODO: Not yet implemented
+            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
+        }
+        btnQueue.setOnClickListener {
+            // TODO: Not yet implemented
+            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
+        }
+        btnCaptions.setOnClickListener {
+            // TODO: Not yet implemented
+            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
         }
     }
 

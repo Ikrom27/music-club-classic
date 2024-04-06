@@ -171,5 +171,39 @@
             app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ib_play_pause" />
+
+        <ImageButton
+            android:id="@+id/ib_device"
+            android:layout_width="@dimen/icon_medium"
+            android:layout_height="@dimen/icon_medium"
+            android:src="@drawable/ic_connect"
+            android:visibility="gone"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ib_play_pause" />
+
+        <ImageButton
+            android:id="@+id/ib_queue"
+            android:layout_width="@dimen/icon_medium"
+            android:layout_height="@dimen/icon_medium"
+            android:src="@drawable/ic_list"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/ib_device"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ib_device"
+            app:layout_constraintTop_toTopOf="@+id/ib_device" />
+
+        <ImageButton
+            android:id="@+id/ib_captions"
+            android:layout_width="@dimen/icon_medium"
+            android:layout_height="@dimen/icon_medium"
+            android:src="@drawable/ic_cc"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/ib_device"
+            app:layout_constraintEnd_toStartOf="@+id/ib_device"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ib_device" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
