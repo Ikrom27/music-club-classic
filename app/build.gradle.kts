@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    //Mini Equalizer
+    implementation("com.github.claucookie.miniequalizer:library:1.0.0")
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")

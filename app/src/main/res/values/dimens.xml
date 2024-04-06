@@ -24,6 +24,7 @@
 
     <!-- Cover size -->
     <dimen name="thumbnail_medium">70dp</dimen>
+    <dimen name="thumbnail_small_plus">56dp</dimen>
 
     <!-- Margins -->
     <dimen name="section_margin">14dp</dimen>

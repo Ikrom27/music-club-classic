@@ -35,6 +35,7 @@ import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
 import com.ikrom.music_club_classic.playback.PlayerHandler
+import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -174,8 +175,8 @@ class PlayerFragment : Fragment() {
             Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
         }
         btnQueue.setOnClickListener {
-            // TODO: Not yet implemented
-            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
+            val bottomQueueFragment = PlayerQueueFragment()
+            bottomQueueFragment.show(parentFragmentManager, bottomQueueFragment.tag)
         }
         btnCaptions.setOnClickListener {
             // TODO: Not yet implemented

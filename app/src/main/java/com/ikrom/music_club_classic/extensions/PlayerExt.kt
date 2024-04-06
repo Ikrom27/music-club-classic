@@ -2,11 +2,14 @@ package com.ikrom.music_club_classic.extensions
 
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
+import androidx.media3.common.Timeline
 import androidx.media3.common.util.UnstableApi
 import com.ikrom.music_club_classic.data.model.Track
+import java.util.ArrayDeque
 
 
 val Player.currentMetaData: MediaMetadata?
@@ -37,13 +40,37 @@ fun Track.toMediaItem(): MediaItem {
         .build()
 }
 
-fun Player.findNextMediaItemById(mediaId: String): MediaItem? {
-    for (i in currentMediaItemIndex until mediaItemCount) {
-        if (getMediaItemAt(i).mediaId == mediaId) {
-            return getMediaItemAt(i)
+fun Player.getMediaItemQueue(): List<MediaItem> {
+    val timeline = currentTimeline
+    if (timeline.isEmpty) {
+        return emptyList()
+    }
+    val queue = ArrayDeque<MediaItem>()
+    val queueSize = timeline.windowCount
+
+    val currentMediaItemIndex: Int = currentMediaItemIndex
+    queue.add(timeline.getWindow(currentMediaItemIndex, Timeline.Window()).mediaItem)
+
+    var firstMediaItemIndex = currentMediaItemIndex
+    var lastMediaItemIndex = currentMediaItemIndex
+    val shuffleModeEnabled = shuffleModeEnabled
+    while ((firstMediaItemIndex != C.INDEX_UNSET || lastMediaItemIndex != C.INDEX_UNSET) && queue.size < queueSize) {
+        if (lastMediaItemIndex != C.INDEX_UNSET) {
+            lastMediaItemIndex = timeline.getNextWindowIndex(lastMediaItemIndex,
+                Player.REPEAT_MODE_OFF, shuffleModeEnabled)
+            if (lastMediaItemIndex != C.INDEX_UNSET) {
+                queue.add(timeline.getWindow(lastMediaItemIndex, Timeline.Window()).mediaItem)
+            }
+        }
+        if (firstMediaItemIndex != C.INDEX_UNSET && queue.size < queueSize) {
+            firstMediaItemIndex = timeline.getPreviousWindowIndex(firstMediaItemIndex,
+                Player.REPEAT_MODE_OFF, shuffleModeEnabled)
+            if (firstMediaItemIndex != C.INDEX_UNSET) {
+                queue.addFirst(timeline.getWindow(firstMediaItemIndex, Timeline.Window()).mediaItem)
+            }
         }
     }
-    return null
+    return queue.toList()
 }
 
 fun Long.toTimeString(): String {

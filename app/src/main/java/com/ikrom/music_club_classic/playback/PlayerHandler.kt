@@ -1,12 +1,16 @@
 package com.ikrom.music_club_classic.playback
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.data.repository.MediaRepository
+import com.ikrom.music_club_classic.extensions.getMediaItemQueue
 import com.ikrom.music_club_classic.extensions.hasOldTracks
 import com.ikrom.music_club_classic.extensions.isLastPlaying
 import com.ikrom.music_club_classic.extensions.toMediaItem
@@ -16,10 +20,12 @@ class PlayerHandler @Inject constructor(
     val player: ExoPlayer,
     val repository: MediaRepository
 ): PlayerConnection(player) {
-    private val playerQueue: MutableList<MediaItem> = mutableListOf()
+    val recommendedQueue: MutableList<MediaItem> = mutableListOf()
+    val currentQueue = MutableLiveData<List<MediaItem>>()
 
     init {
         player.addListener(this)
+        currentQueue.value = player.getMediaItemQueue()
     }
 
     fun playNow(tracks: List<Track>){
@@ -50,7 +56,7 @@ class PlayerHandler @Inject constructor(
     }
 
     fun addToQueue(items: List<MediaItem>) {
-        if (player.mediaItemCount - player.currentMediaItemIndex - 1 == 0){
+        if (player.mediaItemCount - player.currentMediaItemIndex - 1 == 0 || player.mediaItemCount == 0){
             player.addMediaItems(items)
         } else {
             player.addMediaItems(player.mediaItemCount-1, items)
@@ -69,6 +75,7 @@ class PlayerHandler @Inject constructor(
 
     fun toggleShuffle(){
         player.shuffleModeEnabled = !player.shuffleModeEnabled
+        currentQueue.value = player.getMediaItemQueue()
     }
 
     fun togglePlayPause() {
@@ -85,19 +92,21 @@ class PlayerHandler @Inject constructor(
         }
     }
 
+    override fun onTimelineChanged(timeline: Timeline, reason: Int) {
+        super.onTimelineChanged(timeline, reason)
+        currentQueue.value = player.getMediaItemQueue()
+    }
+
     private fun addRecommendedTracks(){
-        if (playerQueue.size < 2){
+        if (recommendedQueue.size < 1){
             repository.getRadioTracks(WatchEndpoint(player.currentMediaItem?.mediaId)).observeForever { trackList ->
                 if (trackList.isNotEmpty()){
-                    playerQueue += trackList.map{it.toMediaItem()}.shuffled()
-                    if(player.hasNextMediaItem()){
-
-                    }
-                    addToQueue(playerQueue.removeFirst())
+                    recommendedQueue += trackList.map{it.toMediaItem()}.shuffled()
+                    addToQueue(recommendedQueue.removeFirst())
                 }
             }
         } else {
-            addToQueue(playerQueue.removeFirst())
+            addToQueue(recommendedQueue.removeFirst())
         }
     }
 
