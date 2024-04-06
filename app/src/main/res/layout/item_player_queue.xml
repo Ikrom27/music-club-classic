@@ -2,12 +2,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:background="?attr/selectableItemBackground"
-    android:paddingVertical="10dp"
+    style="@style/ClickableLayout"
+    android:paddingVertical="@dimen/spacer_small_extra"
     android:paddingHorizontal="@dimen/content_horizontal_margin">
 
     <androidx.cardview.widget.CardView
@@ -31,12 +29,12 @@
         <es.claucookie.miniequalizerlibrary.EqualizerView
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/equalizer_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/icon_medium"
+            android:layout_height="@dimen/icon_medium"
             android:layout_gravity="center"
             custom:foregroundColor="?attr/colorPrimary"
             custom:animDuration="3500"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
     </androidx.cardview.widget.CardView>
 
     <TextView

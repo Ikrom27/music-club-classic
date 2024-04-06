@@ -25,11 +25,30 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Layouts -->
+    <style name="TextContainer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacer_small</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="ClickableLayout">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
     <!-- CardStyle -->
     <style name="AppCardViewStyle" parent="CardView">
         <item name="android:backgroundTint">@color/grey_20</item>
         <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">@dimen/corner_radius_medium</item>
+    </style>
+    <style name="ThumbnailSmallCard">
+        <item name="android:layout_width">@dimen/thumbnail_small_plus</item>
+        <item name="android:layout_height">@dimen/thumbnail_small_plus</item>
+        <item name="cardCornerRadius">@dimen/corner_radius_small</item>
+
     </style>
 
     <!-- ToolBar -->

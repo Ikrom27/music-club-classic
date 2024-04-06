@@ -10,39 +10,50 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 
 @SuppressLint("ViewConstructor")
 class MiniPlayerView : FrameLayout {
     private lateinit var container: View
-    private lateinit var thumbnailImageView: ImageView
-    private lateinit var titleTextView: TextView
-    private lateinit var subTitleTextView: TextView
-    private lateinit var button: ImageButton
+    private lateinit var ivThumbnail: ImageView
+    private lateinit var tvTitle: TextView
+    private lateinit var tvSubtitle: TextView
+    private lateinit var btnPlayPause: ImageButton
     var title: String = ""
         set(value) {
             field = value
-            titleTextView.text = value
+            tvTitle.text = value
         }
 
     var subTitle: String = ""
         set(value) {
             field = value
-            subTitleTextView.text = value
+            tvSubtitle.text = value
         }
 
     var thumbnail: Int = 0
         set(value) {
             field = value
-            thumbnailImageView.setImageResource(value)
+            ivThumbnail.setImageResource(value)
         }
+
+    var thumbnailUrl: String = ""
+        set(value) {
+            field = value
+            Glide
+                .with(this)
+                .load(value)
+                .centerCrop()
+                .into(ivThumbnail)
+        }
+
 
     var btnIcon: Int = 0
         set(value) {
             field = value
-            button.setImageResource(value)
+            btnPlayPause.setImageResource(value)
         }
 
     var layoutBackgroundColor: Int = Color.TRANSPARENT
@@ -66,14 +77,15 @@ class MiniPlayerView : FrameLayout {
     }
 
     private fun init(context: Context) {
-        LayoutInflater.from(context).inflate(R.layout.layout_mini_player, this, true)
+        LayoutInflater.from(context).inflate(R.layout.component_mini_player, this, true)
         container = findViewById(R.id.container)
-        thumbnailImageView = findViewById(R.id.iv_thumbnail_card)
-        titleTextView = findViewById(R.id.tv_title)
-        subTitleTextView = findViewById(R.id.tv_subtitle)
-        button = findViewById(R.id.btn_player)
+        ivThumbnail = findViewById(R.id.iv_thumbnail_card)
+        tvTitle = findViewById(R.id.tv_title)
+        tvSubtitle = findViewById(R.id.tv_subtitle)
+        btnPlayPause = findViewById(R.id.btn_player)
     }
 
+    @SuppressLint("CustomViewStyleable")
     private fun getStuffFromXML(attrs: AttributeSet?) {
         val data = context.obtainStyledAttributes(attrs, R.styleable.MiniPlayer)
         title = data.getString(R.styleable.MiniPlayer_title) ?: ""
@@ -84,9 +96,9 @@ class MiniPlayerView : FrameLayout {
         data.recycle()
     }
 
-    fun setOnButtonClickListener(onClickListener: OnClickListener) = button.setOnClickListener(onClickListener)
+    fun setOnButtonClickListener(onClickListener: OnClickListener) = btnPlayPause.setOnClickListener(onClickListener)
     fun setOnLayoutClickListener(onClickListener: OnClickListener) = container.setOnClickListener(onClickListener)
-    fun getThumbnailImageView() : ImageView = thumbnailImageView
+
 }
 
 

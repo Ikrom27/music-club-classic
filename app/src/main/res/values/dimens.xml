@@ -32,4 +32,8 @@
     <dimen name="section_title_margin">14dp</dimen>
     <dimen name="items_margin">16dp</dimen>
     <dimen name="content_horizontal_margin">20dp</dimen>
+
+    <!-- Spacer -->
+    <dimen name="spacer_small">14dp</dimen>
+    <dimen name="spacer_small_extra">10dp</dimen>
 </resources>

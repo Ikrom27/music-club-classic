@@ -1,12 +1,10 @@
 package com.ikrom.music_club_classic.ui
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
@@ -87,11 +85,7 @@ class MainFragment : Fragment() {
             if (it != null){
                 miniPlayerView.title = it.mediaMetadata.title.toString()
                 miniPlayerView.subTitle = it.mediaMetadata.artist.toString()
-                Glide
-                    .with(this)
-                    .load(it.mediaMetadata.artworkUri?.toString())
-                    .centerCrop()
-                    .into(miniPlayerView.getThumbnailImageView())
+                miniPlayerView.thumbnailUrl = it.mediaMetadata.artworkUri?.toString() ?: ""
             }
         }
         playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
