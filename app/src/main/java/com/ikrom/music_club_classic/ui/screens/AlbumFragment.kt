@@ -15,15 +15,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.extensions.toMediumTrackItem
+import com.ikrom.music_club_classic.extensions.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.album.AlbumHeaderDelegate
-import com.ikrom.music_club_classic.ui.adapters.album.AlbumHeaderDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,9 +37,14 @@ class AlbumFragment : Fragment() {
     private lateinit var trackList: LiveData<List<Track>>
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var compositeAdapter: CompositeAdapter
     private lateinit var albumBar: AlbumBar
     private lateinit var navController: NavController
+
+    private val compositeAdapter = CompositeAdapter.Builder()
+        .add(ThumbnailHeaderDelegate())
+        .add(MediumTrackDelegate())
+        .build()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +57,6 @@ class AlbumFragment : Fragment() {
             navController.navigateUp()
         }
         bindViews(view)
-        setupAdapter()
         setupRecyclerView()
         setupContent()
         setupButtons()
@@ -74,28 +76,6 @@ class AlbumFragment : Fragment() {
         albumBar.setOnMoreClick {
             //TODO: setOnMoreClick
         }
-    }
-
-    private fun setupAdapter() {
-        compositeAdapter = CompositeAdapter.Builder()
-            .add(AlbumHeaderDelegate(
-                onPlayClick = {
-                    trackList.observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()){
-                            playerHandler.playNow(it)
-                        }
-                    }
-                },
-                onShuffleClick = {
-                    trackList.observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()){
-                            playerHandler.playNow(it.shuffled())
-                        }
-                    }
-                }
-            ))
-            .add(MediumTrackDelegate())
-            .build()
     }
 
     private fun bindViews(view: View){
@@ -121,13 +101,17 @@ class AlbumFragment : Fragment() {
 
     private fun setupContent() {
         trackList.observe(viewLifecycleOwner) {trackList ->
-            val items = trackList.map {
+            val header = currentAlbum!!.toThumbnailHeaderItem(
+                onPlayClick = {playerHandler.playNow(trackList)},
+                onShuffleClick = {playerHandler.playNow(trackList.shuffled())}
+            )
+            val tracks = trackList.map {
                 it.toMediumTrackItem(
                     onItemClick = {playerHandler.playNow(it)},
                     onButtonClick = {})
             }
             compositeAdapter.setItems(
-                listOf(AlbumHeaderDelegateItem(currentAlbum!!)) + items
+                listOf(header) + tracks
             )
         }
     }
