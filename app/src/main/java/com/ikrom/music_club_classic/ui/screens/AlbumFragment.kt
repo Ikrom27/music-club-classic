@@ -1,11 +1,11 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
@@ -14,17 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.extensions.getNames
+import com.ikrom.music_club_classic.extensions.toMediumTrackItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.album.AlbumHeaderDelegate
 import com.ikrom.music_club_classic.ui.adapters.album.AlbumHeaderDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
-import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistHeaderDelegate
-import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistHeaderDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistTrackAdapter
-import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistTrackDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -95,12 +94,7 @@ class AlbumFragment : Fragment() {
                     }
                 }
             ))
-            .add(PlaylistTrackAdapter(
-                onItemClick = {
-                    playerHandler.playNow(it)
-                },
-                onMoreButtonClick = {}
-            ))
+            .add(MediumTrackDelegate())
             .build()
     }
 
@@ -127,7 +121,11 @@ class AlbumFragment : Fragment() {
 
     private fun setupContent() {
         trackList.observe(viewLifecycleOwner) {trackList ->
-            val items = trackList.map { PlaylistTrackDelegateItem(it) }
+            val items = trackList.map {
+                it.toMediumTrackItem(
+                    onItemClick = {playerHandler.playNow(it)},
+                    onButtonClick = {})
+            }
             compositeAdapter.setItems(
                 listOf(AlbumHeaderDelegateItem(currentAlbum!!)) + items
             )

@@ -9,7 +9,7 @@
     android:paddingHorizontal="@dimen/content_horizontal_margin">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cover_card"
+        android:id="@+id/container_thumbnail"
         android:layout_width="@dimen/thumbnail_small_plus"
         android:layout_height="@dimen/thumbnail_small_plus"
         app:cardCornerRadius="@dimen/corner_radius_small"
@@ -46,9 +46,9 @@
         android:gravity="start"
         android:maxWidth="0dp"
         app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintBottom_toBottomOf="@+id/cover_card"
+        app:layout_constraintBottom_toBottomOf="@+id/container_thumbnail"
         app:layout_constraintEnd_toStartOf="@+id/ib_more"
-        app:layout_constraintStart_toEndOf="@+id/cover_card"
+        app:layout_constraintStart_toEndOf="@+id/container_thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

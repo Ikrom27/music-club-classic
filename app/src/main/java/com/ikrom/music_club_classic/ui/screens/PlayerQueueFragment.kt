@@ -15,8 +15,8 @@ import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.player.PlayerQueueDelegate
 import com.ikrom.music_club_classic.ui.adapters.player.PlayerQueueItem
-import com.ikrom.music_club_classic.ui.adapters.search.TitleDelegate
-import com.ikrom.music_club_classic.ui.adapters.search.TitleDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -78,7 +78,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment() {
             compositeAdapter.setItems(emptyList())
             if (mediaItems.size > 1){
                 compositeAdapter.addItems(listOf(
-                    TitleDelegateItem("Current Queue")
+                    TitleItem("Current Queue")
                 ))
                 compositeAdapter.addItems(
                     mediaItems.map {
@@ -93,7 +93,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment() {
             }
             compositeAdapter.addItems(
                 listOf(
-                    TitleDelegateItem("Recommended")
+                    TitleItem("Recommended")
                 )
             )
             compositeAdapter.addItems(

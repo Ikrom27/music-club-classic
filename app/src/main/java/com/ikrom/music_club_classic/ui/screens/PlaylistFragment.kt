@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
@@ -15,13 +16,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.extensions.getNames
+import com.ikrom.music_club_classic.extensions.toMediumTrackItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistHeaderDelegate
 import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistHeaderDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistTrackAdapter
-import com.ikrom.music_club_classic.ui.adapters.playlist.PlaylistTrackDelegateItem
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
@@ -39,9 +44,16 @@ class PlaylistFragment : Fragment() {
     private lateinit var trackList: LiveData<List<Track>>
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var compositeAdapter: CompositeAdapter
     private lateinit var albumBar: AlbumBar
     private lateinit var navController: NavController
+
+    private val compositeAdapter = CompositeAdapter.Builder()
+        .add(PlaylistHeaderDelegate(
+            onPlayClick = { playAll() },
+            onShuffleClick = { playShuffled() })
+        )
+        .add(MediumTrackDelegate())
+        .build()
 
 
     override fun onCreateView(
@@ -53,12 +65,28 @@ class PlaylistFragment : Fragment() {
         trackList = viewModel.playlistItems
         navController = requireParentFragment().findNavController()
         bindViews(view)
-        setupAdapter()
         setupRecyclerView()
         setupContent()
         setupButtons()
         return view
     }
+
+    private fun playAll(){
+        trackList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()){
+                playerHandler.playNow(it)
+            }
+        }
+    }
+
+    private fun playShuffled(){
+        trackList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()){
+                playerHandler.playNow(it.shuffled())
+            }
+        }
+    }
+
 
     private fun setupButtons(){
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
@@ -74,33 +102,6 @@ class PlaylistFragment : Fragment() {
         albumBar.setOnMoreClick {
            //TODO: setOnMoreClick
         }
-    }
-
-    private fun setupAdapter() {
-        compositeAdapter = CompositeAdapter.Builder()
-            .add(PlaylistHeaderDelegate(
-                onPlayClick = {
-                    trackList.observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()){
-                            playerHandler.playNow(it)
-                        }
-                    }
-                },
-                onShuffleClick = {
-                    trackList.observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()){
-                            playerHandler.playNow(it.shuffled())
-                        }
-                    }
-                }
-            ))
-            .add(PlaylistTrackAdapter(
-                onItemClick = {
-                    playerHandler.playNow(it)
-                },
-                onMoreButtonClick = {}
-            ))
-            .build()
     }
 
     private fun bindViews(view: View){
@@ -126,7 +127,11 @@ class PlaylistFragment : Fragment() {
 
     private fun setupContent() {
         trackList.observe(viewLifecycleOwner) {trackList ->
-            val items = trackList.map { PlaylistTrackDelegateItem(it) }
+            val items = trackList.map {
+                it.toMediumTrackItem(
+                    onItemClick = {playerHandler.playNow(it)},
+                    onButtonClick = {})
+            }
             compositeAdapter.setItems(
                 listOf(PlaylistHeaderDelegateItem(currentPlaylist!!)) + items
             )

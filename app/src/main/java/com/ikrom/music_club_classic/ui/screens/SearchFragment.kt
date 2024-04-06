@@ -1,7 +1,6 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.extensions.getNames
+import com.ikrom.music_club_classic.extensions.toMediumTrackItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
-import com.ikrom.music_club_classic.ui.adapters.search.MediumTrackDelegate
-import com.ikrom.music_club_classic.ui.adapters.search.SearchAdapter
-import com.ikrom.music_club_classic.ui.adapters.search.TitleDelegate
-import com.ikrom.music_club_classic.ui.adapters.search.TitleDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.search.TrackDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.components.SearchBar
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,10 +35,13 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by activityViewModels()
 
-    private lateinit var adapter: CompositeAdapter
     private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
+    private var adapter = CompositeAdapter.Builder()
+        .add(MediumTrackDelegate())
+        .add(TitleDelegate())
+        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,11 +82,6 @@ class SearchFragment : Fragment() {
 
 
     fun setupAdapter() {
-        adapter = CompositeAdapter.Builder()
-            .add(MediumTrackDelegate { onMoreButtonClick(it) })
-            .add(TitleDelegate())
-            .build()
-
         val mediatorLiveData = MediatorLiveData<Pair<List<Track>, List<Track>>>().apply {
             addSource(viewModel.localResultList) { localTracks ->
                 value = Pair(localTracks, viewModel.globalResultList.value ?: listOf())
@@ -97,20 +94,24 @@ class SearchFragment : Fragment() {
         mediatorLiveData.observe(viewLifecycleOwner) { (localTracks, globalTracks) ->
             adapter.setItems(emptyList())
             if (localTracks.isNotEmpty()) {
-                adapter.addItems(listOf(TitleDelegateItem("This playlist")))
-                adapter.addItems(localTracks.map { TrackDelegateItem(it) })
-                adapter.addItems(listOf(TitleDelegateItem(" ")))
+                adapter.addItems(listOf(TitleItem("This playlist")))
+                adapter.addItems(localTracks.map {
+                    it.toMediumTrackItem(
+                        onItemClick = {playerHandler.playNow(it)},
+                        onButtonClick = {}
+                    ) })
+                adapter.addItems(listOf(TitleItem(" ")))
             }
             if (globalTracks.isNotEmpty()) {
-                adapter.addItems(listOf(TitleDelegateItem("Global search")))
-                adapter.addItems(globalTracks.map { TrackDelegateItem(it) })
+                adapter.addItems(listOf(TitleItem("Global search")))
+                adapter.addItems(globalTracks.map {
+                    it.toMediumTrackItem(
+                        onItemClick = {playerHandler.playNow(it)},
+                        onButtonClick = {}) })
             }
         }
 
     }
-
-
-    fun onMoreButtonClick(track: Track){}
 
     fun onItemClick(track: Track){
         playerHandler.playNow(track)

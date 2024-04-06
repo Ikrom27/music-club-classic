@@ -2,63 +2,57 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:clickable="true"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    android:focusable="true"
-    android:paddingVertical="10dp">
+    android:layout_height="wrap_content"
+    style="@style/ClickableLayout"
+    android:paddingVertical="@dimen/spacer_small"
+    android:paddingHorizontal="@dimen/content_horizontal_margin">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cover_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/corner_radius_small"
+        android:id="@+id/container_thumbnail"
+        style="@style/ThumbnailMediumCard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="@dimen/thumbnail_medium"
-            android:layout_height="@dimen/thumbnail_medium" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tv_title"
-        style="@style/TextViewTitles.ItemPrimaryTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/icon_small"
-        android:gravity="start"
-        android:maxWidth="0dp"
-        app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintBottom_toBottomOf="@+id/cover_card"
-        app:layout_constraintEnd_toStartOf="@+id/ib_more"
-        app:layout_constraintStart_toEndOf="@+id/cover_card"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/layout_text_container"
+        style="@style/TextContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ic_downloaded"
+        app:layout_constraintStart_toEndOf="@+id/container_thumbnail"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_subtitle"
-        style="@style/TextViewTitles.ItemSecondaryTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:layout_marginEnd="@dimen/icon_small"
-        app:layout_constraintEnd_toStartOf="@+id/ib_more"
-        app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextViewTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/TextViewTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ic_downloaded"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        app:layout_constraintStart_toEndOf="@+id/tv_title"
-        app:layout_constraintTop_toTopOf="@+id/tv_title" />
+        app:layout_constraintBottom_toBottomOf="@+id/ib_more"
+        app:layout_constraintEnd_toStartOf="@+id/ib_more"
+        app:layout_constraintTop_toTopOf="@+id/ib_more" />
 
     <ImageButton
         android:id="@+id/ib_more"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/icon_medium"
-        android:padding="0dp"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
         android:src="@drawable/ic_more_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

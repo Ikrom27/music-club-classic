@@ -9,8 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tracks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/content_horizontal_margin" />
+        android:layout_height="match_parent" />
 
     <com.ikrom.music_club_classic.ui.components.AlbumBar
         android:id="@+id/album_bar"
