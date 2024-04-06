@@ -13,8 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.player.PlayerQueueDelegate
-import com.ikrom.music_club_classic.ui.adapters.player.PlayerQueueItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.adapters.library
+package com.ikrom.music_club_classic.ui.adapters
 
 import android.view.View
 import android.widget.ImageButton
@@ -9,18 +9,18 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 
-class PlayListAdapter(
+class LibraryAdapter(
     val onButtonClickListener: () -> Unit
 ): BaseAdapter<PlayList>() {
     override fun getViewHolder(binding: View): BaseViewHolder<PlayList> {
-        return PlayListViewHolder(binding)
+        return LibraryViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {
         return R.layout.item_library_playlist
     }
 
-    inner class PlayListViewHolder(itemView: View): BaseViewHolder<PlayList>(itemView){
+    inner class LibraryViewHolder(itemView: View): BaseViewHolder<PlayList>(itemView){
         private val coverView: ImageView = itemView.findViewById(R.id.iv_playlist_cover)
         private val titleView: TextView = itemView.findViewById(R.id.tv_title)
         private val subTitleView: TextView = itemView.findViewById(R.id.tv_subtitle)

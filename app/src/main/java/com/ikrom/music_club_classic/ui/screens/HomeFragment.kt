@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +20,8 @@ import com.ikrom.music_club_classic.ui.adapters.home.ArtistTracksDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.AuthorTracksDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.home.CardDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.CardDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.home.PlayerCardDelegate
-import com.ikrom.music_club_classic.ui.adapters.home.PlayerDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
+import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
 import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
@@ -64,7 +63,7 @@ class HomeFragment : Fragment() {
                     bottomMenu.show(parentFragmentManager, bottomMenu.tag)
                 }
             }))
-            .add(PlayerCardDelegate(
+            .add(QuickPickDelegate(
                 isPlaying = playerHandler.isPlayingLiveData,
                 currentMediaItem= playerHandler.currentMediaItemLiveData,
                 lifecycleOwner = viewLifecycleOwner,
@@ -81,14 +80,14 @@ class HomeFragment : Fragment() {
             })
             .build()
         val testData = listOf(
-            PlayerDelegateItem(title = "Quick pick", track = null),
+            QuickPickItem(title = "Quick pick", track = null),
             CardDelegateItem(title = "Liked playlists", playLists = homeViewModel.getLikedPlayLists()),
             AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park")),
         )
         compositeAdapter.setItems(testData)
         homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
             if(tracks.isNotEmpty()){
-                compositeAdapter.updateItem(0, PlayerDelegateItem(title = "Quick pick", track = tracks[0]))
+                compositeAdapter.updateItem(0, QuickPickItem(title = "Quick pick", track = tracks[0]))
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(context)

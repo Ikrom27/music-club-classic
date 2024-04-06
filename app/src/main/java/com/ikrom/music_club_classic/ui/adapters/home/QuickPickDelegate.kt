@@ -16,21 +16,21 @@ import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 
-data class PlayerDelegateItem(
+data class QuickPickItem(
     val title: String,
     val track: Track?,
 ): IDelegateItem
 
-class PlayerCardDelegate(
+class QuickPickDelegate(
     val isPlaying: LiveData<Boolean>,
     val currentMediaItem: LiveData<MediaItem?>,
     val lifecycleOwner: LifecycleOwner,
     val onPlayPauseClick: (track: Track) -> Unit,
     val onSkipClick: () -> Unit
-): BaseDelegateAdapter<PlayerDelegateItem, PlayerCardDelegate.PlayerCardViewHolder>(
-    PlayerDelegateItem::class.java
+): BaseDelegateAdapter<QuickPickItem, QuickPickDelegate.QuickPickViewHolder>(
+    QuickPickItem::class.java
 ) {
-    inner class PlayerCardViewHolder(itemView: View): DelegateViewHolder<PlayerDelegateItem>(itemView){
+    inner class QuickPickViewHolder(itemView: View): DelegateViewHolder<QuickPickItem>(itemView){
         private val sectionTitle = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
@@ -38,7 +38,7 @@ class PlayerCardDelegate(
         private val btnPlayPause = itemView.findViewById<ImageButton>(R.id.btn_play_pause)
         private val btnSkip = itemView.findViewById<ImageButton>(R.id.btn_skip)
 
-        override fun bind(item: PlayerDelegateItem) {
+        override fun bind(item: QuickPickItem) {
             val track = item.track
             Glide
                 .with(itemView.context)
@@ -78,7 +78,7 @@ class PlayerCardDelegate(
     }
 
     override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
-        return PlayerCardViewHolder(binding)
+        return QuickPickViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {

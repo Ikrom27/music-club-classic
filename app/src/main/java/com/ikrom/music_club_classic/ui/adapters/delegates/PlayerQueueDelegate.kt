@@ -1,7 +1,6 @@
-package com.ikrom.music_club_classic.ui.adapters.player
+package com.ikrom.music_club_classic.ui.adapters.delegates
 
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
