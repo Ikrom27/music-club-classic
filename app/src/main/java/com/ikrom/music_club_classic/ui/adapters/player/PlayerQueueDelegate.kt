@@ -18,15 +18,15 @@ data class PlayerQueueItem(
     val isPlaying: Boolean = false
 ): IDelegateItem
 
-class PlayerQueueDelegate(
-): BaseDelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
+class PlayerQueueDelegate :
+    BaseDelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
     PlayerQueueItem::class.java){
     inner class PlayerQueueViewHolder(itemView: View): DelegateViewHolder<PlayerQueueItem>(itemView){
-        val cover: ImageView = itemView.findViewById(R.id.iv_thumbnail)
-        val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
-        val subtitleTextView: TextView = itemView.findViewById(R.id.tv_subtitle)
-        val equalizerView: EqualizerView = itemView.findViewById(R.id.equalizer_view)
-        val equalizerShadow: View = itemView.findViewById(R.id.equalizer_view_shadow)
+        private val cover: ImageView = itemView.findViewById(R.id.iv_thumbnail)
+        private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
+        private val subtitleTextView: TextView = itemView.findViewById(R.id.tv_subtitle)
+        private val equalizerView: EqualizerView = itemView.findViewById(R.id.equalizer_view)
+        private val equalizerShadow: View = itemView.findViewById(R.id.equalizer_view_shadow)
 
         override fun bind(item: PlayerQueueItem) {
             Glide

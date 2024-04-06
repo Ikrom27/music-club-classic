@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             custom:foregroundColor="?attr/colorPrimary"
             custom:animDuration="3500"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
     </androidx.cardview.widget.CardView>
 
     <TextView
