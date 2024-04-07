@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,13 +24,10 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
     val quickPick = MutableLiveData<List<Track>>()
     val userPlaylists = MutableLiveData<List<PlayList>>()
+    val trackList = MutableLiveData<List<Track>>()
 
     init {
         update()
-    }
-
-    fun getTracks(query: String): LiveData<List<Track>> {
-        return repository.getTracksByQuery(query)
     }
 
     fun update(){
@@ -37,21 +35,16 @@ class HomeViewModel @Inject constructor(
             recommendedUseCase.getRecommendedTracks().asFlow().collect {
                 quickPick.postValue(it)
             }
+        }
+        viewModelScope.launch {
             repository.getLikedPlayLists().asFlow().collect(){
                 userPlaylists.postValue(it)
             }
         }
-    }
-
-    fun getRecommendedTracks(): LiveData<List<Track>>{
-        return quickPick
-    }
-
-    fun getNewReleases(): LiveData<List<Album>>{
-        return repository.getNewReleases()
-    }
-
-    fun getLikedPlayLists(): LiveData<List<PlayList>>{
-        return userPlaylists
+        viewModelScope.launch {
+            repository.getTracksByQuery("Linkin park").asFlow().collect(){
+                trackList.postValue(it)
+            }
+        }
     }
 }

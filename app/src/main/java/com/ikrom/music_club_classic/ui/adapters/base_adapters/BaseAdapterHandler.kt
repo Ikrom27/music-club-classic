@@ -37,7 +37,7 @@ abstract class BaseAdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.
     }
 
     fun updateItem(position: Int, item: T){
-        if (position <= mItems.size){
+        if (position >= mItems.size){
             addToEnd(item)
             return
         }
@@ -57,6 +57,6 @@ abstract class BaseAdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.
     }
 
     fun addToEnd(item: T){
-        addToPosition(mItems.size - 1, item)
+        addToPosition(mItems.size, item)
     }
 }
