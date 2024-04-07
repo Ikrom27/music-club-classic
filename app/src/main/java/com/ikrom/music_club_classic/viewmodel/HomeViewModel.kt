@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getRecommendedTracks(): LiveData<List<Track>>{
-        return recommendedUseCase.getRecommendedTracks()
+        return quickPick
     }
 
     fun getNewReleases(): LiveData<List<Album>>{
@@ -52,6 +52,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getLikedPlayLists(): LiveData<List<PlayList>>{
-        return repository.getLikedPlayLists()
+        return userPlaylists
     }
 }

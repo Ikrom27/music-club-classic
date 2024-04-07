@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.extensions.toCardItems
+import com.ikrom.music_club_classic.extensions.albumCardItems
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewDelegate
@@ -52,7 +52,7 @@ class ExploreFragment : Fragment() {
     private fun setupAdapterData(){
         viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
             if(albums.isNotEmpty()){
-                val cardItems = albums.toCardItems { onAlbumClick(it) }
+                val cardItems = albums.albumCardItems { onAlbumClick(it) }
                 val newReleasesItem = RecyclerViewItem("New Releases", cardItems)
                 adapter.updateItem(0, newReleasesItem)
             }

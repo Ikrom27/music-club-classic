@@ -46,12 +46,34 @@ fun Album.toCardItem(
     )
 }
 
-fun List<Album>.toCardItems(
+fun PlayList.toCardItem(
+    onItemClick: () -> Unit
+)
+        : CardItem {
+    return CardItem(
+        title = title,
+        subtitle = artists?.name ?: "unknown author ",
+        thumbnail = thumbnail,
+        onItemClick = { onItemClick() }
+    )
+}
+
+fun List<Album>.albumCardItems(
     onItemClick: (Album) -> Unit
 ): List<CardItem>{
     return this.map { album ->
         album.toCardItem {
             onItemClick(album)
+        }
+    }
+}
+
+fun List<PlayList>.playlistCardItems(
+    onItemClick: (PlayList) -> Unit
+): List<CardItem>{
+    return this.map { playlist ->
+        playlist.toCardItem {
+            onItemClick(playlist)
         }
     }
 }

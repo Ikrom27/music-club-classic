@@ -6,20 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.extensions.playlistCardItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewItem
 import com.ikrom.music_club_classic.ui.adapters.home.ArtistTracksDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.AuthorTracksDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.home.CardDelegate
-import com.ikrom.music_club_classic.ui.adapters.home.CardDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
 import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
@@ -33,10 +36,33 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
+    private lateinit var navController: NavController
+
     private val homeViewModel: HomeViewModel by activityViewModels()
     private val playListViewModel: PlayListViewModel by activityViewModels()
     private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
-    private lateinit var navController: NavController
+
+    private val compositeAdapter = CompositeAdapter.Builder()
+        .add(QuickPickDelegate(
+            isPlaying = playerHandler.isPlayingLiveData,
+            currentMediaItem= playerHandler.currentMediaItemLiveData,
+            lifecycleOwner = viewLifecycleOwner,
+            onPlayPauseClick = { onPlayPauseClick(it) },
+            onSkipClick = {}
+        ))
+        .add(RecyclerViewDelegate(CardAdapter()))
+        .add(ArtistTracksDelegate(object : BaseAdapterCallBack<Track>(){
+            override fun onItemClick(item: Track, view: View) {
+                playerHandler.playNow(item)
+            }
+
+            override fun onLongClick(item: Track, view: View) {
+                bottomMenuViewModel.trackLiveData.postValue(item)
+                val bottomMenu = BottomMenuFragment()
+                bottomMenu.show(parentFragmentManager, bottomMenu.tag)
+            }
+        }))
+        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,50 +72,34 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
         navController = requireParentFragment().findNavController()
-        setupAdapter(recyclerView)
+        setupRecyclerView(recyclerView)
+        setupAdapterData()
         return view
     }
 
-    private fun setupAdapter(recyclerView: RecyclerView){
-        val compositeAdapter = CompositeAdapter.Builder()
-            .add(ArtistTracksDelegate(object : BaseAdapterCallBack<Track>(){
-                override fun onItemClick(item: Track, view: View) {
-                    playerHandler.playNow(item)
-                }
-
-                override fun onLongClick(item: Track, view: View) {
-                    bottomMenuViewModel.trackLiveData.postValue(item)
-                    val bottomMenu = BottomMenuFragment()
-                    bottomMenu.show(parentFragmentManager, bottomMenu.tag)
-                }
-            }))
-            .add(QuickPickDelegate(
-                isPlaying = playerHandler.isPlayingLiveData,
-                currentMediaItem= playerHandler.currentMediaItemLiveData,
-                lifecycleOwner = viewLifecycleOwner,
-                onPlayPauseClick = {
-                    onPlayPauseClick(it)
-                },
-                onSkipClick = {
-
-                }
-            ))
-            .add(CardDelegate {
-                playListViewModel.setPlaylist(it)
-                navController.navigate(R.id.action_homeFragment_to_albumFragment)
-            })
-            .build()
-        val testData = listOf(
-            QuickPickItem(title = "Quick pick", track = null),
-            CardDelegateItem(title = "Liked playlists", playLists = homeViewModel.getLikedPlayLists()),
-            AuthorTracksDelegateItem(title = "Linkin Park", tracks = homeViewModel.getTracks("Linkin Park")),
+    private fun setupAdapterData(){
+        val homeList = MutableLiveData(
+            mutableListOf(
+                QuickPickItem("", track = null),
+                RecyclerViewItem("", emptyList()),
+                AuthorTracksDelegateItem("", MutableLiveData(emptyList()))
+            )
         )
-        compositeAdapter.setItems(testData)
-        homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
-            if(tracks.isNotEmpty()){
-                compositeAdapter.updateItem(0, QuickPickItem(title = "Quick pick", track = tracks[0]))
-            }
+        homeViewModel.getRecommendedTracks().observe(viewLifecycleOwner) { tracks ->
+            homeList.value?.set(0, QuickPickItem(title = "Quick pick", track = tracks[0]))
         }
+        homeViewModel.getLikedPlayLists().observe(viewLifecycleOwner) {playlist ->
+            homeList.value?.set(1, RecyclerViewItem("Liked playlists", playlist.playlistCardItems {  }))
+        }
+        homeViewModel.getTracks("Linkin Park").observe(viewLifecycleOwner) {tracks ->
+            homeList.value?.set(2, AuthorTracksDelegateItem("Linkin Park", MutableLiveData(tracks)))
+        }
+        homeList.observe(viewLifecycleOwner){
+            compositeAdapter.setItems(it)
+        }
+    }
+
+    private fun setupRecyclerView(recyclerView: RecyclerView){
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = compositeAdapter
         val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
