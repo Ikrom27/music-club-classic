@@ -13,7 +13,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 class CardAdapter: BaseAdapter<PlayList>() {
     inner class CardViewHolder(itemView: View): BaseViewHolder<PlayList>(itemView){
         private val cover = itemView.findViewById<ImageView>(R.id.iv_thumbnail)
-        private val backgroundImage = itemView.findViewById<ImageView>(R.id.iv_background_image)
+        private val backgroundImage = itemView.findViewById<ImageView>(R.id.iv_thumbnail_background)
         private val title = itemView.findViewById<TextView>(R.id.tv_title)
         private val subtitle = itemView.findViewById<TextView>(R.id.tv_subtitle)
         override fun bind(item: PlayList) {
@@ -31,7 +31,6 @@ class CardAdapter: BaseAdapter<PlayList>() {
             title.text = item.title
             subtitle.text = item.artists?.name
         }
-
     }
 
     override fun getViewHolder(binding: View): BaseViewHolder<PlayList> {
@@ -39,6 +38,6 @@ class CardAdapter: BaseAdapter<PlayList>() {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_new_release_album
+        return R.layout.item_card_thumbnail
     }
 }

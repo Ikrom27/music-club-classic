@@ -27,11 +27,20 @@ abstract class BaseAdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.
     }
 
     fun addToPosition(position: Int, item: T){
+        if (mItems.isEmpty()){
+            mItems.add(item)
+            notifyItemChanged(0)
+            return
+        }
         mItems.add(position, item)
         notifyItemChanged(position)
     }
 
     fun updateItem(position: Int, item: T){
+        if (position <= mItems.size){
+            addToEnd(item)
+            return
+        }
         mItems.removeAt(position)
         mItems.add(position, item)
         notifyItemChanged(position)

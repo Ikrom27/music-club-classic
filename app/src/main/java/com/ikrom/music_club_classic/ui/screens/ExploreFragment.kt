@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -12,9 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.extensions.toCardItems
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegate
-import com.ikrom.music_club_classic.ui.adapters.explore.NewReleasesDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewItem
 import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
@@ -46,15 +50,18 @@ class ExploreFragment : Fragment() {
     }
 
     private fun setupAdapterData(){
-        viewModel.newReleasesList.observe(viewLifecycleOwner){
-            if(it.isNotEmpty()){
-                if (adapter.itemCount > 1){
-                    adapter.updateItem(0, NewReleasesDelegateItem("New Releases", it))
-                } else {
-                    adapter.setItems(listOf(NewReleasesDelegateItem("New Releases", it)))
-                }
+        viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
+            if(albums.isNotEmpty()){
+                val cardItems = albums.toCardItems { onAlbumClick(it) }
+                val newReleasesItem = RecyclerViewItem("New Releases", cardItems)
+                adapter.updateItem(0, newReleasesItem)
             }
         }
+    }
+
+    private fun onAlbumClick(album: Album){
+        albumViewModel.setAlbum(album)
+        navController.navigate(R.id.exploreFragment_to_albumFragment)
     }
 
     private fun setupRecyclerView() {
@@ -64,10 +71,7 @@ class ExploreFragment : Fragment() {
 
     private fun setupAdapter() {
         adapter = CompositeAdapter.Builder()
-            .add(NewReleasesDelegate {
-                albumViewModel.setAlbum(it)
-                navController.navigate(R.id.exploreFragment_to_albumFragment)
-            })
+            .add(RecyclerViewDelegate(CardAdapter()))
             .build()
     }
 
