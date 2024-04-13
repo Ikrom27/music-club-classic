@@ -10,17 +10,16 @@ import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapte
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 
-data class RecyclerViewItem(
+data class HorizontalItems<T: IDelegateItem>(
     val title: String,
-    val items: List<IDelegateItem>
+    val adapter: BaseAdapter<T>,
+    val items: List<T>,
 ): IDelegateItem
 
-class RecyclerViewDelegate<T: IDelegateItem>(
-    val nestedAdapter: BaseAdapter<T>
-): BaseDelegateAdapter<RecyclerViewItem, RecyclerViewDelegate<T>.RecyclerViewHolder>(
-    RecyclerViewItem::class.java,){
+class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<IDelegateItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
+    HorizontalItems::class.java as Class<out HorizontalItems<IDelegateItem>>){
     inner class RecyclerViewHolder(itemView: View):
-        DelegateViewHolder<RecyclerViewItem>(itemView)
+        DelegateViewHolder<HorizontalItems<IDelegateItem>>(itemView)
     {
         private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
@@ -28,16 +27,16 @@ class RecyclerViewDelegate<T: IDelegateItem>(
         private val marginEnd = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.items_margin)
 
-        override fun bind(item: RecyclerViewItem) {
+        override fun bind(item: HorizontalItems<IDelegateItem>) {
             title.text = item.title
-            nestedAdapter.setItems(item.items.map { it as T })
+            item.adapter.setItems(item.items)
+            recyclerView.adapter = item.adapter
             setupRecycleView()
         }
 
         private fun setupRecycleView(){
             val layout = LinearLayoutManager(itemView.context)
             layout.orientation = LinearLayoutManager.HORIZONTAL
-            recyclerView.adapter = nestedAdapter
             recyclerView.layoutManager = layout
             if (recyclerView.itemDecorationCount == 0) {
                 recyclerView.addItemDecoration(

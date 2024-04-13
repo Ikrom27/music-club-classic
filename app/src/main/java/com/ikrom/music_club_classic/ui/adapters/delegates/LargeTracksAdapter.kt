@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.adapters.home
+package com.ikrom.music_club_classic.ui.adapters.delegates
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -6,12 +6,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 
-class LargeTracksAdapter: BaseAdapter<Track>() {
-    override fun getViewHolder(binding: View): BaseViewHolder<Track> {
+data class LargeThumbnailItem(
+    val title: String,
+    val subtitle: String,
+    val thumbnail: String
+) : IDelegateItem
+
+class LargeTracksAdapter: BaseAdapter<LargeThumbnailItem>() {
+    override fun getViewHolder(binding: View): BaseViewHolder<LargeThumbnailItem> {
         return TrackViewHolder(binding)
     }
 
@@ -19,19 +24,19 @@ class LargeTracksAdapter: BaseAdapter<Track>() {
         return R.layout.item_large_tracks
     }
 
-    inner class TrackViewHolder(itemView: View): BaseViewHolder<Track>(itemView) {
+    inner class TrackViewHolder(itemView: View): BaseViewHolder<LargeThumbnailItem>(itemView) {
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_subtitle)
         @SuppressLint("CheckResult")
-        override fun bind(item: Track) {
+        override fun bind(item: LargeThumbnailItem) {
             Glide
                 .with(itemView.context)
-                .load(item.album.thumbnail)
+                .load(item.thumbnail)
                 .centerCrop()
                 .into(trackCover)
             trackTitle.text = item.title
-            trackAuthor.text = item.album.artists.getNames()
+            trackAuthor.text = item.subtitle
         }
 
     }

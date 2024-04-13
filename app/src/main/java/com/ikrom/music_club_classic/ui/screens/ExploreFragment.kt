@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -17,8 +16,8 @@ import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.extensions.albumCardItems
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.RecyclerViewItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
 import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
@@ -53,7 +52,7 @@ class ExploreFragment : Fragment() {
         viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
             if(albums.isNotEmpty()){
                 val cardItems = albums.albumCardItems { onAlbumClick(it) }
-                val newReleasesItem = RecyclerViewItem("New Releases", cardItems)
+                val newReleasesItem = HorizontalItems("New Releases", CardAdapter(), cardItems)
                 adapter.updateItem(0, newReleasesItem)
             }
         }
@@ -71,7 +70,7 @@ class ExploreFragment : Fragment() {
 
     private fun setupAdapter() {
         adapter = CompositeAdapter.Builder()
-            .add(RecyclerViewDelegate(CardAdapter()))
+            .add(HorizontalItemsDelegate())
             .build()
     }
 

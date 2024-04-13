@@ -6,6 +6,7 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.LargeThumbnailItem
 
 
 fun Track.toMediumTrackItem(
@@ -66,6 +67,18 @@ fun List<Album>.albumCardItems(
             onItemClick(album)
         }
     }
+}
+
+fun Track.toLargeThumbnailItem(): LargeThumbnailItem {
+    return LargeThumbnailItem(
+        title = this.title,
+        subtitle = this.album.title,
+        thumbnail = this.album.thumbnail
+    )
+}
+
+fun List<Track>.toLargeThumbnailItems(): List<LargeThumbnailItem> {
+    return this.map { it.toLargeThumbnailItem() }
 }
 
 fun List<PlayList>.playlistCardItems(
