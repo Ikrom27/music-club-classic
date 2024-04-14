@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediumTrackItem
@@ -36,6 +37,7 @@ class SearchFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private var adapter = CompositeAdapter.Builder()
         .add(MediumTrackDelegate())
         .add(TitleDelegate())
@@ -67,6 +69,10 @@ class SearchFragment : Fragment() {
         navController = requireParentFragment().findNavController()
         recyclerView = view.findViewById(R.id.rv_content)
         searchBar = view.findViewById(R.id.search_bar)
+        swipeRefresh = view.findViewById(R.id.swipe_refresh)
+        val start = resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin)
+        val end = resources.getDimensionPixelSize(R.dimen.swipe_refresh_end_margin)
+        swipeRefresh.setProgressViewOffset(true, start, end)
     }
 
     private fun setupButtons(){
@@ -75,6 +81,14 @@ class SearchFragment : Fragment() {
         }
         searchBar.setOnCleanClick {
             searchBar.searchField.setText("")
+        }
+        swipeRefresh.setOnRefreshListener{
+            viewModel.updateSearchList()
+            viewModel.globalResultList.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()){
+                    swipeRefresh.isRefreshing = false
+                }
+            }
         }
     }
 

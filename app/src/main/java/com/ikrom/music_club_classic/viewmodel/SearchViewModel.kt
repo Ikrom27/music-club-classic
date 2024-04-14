@@ -18,8 +18,10 @@ class SearchViewModel @Inject constructor(
     val globalResultList = MutableLiveData<List<Track>>()
     val localResultList = MutableLiveData<List<Track>>()
     private val contentList = ArrayList<Track>()
+    private var lastQuery = ""
 
-    fun updateSearchList(query: String) {
+    fun updateSearchList(query: String = lastQuery) {
+        lastQuery = query
         viewModelScope.launch {
             localResultList.value = contentList.filter {
                 it.title.lowercase().trim().contains(query.lowercase().trim())

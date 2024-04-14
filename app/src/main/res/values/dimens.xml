@@ -32,6 +32,8 @@
     <dimen name="section_title_margin">14dp</dimen>
     <dimen name="items_margin">16dp</dimen>
     <dimen name="content_horizontal_margin">20dp</dimen>
+    <dimen name="swipe_refresh_start_margin">0dp</dimen>
+    <dimen name="swipe_refresh_end_margin">96dp</dimen>
 
     <!-- Spacer -->
     <dimen name="spacer_small">14dp</dimen>

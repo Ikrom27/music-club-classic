@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    //Swipe to refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     //Mini Equalizer
     implementation("com.github.claucookie.miniequalizer:library:1.0.0")
     //Glide

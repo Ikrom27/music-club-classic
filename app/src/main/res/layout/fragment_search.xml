@@ -6,16 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.screens.SearchFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.ikrom.music_club_classic.ui.components.SearchBar
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:translationZ="1dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
