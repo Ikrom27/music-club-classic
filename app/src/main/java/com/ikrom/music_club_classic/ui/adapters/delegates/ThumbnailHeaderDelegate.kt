@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 
 data class ThumbnailHeaderItem(
     val title: String,
@@ -16,7 +16,7 @@ data class ThumbnailHeaderItem(
     val thumbnail: String,
     val onPlayClick: () -> Unit,
     val onShuffleClick: () -> Unit
-) : IDelegateItem
+) : AdapterItem()
 
 class ThumbnailHeaderDelegate
     : BaseDelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter<T>:
+abstract class BaseAdapter<T: AdapterItem>:
     BaseAdapterHandler<T, BaseAdapter.BaseViewHolder<T>>(){
 
     abstract fun getViewHolder(binding: View): BaseViewHolder<T>
@@ -22,16 +22,6 @@ abstract class BaseAdapter<T>:
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         holder.bind(mItems[position])
-        holder.itemView.setOnClickListener {
-            mCallBack?.onItemClick(mItems[position], holder.itemView)
-        }
-        holder.itemView.setOnLongClickListener {
-            if (mCallBack == null){
-                false
-            } else {
-                mCallBack!!.onLongClick(mItems[position], holder.itemView)
-                true
-            }
-        }
+        super.onBindViewHolder(holder, position)
     }
 }

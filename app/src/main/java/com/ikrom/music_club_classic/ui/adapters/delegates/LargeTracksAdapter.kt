@@ -7,13 +7,15 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 
 data class LargeThumbnailItem(
     val title: String,
     val subtitle: String,
-    val thumbnail: String
-) : IDelegateItem
+    val thumbnail: String,
+    override val onClick: () -> Unit,
+    override val onLongClick: () -> Unit
+) : AdapterItem()
 
 class LargeTracksAdapter: BaseAdapter<LargeThumbnailItem>() {
     override fun getViewHolder(binding: View): BaseViewHolder<LargeThumbnailItem> {

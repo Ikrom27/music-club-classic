@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CompositeAdapter(
-    private val delegates: SparseArray<BaseDelegateAdapter<IDelegateItem, BaseDelegateAdapter.DelegateViewHolder<IDelegateItem>>>
-): BaseAdapterHandler<IDelegateItem, RecyclerView.ViewHolder>() {
+    private val delegates: SparseArray<BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>>
+): BaseAdapterHandler<AdapterItem, RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val currentItem = mItems[position]
@@ -34,14 +34,15 @@ class CompositeAdapter(
         } else {
             throw NullPointerException("can not find adapter for position $position")
         }
+        super.onBindViewHolder(holder, position)
     }
 
     class Builder(){
         private var count: Int = 0
-        private val delegates: SparseArray<BaseDelegateAdapter<IDelegateItem, BaseDelegateAdapter.DelegateViewHolder<IDelegateItem>>> = SparseArray()
+        private val delegates: SparseArray<BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>> = SparseArray()
 
-        fun add(delegateAdapter: BaseDelegateAdapter<out IDelegateItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as BaseDelegateAdapter<IDelegateItem, BaseDelegateAdapter.DelegateViewHolder<IDelegateItem>>)
+        fun add(delegateAdapter: BaseDelegateAdapter<out AdapterItem, *>): Builder {
+            delegates.put(count++, delegateAdapter as BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>)
             return this
         }
 

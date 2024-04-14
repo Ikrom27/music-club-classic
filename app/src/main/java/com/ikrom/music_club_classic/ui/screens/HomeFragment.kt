@@ -24,6 +24,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.LargeTracksAdapter
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
+import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
@@ -96,7 +97,16 @@ class HomeFragment : Fragment() {
                     HorizontalItems(
                         title ="Linkin Park",
                         adapter = LargeTracksAdapter(),
-                        items = tracks.toLargeThumbnailItems()))
+                        items = tracks.toLargeThumbnailItems(
+                            onClick = {
+                                playerHandler.playNow(it)
+                            },
+                            onLongClick = {
+                                bottomMenuViewModel.trackLiveData.postValue(it)
+                                val bottomMenu = BottomMenuFragment()
+                                bottomMenu.show(parentFragmentManager, bottomMenu.tag)
+                            }
+                        )))
             }
         }
     }

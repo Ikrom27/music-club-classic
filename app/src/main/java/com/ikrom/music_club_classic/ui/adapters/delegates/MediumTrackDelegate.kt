@@ -7,18 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 
 data class MediumTrackItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    val onItemClick: () -> Unit,
-    val onButtonClick: () -> Unit
-) : IDelegateItem
+    val onButtonClick: () -> Unit,
+    override val onClick: () -> Unit
+) : AdapterItem()
 
 
 class MediumTrackDelegate:
@@ -38,7 +36,6 @@ class MediumTrackDelegate:
                 .into(ivThumbnail)
             tvTitle.text = item.title
             tvSubtitle.text= item.subtitle
-            itemView.setOnClickListener { item.onItemClick() }
             btnMore.setOnClickListener { item.onButtonClick() }
         }
     }

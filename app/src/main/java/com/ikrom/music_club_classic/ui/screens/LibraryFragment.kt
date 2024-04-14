@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.PlayList
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
+import com.ikrom.music_club_classic.extensions.toLibraryItems
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.LibraryAdapter
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
@@ -41,17 +41,16 @@ class LibraryFragment : Fragment() {
     }
 
     private fun setupAdapter(){
-        adapter = LibraryAdapter {  }
-        adapter.attachCallBack(object : BaseAdapterCallBack<PlayList>(){
-            override fun onItemClick(item: PlayList, view: View) {
-                playListViewModel.setPlaylist(item)
-                requireParentFragment().findNavController().navigate(R.id.action_libraryFragment_to_albumFragment)
-            }
-
-        })
+        adapter = LibraryAdapter()
         viewModel.getLikedPlayLists().observe(requireActivity()) {
             if (!it.isNullOrEmpty()){
-                adapter.setItems(it)
+                adapter.setItems(it.toLibraryItems(
+                    onButtonClick = {},
+                    onItemClick = {playlist ->
+                        playListViewModel.setPlaylist(playlist)
+                        requireParentFragment().findNavController().navigate(R.id.action_libraryFragment_to_albumFragment)
+                    }
+                ))
             }
         }
     }

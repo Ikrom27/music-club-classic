@@ -5,9 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -16,13 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.toDp
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.account.ButtonsAdapter
-import com.ikrom.music_club_classic.ui.adapters.account.ButtonsDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonItem
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuHeaderDelegate

@@ -1,6 +1,7 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -124,10 +125,13 @@ class PlaylistFragment : Fragment() {
                 onPlayClick = {playerHandler.playNow(trackList)},
                 onShuffleClick = {playerHandler.playNow(trackList.shuffled())}
             )
-            val tracks = trackList.map {
+            val tracks = trackList.map{
                 it.toMediumTrackItem(
-                    onItemClick = {playerHandler.playNow(it)},
-                    onButtonClick = {})
+                    onItemClick = {
+                        playerHandler.playNow(it)
+                    },
+                    onButtonClick = {}
+                )
             }
             compositeAdapter.setItems(
                 listOf(header) + tracks

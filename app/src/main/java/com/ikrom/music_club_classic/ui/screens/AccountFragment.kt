@@ -23,7 +23,7 @@ import com.ikrom.music_club_classic.ui.adapters.account.ButtonsDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.account.HeaderAdapter
 import com.ikrom.music_club_classic.ui.adapters.account.HeaderDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.AccountViewModel
@@ -76,7 +76,7 @@ class AccountFragment : Fragment() {
         )
     }
 
-    fun getHeader(): IDelegateItem {
+    fun getHeader(): AdapterItem {
 //        viewModel.getAccountInfo().observe(viewLifecycleOwner) {
 //            if (it != null){
 //                adapter.updateItem(0,
@@ -91,7 +91,7 @@ class AccountFragment : Fragment() {
             "Donald John Trump")
     }
 
-    fun getMainButtons(): IDelegateItem {
+    fun getMainButtons(): AdapterItem {
         return ButtonsDelegateItem(
             listOf(
                 IconButton(requireContext()).also {
@@ -131,7 +131,7 @@ class AccountFragment : Fragment() {
         )
     }
 
-    fun getCleanButtons(): IDelegateItem {
+    fun getCleanButtons(): AdapterItem {
         return ButtonsDelegateItem(
             listOf(
                 IconButton(requireContext()).also {
@@ -152,7 +152,7 @@ class AccountFragment : Fragment() {
             )
     }
 
-    fun getExitButton(): IDelegateItem {
+    fun getExitButton(): AdapterItem {
         return ButtonsDelegateItem(
             listOf(
                 IconButton(requireContext()).also {

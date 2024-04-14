@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 import com.ikrom.music_club_classic.ui.components.IconButton
 
 data class ButtonsDelegateItem(
     val buttons: List<IconButton>
-): IDelegateItem
+): AdapterItem()
 
 class ButtonsAdapter: BaseDelegateAdapter<ButtonsDelegateItem, ButtonsAdapter.ButtonsViewHolder>(
     ButtonsDelegateItem::class.java) {

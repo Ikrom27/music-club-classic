@@ -6,13 +6,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 
 data class MenuButtonItem(
     val title: String,
     val icon: Int,
-    val onClick: () -> Unit
-) : IDelegateItem
+    override val onClick: () -> Unit
+) : AdapterItem()
 
 class MenuButtonDelegate: BaseDelegateAdapter<MenuButtonItem, MenuButtonDelegate.MenuButtonViewHolder>(
     MenuButtonItem::class.java

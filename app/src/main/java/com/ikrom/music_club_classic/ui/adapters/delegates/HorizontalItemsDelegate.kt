@@ -7,19 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 
-data class HorizontalItems<T: IDelegateItem>(
+data class HorizontalItems<T: AdapterItem>(
     val title: String,
     val adapter: BaseAdapter<T>,
     val items: List<T>,
-): IDelegateItem
+): AdapterItem()
 
-class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<IDelegateItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
-    HorizontalItems::class.java as Class<out HorizontalItems<IDelegateItem>>){
+class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
+    HorizontalItems::class.java as Class<out HorizontalItems<AdapterItem>>){
     inner class RecyclerViewHolder(itemView: View):
-        DelegateViewHolder<HorizontalItems<IDelegateItem>>(itemView)
+        DelegateViewHolder<HorizontalItems<AdapterItem>>(itemView)
     {
         private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
@@ -27,7 +27,7 @@ class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<IDelegateItem
         private val marginEnd = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.items_margin)
 
-        override fun bind(item: HorizontalItems<IDelegateItem>) {
+        override fun bind(item: HorizontalItems<AdapterItem>) {
             title.text = item.title
             item.adapter.setItems(item.items)
             recyclerView.adapter = item.adapter

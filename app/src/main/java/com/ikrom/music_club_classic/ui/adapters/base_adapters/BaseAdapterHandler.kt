@@ -3,20 +3,26 @@ package com.ikrom.music_club_classic.ui.adapters.base_adapters
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
+abstract class AdapterItem {
+    open val onClick: () -> Unit = {}
+    open val onLongClick: () -> Unit = {}
+}
+
+abstract class BaseAdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
     protected val mItems = ArrayList<T>()
-    protected var mCallBack: BaseAdapterCallBack<T>? = null
-
-    fun attachCallBack(callBack: BaseAdapterCallBack<T>?){
-        mCallBack = callBack
-    }
-
-    fun detachCallBack(){
-        mCallBack = null
-    }
 
     override fun getItemCount(): Int {
         return mItems.size
+    }
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        holder.itemView.setOnClickListener {
+            mItems[position].onClick()
+        }
+        holder.itemView.setOnLongClickListener {
+            mItems[position].onLongClick()
+            true
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -5,11 +5,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 
 data class TitleItem(
-    val title: String
-) : IDelegateItem
+    val title: String,
+) : AdapterItem()
 
 
 class TitleDelegate(): BaseDelegateAdapter<TitleItem, TitleDelegate.TitleDelegateViewHolder>(

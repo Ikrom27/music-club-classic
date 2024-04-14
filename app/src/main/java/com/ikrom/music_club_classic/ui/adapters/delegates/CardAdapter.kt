@@ -6,17 +6,16 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapterCallBack
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 import jp.wasabeef.glide.transformations.BlurTransformation
 
 data class CardItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    val onItemClick: () -> Unit = {},
-    val onLongClick: () -> Unit = {}
-) : IDelegateItem
+    override val onClick: () -> Unit = {},
+    override val onLongClick: () -> Unit = {}
+) : AdapterItem()
 
 class CardAdapter: BaseAdapter<CardItem>() {
     inner class CardViewHolder(itemView: View): BaseViewHolder<CardItem>(itemView){
@@ -37,21 +36,6 @@ class CardAdapter: BaseAdapter<CardItem>() {
                 .into(ivThumbnailBackground)
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
-            setClickListener()
-        }
-
-        private fun setClickListener(){
-            this@CardAdapter.attachCallBack(
-                object : BaseAdapterCallBack<CardItem>() {
-                    override fun onItemClick(item: CardItem, view: View) {
-                        item.onItemClick()
-                    }
-
-                    override fun onLongClick(item: CardItem, view: View) {
-                        item.onLongClick()
-                    }
-                }
-            )
         }
     }
 

@@ -3,6 +3,7 @@ package com.ikrom.music_club_classic.extensions
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
+import com.ikrom.music_club_classic.ui.adapters.LibraryItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
@@ -17,7 +18,7 @@ fun Track.toMediumTrackItem(
         title = this.title,
         subtitle = this.album.artists.getNames(),
         thumbnail = this.album.thumbnail,
-        onItemClick = {onItemClick()},
+        onClick = {onItemClick()},
         onButtonClick = {onButtonClick()}
     )
 }
@@ -43,7 +44,7 @@ fun Album.toCardItem(
         title = title,
         subtitle = artists.getNames(),
         thumbnail = thumbnail,
-        onItemClick = { onItemClick() }
+        onClick = { onItemClick() }
     )
 }
 
@@ -55,8 +56,34 @@ fun PlayList.toCardItem(
         title = title,
         subtitle = artists?.name ?: "unknown author ",
         thumbnail = thumbnail,
-        onItemClick = { onItemClick() }
+        onClick = { onItemClick() }
     )
+}
+
+fun PlayList.toLibraryItem(
+    onButtonClick: () -> Unit,
+    onItemClick: () -> Unit
+)
+        : LibraryItem {
+    return LibraryItem(
+        title = title,
+        subtitle = artists?.name ?: "unknown author ",
+        thumbnail = thumbnail,
+        onButtonClick = {onButtonClick()},
+        onClick = { onItemClick() }
+    )
+}
+
+fun List<PlayList>.toLibraryItems(
+    onButtonClick: () -> Unit,
+    onItemClick: (PlayList) -> Unit
+): List<LibraryItem>{
+    return this.map { playlist ->
+        playlist.toLibraryItem(
+            onButtonClick = {onButtonClick()},
+            onItemClick = {onItemClick(playlist)}
+        )
+    }
 }
 
 fun List<Album>.albumCardItems(
@@ -69,16 +96,27 @@ fun List<Album>.albumCardItems(
     }
 }
 
-fun Track.toLargeThumbnailItem(): LargeThumbnailItem {
+fun Track.toLargeThumbnailItem(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+): LargeThumbnailItem {
     return LargeThumbnailItem(
         title = this.title,
-        subtitle = this.album.title,
-        thumbnail = this.album.thumbnail
+        subtitle = this.album.artists.getNames(),
+        thumbnail = this.album.thumbnail,
+        onClick = { onClick() },
+        onLongClick = { onLongClick() }
     )
 }
 
-fun List<Track>.toLargeThumbnailItems(): List<LargeThumbnailItem> {
-    return this.map { it.toLargeThumbnailItem() }
+fun List<Track>.toLargeThumbnailItems(
+    onClick: (Track) -> Unit,
+    onLongClick: (Track) -> Unit
+): List<LargeThumbnailItem> {
+    return this.map { it.toLargeThumbnailItem(
+        onClick = { onClick(it) },
+        onLongClick = { onLongClick(it) }
+    ) }
 }
 
 fun List<PlayList>.playlistCardItems(

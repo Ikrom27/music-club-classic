@@ -9,11 +9,11 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.IDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
 
 data class MenuHeaderDelegateItem(
     val track: Track
-): IDelegateItem
+): AdapterItem()
 
 class MenuHeaderDelegate(
     private val onClickListener: (Track) -> Unit
