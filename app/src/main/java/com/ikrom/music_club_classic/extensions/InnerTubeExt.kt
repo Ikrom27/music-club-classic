@@ -38,7 +38,7 @@ fun SongItem.toTrack(): Track? {
             videoId = this.id,
             album = Album(
                 id = this.itemAlbum?.id ?: "null album",
-                title = this.itemAlbum?.id ?: "null title",
+                title = this.itemAlbum?.name ?: "null title",
                 artists = this.itemArtists.map { artist ->
                     Artist(
                         id = artist.id,
