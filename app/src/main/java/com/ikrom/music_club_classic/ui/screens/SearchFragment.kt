@@ -1,6 +1,8 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +42,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchBar: SearchBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var phNoResult: PlaceHolderView
+    private lateinit var phConnectionError: PlaceHolderView
     private var adapter = CompositeAdapter.Builder()
         .add(MediumTrackDelegate())
         .add(TitleDelegate())
@@ -64,7 +67,13 @@ class SearchFragment : Fragment() {
         searchBar.doOnTextChanged{ text, _, _, _ ->
             viewModel.updateSearchList(text.toString())
         }
-        adapter.itemCount
+        viewModel.serverStatus.observe(viewLifecycleOwner) {
+            if(it != 200){
+                phConnectionError.visibility = View.VISIBLE
+            } else {
+                phConnectionError.visibility = View.GONE
+            }
+        }
         setupButtons()
     }
 
@@ -74,6 +83,7 @@ class SearchFragment : Fragment() {
         searchBar = view.findViewById(R.id.search_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         phNoResult = view.findViewById(R.id.ph_no_result)
+        phConnectionError = view.findViewById(R.id.ph_connection_error)
         val start = resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin)
         val end = resources.getDimensionPixelSize(R.dimen.swipe_refresh_end_margin)
         swipeRefresh.setProgressViewOffset(true, start, end)
@@ -88,10 +98,13 @@ class SearchFragment : Fragment() {
         }
         swipeRefresh.setOnRefreshListener{
             viewModel.updateSearchList()
-            viewModel.globalResultList.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()){
-                    swipeRefresh.isRefreshing = false
-                }
+            Handler(Looper.getMainLooper()).postDelayed({
+                swipeRefresh.isRefreshing = false
+            }, 3000)
+        }
+        viewModel.globalResultList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()){
+                swipeRefresh.isRefreshing = false
             }
         }
     }

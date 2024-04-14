@@ -27,6 +27,10 @@ class MediaRepository @Inject constructor(
         Log.d("MusicServiceRepository", cookie)
     }
 
+    fun getServerStatus(): MutableLiveData<Int> {
+        return youtubeService.getServerStatus()
+    }
+
     fun getTracksByQuery(query: String): MutableLiveData<List<Track>> {
         return youtubeService.getTracksByQuery(query)
     }

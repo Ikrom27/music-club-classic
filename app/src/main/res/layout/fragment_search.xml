@@ -13,7 +13,14 @@
         app:title="@string/ph_no_result_title"
         app:description="@string/ph_no_result_description"
         app:imageSrc="@drawable/ph_no_result"/>
-
+    <com.ikrom.music_club_classic.ui.components.PlaceHolderView
+        android:id="@+id/ph_connection_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:title="@string/ph_no_connection_error_title"
+        app:description="@string/ph_connection_error_description"
+        app:imageSrc="@drawable/ph_connection_error"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"

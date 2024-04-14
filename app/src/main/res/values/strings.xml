@@ -59,4 +59,6 @@
         <item quantity="other">%d years</item>
     </plurals>
     <string name="next_in_queue">Next in queue</string>
+    <string name="ph_connection_error_description">Error connecting to server</string>
+    <string name="ph_no_connection_error_title">Connection error</string>
 </resources>

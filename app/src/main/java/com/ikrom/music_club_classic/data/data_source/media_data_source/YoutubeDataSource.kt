@@ -21,6 +21,11 @@ import kotlinx.coroutines.launch
 
 class YoutubeDataSource: IMediaDataSource {
     private var continuation = ""
+    private val serverStatus = MutableLiveData(200)
+
+    override fun getServerStatus(): MutableLiveData<Int>{
+        return serverStatus
+    }
 
     override fun getTracksByQuery(query: String): MutableLiveData<List<Track>> {
         val responseLiveData = MutableLiveData<List<Track>>(null)
@@ -28,8 +33,11 @@ class YoutubeDataSource: IMediaDataSource {
             YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).onSuccess { result ->
                 val tracks = result.items.mapNotNull { (it as SongItem).toTrack() }
                 responseLiveData.postValue(tracks)
+                serverStatus.postValue(200)
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
+                responseLiveData.postValue(emptyList())
+                serverStatus.postValue(500)
             }
         }
         return responseLiveData

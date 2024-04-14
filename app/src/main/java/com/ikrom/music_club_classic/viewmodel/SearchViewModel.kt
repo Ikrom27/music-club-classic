@@ -16,14 +16,21 @@ class SearchViewModel @Inject constructor(
 ): ViewModel() {
     val globalResultList = MutableLiveData<List<Track>>()
     val localResultList = MutableLiveData<List<Track>>()
+    val serverStatus = MutableLiveData<Int>()
     private val contentList = ArrayList<Track>()
     private var lastQuery = ""
 
     fun updateSearchList(query: String = lastQuery) {
+        if (query.isEmpty()){
+            return
+        }
         lastQuery = query
+        updateLocalResult(query)
         viewModelScope.launch {
-            updateLocalResult(query)
             updateGlobalResult(query)
+        }
+        viewModelScope.launch {
+            updateServerStatus()
         }
     }
 
@@ -32,6 +39,12 @@ class SearchViewModel @Inject constructor(
             localResultList.value = contentList.filter {
                 it.title.lowercase().trim().contains(query.lowercase().trim())
             }
+        }
+    }
+
+    suspend fun updateServerStatus() {
+        repository.getServerStatus().asFlow().collect {status ->
+            serverStatus.postValue(status)
         }
     }
 
