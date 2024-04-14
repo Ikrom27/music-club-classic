@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     private val playListViewModel: PlayListViewModel by activityViewModels()
     private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
 
-    private lateinit var compositeAdapter: com.ikrom.base_adapter.CompositeAdapter
+    private lateinit var compositeAdapter: CompositeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdapter(){
-        compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+        compositeAdapter = CompositeAdapter.Builder()
             .add(QuickPickDelegate(
                 isPlaying = playerHandler.isPlayingLiveData,
                 currentMediaItem= playerHandler.currentMediaItemLiveData,
@@ -124,7 +124,7 @@ class HomeFragment : Fragment() {
         val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
-                com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+                MarginItemDecoration(
                     margin,
                     playerHeight + navbarHeight + margin,
                     margin

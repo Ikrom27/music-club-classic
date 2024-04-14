@@ -42,7 +42,7 @@ class PlaylistFragment : Fragment() {
     private lateinit var albumBar: AlbumBar
     private lateinit var navController: NavController
 
-    private val compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+    private val compositeAdapter = CompositeAdapter.Builder()
         .add(ThumbnailHeaderDelegate())
         .add(MediumTrackDelegate())
         .build()
@@ -109,7 +109,7 @@ class PlaylistFragment : Fragment() {
         val appBarHeight =  resources.getDimensionPixelSize(R.dimen.app_bar_height)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
-                com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+                MarginItemDecoration(
                     startSpace = appBarHeight,
                     endSpace = playerHeight + navbarHeight
                 )

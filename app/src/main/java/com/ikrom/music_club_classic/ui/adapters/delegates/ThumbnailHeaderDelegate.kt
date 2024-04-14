@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
@@ -18,7 +19,7 @@ data class ThumbnailHeaderItem(
 ) : AdapterItem()
 
 class ThumbnailHeaderDelegate
-    : com.ikrom.base_adapter.BaseDelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
+    : BaseDelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
     ThumbnailHeaderItem::class.java
     ) {
     inner class ThumbnailViewHolder(itemView: View)

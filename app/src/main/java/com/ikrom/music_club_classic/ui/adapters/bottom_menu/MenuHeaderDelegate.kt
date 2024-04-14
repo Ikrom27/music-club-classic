@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
@@ -16,7 +17,7 @@ data class MenuHeaderDelegateItem(
 
 class MenuHeaderDelegate(
     private val onClickListener: (Track) -> Unit
-): com.ikrom.base_adapter.BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(MenuHeaderDelegateItem::class.java) {
+): BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(MenuHeaderDelegateItem::class.java) {
     inner class MenuHeaderViewHolder(itemView: View): DelegateViewHolder<MenuHeaderDelegateItem>(itemView){
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)

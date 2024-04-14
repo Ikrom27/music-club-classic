@@ -31,7 +31,7 @@ class ExploreFragment : Fragment() {
     private lateinit var appBar: AppBar
     private lateinit var navController: NavController
 
-    private lateinit var adapter: com.ikrom.base_adapter.CompositeAdapter
+    private lateinit var adapter: CompositeAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -69,7 +69,7 @@ class ExploreFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+        adapter = CompositeAdapter.Builder()
             .add(HorizontalItemsDelegate())
             .build()
     }

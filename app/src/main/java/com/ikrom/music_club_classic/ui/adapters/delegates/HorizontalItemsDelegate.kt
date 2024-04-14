@@ -4,16 +4,19 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ikrom.base_adapter.BaseAdapter
+import com.ikrom.base_adapter.BaseDelegateAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
 data class HorizontalItems<T: AdapterItem>(
     val title: String,
-    val adapter: com.ikrom.base_adapter.BaseAdapter<T>,
+    val adapter: BaseAdapter<T>,
     val items: List<T>,
 ): AdapterItem()
 
-class HorizontalItemsDelegate: com.ikrom.base_adapter.BaseDelegateAdapter<HorizontalItems<AdapterItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
+class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
     HorizontalItems::class.java as Class<out HorizontalItems<AdapterItem>>){
     inner class RecyclerViewHolder(itemView: View):
         DelegateViewHolder<HorizontalItems<AdapterItem>>(itemView)
@@ -37,7 +40,7 @@ class HorizontalItemsDelegate: com.ikrom.base_adapter.BaseDelegateAdapter<Horizo
             recyclerView.layoutManager = layout
             if (recyclerView.itemDecorationCount == 0) {
                 recyclerView.addItemDecoration(
-                    com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+                    MarginItemDecoration(
                         startSpace = marginStart,
                         endSpace = marginEnd,
                         betweenSpace = marginBetween,

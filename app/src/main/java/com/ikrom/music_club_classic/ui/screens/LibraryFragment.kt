@@ -62,7 +62,7 @@ class LibraryFragment : Fragment() {
         val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
-                com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+                MarginItemDecoration(
                     margin,
                     playerHeight + navbarHeight + margin,
                     margin

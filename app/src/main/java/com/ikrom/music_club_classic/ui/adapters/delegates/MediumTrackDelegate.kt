@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
@@ -19,7 +20,7 @@ data class MediumTrackItem(
 
 
 class MediumTrackDelegate:
-    com.ikrom.base_adapter.BaseDelegateAdapter<MediumTrackItem, MediumTrackDelegate.MediumTrackDelegateViewHolder>(
+    BaseDelegateAdapter<MediumTrackItem, MediumTrackDelegate.MediumTrackDelegateViewHolder>(
     MediumTrackItem::class.java
 ) {
     inner class MediumTrackDelegateViewHolder(itemView: View): DelegateViewHolder<MediumTrackItem>(itemView) {

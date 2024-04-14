@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
@@ -13,7 +14,7 @@ data class MenuButtonItem(
     override val onClick: () -> Unit
 ) : AdapterItem()
 
-class MenuButtonDelegate: com.ikrom.base_adapter.BaseDelegateAdapter<MenuButtonItem, MenuButtonDelegate.MenuButtonViewHolder>(
+class MenuButtonDelegate: BaseDelegateAdapter<MenuButtonItem, MenuButtonDelegate.MenuButtonViewHolder>(
     MenuButtonItem::class.java
 ) {
     inner class MenuButtonViewHolder(itemView: View) : DelegateViewHolder<MenuButtonItem>(itemView){

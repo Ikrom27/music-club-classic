@@ -36,7 +36,7 @@ class SearchFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
-    private var adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+    private var adapter = CompositeAdapter.Builder()
         .add(MediumTrackDelegate())
         .add(TitleDelegate())
         .build()
@@ -122,7 +122,7 @@ class SearchFragment : Fragment() {
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
         val margin = resources.getDimensionPixelSize(R.dimen.medium_items_margin)
         recyclerView.addItemDecoration(
-            com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+            MarginItemDecoration(
                 startSpace = margin,
                 endSpace = playerHeight + navbarHeight + margin,
             )

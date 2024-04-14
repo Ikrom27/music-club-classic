@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 import es.claucookie.miniequalizerlibrary.EqualizerView
@@ -17,7 +18,7 @@ data class PlayerQueueItem(
 ): AdapterItem()
 
 class PlayerQueueDelegate :
-    com.ikrom.base_adapter.BaseDelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
+    BaseDelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
     PlayerQueueItem::class.java){
     inner class PlayerQueueViewHolder(itemView: View): DelegateViewHolder<PlayerQueueItem>(itemView){
         private val cover: ImageView = itemView.findViewById(R.id.iv_thumbnail)

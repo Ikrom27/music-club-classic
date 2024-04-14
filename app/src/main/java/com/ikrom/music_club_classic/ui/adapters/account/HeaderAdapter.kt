@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
@@ -14,10 +15,10 @@ data class HeaderDelegateItem(
     val fullName: String
 ): AdapterItem()
 
-class HeaderAdapter(): com.ikrom.base_adapter.BaseDelegateAdapter<HeaderDelegateItem, HeaderAdapter.HeaderViewHolder>(
+class HeaderAdapter(): BaseDelegateAdapter<HeaderDelegateItem, HeaderAdapter.HeaderViewHolder>(
     HeaderDelegateItem::class.java
 ) {
-    inner class HeaderViewHolder(itemView: View): DelegateViewHolder <HeaderDelegateItem>(itemView) {
+    inner class HeaderViewHolder(itemView: View): DelegateViewHolder<HeaderDelegateItem>(itemView) {
         private val accountImageView: ImageView = itemView.findViewById(R.id.iv_account_image)
         private val nameTextView: TextView = itemView.findViewById(R.id.tv_full_name)
 

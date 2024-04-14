@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.ikrom.base_adapter.BaseAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -16,7 +17,7 @@ data class CardItem(
     override val onLongClick: () -> Unit = {}
 ) : AdapterItem()
 
-class CardAdapter: com.ikrom.base_adapter.BaseAdapter<CardItem>() {
+class CardAdapter: BaseAdapter<CardItem>() {
     inner class CardViewHolder(itemView: View): BaseViewHolder<CardItem>(itemView){
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.iv_thumbnail)
         private val ivThumbnailBackground = itemView.findViewById<ImageView>(R.id.iv_thumbnail_background)

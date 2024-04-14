@@ -17,7 +17,7 @@ data class LibraryItem(
     override val onClick: () -> Unit
 ) : AdapterItem()
 
-class LibraryAdapter: com.ikrom.base_adapter.BaseAdapter<LibraryItem>() {
+class LibraryAdapter: BaseAdapter<LibraryItem>() {
     override fun getViewHolder(binding: View): BaseViewHolder<LibraryItem> {
         return LibraryViewHolder(binding)
     }

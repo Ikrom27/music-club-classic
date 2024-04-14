@@ -31,7 +31,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment() {
     private lateinit var titleTextView: TextView
     private lateinit var subTitleTextView: TextView
 
-    private val compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+    private val compositeAdapter = CompositeAdapter.Builder()
         .add(PlayerQueueDelegate())
         .add(TitleDelegate())
         .build()
