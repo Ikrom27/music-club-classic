@@ -88,11 +88,9 @@ class AlbumFragment : Fragment() {
         recyclerView.adapter = compositeAdapter
         val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
-        val appBarHeight =  resources.getDimensionPixelSize(R.dimen.app_bar_height)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    startSpace = appBarHeight,
                     endSpace = playerHeight + navbarHeight
                 )
             )

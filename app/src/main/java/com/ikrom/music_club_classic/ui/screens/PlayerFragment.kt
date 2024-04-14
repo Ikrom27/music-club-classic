@@ -36,6 +36,7 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
+import com.ikrom.music_club_classic.utils.ColorsUtil
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +72,6 @@ class PlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        Log.d("PLAYER", if (isPortrait) "portret" else "land")
         val view = inflater.inflate(
             if (isPortrait) R.layout.fragment_player else R.layout.fragment_player_horizontal, container, false)
         bindViews(view)
@@ -188,29 +188,14 @@ class PlayerFragment : Fragment() {
         val bitmap = (resource as BitmapDrawable).bitmap
 
         Palette.from(bitmap).generate { palette ->
-            val dominantColor = darkenColor(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK)
-            val mutedColor = darkenColor(palette?.getMutedColor( Color.WHITE) ?: Color.WHITE)
+            val dominantColor = ColorsUtil.darkenColor(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK)
+            val mutedColor = ColorsUtil.darkenColor(palette?.getMutedColor( Color.WHITE) ?: Color.WHITE)
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 intArrayOf(mutedColor, dominantColor)
             )
             container.background = gradientDrawable
         }
-    }
-
-    private fun darkenColor(color: Int): Int {
-        val hsv = FloatArray(3)
-        Color.colorToHSV(color, hsv)
-        val luminance = ColorUtils.calculateLuminance(color)
-        if (luminance > 0.4){
-            hsv[2] *= 0.3f
-        } else {
-            hsv[2] *= 0.8f
-        }
-        if (hsv[1] > 0.5){
-            hsv[1] *= 0.4f
-        }
-        return Color.HSVToColor(hsv)
     }
 
     private fun setupContent() {
