@@ -24,4 +24,6 @@
     <color name="bg_separator_80">#CC434343</color>
     <color name="bg_surface">@color/grey_20</color>
     <color name="bg_item_not_selected">#7e7e7e</color>
+    <color name="secondary_text">@color/grey</color>
+    <color name="placeholder">#C1C1C1</color>
 </resources>

@@ -26,6 +26,8 @@
     <dimen name="thumbnail_medium">70dp</dimen>
     <dimen name="thumbnail_small_plus">56dp</dimen>
 
+    <dimen name="placeholder_medium">180dp</dimen>
+
     <!-- Margins -->
     <dimen name="section_margin">14dp</dimen>
     <dimen name="medium_items_margin">16dp</dimen>
@@ -36,6 +38,8 @@
     <dimen name="swipe_refresh_end_margin">96dp</dimen>
 
     <!-- Spacer -->
+    <dimen name="spacer_large">28dp</dimen>
+    <dimen name="spacer_medium">18dp</dimen>
     <dimen name="spacer_small">14dp</dimen>
     <dimen name="spacer_small_extra">10dp</dimen>
 </resources>

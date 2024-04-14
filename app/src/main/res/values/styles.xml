@@ -24,6 +24,19 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="TextViewTitles.PlaceHolderTitle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/placeholder</item>
+        <item name="android:layout_marginTop">@dimen/spacer_medium</item>
+    </style>
+    <style name="PlaceHolderDescription">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/placeholder</item>
+        <item name="android:layout_marginTop">@dimen/spacer_small_extra</item>
+    </style>
 
     <!-- Layouts -->
     <style name="TextContainer">

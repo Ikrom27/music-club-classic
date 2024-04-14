@@ -43,7 +43,9 @@ class HomeViewModel @Inject constructor(
         }
         viewModelScope.launch {
             repository.getTracksByQuery("Linkin park").asFlow().collect(){
-                trackList.postValue(it)
+                if (it != null){
+                    trackList.postValue(it)
+                }
             }
         }
     }

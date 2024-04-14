@@ -7,4 +7,6 @@
     <color name="bg_bottom_bar">@color/app_background_color</color>
     <color name="bg_top_bar">@color/app_background_color</color>
     <color name="bg_surface">@color/grey_20</color>
+    <color name="secondary_text">@color/grey</color>
+    <color name="placeholder">#474747</color>
 </resources>

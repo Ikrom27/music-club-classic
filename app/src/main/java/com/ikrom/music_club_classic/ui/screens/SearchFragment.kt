@@ -1,11 +1,11 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.navigation.NavController
@@ -13,15 +13,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediumTrackItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.base_adapter.CompositeAdapter
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
+import com.ikrom.music_club_classic.ui.components.PlaceHolderView
 import com.ikrom.music_club_classic.ui.components.SearchBar
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +39,7 @@ class SearchFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var phNoResult: PlaceHolderView
     private var adapter = CompositeAdapter.Builder()
         .add(MediumTrackDelegate())
         .add(TitleDelegate())
@@ -62,6 +64,7 @@ class SearchFragment : Fragment() {
         searchBar.doOnTextChanged{ text, _, _, _ ->
             viewModel.updateSearchList(text.toString())
         }
+        adapter.itemCount
         setupButtons()
     }
 
@@ -70,6 +73,7 @@ class SearchFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rv_content)
         searchBar = view.findViewById(R.id.search_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
+        phNoResult = view.findViewById(R.id.ph_no_result)
         val start = resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin)
         val end = resources.getDimensionPixelSize(R.dimen.swipe_refresh_end_margin)
         swipeRefresh.setProgressViewOffset(true, start, end)
@@ -121,12 +125,17 @@ class SearchFragment : Fragment() {
                         onItemClick = {playerHandler.playNow(it)},
                         onButtonClick = {}) })
             }
+            showNoResultPlaceHolder(localTracks.isEmpty() && globalTracks.isEmpty())
         }
 
     }
 
-    fun onItemClick(track: Track){
-        playerHandler.playNow(track)
+    private fun showNoResultPlaceHolder(should: Boolean){
+        if (should) {
+            phNoResult.visibility = View.VISIBLE
+        } else {
+            phNoResult.visibility = View.GONE
+        }
     }
 
     fun setupRecycleView(){

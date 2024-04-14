@@ -23,11 +23,15 @@ class SearchViewModel @Inject constructor(
     fun updateSearchList(query: String = lastQuery) {
         lastQuery = query
         viewModelScope.launch {
-            localResultList.value = contentList.filter {
-                it.title.lowercase().trim().contains(query.lowercase().trim())
+            if (contentList.isNotEmpty()){
+                localResultList.value = contentList.filter {
+                    it.title.lowercase().trim().contains(query.lowercase().trim())
+                }
             }
-            repository.getTracksByQuery(query).asFlow().collect {
-                globalResultList.value = it
+            repository.getTracksByQuery(query).asFlow().collect {tracks ->
+                if (tracks != null){
+                    globalResultList.value = tracks
+                }
             }
             Log.d("SearchViewModel", localResultList.value?.size.toString())
         }

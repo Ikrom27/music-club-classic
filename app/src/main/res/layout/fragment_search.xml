@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.screens.SearchFragment">
+    <com.ikrom.music_club_classic.ui.components.PlaceHolderView
+        android:id="@+id/ph_no_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:title="@string/ph_no_result_title"
+        app:description="@string/ph_no_result_description"
+        app:imageSrc="@drawable/ph_no_result"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"

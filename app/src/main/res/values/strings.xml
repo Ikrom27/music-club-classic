@@ -11,6 +11,10 @@
     <string name="library_screen">Library</string>
     <string name="profile_screen">Profile</string>
 
+    <!-- Placeholders -->
+    <string name="ph_no_result_title">No result</string>
+    <string name="ph_no_result_description">There are no results for your queries</string>
+
     <!-- Notification -->
     <string name="notification_download">Download</string>
     <string name="example">example</string>
