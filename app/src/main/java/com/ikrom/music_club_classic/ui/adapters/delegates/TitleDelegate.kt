@@ -29,6 +29,6 @@ class TitleDelegate(): BaseDelegateAdapter<TitleItem, TitleDelegate.TitleDelegat
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.layout_title
+        return R.layout.item_title
     }
 }

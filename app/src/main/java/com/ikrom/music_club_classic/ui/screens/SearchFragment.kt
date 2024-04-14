@@ -68,11 +68,7 @@ class SearchFragment : Fragment() {
             viewModel.updateSearchList(text.toString())
         }
         viewModel.serverStatus.observe(viewLifecycleOwner) {
-            if(it != 200){
-                phConnectionError.visibility = View.VISIBLE
-            } else {
-                phConnectionError.visibility = View.GONE
-            }
+            showConnectionErrorPlaceHolder(it == 500)
         }
         setupButtons()
     }
@@ -84,9 +80,10 @@ class SearchFragment : Fragment() {
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         phNoResult = view.findViewById(R.id.ph_no_result)
         phConnectionError = view.findViewById(R.id.ph_connection_error)
-        val start = resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin)
-        val end = resources.getDimensionPixelSize(R.dimen.swipe_refresh_end_margin)
-        swipeRefresh.setProgressViewOffset(true, start, end)
+        swipeRefresh.setProgressViewOffset(
+            true,
+            resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin),
+            resources.getDimensionPixelSize(R.dimen.swipe_refresh_end_margin))
     }
 
     private fun setupButtons(){
@@ -102,16 +99,24 @@ class SearchFragment : Fragment() {
                 swipeRefresh.isRefreshing = false
             }, 3000)
         }
-        viewModel.globalResultList.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()){
-                swipeRefresh.isRefreshing = false
-            }
-        }
     }
 
 
-    fun setupAdapter() {
-        val mediatorLiveData = MediatorLiveData<Pair<List<Track>, List<Track>>>().apply {
+    private fun setupAdapter() {
+        getCombinedSearchListLiveData().observe(viewLifecycleOwner) { (localTracks, globalTracks) ->
+            adapter.setItems(emptyList())
+            if (localTracks.isNotEmpty() || globalTracks.isNotEmpty() ){
+                swipeRefresh.isRefreshing = false
+            }
+            addAdapterItems("This playlist", localTracks)
+            addAdapterItems("Global search", globalTracks)
+            showNoResultPlaceHolder(localTracks.isEmpty() && globalTracks.isEmpty())
+        }
+
+    }
+
+    private fun getCombinedSearchListLiveData(): MediatorLiveData<Pair<List<Track>, List<Track>>>{
+        return MediatorLiveData<Pair<List<Track>, List<Track>>>().apply {
             addSource(viewModel.localResultList) { localTracks ->
                 value = Pair(localTracks, viewModel.globalResultList.value ?: listOf())
             }
@@ -119,28 +124,18 @@ class SearchFragment : Fragment() {
                 value = Pair(viewModel.localResultList.value ?: listOf(), globalTracks)
             }
         }
+    }
 
-        mediatorLiveData.observe(viewLifecycleOwner) { (localTracks, globalTracks) ->
-            adapter.setItems(emptyList())
-            if (localTracks.isNotEmpty()) {
-                adapter.addItems(listOf(TitleItem("This playlist")))
-                adapter.addItems(localTracks.map {
-                    it.toMediumTrackItem(
-                        onItemClick = {playerHandler.playNow(it)},
-                        onButtonClick = {}
-                    ) })
-                adapter.addItems(listOf(TitleItem(" ")))
-            }
-            if (globalTracks.isNotEmpty()) {
-                adapter.addItems(listOf(TitleItem("Global search")))
-                adapter.addItems(globalTracks.map {
-                    it.toMediumTrackItem(
-                        onItemClick = {playerHandler.playNow(it)},
-                        onButtonClick = {}) })
-            }
-            showNoResultPlaceHolder(localTracks.isEmpty() && globalTracks.isEmpty())
+    private fun addAdapterItems(title: String, list: List<Track>) {
+        if (list.isNotEmpty()) {
+            adapter.addItems(listOf(TitleItem(title)))
+            adapter.addItems(list.map {
+                it.toMediumTrackItem(
+                    onItemClick = {playerHandler.playNow(it)},
+                    onButtonClick = {}
+                )
+            })
         }
-
     }
 
     private fun showNoResultPlaceHolder(should: Boolean){
@@ -151,15 +146,24 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun setupRecycleView(){
+    private fun showConnectionErrorPlaceHolder(should: Boolean){
+        if(should){
+            phConnectionError.visibility = View.VISIBLE
+        } else {
+            phConnectionError.visibility = View.GONE
+        }
+    }
+
+    private fun setupRecycleView(){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
-        val margin = resources.getDimensionPixelSize(R.dimen.medium_items_margin)
+        val appbarHeight = resources.getDimensionPixelSize(R.dimen.app_bar_height)
+        val margin = resources.getDimensionPixelSize(R.dimen.items_margin)
         recyclerView.addItemDecoration(
             MarginItemDecoration(
-                startSpace = margin,
+                startSpace = appbarHeight + margin,
                 endSpace = playerHeight + navbarHeight + margin,
             )
         )
