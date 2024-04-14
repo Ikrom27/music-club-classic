@@ -1,6 +1,5 @@
 package com.ikrom.music_club_classic.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
@@ -23,17 +22,24 @@ class SearchViewModel @Inject constructor(
     fun updateSearchList(query: String = lastQuery) {
         lastQuery = query
         viewModelScope.launch {
-            if (contentList.isNotEmpty()){
-                localResultList.value = contentList.filter {
-                    it.title.lowercase().trim().contains(query.lowercase().trim())
-                }
+            updateLocalResult(query)
+            updateGlobalResult(query)
+        }
+    }
+
+    fun updateLocalResult(query: String) {
+        if (contentList.isNotEmpty()){
+            localResultList.value = contentList.filter {
+                it.title.lowercase().trim().contains(query.lowercase().trim())
             }
-            repository.getTracksByQuery(query).asFlow().collect {tracks ->
-                if (tracks != null){
-                    globalResultList.value = tracks
-                }
+        }
+    }
+
+    suspend fun updateGlobalResult(query: String){
+        repository.getTracksByQuery(query).asFlow().collect {tracks ->
+            if (tracks != null){
+                globalResultList.value = tracks
             }
-            Log.d("SearchViewModel", localResultList.value?.size.toString())
         }
     }
 
