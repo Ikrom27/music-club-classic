@@ -1,9 +1,10 @@
-package com.ikrom.music_club_classic.ui.adapters.base_adapters
+package com.ikrom.base_adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ikrom.base_adapter.model.AdapterItem
 
 abstract class BaseAdapter<T: AdapterItem>:
     BaseAdapterHandler<T, BaseAdapter.BaseViewHolder<T>>(){

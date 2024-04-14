@@ -5,18 +5,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.base_adapter.model.AdapterItem
 
 data class HorizontalItems<T: AdapterItem>(
     val title: String,
-    val adapter: BaseAdapter<T>,
+    val adapter: com.ikrom.base_adapter.BaseAdapter<T>,
     val items: List<T>,
 ): AdapterItem()
 
-class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
+class HorizontalItemsDelegate: com.ikrom.base_adapter.BaseDelegateAdapter<HorizontalItems<AdapterItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
     HorizontalItems::class.java as Class<out HorizontalItems<AdapterItem>>){
     inner class RecyclerViewHolder(itemView: View):
         DelegateViewHolder<HorizontalItems<AdapterItem>>(itemView)
@@ -40,12 +37,12 @@ class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>,
             recyclerView.layoutManager = layout
             if (recyclerView.itemDecorationCount == 0) {
                 recyclerView.addItemDecoration(
-                    MarginItemDecoration(
-                    startSpace = marginStart,
-                    endSpace =  marginEnd,
-                    betweenSpace = marginBetween,
-                    isHorizontal = true
-                )
+                    com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+                        startSpace = marginStart,
+                        endSpace = marginEnd,
+                        betweenSpace = marginBetween,
+                        isHorizontal = true
+                    )
                 )
             }
         }

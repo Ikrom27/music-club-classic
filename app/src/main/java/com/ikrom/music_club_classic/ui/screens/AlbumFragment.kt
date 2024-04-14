@@ -18,8 +18,8 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediumTrackItem
 import com.ikrom.music_club_classic.extensions.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
@@ -40,7 +40,7 @@ class AlbumFragment : Fragment() {
     private lateinit var albumBar: AlbumBar
     private lateinit var navController: NavController
 
-    private val compositeAdapter = CompositeAdapter.Builder()
+    private val compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
         .add(ThumbnailHeaderDelegate())
         .add(MediumTrackDelegate())
         .build()
@@ -91,7 +91,7 @@ class AlbumFragment : Fragment() {
         val appBarHeight =  resources.getDimensionPixelSize(R.dimen.app_bar_height)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
-                MarginItemDecoration(
+                com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
                     startSpace = appBarHeight,
                     endSpace = playerHeight + navbarHeight
                 )

@@ -16,8 +16,8 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.playlistCardItems
 import com.ikrom.music_club_classic.extensions.toLargeThumbnailItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     private val playListViewModel: PlayListViewModel by activityViewModels()
     private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
 
-    private lateinit var compositeAdapter: CompositeAdapter
+    private lateinit var compositeAdapter: com.ikrom.base_adapter.CompositeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdapter(){
-        compositeAdapter = CompositeAdapter.Builder()
+        compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
             .add(QuickPickDelegate(
                 isPlaying = playerHandler.isPlayingLiveData,
                 currentMediaItem= playerHandler.currentMediaItemLiveData,
@@ -73,8 +73,8 @@ class HomeFragment : Fragment() {
     private fun setupAdapterData(){
         compositeAdapter.setItems(listOf(
             QuickPickItem("Quick pick", null),
-            QuickPickItem("Quick pick", null),
-            QuickPickItem("Quick pick", null)
+            HorizontalItems("", CardAdapter(), emptyList()),
+            HorizontalItems("", CardAdapter(), emptyList())
         ))
         homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
             if (tracks.isNotEmpty()){
@@ -124,10 +124,11 @@ class HomeFragment : Fragment() {
         val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
-                MarginItemDecoration(
+                com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
                     margin,
                     playerHeight + navbarHeight + margin,
-                    margin)
+                    margin
+                )
             )
         }
     }

@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
+import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
@@ -31,7 +31,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment() {
     private lateinit var titleTextView: TextView
     private lateinit var subTitleTextView: TextView
 
-    private val compositeAdapter = CompositeAdapter.Builder()
+    private val compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
         .add(PlayerQueueDelegate())
         .add(TitleDelegate())
         .build()

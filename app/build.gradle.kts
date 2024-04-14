@@ -53,6 +53,7 @@ dependencies {
     implementation("androidx.media3:media3-session:1.1.1")
     implementation("androidx.media3:media3-datasource-okhttp:1.1.1")
     implementation(project(":innertube"))
+    implementation(project(":base_adapter"))
     implementation("com.google.android.gms:play-services-fido:20.1.0")
     //dagger hilt
     kapt("com.google.dagger:hilt-android-compiler:2.47")

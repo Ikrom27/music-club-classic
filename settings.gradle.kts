@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Music Club Classic"
 include(":app")
 include(":innertube")
+include(":base_adapter")

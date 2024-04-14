@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.extensions.albumCardItems
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
+import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
@@ -31,7 +31,7 @@ class ExploreFragment : Fragment() {
     private lateinit var appBar: AppBar
     private lateinit var navController: NavController
 
-    private lateinit var adapter: CompositeAdapter
+    private lateinit var adapter: com.ikrom.base_adapter.CompositeAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -69,7 +69,7 @@ class ExploreFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = CompositeAdapter.Builder()
+        adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
             .add(HorizontalItemsDelegate())
             .build()
     }

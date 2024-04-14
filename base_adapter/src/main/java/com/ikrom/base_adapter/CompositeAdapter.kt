@@ -1,8 +1,9 @@
-package com.ikrom.music_club_classic.ui.adapters.base_adapters
+package com.ikrom.base_adapter
 
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ikrom.base_adapter.model.AdapterItem
 
 class CompositeAdapter(
     private val delegates: SparseArray<BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>>

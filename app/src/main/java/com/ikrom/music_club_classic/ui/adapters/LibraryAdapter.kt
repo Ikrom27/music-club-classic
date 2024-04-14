@@ -6,9 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.PlayList
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseAdapter
+import com.ikrom.base_adapter.model.AdapterItem
+import com.ikrom.base_adapter.BaseAdapter
 
 data class LibraryItem(
     val title: String,
@@ -18,7 +17,7 @@ data class LibraryItem(
     override val onClick: () -> Unit
 ) : AdapterItem()
 
-class LibraryAdapter: BaseAdapter<LibraryItem>() {
+class LibraryAdapter: com.ikrom.base_adapter.BaseAdapter<LibraryItem>() {
     override fun getViewHolder(binding: View): BaseViewHolder<LibraryItem> {
         return LibraryViewHolder(binding)
     }

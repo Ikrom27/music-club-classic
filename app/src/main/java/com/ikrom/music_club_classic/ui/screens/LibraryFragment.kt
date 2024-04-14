@@ -10,9 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.extensions.toLibraryItems
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.LibraryAdapter
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
@@ -63,10 +62,12 @@ class LibraryFragment : Fragment() {
         val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
-                MarginItemDecoration(
+                com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
                     margin,
                     playerHeight + navbarHeight + margin,
-                    margin))
+                    margin
+                )
+            )
         }
     }
 }

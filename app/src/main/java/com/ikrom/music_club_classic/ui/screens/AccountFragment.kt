@@ -16,22 +16,20 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
 import com.ikrom.music_club_classic.ui.adapters.account.ButtonsAdapter
 import com.ikrom.music_club_classic.ui.adapters.account.ButtonsDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.account.HeaderAdapter
 import com.ikrom.music_club_classic.ui.adapters.account.HeaderDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.AccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
-    private val adapter = CompositeAdapter.Builder()
+    private val adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
         .add(HeaderAdapter())
         .add(ButtonsAdapter())
         .build()
@@ -61,7 +59,13 @@ class AccountFragment : Fragment() {
     private fun setupAdapter(view: View){
         recycleView.layoutManager = LinearLayoutManager(view.context)
         recycleView.adapter = adapter
-        recycleView.addItemDecoration(MarginItemDecoration(80, 80, 80))
+        recycleView.addItemDecoration(
+            com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+                80,
+                80,
+                80
+            )
+        )
     }
 
     @SuppressLint("ResourceAsColor")

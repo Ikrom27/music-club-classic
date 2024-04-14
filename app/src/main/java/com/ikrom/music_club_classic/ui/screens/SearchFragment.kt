@@ -14,15 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.extensions.toMediumTrackItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.item_decorations.MarginItemDecoration
+import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.components.SearchBar
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +36,7 @@ class SearchFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
-    private var adapter = CompositeAdapter.Builder()
+    private var adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
         .add(MediumTrackDelegate())
         .add(TitleDelegate())
         .build()
@@ -124,9 +122,10 @@ class SearchFragment : Fragment() {
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
         val margin = resources.getDimensionPixelSize(R.dimen.medium_items_margin)
         recyclerView.addItemDecoration(
-            MarginItemDecoration(
+            com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
                 startSpace = margin,
-                endSpace = playerHeight + navbarHeight + margin,)
+                endSpace = playerHeight + navbarHeight + margin,
+            )
         )
     }
 

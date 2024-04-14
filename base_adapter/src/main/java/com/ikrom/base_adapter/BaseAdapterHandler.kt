@@ -1,12 +1,8 @@
-package com.ikrom.music_club_classic.ui.adapters.base_adapters
+package com.ikrom.base_adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-
-abstract class AdapterItem {
-    open val onClick: () -> Unit = {}
-    open val onLongClick: () -> Unit = {}
-}
+import com.ikrom.base_adapter.model.AdapterItem
 
 abstract class BaseAdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
     protected val mItems = ArrayList<T>()
@@ -33,9 +29,9 @@ abstract class BaseAdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: 
     }
 
     fun addToPosition(position: Int, item: T){
-        if (mItems.isEmpty()){
+        if (itemCount <= position){
             mItems.add(item)
-            notifyItemChanged(0)
+            notifyItemChanged(itemCount)
             return
         }
         mItems.add(position, item)

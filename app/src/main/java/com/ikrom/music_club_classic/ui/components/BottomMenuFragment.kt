@@ -15,7 +15,7 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.CompositeAdapter
+import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonItem
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuHeaderDelegate
@@ -46,7 +46,7 @@ class BottomMenuFragment : BottomSheetDialogFragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private var compositeAdapter = CompositeAdapter.Builder()
+    private var compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
         .add(MenuHeaderDelegate(onClickListener = {}))
         .add(MenuButtonDelegate())
         .build()

@@ -7,8 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.BaseDelegateAdapter
-import com.ikrom.music_club_classic.ui.adapters.base_adapters.AdapterItem
+import com.ikrom.base_adapter.model.AdapterItem
 
 data class ThumbnailHeaderItem(
     val title: String,
@@ -19,7 +18,7 @@ data class ThumbnailHeaderItem(
 ) : AdapterItem()
 
 class ThumbnailHeaderDelegate
-    : BaseDelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
+    : com.ikrom.base_adapter.BaseDelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
     ThumbnailHeaderItem::class.java
     ) {
     inner class ThumbnailViewHolder(itemView: View)
