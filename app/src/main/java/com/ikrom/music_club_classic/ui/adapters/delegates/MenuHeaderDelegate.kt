@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.adapters.bottom_menu
+package com.ikrom.music_club_classic.ui.adapters.delegates
 
 import android.view.View
 import android.widget.ImageView
@@ -8,8 +8,6 @@ import com.bumptech.glide.Glide
 import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.getNames
 
 data class MenuHeaderDelegateItem(
     val title: String,
@@ -18,7 +16,8 @@ data class MenuHeaderDelegateItem(
     override val onClick: () -> Unit
 ): AdapterItem()
 
-class MenuHeaderDelegate: BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(MenuHeaderDelegateItem::class.java) {
+class MenuHeaderDelegate: BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(
+    MenuHeaderDelegateItem::class.java) {
     inner class MenuHeaderViewHolder(itemView: View): DelegateViewHolder<MenuHeaderDelegateItem>(itemView){
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)

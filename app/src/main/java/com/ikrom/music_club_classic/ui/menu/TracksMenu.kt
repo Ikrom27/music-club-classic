@@ -17,10 +17,9 @@ import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.music_club_classic.extensions.toMenuHeaderItem
-import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonDelegate
-import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonItem
-import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuHeaderDelegate
-import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuHeaderDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint

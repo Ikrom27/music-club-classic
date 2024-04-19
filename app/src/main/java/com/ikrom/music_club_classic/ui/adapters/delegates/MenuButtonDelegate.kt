@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.adapters.bottom_menu
+package com.ikrom.music_club_classic.ui.adapters.delegates
 
 import android.view.View
 import android.widget.ImageView
