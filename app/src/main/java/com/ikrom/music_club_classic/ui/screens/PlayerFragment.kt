@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +18,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.ColorUtils
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.media3.common.Player
@@ -35,7 +30,6 @@ import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
 import com.ikrom.music_club_classic.utils.ColorsUtil
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel

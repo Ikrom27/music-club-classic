@@ -24,7 +24,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.LargeTracksAdapter
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
-import com.ikrom.music_club_classic.ui.components.BottomMenuFragment
+import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
                             },
                             onLongClick = {
                                 bottomMenuViewModel.trackLiveData.postValue(it)
-                                val bottomMenu = BottomMenuFragment()
+                                val bottomMenu = TracksMenu()
                                 bottomMenu.show(parentFragmentManager, bottomMenu.tag)
                             }
                         )))

@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.components
+package com.ikrom.music_club_classic.ui.menu
 
 import android.os.Bundle
 import android.util.Log
@@ -25,18 +25,8 @@ import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-/**
- * menu items:
- * - add to queue
- * - save in library
- * - download
- * - open album
- * - open artist
- * - share
- */
-
 @AndroidEntryPoint
-class BottomMenuFragment : BottomSheetDialogFragment() {
+class TracksMenu : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var playerHandler: PlayerHandler
@@ -46,7 +36,7 @@ class BottomMenuFragment : BottomSheetDialogFragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private var compositeAdapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+    private var compositeAdapter = CompositeAdapter.Builder()
         .add(MenuHeaderDelegate(onClickListener = {}))
         .add(MenuButtonDelegate())
         .build()
@@ -85,12 +75,17 @@ class BottomMenuFragment : BottomSheetDialogFragment() {
             MenuButtonItem(
                 title = getString(R.string.add_to_queue),
                 icon = R.drawable.ic_add_to_queue,
-                onClick = {playerHandler.addToQueue(track.toMediaItem())}
+                onClick = {
+                    playerHandler.addToQueue(track.toMediaItem())
+                    dismiss()
+                }
             ),
             MenuButtonItem(
                 title = getString(R.string.to_download),
                 icon = R.drawable.ic_download,
-                onClick = {}
+                onClick = {
+                    dismiss()
+                }
             ),
             MenuButtonItem(
                 title = getString(R.string.open_album),
@@ -98,17 +93,22 @@ class BottomMenuFragment : BottomSheetDialogFragment() {
                 onClick = {
                     albumViewModel.setAlbum(track.album)
                     navController.navigate(R.id.action_homeFragment_to_albumFragment2)
+                    dismiss()
                 }
             ),
             MenuButtonItem(
                 title = getString(R.string.open_artist),
                 icon = R.drawable.ic_view_artist,
-                onClick = {}
+                onClick = {
+                    dismiss()
+                }
             ),
             MenuButtonItem(
                 title = getString(R.string.share),
                 icon = R.drawable.ic_share,
-                onClick = {}
+                onClick = {
+                    dismiss()
+                }
             )
         )
     }
