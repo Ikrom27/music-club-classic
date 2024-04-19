@@ -11,7 +11,6 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
 data class HorizontalItems<T: AdapterItem>(
-    val title: String,
     val adapter: BaseAdapter<T>,
     val items: List<T>,
 ): AdapterItem()
@@ -21,25 +20,23 @@ class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>,
     inner class RecyclerViewHolder(itemView: View):
         DelegateViewHolder<HorizontalItems<AdapterItem>>(itemView)
     {
-        private val title = itemView.findViewById<TextView>(R.id.tv_ection_title)
-        private val recyclerView = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_tracks)
+        private val rvHorizontalItems = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_items)
         private val marginStart = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginEnd = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.items_margin)
 
         override fun bind(item: HorizontalItems<AdapterItem>) {
-            title.text = item.title
             item.adapter.setItems(item.items)
-            recyclerView.adapter = item.adapter
+            rvHorizontalItems.adapter = item.adapter
             setupRecycleView()
         }
 
         private fun setupRecycleView(){
             val layout = LinearLayoutManager(itemView.context)
             layout.orientation = LinearLayoutManager.HORIZONTAL
-            recyclerView.layoutManager = layout
-            if (recyclerView.itemDecorationCount == 0) {
-                recyclerView.addItemDecoration(
+            rvHorizontalItems.layoutManager = layout
+            if (rvHorizontalItems.itemDecorationCount == 0) {
+                rvHorizontalItems.addItemDecoration(
                     MarginItemDecoration(
                         startSpace = marginStart,
                         endSpace = marginEnd,
@@ -56,6 +53,6 @@ class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>,
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.section_nested_list
+        return R.layout.item_horizontal_items
     }
 }

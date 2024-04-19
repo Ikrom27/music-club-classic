@@ -52,7 +52,7 @@ class ExploreFragment : Fragment() {
         viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
             if(albums.isNotEmpty()){
                 val cardItems = albums.albumCardItems { onAlbumClick(it) }
-                val newReleasesItem = HorizontalItems("New Releases", CardAdapter(), cardItems)
+                val newReleasesItem = HorizontalItems(CardAdapter(), cardItems)
                 adapter.updateItem(0, newReleasesItem)
             }
         }

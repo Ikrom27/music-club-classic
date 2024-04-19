@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.adapters.account
+package com.ikrom.music_club_classic.ui.adapters.delegates
 
 import android.view.View
 import android.widget.ImageView
@@ -10,35 +10,35 @@ import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
-data class HeaderDelegateItem(
+data class AccountHeaderItem(
     val imageUrl: String,
     val fullName: String
 ): AdapterItem()
 
-class HeaderAdapter(): BaseDelegateAdapter<HeaderDelegateItem, HeaderAdapter.HeaderViewHolder>(
-    HeaderDelegateItem::class.java
+class AccountHeaderAdapter: BaseDelegateAdapter<AccountHeaderItem, AccountHeaderAdapter.AccountHeaderViewHolder>(
+    AccountHeaderItem::class.java
 ) {
-    inner class HeaderViewHolder(itemView: View): DelegateViewHolder<HeaderDelegateItem>(itemView) {
-        private val accountImageView: ImageView = itemView.findViewById(R.id.iv_account_image)
-        private val nameTextView: TextView = itemView.findViewById(R.id.tv_full_name)
+    inner class AccountHeaderViewHolder(itemView: View): DelegateViewHolder<AccountHeaderItem>(itemView) {
+        private val ivAccountPicture: ImageView = itemView.findViewById(R.id.iv_account_image)
+        private val tvName: TextView = itemView.findViewById(R.id.tv_full_name)
 
-        override fun bind(item: HeaderDelegateItem) {
+        override fun bind(item: AccountHeaderItem) {
             Glide
                 .with(itemView.context)
                 .load(item.imageUrl)
                 .placeholder(R.drawable.ic_profile)
                 .transform(CircleCrop())
-                .into(accountImageView)
-            nameTextView.text = item.fullName
+                .into(ivAccountPicture)
+            tvName.text = item.fullName
         }
 
     }
 
     override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
-        return HeaderViewHolder(binding)
+        return AccountHeaderViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.layout_account_header
+        return R.layout.item_account_header
     }
 }

@@ -3,6 +3,7 @@
     <style name="TextSingleLine">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="TitlePrimary" parent="TextSingleLine">

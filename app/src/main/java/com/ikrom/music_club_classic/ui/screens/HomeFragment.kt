@@ -18,10 +18,13 @@ import com.ikrom.music_club_classic.extensions.toLargeThumbnailItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.extensions.getNames
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.LargeTracksAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
 import com.ikrom.music_club_classic.ui.menu.TracksMenu
@@ -67,35 +70,40 @@ class HomeFragment : Fragment() {
                 onSkipClick = {}
             ))
             .add(HorizontalItemsDelegate())
+            .add(TitleDelegate())
             .build()
     }
 
     private fun setupAdapterData(){
         compositeAdapter.setItems(listOf(
-            QuickPickItem("Quick pick", null),
-            HorizontalItems("", CardAdapter(), emptyList()),
-            HorizontalItems("", CardAdapter(), emptyList())
+            TitleItem(""),
+            TitleItem(""),
+            TitleItem(""),
+            TitleItem(""),
+            TitleItem(""),
+            TitleItem("")
         ))
         homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
             if (tracks.isNotEmpty()){
-                compositeAdapter.updateItem(0,
+                compositeAdapter.updateItem(0, TitleItem("Quick pick"))
+                compositeAdapter.updateItem(1,
                     QuickPickItem(title = "Quick pick", track = tracks[0]))
             }
         }
         homeViewModel.userPlaylists.observe(viewLifecycleOwner) {playlists ->
             if (playlists.isNotEmpty()){
-                compositeAdapter.updateItem(1,
+                compositeAdapter.updateItem(2, TitleItem("Your playlists"))
+                compositeAdapter.updateItem(3,
                     HorizontalItems(
-                        title = "Liked playlists",
                         adapter = CardAdapter(),
                         items = playlists.playlistCardItems { onPlayListClick(it) }))
             }
         }
         homeViewModel.trackList.observe(viewLifecycleOwner) {tracks ->
             if (tracks.isNotEmpty()){
-                compositeAdapter.updateItem(2,
+                compositeAdapter.updateItem(4, TitleItem("From Linkin park"))
+                compositeAdapter.updateItem(5,
                     HorizontalItems(
-                        title ="Linkin Park",
                         adapter = LargeTracksAdapter(),
                         items = tracks.toLargeThumbnailItems(
                             onClick = {
@@ -125,9 +133,8 @@ class HomeFragment : Fragment() {
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    margin,
-                    playerHeight + navbarHeight + margin,
-                    margin
+                    endSpace = playerHeight + navbarHeight + margin,
+                    betweenSpace = margin
                 )
             )
         }

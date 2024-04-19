@@ -13,8 +13,8 @@ data class LibraryItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    val onButtonClick: () -> Unit,
-    override val onClick: () -> Unit
+    override val onClick: () -> Unit,
+    override val onLongClick: () -> Unit,
 ) : AdapterItem()
 
 class LibraryAdapter: BaseAdapter<LibraryItem>() {
@@ -27,19 +27,19 @@ class LibraryAdapter: BaseAdapter<LibraryItem>() {
     }
 
     inner class LibraryViewHolder(itemView: View): BaseViewHolder<LibraryItem>(itemView){
-        private val coverView: ImageView = itemView.findViewById(R.id.iv_playlist_cover)
-        private val titleView: TextView = itemView.findViewById(R.id.tv_title)
-        private val subTitleView: TextView = itemView.findViewById(R.id.tv_subtitle)
-        private val button: ImageButton = itemView.findViewById(R.id.ib_more)
+        private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
+        private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
+        private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)
+        private val btnMore: ImageButton = itemView.findViewById(R.id.ib_more)
 
         override fun bind(item: LibraryItem) {
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
-                .into(coverView)
-            titleView.text = item.title
-            subTitleView.text = item.subtitle
-            button.setOnClickListener{ item.onButtonClick }
+                .into(ivThumbnail)
+            tvTitle.text = item.title
+            tvSubtitle.text = item.subtitle
+            btnMore.setOnClickListener{ item.onLongClick }
         }
 
     }

@@ -12,14 +12,14 @@ data class TitleItem(
 ) : AdapterItem()
 
 
-class TitleDelegate(): BaseDelegateAdapter<TitleItem, TitleDelegate.TitleDelegateViewHolder>(
+class TitleDelegate: BaseDelegateAdapter<TitleItem, TitleDelegate.TitleDelegateViewHolder>(
     TitleItem::class.java
 ) {
     inner class TitleDelegateViewHolder(itemView: View): DelegateViewHolder<TitleItem>(itemView){
-        private val title: TextView = itemView.findViewById(R.id.tv_title)
+        private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
 
         override fun bind(item: TitleItem) {
-            title.text = item.title
+            tvTitle.text = item.title
         }
 
     }

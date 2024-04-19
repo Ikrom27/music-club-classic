@@ -30,7 +30,6 @@ class QuickPickDelegate(
     QuickPickItem::class.java
 ) {
     inner class QuickPickViewHolder(itemView: View): DelegateViewHolder<QuickPickItem>(itemView){
-        private val sectionTitle = itemView.findViewById<TextView>(R.id.tv_ection_title)
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_subtitle)
@@ -46,8 +45,6 @@ class QuickPickDelegate(
                 .into(trackCover)
             trackTitle.text = track?.title
             trackAuthor.text = track?.album?.artists.getNames()
-            sectionTitle.text = item.title
-
             setupButtons(track)
             setupPlayPauseIcon(track?.videoId)
         }
@@ -81,6 +78,6 @@ class QuickPickDelegate(
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.section_player
+        return R.layout.item_player_card
     }
 }

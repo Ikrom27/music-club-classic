@@ -19,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
-import com.ikrom.music_club_classic.ui.adapters.account.ButtonsAdapter
-import com.ikrom.music_club_classic.ui.adapters.account.ButtonsDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.account.HeaderAdapter
-import com.ikrom.music_club_classic.ui.adapters.account.HeaderDelegateItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderItem
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.AccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +30,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
     private val adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
-        .add(HeaderAdapter())
-        .add(ButtonsAdapter())
+        .add(AccountHeaderAdapter())
+        .add(ButtonsGroupAdapter())
         .build()
     private lateinit var recycleView: RecyclerView
     private lateinit var navController: NavController
@@ -90,13 +90,13 @@ class AccountFragment : Fragment() {
 //                    ))
 //            }
 //        }
-        return HeaderDelegateItem(
+        return AccountHeaderItem(
             "https://img.joinfo.com/i/2017/04/800x0/58df809bd1e8a.jpg",
             "Donald John Trump")
     }
 
     fun getMainButtons(): AdapterItem {
-        return ButtonsDelegateItem(
+        return ButtonsGroupItem(
             listOf(
                 IconButton(requireContext()).also {
                     it.leadingIcon = R.drawable.ic_language
@@ -136,7 +136,7 @@ class AccountFragment : Fragment() {
     }
 
     fun getCleanButtons(): AdapterItem {
-        return ButtonsDelegateItem(
+        return ButtonsGroupItem(
             listOf(
                 IconButton(requireContext()).also {
                     it.leadingIcon = R.drawable.ic_clean
@@ -157,7 +157,7 @@ class AccountFragment : Fragment() {
     }
 
     fun getExitButton(): AdapterItem {
-        return ButtonsDelegateItem(
+        return ButtonsGroupItem(
             listOf(
                 IconButton(requireContext()).also {
                     it.text = "Exit"

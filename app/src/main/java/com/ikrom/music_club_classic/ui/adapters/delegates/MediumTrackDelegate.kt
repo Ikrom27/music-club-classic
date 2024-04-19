@@ -45,6 +45,6 @@ class MediumTrackDelegate:
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.layout_medium_covers
+        return R.layout.item_medium_thumbnail
     }
 }

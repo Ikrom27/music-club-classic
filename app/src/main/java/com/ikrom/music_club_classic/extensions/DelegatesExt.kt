@@ -70,7 +70,7 @@ fun PlayList.toLibraryItem(
         title = title,
         subtitle = artists?.name ?: "unknown author ",
         thumbnail = thumbnail,
-        onButtonClick = {onButtonClick()},
+        onLongClick = {onButtonClick()},
         onClick = { onItemClick() }
     )
 }

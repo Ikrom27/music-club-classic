@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginHorizontal="@dimen/content_horizontal_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tv_ection_title"
-        style="@style/TitleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/section_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ection_title">
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/iv_track_cover"
             android:layout_width="@dimen/large_track_cover"
@@ -30,24 +21,25 @@
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/large_track_cover"
         android:layout_height="@dimen/large_track_cover"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ection_title"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:layout_gravity="center_vertical|center_horizontal">
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@color/transparent">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_play_pause"
                 android:layout_width="@dimen/icon_large"
                 android:layout_height="@dimen/icon_large"
-                android:padding="16dp"
                 android:background="@drawable/bg_cyrcle"
                 android:backgroundTint="@color/grey_20"
+                android:padding="16dp"
                 android:src="@drawable/ic_pause"
-                app:layout_constraintHorizontal_bias="0.30"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.30"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,9 +47,9 @@
                 android:id="@+id/btn_skip"
                 android:layout_width="@dimen/icon_medium"
                 android:layout_height="@dimen/icon_medium"
+                android:layout_marginStart="20dp"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_skip_next"
-                android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_play_pause"
                 app:layout_constraintStart_toEndOf="@+id/btn_play_pause"
                 app:layout_constraintTop_toTopOf="@+id/btn_play_pause" />
@@ -67,16 +59,17 @@
                 style="@style/TitlePrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/example"
                 android:layout_marginTop="10dp"
+                android:text="@string/example"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_play_pause" />
+
             <TextView
                 android:id="@+id/tv_subtitle"
+                style="@style/TitleSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TitleSecondary"
                 android:text="@string/example_long"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
