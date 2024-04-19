@@ -12,28 +12,26 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.getNames
 
 data class MenuHeaderDelegateItem(
-    val track: Track
+    val title: String,
+    val subtitle: String,
+    val thumbnail: String,
+    override val onClick: () -> Unit
 ): AdapterItem()
 
-class MenuHeaderDelegate(
-    private val onClickListener: (Track) -> Unit
-): BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(MenuHeaderDelegateItem::class.java) {
+class MenuHeaderDelegate: BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(MenuHeaderDelegateItem::class.java) {
     inner class MenuHeaderViewHolder(itemView: View): DelegateViewHolder<MenuHeaderDelegateItem>(itemView){
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
 
         override fun bind(item: MenuHeaderDelegateItem) {
-            tvTitle.text = item.track.title
-            tvSubtitle.text = item.track.album.artists.getNames()
+            tvTitle.text = item.title
+            tvSubtitle.text = item.subtitle
             Glide
                 .with(itemView.context)
-                .load(item.track.album.thumbnail)
+                .load(item.thumbnail)
                 .centerCrop()
                 .into(ivThumbnail)
-            tvSubtitle.setOnClickListener {
-                onClickListener(item.track)
-            }
         }
 
     }

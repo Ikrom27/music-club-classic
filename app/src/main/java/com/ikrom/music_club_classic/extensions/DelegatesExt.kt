@@ -4,6 +4,7 @@ import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.ui.adapters.LibraryItem
+import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuHeaderDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
@@ -96,6 +97,18 @@ fun List<Album>.albumCardItems(
     }
 }
 
+fun Track.toMenuHeaderItem(
+    onClick: () -> Unit
+): MenuHeaderDelegateItem{
+    return MenuHeaderDelegateItem(
+        title = this.title,
+        subtitle = this.album.artists.getNames(),
+        thumbnail = this.album.thumbnail,
+        onClick = {
+            onClick()
+        }
+    )
+}
 fun Track.toLargeThumbnailItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit

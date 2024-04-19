@@ -16,6 +16,7 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.music_club_classic.extensions.toMenuHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuButtonItem
 import com.ikrom.music_club_classic.ui.adapters.bottom_menu.MenuHeaderDelegate
@@ -37,7 +38,7 @@ class TracksMenu : BottomSheetDialogFragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
     private var compositeAdapter = CompositeAdapter.Builder()
-        .add(MenuHeaderDelegate(onClickListener = {}))
+        .add(MenuHeaderDelegate())
         .add(MenuButtonDelegate())
         .build()
 
@@ -65,7 +66,7 @@ class TracksMenu : BottomSheetDialogFragment() {
     private fun setupItems() {
         Log.d(TAG, viewModel.trackLiveData.value!!.title)
         viewModel.trackLiveData.observe(viewLifecycleOwner) {track ->
-            compositeAdapter.addToStart(MenuHeaderDelegateItem(track))
+            compositeAdapter.addToStart(track.toMenuHeaderItem {})
             compositeAdapter.addItems(getButtonsList(track))
         }
     }
