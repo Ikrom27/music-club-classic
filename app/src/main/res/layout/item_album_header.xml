@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:id="@+id/container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="20dp"
     >
     <androidx.cardview.widget.CardView
         android:id="@+id/iv_thumbnail_card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="60dp"
+        app:cardCornerRadius="@dimen/corner_radius_extra_large"
+        android:layout_marginHorizontal="40dp"
         android:layout_marginTop="?android:attr/actionBarSize"
         app:cardElevation="28dp"
         app:layout_constraintDimensionRatio="1:1"
@@ -40,7 +40,6 @@
         style="@style/TitleSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,22 +59,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:backgroundTint="@color/grey_10"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="@string/play"
+        android:layout_marginBottom="20dp"
         app:icon="@drawable/ic_play"
-        app:iconTint="?attr/colorPrimary"
         app:iconGravity="textStart"
-        app:layout_constraintTop_toTopOf="@+id/space"
+        app:iconTint="?attr/colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/space"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_author"
+        app:layout_constraintTop_toTopOf="@+id/space" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_play_shuffled"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_rounded_rectangle_border_100"
         android:backgroundTint="@color/grey_10"
         app:icon="@drawable/ic_shuffle"
+        android:text="@string/shuffle"
+        android:textColor="?android:attr/colorPrimary"
         app:iconTint="?attr/colorPrimary"
         app:iconGravity="textStart"
         app:iconSize="22dp"
@@ -83,4 +88,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/space"
         app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+
+    <View
+        style="@style/separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

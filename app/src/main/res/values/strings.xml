@@ -21,13 +21,15 @@
     <string name="example_long">it is long examole for your test</string>
     <string name="search">Search...</string>
 
-    <!-- Bottom menu buttons -->
+    <!-- Buttons -->
     <string name="add_to_queue">Add to queue</string>
     <string name="save_in_library">Save in library</string>
     <string name="to_download">Download</string>
     <string name="open_album">Open album</string>
     <string name="open_artist">Open artist</string>
     <string name="share">Share</string>
+    <string name="play">Play</string>
+    <string name="shuffle">Shuffle</string>
 
     <!-- Noun -->
     <plurals name="n_song">

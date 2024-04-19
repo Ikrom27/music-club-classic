@@ -10,12 +10,14 @@
         android:id="@+id/rv_tracks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
     <com.ikrom.music_club_classic.ui.components.AlbumBar
         android:id="@+id/album_bar"
+        app:layout_scrollFlags="scroll|enterAlways"
         android:background="@color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
