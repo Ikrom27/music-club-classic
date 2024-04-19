@@ -52,7 +52,7 @@
 
         <TextView
             android:id="@+id/tv_track_title"
-            style="@style/TextViewTitles.ItemPrimaryTitle"
+            style="@style/TitlePrimary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -63,7 +63,7 @@
 
         <TextView
             android:id="@+id/tv_track_author"
-            style="@style/TextViewTitles.ItemSecondaryTitle"
+            style="@style/TitleSecondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"

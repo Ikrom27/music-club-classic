@@ -50,20 +50,20 @@
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/TextViewTitles"
+            style="@style/TextSingleLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_subtitle"
-            style="@style/TextViewTitles"
+            style="@style/TextSingleLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_queue_title"
-        style="@style/TextViewTitles"
+        style="@style/TextSingleLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

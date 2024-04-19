@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/ClickableLayout"
+    style="@style/LayoutClickable"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,14 +37,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                style="@style/TextViewTitles.ItemPrimaryTitle"
+                style="@style/TitlePrimary"
                 android:text="@string/example" />
             <TextView
                 android:id="@+id/tv_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                style="@style/TextViewTitles.ItemPrimaryTitle"
+                style="@style/TitlePrimary"
                 android:text="@string/example" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

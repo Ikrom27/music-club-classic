@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_image_container"
-        style="@style/ThumbnailMediumCard"
+        style="@style/CardThumbnailMedium"
         android:layout_margin="@dimen/content_horizontal_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,21 +19,21 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        style="@style/TextContainer"
+        style="@style/LayoutTextContainer"
         app:layout_constraintBottom_toBottomOf="@+id/cv_image_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cv_image_container"
         app:layout_constraintTop_toTopOf="@+id/cv_image_container">
         <TextView
             android:id="@+id/tv_title"
-            style="@style/TextViewTitles.ItemPrimaryTitle"
+            style="@style/TitlePrimary"
             android:gravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/tv_subtitle"
-            style="@style/TextViewTitles.ItemSecondaryTitle"
+            style="@style/TitleSecondary"
             android:gravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

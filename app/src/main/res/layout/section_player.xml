@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/tv_ection_title"
-        style="@style/TextViewTitles.ItemLargeTitle"
+        style="@style/TitleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/section_margin"
@@ -64,7 +64,7 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                style="@style/TextViewTitles.ItemPrimaryTitle"
+                style="@style/TitlePrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/example"
@@ -76,7 +76,7 @@
                 android:id="@+id/tv_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextViewTitles.ItemSecondaryTitle"
+                style="@style/TitleSecondary"
                 android:text="@string/example_long"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

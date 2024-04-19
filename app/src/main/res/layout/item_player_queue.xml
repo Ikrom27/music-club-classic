@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/ClickableLayout"
+    style="@style/LayoutClickable"
     android:paddingVertical="@dimen/spacer_small_extra"
     android:paddingHorizontal="@dimen/content_horizontal_margin">
 
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/TextViewTitles.ItemPrimaryTitle"
+        style="@style/TitlePrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/icon_small"
@@ -53,7 +53,7 @@
 
     <TextView
         android:id="@+id/tv_subtitle"
-        style="@style/TextViewTitles.ItemSecondaryTitle"
+        style="@style/TitleSecondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="start"

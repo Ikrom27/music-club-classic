@@ -1,68 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TextViewTitles">
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
-    </style>
-    <style name="TextViewPlayerTitle">
-        <item name="android:singleLine">true</item>
-        <item name="android:ellipsize">marquee</item>
+    <!-- Text -->
+    <style name="TextStartAlign">
+        <item name="android:textAppearance">@style/TextSingleLine</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">start</item>
     </style>
-    <style name="TextViewTitles.ItemPrimaryTitle" parent="TextViewTitles">
-        <item name="android:textSize">16sp</item>
-        <item name="android:gravity">center_horizontal</item>
-    </style>
-    <style name="TextViewTitles.ItemSecondaryTitle" parent="TextViewTitles">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/grey</item>
-        <item name="android:gravity">center_horizontal</item>
-    </style>
-    <style name="TextViewTitles.ItemLargeTitle">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    <style name="TextViewTitles.PlaceHolderTitle">
-        <item name="android:textSize">28sp</item>
-        <item name="android:textStyle">bold</item>
+
+    <!-- PlaceHolders -->
+    <style name="PlaceHolderTitle">
+        <item name="android:textAppearance">@style/TitleExtraLarge</item>
         <item name="android:textColor">@color/placeholder</item>
         <item name="android:layout_marginTop">@dimen/spacer_medium</item>
     </style>
     <style name="PlaceHolderDescription">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextMediumPlus</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/placeholder</item>
         <item name="android:layout_marginTop">@dimen/spacer_small_extra</item>
     </style>
 
     <!-- Layouts -->
-    <style name="TextContainer">
+    <style name="LayoutTextContainer">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">@dimen/spacer_small</item>
         <item name="android:orientation">vertical</item>
     </style>
-    <style name="ClickableLayout">
+    <style name="LayoutClickable">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <!-- CardStyle -->
-    <style name="AppCardViewStyle" parent="CardView">
+    <style name="CardBase" parent="CardView">
         <item name="android:backgroundTint">@color/grey_20</item>
         <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">@dimen/corner_radius_medium</item>
     </style>
-    <style name="ThumbnailSmallCard">
+    <style name="CardThumbnailSmall" parent="CardBase">
         <item name="android:layout_width">@dimen/thumbnail_small_plus</item>
         <item name="android:layout_height">@dimen/thumbnail_small_plus</item>
         <item name="cardCornerRadius">@dimen/corner_radius_small</item>
     </style>
-    <style name="ThumbnailMediumCard">
+    <style name="CardThumbnailMedium" parent="CardBase">
         <item name="android:layout_width">@dimen/thumbnail_medium</item>
         <item name="android:layout_height">@dimen/thumbnail_medium</item>
         <item name="cardCornerRadius">@dimen/corner_radius_small</item>
@@ -79,13 +62,14 @@
         <item name="android:background">@null</item>
         <item name="android:hint">@string/search</item>
         <item name="android:maxLines">1</item>
-
     </style>
 
     <!-- Buttons -->
-    <style name="BaseImageButton" parent="Widget.AppCompat.ImageButton">
+    <style name="ImageButtonBase" parent="Widget.AppCompat.ImageButton">
         <item name="android:backgroundTint">@color/transparent</item>
         <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_width">18dp</item>
         <item name="android:padding">0dp</item>
     </style>
     <style name="ToolBarButton">

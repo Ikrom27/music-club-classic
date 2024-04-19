@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/TextViewTitles.ItemPrimaryTitle"
+            style="@style/TitlePrimary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/tv_subtitle"
-            style="@style/TextViewTitles.ItemPrimaryTitle"
+            style="@style/TitlePrimary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="start"

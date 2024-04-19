@@ -28,7 +28,7 @@
                 android:id="@+id/tv_url"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="@style/TextViewTitles.ItemSecondaryTitle"
+                style="@style/TitleSecondary"
                 android:textSize="18sp"
                 android:layout_marginStart="10dp"
                 android:gravity="center"

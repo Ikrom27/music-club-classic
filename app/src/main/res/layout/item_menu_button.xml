@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/TextViewTitles"
+        style="@style/TextSingleLine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"

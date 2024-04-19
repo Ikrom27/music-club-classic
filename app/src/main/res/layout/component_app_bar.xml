@@ -39,8 +39,7 @@
 
         <ImageButton
             android:id="@+id/btn_connect"
-            android:layout_width="@dimen/icon_small"
-            android:layout_height="@dimen/icon_small"
+            style="@style/ImageButtonBase"
             android:src="@drawable/ic_connect"
             android:layout_marginEnd="@dimen/content_horizontal_margin"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -6,7 +6,7 @@
     android:paddingHorizontal="@dimen/content_horizontal_margin">
     <TextView
         android:id="@+id/tv_title"
-        style="@style/TextViewTitles.ItemLargeTitle"
+        style="@style/TitleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/section_margin"
