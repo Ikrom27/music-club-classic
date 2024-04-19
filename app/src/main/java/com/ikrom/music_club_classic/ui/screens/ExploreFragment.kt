@@ -15,9 +15,12 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.extensions.albumCardItems
 import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
@@ -31,8 +34,12 @@ class ExploreFragment : Fragment() {
     private lateinit var appBar: AppBar
     private lateinit var navController: NavController
 
-    private lateinit var adapter: CompositeAdapter
     private lateinit var recyclerView: RecyclerView
+
+    private val adapter = CompositeAdapter.Builder()
+        .add(HorizontalItemsDelegate())
+        .add(TitleDelegate())
+        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +49,6 @@ class ExploreFragment : Fragment() {
         navController = requireParentFragment().findNavController()
         bindViews(view)
         setupButtons(view)
-        setupAdapter()
         setupRecyclerView()
         setupAdapterData()
         return view
@@ -53,7 +59,8 @@ class ExploreFragment : Fragment() {
             if(albums.isNotEmpty()){
                 val cardItems = albums.albumCardItems { onAlbumClick(it) }
                 val newReleasesItem = HorizontalItems(CardAdapter(), cardItems)
-                adapter.updateItem(0, newReleasesItem)
+                adapter.addToStart(TitleItem("Quick pick"))
+                adapter.addToEnd(newReleasesItem)
             }
         }
     }
@@ -66,12 +73,17 @@ class ExploreFragment : Fragment() {
     private fun setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-    }
-
-    private fun setupAdapter() {
-        adapter = CompositeAdapter.Builder()
-            .add(HorizontalItemsDelegate())
-            .build()
+        val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
+        val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
+        val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
+        if (recyclerView.itemDecorationCount == 0){
+            recyclerView.addItemDecoration(
+                MarginItemDecoration(
+                    endSpace = playerHeight + navbarHeight + margin,
+                    betweenSpace = margin
+                )
+            )
+        }
     }
 
     private fun setupButtons(view: View) {

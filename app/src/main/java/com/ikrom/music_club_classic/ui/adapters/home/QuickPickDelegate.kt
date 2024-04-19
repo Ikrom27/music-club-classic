@@ -16,7 +16,6 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.getNames
 
 data class QuickPickItem(
-    val title: String,
     val track: Track?,
 ): AdapterItem()
 

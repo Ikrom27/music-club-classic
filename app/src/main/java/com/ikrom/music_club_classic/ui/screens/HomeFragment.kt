@@ -75,8 +75,8 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapterData(){
         compositeAdapter.setItems(listOf(
-            TitleItem(""),
-            TitleItem(""),
+            TitleItem("Quick pick"),
+            QuickPickItem(track = null),
             TitleItem(""),
             TitleItem(""),
             TitleItem(""),
@@ -84,9 +84,8 @@ class HomeFragment : Fragment() {
         ))
         homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
             if (tracks.isNotEmpty()){
-                compositeAdapter.updateItem(0, TitleItem("Quick pick"))
                 compositeAdapter.updateItem(1,
-                    QuickPickItem(title = "Quick pick", track = tracks[0]))
+                    QuickPickItem(track = tracks[0]))
             }
         }
         homeViewModel.userPlaylists.observe(viewLifecycleOwner) {playlists ->
