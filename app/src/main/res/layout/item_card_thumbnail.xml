@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/LayoutClickable"
+    app:cardCornerRadius="@dimen/corner_radius_large"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -9,21 +9,21 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_thumbnail_background"
-            android:layout_width="@dimen/large_track_cover"
-            android:layout_height="@dimen/large_track_cover"
+            android:layout_width="@dimen/thumbnail_large"
+            android:layout_height="@dimen/thumbnail_large"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
         <ImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="@dimen/large_track_cover"
-            android:layout_height="@dimen/large_track_cover"
+            android:layout_width="@dimen/thumbnail_large"
+            android:layout_height="@dimen/thumbnail_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="@dimen/large_track_cover"
+            android:layout_width="@dimen/thumbnail_large"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"

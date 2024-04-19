@@ -8,7 +8,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.LargeThumbnailItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.MediumPlusThumbnailItem
 
 
 fun Track.toMediumTrackItem(
@@ -112,8 +112,8 @@ fun Track.toMenuHeaderItem(
 fun Track.toLargeThumbnailItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit
-): LargeThumbnailItem {
-    return LargeThumbnailItem(
+): MediumPlusThumbnailItem {
+    return MediumPlusThumbnailItem(
         title = this.title,
         subtitle = this.album.artists.getNames(),
         thumbnail = this.album.thumbnail,
@@ -125,7 +125,7 @@ fun Track.toLargeThumbnailItem(
 fun List<Track>.toLargeThumbnailItems(
     onClick: (Track) -> Unit,
     onLongClick: (Track) -> Unit
-): List<LargeThumbnailItem> {
+): List<MediumPlusThumbnailItem> {
     return this.map { it.toLargeThumbnailItem(
         onClick = { onClick(it) },
         onLongClick = { onLongClick(it) }

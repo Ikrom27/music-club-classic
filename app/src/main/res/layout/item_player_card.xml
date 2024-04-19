@@ -6,21 +6,19 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/CardThumbnailLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_track_cover"
-            android:layout_width="@dimen/large_track_cover"
-            android:layout_height="@dimen/large_track_cover" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/large_track_cover"
-        android:layout_height="@dimen/large_track_cover"
+        style="@style/CardThumbnailLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
