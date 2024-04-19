@@ -59,8 +59,8 @@ class ExploreFragment : Fragment() {
             if(albums.isNotEmpty()){
                 val cardItems = albums.albumCardItems { onAlbumClick(it) }
                 val newReleasesItem = HorizontalItems(CardAdapter(), cardItems)
-                adapter.addToStart(TitleItem("Quick pick"))
-                adapter.addToEnd(newReleasesItem)
+                adapter.updateItem(0, TitleItem("New releases"))
+                adapter.updateItem(1, newReleasesItem)
             }
         }
     }

@@ -42,7 +42,8 @@ abstract class BaseAdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: 
 
     fun updateItem(position: Int, item: T){
         if (position >= mItems.size){
-            addToEnd(item)
+            mItems.add(item)
+            notifyItemChanged(itemCount)
             return
         }
         mItems.removeAt(position)
