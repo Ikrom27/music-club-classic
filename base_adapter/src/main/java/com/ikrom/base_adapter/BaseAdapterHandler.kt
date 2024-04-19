@@ -12,12 +12,14 @@ abstract class BaseAdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: 
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.itemView.setOnClickListener {
-            mItems[position].onClick()
+        mItems[position].onClick?.let {unit->
+            holder.itemView.setOnClickListener{unit()}
         }
-        holder.itemView.setOnLongClickListener {
-            mItems[position].onLongClick()
-            true
+        mItems[position].onLongClick?.let {unit ->
+            holder.itemView.setOnLongClickListener {
+                unit()
+                true
+            }
         }
     }
 
