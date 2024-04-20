@@ -26,13 +26,13 @@ object NextPage {
         return SongItem(
             id = renderer.videoId ?: return null,
             title = renderer.title?.runs?.firstOrNull()?.text ?: return null,
-            itemArtists = longByLineRuns.firstOrNull()?.oddElements()?.map {
+            artists = longByLineRuns.firstOrNull()?.oddElements()?.map {
                 ItemArtist(
                     name = it.text,
                     id = it.navigationEndpoint?.browseEndpoint?.browseId
                 )
             } ?: return null,
-            itemAlbum = longByLineRuns.getOrNull(1)?.firstOrNull()?.takeIf {
+            album = longByLineRuns.getOrNull(1)?.firstOrNull()?.takeIf {
                 it.navigationEndpoint?.browseEndpoint != null
             }?.let {
                 ItemAlbum(
@@ -43,7 +43,7 @@ object NextPage {
             duration = renderer.lengthText?.runs?.firstOrNull()?.text?.parseTime() ?: return null,
             thumbnail = renderer.thumbnail.thumbnails.lastOrNull()?.url ?: return null,
             explicit = renderer.badges?.find {
-                it.musicInlineBadgeRenderer.icon.iconType == "MUSIC_EXPLICIT_BADGE"
+                it.musicInlineBadgeRenderer?.icon?.iconType == "MUSIC_EXPLICIT_BADGE"
             } != null
         )
     }

@@ -1,6 +1,15 @@
 package com.ikrom.innertube.pages
 
-import com.ikrom.innertube.models.*
+import com.ikrom.innertube.models.ItemAlbum
+import com.ikrom.innertube.models.AlbumItem
+import com.ikrom.innertube.models.ItemArtist
+import com.ikrom.innertube.models.ArtistItem
+import com.ikrom.innertube.models.MusicResponsiveListItemRenderer
+import com.ikrom.innertube.models.PlaylistItem
+import com.ikrom.innertube.models.SongItem
+import com.ikrom.innertube.models.YTItem
+import com.ikrom.innertube.models.oddElements
+import com.ikrom.innertube.models.splitBySeparator
 import com.ikrom.innertube.utils.parseTime
 
 data class SearchResult(
@@ -20,13 +29,13 @@ object SearchPage {
                     title = renderer.flexColumns.firstOrNull()
                         ?.musicResponsiveListItemFlexColumnRenderer?.text?.runs
                         ?.firstOrNull()?.text ?: return null,
-                    itemArtists = secondaryLine.firstOrNull()?.oddElements()?.map {
+                    artists = secondaryLine.firstOrNull()?.oddElements()?.map {
                         ItemArtist(
                             name = it.text,
                             id = it.navigationEndpoint?.browseEndpoint?.browseId
                         )
                     } ?: return null,
-                    itemAlbum = secondaryLine.getOrNull(1)?.firstOrNull()?.takeIf { it.navigationEndpoint?.browseEndpoint != null }?.let {
+                    album = secondaryLine.getOrNull(1)?.firstOrNull()?.takeIf { it.navigationEndpoint?.browseEndpoint != null }?.let {
                         ItemAlbum(
                             name = it.text,
                             id = it.navigationEndpoint?.browseEndpoint?.browseId!!
@@ -35,7 +44,7 @@ object SearchPage {
                     duration = secondaryLine.lastOrNull()?.firstOrNull()?.text?.parseTime(),
                     thumbnail = renderer.thumbnail?.musicThumbnailRenderer?.getThumbnailUrl() ?: return null,
                     explicit = renderer.badges?.find {
-                        it.musicInlineBadgeRenderer.icon.iconType == "MUSIC_EXPLICIT_BADGE"
+                        it.musicInlineBadgeRenderer?.icon?.iconType == "MUSIC_EXPLICIT_BADGE"
                     } != null
                 )
             }
@@ -59,7 +68,7 @@ object SearchPage {
                     title = renderer.flexColumns.firstOrNull()
                         ?.musicResponsiveListItemFlexColumnRenderer?.text?.runs
                         ?.firstOrNull()?.text ?: return null,
-                    itemArtists = secondaryLine.getOrNull(1)?.oddElements()?.map {
+                    artists = secondaryLine.getOrNull(1)?.oddElements()?.map {
                         ItemArtist(
                             name = it.text,
                             id = it.navigationEndpoint?.browseEndpoint?.browseId
@@ -68,7 +77,7 @@ object SearchPage {
                     year = secondaryLine.getOrNull(2)?.firstOrNull()?.text?.toIntOrNull(),
                     thumbnail = renderer.thumbnail?.musicThumbnailRenderer?.getThumbnailUrl() ?: return null,
                     explicit = renderer.badges?.find {
-                        it.musicInlineBadgeRenderer.icon.iconType == "MUSIC_EXPLICIT_BADGE"
+                        it.musicInlineBadgeRenderer?.icon?.iconType == "MUSIC_EXPLICIT_BADGE"
                     } != null
                 )
             }

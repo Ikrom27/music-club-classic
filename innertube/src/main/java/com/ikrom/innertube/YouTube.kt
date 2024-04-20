@@ -12,7 +12,6 @@ import com.ikrom.innertube.models.SearchSuggestions
 import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.innertube.models.WatchEndpoint.WatchEndpointMusicSupportedConfigs.WatchEndpointMusicConfig.Companion.MUSIC_VIDEO_TYPE_ATV
-import com.ikrom.innertube.models.YouTubeClient
 import com.ikrom.innertube.models.YouTubeClient.Companion.ANDROID_MUSIC
 import com.ikrom.innertube.models.YouTubeClient.Companion.TVHTML5
 import com.ikrom.innertube.models.YouTubeClient.Companion.WEB
@@ -58,7 +57,7 @@ import java.net.Proxy
 
 /**
  * Parse useful data with [InnerTube] sending requests.
- * from [InnerTune](https://github.com/z-huang/InnerTune)
+ * Modified from [ViMusic](https://github.com/vfsfitvnm/ViMusic)
  */
 object YouTube {
     private val innerTube = InnerTube()
@@ -162,7 +161,7 @@ object YouTube {
                 browseId = browseId,
                 playlistId = playlistId,
                 title = response.header?.musicDetailHeaderRenderer?.title?.runs?.firstOrNull()?.text!!,
-                itemArtists = response.header.musicDetailHeaderRenderer.subtitle.runs?.splitBySeparator()?.getOrNull(1)?.oddElements()?.map {
+                artists = response.header.musicDetailHeaderRenderer.subtitle.runs?.splitBySeparator()?.getOrNull(1)?.oddElements()?.map {
                     ItemArtist(
                         name = it.text,
                         id = it.navigationEndpoint?.browseEndpoint?.browseId
@@ -211,7 +210,7 @@ object YouTube {
             ?.gridRenderer
         if (gridRenderer != null) {
             ArtistItemsPage(
-                title = gridRenderer.header?.gridHeaderRenderer?.title?.runs?.firstOrNull()?.text!!,
+                title = gridRenderer.header?.gridHeaderRenderer?.title?.runs?.firstOrNull()?.text.orEmpty(),
                 items = gridRenderer.items.mapNotNull {
                     it.musicTwoRowItemRenderer?.let { renderer ->
                         ArtistItemsPage.fromMusicTwoRowItemRenderer(renderer)
@@ -314,8 +313,7 @@ object YouTube {
     }
 
     suspend fun newReleaseAlbums(): Result<List<AlbumItem>> = runCatching {
-        val isCookieNotEmpty = cookie != ""
-        val response = innerTube.browse(WEB_REMIX, browseId = "FEmusic_new_releases_albums", setLogin = isCookieNotEmpty).body<BrowseResponse>()
+        val response = innerTube.browse(WEB_REMIX, browseId = "FEmusic_new_releases_albums").body<BrowseResponse>()
         response.contents?.singleColumnBrowseResultsRenderer?.tabs?.firstOrNull()?.tabRenderer?.content?.sectionListRenderer?.contents?.firstOrNull()?.gridRenderer?.items
             ?.mapNotNull { it.musicTwoRowItemRenderer }
             ?.mapNotNull(NewReleaseAlbumPage::fromMusicTwoRowItemRenderer)
@@ -493,7 +491,10 @@ object YouTube {
     }
 
     suspend fun accountInfo(): Result<AccountInfo> = runCatching {
-        innerTube.accountMenu(WEB_REMIX).body<AccountMenuResponse>().actions[0].openPopupAction.popup.multiPageMenuRenderer.header?.activeAccountHeaderRenderer?.toAccountInfo()!!
+        innerTube.accountMenu(WEB_REMIX).body<AccountMenuResponse>()
+            .actions[0].openPopupAction.popup.multiPageMenuRenderer
+            .header?.activeAccountHeaderRenderer
+            ?.toAccountInfo()!!
     }
 
     @JvmInline

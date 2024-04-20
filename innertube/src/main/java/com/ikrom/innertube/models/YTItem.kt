@@ -21,8 +21,8 @@ data class ItemAlbum(
 data class SongItem(
     override val id: String,
     override val title: String,
-    val itemArtists: List<ItemArtist>,
-    val itemAlbum: ItemAlbum? = null,
+    val artists: List<ItemArtist>,
+    val album: ItemAlbum? = null,
     val duration: Int? = null,
     override val thumbnail: String,
     override val explicit: Boolean = false,
@@ -30,7 +30,6 @@ data class SongItem(
 ) : YTItem() {
     override val shareLink: String
         get() = "https://music.youtube.com/watch?v=$id"
-
 }
 
 data class AlbumItem(
@@ -38,7 +37,7 @@ data class AlbumItem(
     val playlistId: String,
     override val id: String = browseId,
     override val title: String,
-    val itemArtists: List<ItemArtist>?,
+    val artists: List<ItemArtist>?,
     val year: Int? = null,
     override val thumbnail: String,
     override val explicit: Boolean = false,
@@ -55,7 +54,7 @@ data class PlaylistItem(
     override val thumbnail: String,
     val playEndpoint: WatchEndpoint?,
     val shuffleEndpoint: WatchEndpoint,
-    val radioEndpoint: WatchEndpoint,
+    val radioEndpoint: WatchEndpoint?,
 ) : YTItem() {
     override val explicit: Boolean
         get() = false

@@ -1,6 +1,11 @@
 package com.ikrom.innertube.pages
 
-import com.ikrom.innertube.models.*
+import com.ikrom.innertube.models.ItemAlbum
+import com.ikrom.innertube.models.ItemArtist
+import com.ikrom.innertube.models.MusicResponsiveListItemRenderer
+import com.ikrom.innertube.models.PlaylistItem
+import com.ikrom.innertube.models.SongItem
+import com.ikrom.innertube.models.oddElements
 import com.ikrom.innertube.utils.parseTime
 
 data class PlaylistPage(
@@ -16,13 +21,13 @@ data class PlaylistPage(
                 title = renderer.flexColumns.firstOrNull()
                     ?.musicResponsiveListItemFlexColumnRenderer?.text
                     ?.runs?.firstOrNull()?.text ?: return null,
-                itemArtists = renderer.flexColumns.getOrNull(1)?.musicResponsiveListItemFlexColumnRenderer?.text?.runs?.oddElements()?.map {
+                artists = renderer.flexColumns.getOrNull(1)?.musicResponsiveListItemFlexColumnRenderer?.text?.runs?.oddElements()?.map {
                     ItemArtist(
                         name = it.text,
                         id = it.navigationEndpoint?.browseEndpoint?.browseId
                     )
                 } ?: return null,
-                itemAlbum = renderer.flexColumns.getOrNull(2)?.musicResponsiveListItemFlexColumnRenderer?.text?.runs?.firstOrNull()?.let {
+                album = renderer.flexColumns.getOrNull(2)?.musicResponsiveListItemFlexColumnRenderer?.text?.runs?.firstOrNull()?.let {
                     ItemAlbum(
                         name = it.text,
                         id = it.navigationEndpoint?.browseEndpoint?.browseId ?: return null
@@ -31,7 +36,7 @@ data class PlaylistPage(
                 duration = renderer.fixedColumns?.firstOrNull()?.musicResponsiveListItemFlexColumnRenderer?.text?.runs?.firstOrNull()?.text?.parseTime(),
                 thumbnail = renderer.thumbnail?.musicThumbnailRenderer?.getThumbnailUrl() ?: return null,
                 explicit = renderer.badges?.find {
-                    it.musicInlineBadgeRenderer.icon.iconType == "MUSIC_EXPLICIT_BADGE"
+                    it.musicInlineBadgeRenderer?.icon?.iconType == "MUSIC_EXPLICIT_BADGE"
                 } != null,
                 endpoint = renderer.overlay?.musicItemThumbnailOverlayRenderer?.content?.musicPlayButtonRenderer?.playNavigationEndpoint?.watchEndpoint
             )

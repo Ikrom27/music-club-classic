@@ -15,7 +15,6 @@ class AccountRemoteDataSource {
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.accountInfo().onSuccess { result ->
                 accountInfo.postValue(result)
-                Log.d(TAG, result.email)
             }.onFailure {
                 Log.e(TAG, "onFailure error: $it")
             }

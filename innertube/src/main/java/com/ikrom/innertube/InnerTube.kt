@@ -21,7 +21,6 @@ import kotlinx.serialization.json.Json
 import java.net.Proxy
 import java.util.*
 
-
 /**
  * Provide access to InnerTube endpoints.
  * For making HTTP requests, not parsing response.
@@ -31,7 +30,7 @@ class InnerTube {
 
     var locale = YouTubeLocale(
         gl = Locale.US.country,
-        hl = Locale.getDefault().toLanguageTag()
+        hl = Locale.US.language
     )
     var visitorData: String = "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D"
     var cookie: String? = null

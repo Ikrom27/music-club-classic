@@ -37,9 +37,9 @@ fun SongItem.toTrack(): Track? {
             title = this.title,
             videoId = this.id,
             album = Album(
-                id = this.itemAlbum?.id ?: "null album",
-                title = this.itemAlbum?.name ?: "null title",
-                artists = this.itemArtists.map { artist ->
+                id = this.album?.id ?: "null album",
+                title = this.album?.name ?: "null title",
+                artists = this.artists.map { artist ->
                     Artist(
                         id = artist.id,
                         name = artist.name
@@ -68,7 +68,7 @@ fun AlbumItem.toAlbum(): Album {
     return Album(
         id = this.id,
         title = this.title,
-        artists = this.itemArtists!!.map{it.toArtist()},
+        artists = this.artists!!.map{it.toArtist()},
         thumbnail = this.thumbnail.resize(1024, 1024),
         year = this.year
     )
