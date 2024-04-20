@@ -3,15 +3,17 @@ package com.ikrom.music_club_classic.data.data_source.media_data_source
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.ikrom.innertube.YouTube
-import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SearchSuggestions
 import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.Artist
+import com.ikrom.music_club_classic.data.model.ArtistData
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toAlbum
+import com.ikrom.music_club_classic.extensions.toArtistData
 import com.ikrom.music_club_classic.extensions.toPlayList
 import com.ikrom.music_club_classic.extensions.toTrack
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +32,7 @@ class YoutubeDataSource: IMediaDataSource {
     override fun getTracksByQuery(query: String): MutableLiveData<List<Track>> {
         val responseLiveData = MutableLiveData<List<Track>>(null)
         CoroutineScope(Dispatchers.IO).launch {
+            getArtistInfo("UCxgN32UVVztKAQd2HkXzBtw")
             YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).onSuccess { result ->
                 val tracks = result.items.mapNotNull { (it as SongItem).toTrack() }
                 responseLiveData.postValue(tracks)
@@ -65,6 +68,15 @@ class YoutubeDataSource: IMediaDataSource {
             }
         }
         return responseLiveData
+    }
+
+    override suspend fun getArtistInfo(artistId: String): MutableLiveData<ArtistData> {
+        val result = MutableLiveData<ArtistData>()
+        YouTube.artist(artistId).onSuccess {
+            val artist = it.toArtistData()
+            result.postValue(artist)
+        }
+        return MutableLiveData()
     }
     
     override fun getTrackById(id: String): MutableLiveData<Track> {

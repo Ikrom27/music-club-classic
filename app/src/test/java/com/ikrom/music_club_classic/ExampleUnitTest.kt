@@ -1,5 +1,8 @@
 package com.ikrom.music_club_classic
 
+import com.ikrom.innertube.YouTube
+import com.ikrom.music_club_classic.data.data_source.media_data_source.YoutubeDataSource
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +15,9 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+//        runBlocking {
+//            val id = "UCxgN32UVVztKAQd2HkXzBtw"
+//            YoutubeDataSource().getArtistInfo(id).value
+//        }
     }
 }

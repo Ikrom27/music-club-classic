@@ -15,7 +15,7 @@ import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.YTItem
 import com.ikrom.innertube.models.oddElements
 
-data class ArtistSection(
+data class YTArtistSection(
     val title: String,
     val items: List<YTItem>,
     val moreEndpoint: BrowseEndpoint?,
@@ -23,11 +23,11 @@ data class ArtistSection(
 
 data class ArtistPage(
     val artist: ArtistItem,
-    val sections: List<ArtistSection>,
+    val sections: List<YTArtistSection>,
     val description: String?,
 ) {
     companion object {
-        fun fromSectionListRendererContent(content: SectionListRenderer.Content): ArtistSection? {
+        fun fromSectionListRendererContent(content: SectionListRenderer.Content): YTArtistSection? {
             return when {
                 content.musicShelfRenderer != null -> fromMusicShelfRenderer(content.musicShelfRenderer)
                 content.musicCarouselShelfRenderer != null -> fromMusicCarouselShelfRenderer(content.musicCarouselShelfRenderer)
@@ -35,8 +35,8 @@ data class ArtistPage(
             }
         }
 
-        private fun fromMusicShelfRenderer(renderer: MusicShelfRenderer): ArtistSection? {
-            return ArtistSection(
+        private fun fromMusicShelfRenderer(renderer: MusicShelfRenderer): YTArtistSection? {
+            return YTArtistSection(
                 title = renderer.title?.runs?.firstOrNull()?.text ?: return null,
                 items = renderer.contents?.mapNotNull {
                     fromMusicResponsiveListItemRenderer(it.musicResponsiveListItemRenderer)
@@ -45,8 +45,8 @@ data class ArtistPage(
             )
         }
 
-        private fun fromMusicCarouselShelfRenderer(renderer: MusicCarouselShelfRenderer): ArtistSection? {
-            return ArtistSection(
+        private fun fromMusicCarouselShelfRenderer(renderer: MusicCarouselShelfRenderer): YTArtistSection? {
+            return YTArtistSection(
                 title = renderer.header?.musicCarouselShelfBasicHeaderRenderer?.title?.runs?.firstOrNull()?.text ?: return null,
                 items = renderer.contents.mapNotNull {
                     it.musicTwoRowItemRenderer?.let { renderer ->

@@ -6,6 +6,8 @@ import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.innertube.models.SearchSuggestions
 import com.ikrom.innertube.models.WatchEndpoint
+import com.ikrom.music_club_classic.data.model.Artist
+import com.ikrom.music_club_classic.data.model.ArtistData
 import com.ikrom.music_club_classic.data.model.PlayList
 
 interface IMediaDataSource {
@@ -18,4 +20,5 @@ interface IMediaDataSource {
     fun getRadioTracks(endpoint: WatchEndpoint): MutableLiveData<List<Track>>
     fun getPlaylistTracks(albumId: String): MutableLiveData<List<Track>>
     fun getServerStatus(): MutableLiveData<Int>
+    suspend fun getArtistInfo(artistId: String): MutableLiveData<ArtistData>
 }

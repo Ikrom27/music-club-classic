@@ -21,7 +21,8 @@ data class Album(
 
 data class Artist(
     val id: String?,
-    val name: String
+    val name: String,
+    val thumbnail: String? = null
 )
 
 data class PlayList(
@@ -29,4 +30,21 @@ data class PlayList(
     val title: String,
     val artists: Artist?,
     val thumbnail: String,
+)
+
+data class ArtistData(
+    val id: String,
+    val title: String,
+    val thumbnail: String,
+    val description: String,
+    val tracks: List<Track>?,
+    val albums: List<Album>?,
+    val singles: List<Album>?,
+    val relatedPlayLists: List<PlayList>?,
+    val similar: List<Artist>?
+)
+
+data class ArtistSection(
+    val title: String,
+    val items: List<Any>
 )
