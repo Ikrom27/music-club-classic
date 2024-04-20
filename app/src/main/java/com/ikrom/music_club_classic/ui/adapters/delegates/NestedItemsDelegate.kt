@@ -1,7 +1,6 @@
 package com.ikrom.music_club_classic.ui.adapters.delegates
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.base_adapter.BaseAdapter
@@ -10,22 +9,22 @@ import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
-data class HorizontalItems<T: AdapterItem>(
-    val adapter: BaseAdapter<T>,
+data class NestedItems<T: AdapterItem>(
     val items: List<T>,
+    val adapter: BaseAdapter<T>,
 ): AdapterItem()
 
-class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>, HorizontalItemsDelegate.RecyclerViewHolder>(
-    HorizontalItems::class.java as Class<out HorizontalItems<AdapterItem>>){
+class NestedItemsDelegate: BaseDelegateAdapter<NestedItems<AdapterItem>, NestedItemsDelegate.RecyclerViewHolder>(
+    NestedItems::class.java as Class<out NestedItems<AdapterItem>>){
     inner class RecyclerViewHolder(itemView: View):
-        DelegateViewHolder<HorizontalItems<AdapterItem>>(itemView)
+        DelegateViewHolder<NestedItems<AdapterItem>>(itemView)
     {
         private val rvHorizontalItems = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_items)
         private val marginStart = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginEnd = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.items_margin)
 
-        override fun bind(item: HorizontalItems<AdapterItem>) {
+        override fun bind(item: NestedItems<AdapterItem>) {
             item.adapter.setItems(item.items)
             rvHorizontalItems.adapter = item.adapter
             setupRecycleView()
@@ -53,6 +52,6 @@ class HorizontalItemsDelegate: BaseDelegateAdapter<HorizontalItems<AdapterItem>,
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_horizontal_items
+        return R.layout.item_nested_items
     }
 }

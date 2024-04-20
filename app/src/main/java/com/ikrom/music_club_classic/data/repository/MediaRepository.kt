@@ -1,15 +1,16 @@
 package com.ikrom.music_club_classic.data.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ikrom.innertube.YouTube
-import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SearchSuggestions
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.ArtistData
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.SearchHistory
 import com.ikrom.music_club_classic.data.model.Track
@@ -25,6 +26,10 @@ class MediaRepository @Inject constructor(
         val cookie = accountLocalDataSource.getCookie()
         YouTube.cookie = cookie
         Log.d("MusicServiceRepository", cookie)
+    }
+
+    suspend fun getArtistData(id: String): LiveData<ArtistData>{
+        return youtubeService.getArtistData(id)
     }
 
     fun getServerStatus(): MutableLiveData<Int> {

@@ -17,8 +17,8 @@ import com.ikrom.music_club_classic.extensions.albumCardItems
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
+import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.AppBar
@@ -37,7 +37,7 @@ class ExploreFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
     private val adapter = CompositeAdapter.Builder()
-        .add(HorizontalItemsDelegate())
+        .add(NestedItemsDelegate())
         .add(TitleDelegate())
         .build()
 
@@ -58,7 +58,7 @@ class ExploreFragment : Fragment() {
         viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
             if(albums.isNotEmpty()){
                 val cardItems = albums.albumCardItems { onAlbumClick(it) }
-                val newReleasesItem = HorizontalItems(CardAdapter(), cardItems)
+                val newReleasesItem = NestedItems(cardItems, CardAdapter())
                 adapter.updateItem(0, TitleItem("New releases"))
                 adapter.updateItem(1, newReleasesItem)
             }

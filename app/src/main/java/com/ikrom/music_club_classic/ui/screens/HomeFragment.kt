@@ -14,13 +14,13 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.PlayList
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.playlistCardItems
-import com.ikrom.music_club_classic.extensions.toLargeThumbnailItems
+import com.ikrom.music_club_classic.extensions.toMediumPlusThumbnailItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItemsDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.HorizontalItems
+import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumPlusThumbnailAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
                 onPlayPauseClick = { onPlayPauseClick(it) },
                 onSkipClick = {}
             ))
-            .add(HorizontalItemsDelegate())
+            .add(NestedItemsDelegate())
             .add(TitleDelegate())
             .build()
     }
@@ -92,18 +92,20 @@ class HomeFragment : Fragment() {
             if (playlists.isNotEmpty()){
                 compositeAdapter.updateItem(2, TitleItem("Your playlists"))
                 compositeAdapter.updateItem(3,
-                    HorizontalItems(
-                        adapter = CardAdapter(),
-                        items = playlists.playlistCardItems { onPlayListClick(it) }))
+                    NestedItems(
+                        items = playlists.playlistCardItems { onPlayListClick(it) },
+                        adapter = CardAdapter()
+                    )
+                )
             }
         }
         homeViewModel.trackList.observe(viewLifecycleOwner) {tracks ->
             if (tracks.isNotEmpty()){
                 compositeAdapter.updateItem(4, TitleItem("From Linkin park"))
                 compositeAdapter.updateItem(5,
-                    HorizontalItems(
+                    NestedItems(
                         adapter = MediumPlusThumbnailAdapter(),
-                        items = tracks.toLargeThumbnailItems(
+                        items = tracks.toMediumPlusThumbnailItems(
                             onClick = {
                                 playerHandler.playNow(it)
                             },
@@ -112,7 +114,9 @@ class HomeFragment : Fragment() {
                                 val bottomMenu = TracksMenu()
                                 bottomMenu.show(parentFragmentManager, bottomMenu.tag)
                             }
-                        )))
+                        )
+                    )
+                )
             }
         }
     }

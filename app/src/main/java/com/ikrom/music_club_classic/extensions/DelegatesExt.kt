@@ -122,7 +122,7 @@ fun Track.toLargeThumbnailItem(
     )
 }
 
-fun List<Track>.toLargeThumbnailItems(
+fun List<Track>.toMediumPlusThumbnailItems(
     onClick: (Track) -> Unit,
     onLongClick: (Track) -> Unit
 ): List<MediumPlusThumbnailItem> {

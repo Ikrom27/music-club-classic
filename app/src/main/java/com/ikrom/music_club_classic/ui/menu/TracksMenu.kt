@@ -21,6 +21,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
+import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class TracksMenu : BottomSheetDialogFragment() {
 
     private val viewModel: BottomMenuViewModel by activityViewModels()
     private val albumViewModel: AlbumViewModel by activityViewModels()
+    private val artistViewModel: ArtistViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
@@ -100,6 +102,8 @@ class TracksMenu : BottomSheetDialogFragment() {
                 title = getString(R.string.open_artist),
                 icon = R.drawable.ic_view_artist,
                 onClick = {
+                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
+                    navController.navigate(R.id.action_homeFragment_to_artistFragment)
                     dismiss()
                 }
             ),
