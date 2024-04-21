@@ -10,7 +10,7 @@ import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 
-data class ThumbnailLargeHeaderItem(
+data class ArtistHeaderItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
@@ -18,16 +18,16 @@ data class ThumbnailLargeHeaderItem(
     val onShuffleClick: () -> Unit
 ): AdapterItem()
 
-class ThumbnailLargeHeaderDelegate: BaseDelegateAdapter<ThumbnailLargeHeaderItem, ThumbnailLargeHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
-    ThumbnailLargeHeaderItem::class.java
+class ArtistHeaderDelegate: BaseDelegateAdapter<ArtistHeaderItem, ArtistHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
+    ArtistHeaderItem::class.java
 ) {
     inner class ThumbnailLargeHeaderViewHolder(itemView: View):
-    DelegateViewHolder<ThumbnailLargeHeaderItem>(itemView){
+    DelegateViewHolder<ArtistHeaderItem>(itemView){
         private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val title: TextView = itemView.findViewById(R.id.tv_title)
         private val btnPlayAll: Button = itemView.findViewById(R.id.btn_play_all)
         private val btnPlayShuffled: Button = itemView.findViewById(R.id.btn_play_shuffled)
-        override fun bind(item: ThumbnailLargeHeaderItem) {
+        override fun bind(item: ArtistHeaderItem) {
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
@@ -37,7 +37,7 @@ class ThumbnailLargeHeaderDelegate: BaseDelegateAdapter<ThumbnailLargeHeaderItem
             setupButtons(item)
         }
 
-        private fun setupButtons(item: ThumbnailLargeHeaderItem) {
+        private fun setupButtons(item: ArtistHeaderItem) {
             btnPlayAll.setOnClickListener{
                 item.onPlayClick()
             }
@@ -52,6 +52,6 @@ class ThumbnailLargeHeaderDelegate: BaseDelegateAdapter<ThumbnailLargeHeaderItem
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_thumbnail_large_header
+        return R.layout.item_artist_header
     }
 }

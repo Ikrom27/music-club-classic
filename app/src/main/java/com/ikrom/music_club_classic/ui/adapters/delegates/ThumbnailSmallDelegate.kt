@@ -10,7 +10,7 @@ import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
-data class MediumTrackItem(
+data class ThumbnailSmallItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
@@ -19,17 +19,17 @@ data class MediumTrackItem(
 ) : AdapterItem()
 
 
-class MediumTrackDelegate:
-    BaseDelegateAdapter<MediumTrackItem, MediumTrackDelegate.MediumTrackDelegateViewHolder>(
-    MediumTrackItem::class.java
+class ThumbnailSmallDelegate:
+    BaseDelegateAdapter<ThumbnailSmallItem, ThumbnailSmallDelegate.ThumbnailSmallViewHolder>(
+    ThumbnailSmallItem::class.java
 ) {
-    inner class MediumTrackDelegateViewHolder(itemView: View): DelegateViewHolder<MediumTrackItem>(itemView) {
+    inner class ThumbnailSmallViewHolder(itemView: View): DelegateViewHolder<ThumbnailSmallItem>(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)
         private val btnMore: ImageButton = itemView.findViewById(R.id.ib_more)
 
-        override fun bind(item: MediumTrackItem) {
+        override fun bind(item: ThumbnailSmallItem) {
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
@@ -41,10 +41,10 @@ class MediumTrackDelegate:
     }
 
     override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
-        return MediumTrackDelegateViewHolder(binding)
+        return ThumbnailSmallViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_medium_thumbnail
+        return R.layout.item_thumbnail_small
     }
 }

@@ -9,7 +9,7 @@ import com.ikrom.base_adapter.BaseAdapter
 import com.ikrom.music_club_classic.R
 import com.ikrom.base_adapter.model.AdapterItem
 
-data class MediumPlusThumbnailItem(
+data class ThumbnailMediumItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
@@ -17,21 +17,21 @@ data class MediumPlusThumbnailItem(
     override val onLongClick: () -> Unit
 ) : AdapterItem()
 
-class MediumPlusThumbnailAdapter: BaseAdapter<MediumPlusThumbnailItem>() {
-    override fun getViewHolder(binding: View): BaseViewHolder<MediumPlusThumbnailItem> {
-        return MediumPlusThumbnailViewHolder(binding)
+class ThumbnailMediumAdapter: BaseAdapter<ThumbnailMediumItem>() {
+    override fun getViewHolder(binding: View): BaseViewHolder<ThumbnailMediumItem> {
+        return ThumbnailMediumViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_thumbnail_medium_plus
+        return R.layout.item_thumbnail_medium
     }
 
-    inner class MediumPlusThumbnailViewHolder(itemView: View): BaseViewHolder<MediumPlusThumbnailItem>(itemView) {
+    inner class ThumbnailMediumViewHolder(itemView: View): BaseViewHolder<ThumbnailMediumItem>(itemView) {
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_subtitle)
         @SuppressLint("CheckResult")
-        override fun bind(item: MediumPlusThumbnailItem) {
+        override fun bind(item: ThumbnailMediumItem) {
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)

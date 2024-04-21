@@ -14,14 +14,14 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.playlistCardItems
-import com.ikrom.music_club_classic.extensions.models.toMediumPlusThumbnailItems
+import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumPlusThumbnailAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
@@ -104,8 +104,8 @@ class HomeFragment : Fragment() {
                 compositeAdapter.updateItem(4, TitleItem("From Linkin park"))
                 compositeAdapter.updateItem(5,
                     NestedItems(
-                        adapter = MediumPlusThumbnailAdapter(),
-                        items = tracks.toMediumPlusThumbnailItems(
+                        adapter = ThumbnailMediumAdapter(),
+                        items = tracks.toThumbnailMediumItems(
                             onClick = {
                                 playerHandler.playNow(it)
                             },

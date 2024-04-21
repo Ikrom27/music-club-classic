@@ -5,8 +5,8 @@ import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Artist
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.resize
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumPlusThumbnailItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegateItem
 
 fun SongItem.toTrack(): Track? {
@@ -32,11 +32,11 @@ fun SongItem.toTrack(): Track? {
     }
 }
 
-fun Track.toMediumTrackItem(
+fun Track.toThumbnailSmallItem(
     onItemClick: () -> Unit,
     onButtonClick: () -> Unit,
-): MediumTrackItem {
-    return MediumTrackItem(
+): ThumbnailSmallItem {
+    return ThumbnailSmallItem(
         title = this.title,
         subtitle = this.album.artists.getNames(),
         thumbnail = this.album.thumbnail,
@@ -58,11 +58,11 @@ fun Track.toMenuHeaderItem(
     )
 }
 
-fun Track.toLargeThumbnailItem(
+fun Track.toThumbnailMediumItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit
-): MediumPlusThumbnailItem {
-    return MediumPlusThumbnailItem(
+): ThumbnailMediumItem {
+    return ThumbnailMediumItem(
         title = this.title,
         subtitle = this.album.artists.getNames(),
         thumbnail = this.album.thumbnail,
@@ -71,11 +71,11 @@ fun Track.toLargeThumbnailItem(
     )
 }
 
-fun List<Track>.toMediumPlusThumbnailItems(
+fun List<Track>.toThumbnailMediumItems(
     onClick: (Track) -> Unit,
     onLongClick: (Track) -> Unit
-): List<MediumPlusThumbnailItem> {
-    return this.map { it.toLargeThumbnailItem(
+): List<ThumbnailMediumItem> {
+    return this.map { it.toThumbnailMediumItem(
         onClick = { onClick(it) },
         onLongClick = { onLongClick(it) }
     ) }

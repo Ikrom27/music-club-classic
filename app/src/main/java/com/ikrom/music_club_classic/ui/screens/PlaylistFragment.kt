@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.models.toMediumTrackItem
+import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
@@ -44,7 +44,7 @@ class PlaylistFragment : Fragment() {
 
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(ThumbnailHeaderDelegate())
-        .add(MediumTrackDelegate())
+        .add(ThumbnailSmallDelegate())
         .build()
 
 
@@ -122,7 +122,7 @@ class PlaylistFragment : Fragment() {
                 onShuffleClick = {playerHandler.playNow(trackList.shuffled())}
             )
             val tracks = trackList.map{
-                it.toMediumTrackItem(
+                it.toThumbnailSmallItem(
                     onItemClick = {
                         playerHandler.playNow(it)
                     },

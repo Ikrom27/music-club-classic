@@ -19,9 +19,9 @@ import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.models.toMediumTrackItem
+import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.PlaceHolderView
@@ -44,7 +44,7 @@ class SearchFragment : Fragment() {
     private lateinit var phNoResult: PlaceHolderView
     private lateinit var phConnectionError: PlaceHolderView
     private var adapter = CompositeAdapter.Builder()
-        .add(MediumTrackDelegate())
+        .add(ThumbnailSmallDelegate())
         .add(TitleDelegate())
         .build()
 
@@ -130,7 +130,7 @@ class SearchFragment : Fragment() {
         if (list.isNotEmpty()) {
             adapter.addItems(listOf(TitleItem(title)))
             adapter.addItems(list.map {
-                it.toMediumTrackItem(
+                it.toThumbnailSmallItem(
                     onItemClick = {playerHandler.playNow(it)},
                     onButtonClick = {}
                 )

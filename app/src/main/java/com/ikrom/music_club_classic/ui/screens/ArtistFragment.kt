@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.toMediumTrackItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
+import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeHeaderDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,9 +30,9 @@ class ArtistFragment : Fragment() {
 
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
-        .add(ThumbnailLargeHeaderDelegate())
+        .add(ArtistHeaderDelegate())
         .add(NestedItemsDelegate())
-        .add(MediumTrackDelegate())
+        .add(ThumbnailSmallDelegate())
         .build()
 
     override fun onCreateView(
@@ -48,14 +49,15 @@ class ArtistFragment : Fragment() {
     private fun setupAdapterData(){
         viewModel.artistLiveData.observe(viewLifecycleOwner) {
             if (it != null){
-                val tracks =  it.tracks?.map { it.toMediumTrackItem({}, {}) } ?: emptyList()
-                compositeAdapter.addToEnd(ThumbnailLargeHeaderItem(
+                val tracks =  it.tracks?.map { it.toThumbnailSmallItem({}, {}) } ?: emptyList()
+                compositeAdapter.addToEnd(ArtistHeaderItem(
                     title = it.title,
                     subtitle = "",
                     thumbnail = it.thumbnail,
                     onPlayClick = {},
                     onShuffleClick = {}
                 ))
+                compositeAdapter.addToEnd(TitleItem("Tracks"))
                 compositeAdapter.addItems(tracks)
             }
 
