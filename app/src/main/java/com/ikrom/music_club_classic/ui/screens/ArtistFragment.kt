@@ -19,6 +19,10 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeHeaderDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +34,10 @@ class ArtistFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
     private val compositeAdapter = CompositeAdapter.Builder()
+        .add(TitleDelegate())
+        .add(ThumbnailLargeHeaderDelegate())
         .add(NestedItemsDelegate())
+        .add(MediumTrackDelegate())
         .build()
 
     override fun onCreateView(
@@ -47,15 +54,18 @@ class ArtistFragment : Fragment() {
     private fun setupAdapterData(){
         viewModel.artistLiveData.observe(viewLifecycleOwner) {
             if (it != null){
+                val tracks =  it.tracks?.map { it.toMediumTrackItem({}, {}) } ?: emptyList()
                 compositeAdapter.setItems(
                     listOf(
-                        NestedItems(
-                            it.tracks?.toMediumPlusThumbnailItems(
-                                {}, {}
-                            ) ?: emptyList(),
-                            MediumPlusThumbnailAdapter()
-                        )
-                    )
+                        ThumbnailLargeHeaderItem(
+                            title = it.title,
+                            subtitle = "",
+                            thumbnail = it.thumbnail,
+                            onPlayClick = {},
+                            onShuffleClick = {}
+                        ),
+                        TitleItem("Tracks"),
+                    ) + tracks
                 )
             }
 

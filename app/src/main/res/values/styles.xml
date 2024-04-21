@@ -81,6 +81,18 @@
         <item name="android:layout_width">18dp</item>
         <item name="android:padding">0dp</item>
     </style>
+    <style name="ButtonFullWidth">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ButtonPrimary" parent="ButtonFullWidth">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+    </style>
+    <style name="ButtonSecondary" parent="ButtonFullWidth">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:background">@drawable/bg_rounded_rectangle_border_100</item>
+    </style>
     <style name="ToolBarButton">
         <item name="android:layout_width">@dimen/icon_medium_plus</item>
         <item name="android:layout_height">@dimen/icon_medium_plus</item>
