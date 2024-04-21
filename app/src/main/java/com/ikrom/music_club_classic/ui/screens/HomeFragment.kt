@@ -136,7 +136,6 @@ class HomeFragment : Fragment() {
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
                     endSpace = playerHeight + navbarHeight + margin,
-                    betweenSpace = margin
                 )
             )
         }

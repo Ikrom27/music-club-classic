@@ -1,10 +1,14 @@
 package com.ikrom.music_club_classic.extensions.models
 
 import com.ikrom.innertube.models.PlaylistItem
+import com.ikrom.music_club_classic.data.model.Album
+import com.ikrom.music_club_classic.data.model.Artist
 import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.ui.adapters.LibraryItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedItem
 
 fun PlaylistItem.toPlayList(): Playlist {
     return Playlist(
@@ -66,9 +70,6 @@ fun List<Playlist>.toLibraryItems(
     }
 }
 
-
-
-
 fun List<Playlist>.playlistCardItems(
     onItemClick: (Playlist) -> Unit
 ): List<CardItem>{
@@ -77,4 +78,27 @@ fun List<Playlist>.playlistCardItems(
             onItemClick(playlist)
         }
     }
+}
+
+fun Playlist.toThumbnailMediumItem(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+) : ThumbnailMediumItem {
+    return ThumbnailMediumItem(
+        title = this.title,
+        subtitle = this.artists?.name ?: "",
+        thumbnail = this.thumbnail,
+        onClick = onClick,
+        onLongClick = onLongClick
+    )
+}
+
+fun List<Playlist>?.toThumbnailMediumItems(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+): List<ThumbnailMediumItem>{
+    return this?.map { it.toThumbnailMediumItem(
+        onClick,
+        onLongClick
+    ) } ?: emptyList()
 }

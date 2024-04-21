@@ -45,6 +45,16 @@ fun Track.toThumbnailSmallItem(
     )
 }
 
+fun List<Track>?.toThumbnailSmallItems(
+    onItemClick: () -> Unit,
+    onButtonClick: () -> Unit,
+): List<ThumbnailSmallItem> {
+    return this?.map { it.toThumbnailSmallItem(
+        onItemClick = onItemClick,
+        onButtonClick = onButtonClick
+    ) } ?: emptyList()
+}
+
 fun Track.toMenuHeaderItem(
     onClick: () -> Unit
 ): MenuHeaderDelegateItem {

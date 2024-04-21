@@ -11,11 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
+import com.ikrom.music_club_classic.data.model.Artist
+import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
+import com.ikrom.music_club_classic.extensions.models.toThumbnailRoundedItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
+import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
+import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
@@ -47,20 +55,56 @@ class ArtistFragment : Fragment() {
     }
 
     private fun setupAdapterData(){
-        viewModel.artistLiveData.observe(viewLifecycleOwner) {
-            if (it != null){
-                val tracks =  it.tracks?.map { it.toThumbnailSmallItem({}, {}) } ?: emptyList()
+        viewModel.artistLiveData.observe(viewLifecycleOwner) { artistData ->
+            if (artistData != null){
+                compositeAdapter.setItems(emptyList())
                 compositeAdapter.addToEnd(ArtistHeaderItem(
-                    title = it.title,
+                    title = artistData.title,
                     subtitle = "",
-                    thumbnail = it.thumbnail,
+                    thumbnail = artistData.thumbnail,
                     onPlayClick = {},
                     onShuffleClick = {}
                 ))
                 compositeAdapter.addToEnd(TitleItem("Tracks"))
-                compositeAdapter.addItems(tracks)
+                compositeAdapter.addItems(
+                    artistData.tracks.toThumbnailSmallItems({}, {})
+                )
+                compositeAdapter.addToEnd(TitleItem("Albums"))
+                compositeAdapter.addToEnd(NestedItems(
+                    items = artistData.albums.toThumbnailMediumItems(
+                        {}, {}
+                    ),
+                    adapter = ThumbnailMediumAdapter()
+                ))
+                compositeAdapter.addToEnd(TitleItem("Singles"))
+                compositeAdapter.addToEnd(NestedItems(
+                    items = artistData.singles.toThumbnailMediumItems(
+                        {}, {}
+                    ),
+                    adapter = ThumbnailMediumAdapter()
+                ))
+                compositeAdapter.addToEnd(TitleItem("Playlist"))
+                compositeAdapter.addToEnd(NestedItems(
+                    items = artistData.relatedPlaylists.toThumbnailMediumItems(
+                        {}, {}
+                    ),
+                    adapter = ThumbnailMediumAdapter()
+                ))
+                compositeAdapter.addToEnd(TitleItem("Similar"))
+                compositeAdapter.addToEnd(NestedItems(
+                    items = artistData.similar.toThumbnailRoundedItems(
+                        onClick = { onArtistClick(it) }
+                    ),
+                    adapter = ThumbnailRoundedAdapter()
+                ))
             }
 
+        }
+    }
+
+    private fun onArtistClick(artist: Artist){
+        artist.id?.let {
+            viewModel.artistId = it
         }
     }
 
@@ -71,6 +115,7 @@ class ArtistFragment : Fragment() {
     private fun setupRecyclerView(){
         recyclerView.adapter = compositeAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val margins = resources.getDimensionPixelSize(R.dimen.items_margin)
         val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
         if (recyclerView.itemDecorationCount == 0){

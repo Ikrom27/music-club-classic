@@ -5,6 +5,8 @@ import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.extensions.resize
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 
 fun AlbumItem.toAlbum(): Album {
     return Album(
@@ -41,6 +43,29 @@ fun Album.toCardItem(
         thumbnail = thumbnail,
         onClick = { onItemClick() }
     )
+}
+
+fun Album.toThumbnailMediumItem(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+) : ThumbnailMediumItem {
+    return ThumbnailMediumItem(
+        title = this.title,
+        subtitle = this.artists.getNames(),
+        thumbnail = this.thumbnail,
+        onClick = onClick,
+        onLongClick = onLongClick
+    )
+}
+
+fun List<Album>?.toThumbnailMediumItems(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+): List<ThumbnailMediumItem>{
+    return this?.map { it.toThumbnailMediumItem(
+        onClick,
+        onLongClick
+    ) } ?: emptyList()
 }
 
 fun List<Album>.albumCardItems(
