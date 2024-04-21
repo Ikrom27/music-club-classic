@@ -11,7 +11,7 @@ import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.ArtistData
-import com.ikrom.music_club_classic.data.model.PlayList
+import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.data.model.SearchHistory
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toTrackEntity
@@ -40,7 +40,7 @@ class MediaRepository @Inject constructor(
         return youtubeService.getTracksByQuery(query)
     }
 
-    fun getLikedPlayLists(): MutableLiveData<List<PlayList>>{
+    fun getLikedPlayLists(): MutableLiveData<List<Playlist>>{
         return youtubeService.getLikedPlayLists()
     }
 

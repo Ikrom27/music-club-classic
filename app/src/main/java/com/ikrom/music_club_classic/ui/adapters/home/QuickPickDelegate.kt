@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.getNames
+import com.ikrom.music_club_classic.extensions.models.getNames
 
 data class QuickPickItem(
     val track: Track?,

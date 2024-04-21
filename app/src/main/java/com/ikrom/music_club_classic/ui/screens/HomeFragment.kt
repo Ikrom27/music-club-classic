@@ -11,10 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.PlayList
+import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.playlistCardItems
-import com.ikrom.music_club_classic.extensions.toMediumPlusThumbnailItems
+import com.ikrom.music_club_classic.extensions.models.playlistCardItems
+import com.ikrom.music_club_classic.extensions.models.toMediumPlusThumbnailItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onPlayListClick(playList: PlayList){
+    private fun onPlayListClick(playList: Playlist){
         playListViewModel.setPlaylist(playList)
         navController.navigate(R.id.action_homeFragment_to_albumFragment)
     }

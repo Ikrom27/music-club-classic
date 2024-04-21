@@ -9,12 +9,12 @@ import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.ArtistData
-import com.ikrom.music_club_classic.data.model.PlayList
+import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.toAlbum
-import com.ikrom.music_club_classic.extensions.toArtistData
-import com.ikrom.music_club_classic.extensions.toPlayList
-import com.ikrom.music_club_classic.extensions.toTrack
+import com.ikrom.music_club_classic.extensions.models.toAlbum
+import com.ikrom.music_club_classic.extensions.models.toArtistData
+import com.ikrom.music_club_classic.extensions.models.toPlayList
+import com.ikrom.music_club_classic.extensions.models.toTrack
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,8 +57,8 @@ class YoutubeDataSource: IMediaDataSource {
         return responseLiveData
     }
 
-    override fun getLikedPlayLists(): MutableLiveData<List<PlayList>> {
-        val responseLiveData = MutableLiveData<List<PlayList>>(ArrayList())
+    override fun getLikedPlayLists(): MutableLiveData<List<Playlist>> {
+        val responseLiveData = MutableLiveData<List<Playlist>>(ArrayList())
         CoroutineScope(Dispatchers.IO).launch {
             YouTube.likedPlaylists().onSuccess { result ->
                 responseLiveData.postValue(result.map { it.toPlayList() })

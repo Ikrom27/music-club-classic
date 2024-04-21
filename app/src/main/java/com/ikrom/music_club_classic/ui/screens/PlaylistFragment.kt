@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.PlayList
+import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.toMediumTrackItem
-import com.ikrom.music_club_classic.extensions.toThumbnailHeaderItem
+import com.ikrom.music_club_classic.extensions.models.toMediumTrackItem
+import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
@@ -33,7 +33,7 @@ class PlaylistFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
-    private var currentPlaylist: PlayList? = null
+    private var currentPlaylist: Playlist? = null
     private val viewModel: PlayListViewModel by activityViewModels()
     private val searchViewModel: SearchViewModel by activityViewModels()
     private lateinit var trackList: LiveData<List<Track>>

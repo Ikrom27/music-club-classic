@@ -19,7 +19,7 @@ import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.toMediumTrackItem
+import com.ikrom.music_club_classic.extensions.models.toMediumTrackItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.MediumTrackDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate

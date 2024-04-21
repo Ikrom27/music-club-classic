@@ -53,13 +53,3 @@ fun Track.toTrackEntity(): TrackEntity {
         artistName = this.album.artists?.firstOrNull()?.name.orEmpty()
     )
 }
-
-
-//val videoId: String,
-//val title: String,
-//val albumId: String,
-//val albumTitle: String,
-//val cover: String,
-//val year: Int?,
-//val artistId: String,
-//val artistName: String

@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.extensions.toMediumTrackItem
-import com.ikrom.music_club_classic.extensions.toThumbnailHeaderItem
+import com.ikrom.music_club_classic.extensions.models.toMediumTrackItem
+import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration

@@ -25,7 +25,7 @@ data class Artist(
     val thumbnail: String? = null
 )
 
-data class PlayList(
+data class Playlist(
     val id: String,
     val title: String,
     val artists: Artist?,
@@ -40,7 +40,7 @@ data class ArtistData(
     val tracks: List<Track>?,
     val albums: List<Album>?,
     val singles: List<Album>?,
-    val relatedPlayLists: List<PlayList>?,
+    val relatedPlaylists: List<Playlist>?,
     val similar: List<Artist>?
 )
 

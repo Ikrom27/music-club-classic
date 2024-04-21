@@ -16,7 +16,7 @@ import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
-import com.ikrom.music_club_classic.extensions.toMenuHeaderItem
+import com.ikrom.music_club_classic.extensions.models.toMenuHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
