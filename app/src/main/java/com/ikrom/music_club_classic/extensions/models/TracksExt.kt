@@ -46,11 +46,11 @@ fun Track.toThumbnailSmallItem(
 }
 
 fun List<Track>?.toThumbnailSmallItems(
-    onItemClick: () -> Unit,
+    onItemClick: (Track) -> Unit,
     onButtonClick: () -> Unit,
 ): List<ThumbnailSmallItem> {
     return this?.map { it.toThumbnailSmallItem(
-        onItemClick = onItemClick,
+        onItemClick = { onItemClick(it) },
         onButtonClick = onButtonClick
     ) } ?: emptyList()
 }

@@ -14,24 +14,26 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Artist
 import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailRoundedItems
-import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItems
+import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class ArtistFragment : Fragment() {
+    @Inject
+    lateinit var playerHandler: PlayerHandler
     private val viewModel: ArtistViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
@@ -67,7 +69,9 @@ class ArtistFragment : Fragment() {
                 ))
                 compositeAdapter.addToEnd(TitleItem("Tracks"))
                 compositeAdapter.addItems(
-                    artistData.tracks.toThumbnailSmallItems({}, {})
+                    artistData.tracks.toThumbnailSmallItems({
+                        playerHandler.playNow(it)
+                    }, {})
                 )
                 compositeAdapter.addToEnd(TitleItem("Albums"))
                 compositeAdapter.addToEnd(NestedItems(
