@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -60,6 +61,7 @@ class SearchFragment : Fragment() {
     private lateinit var phNoResult: PlaceHolderView
     private lateinit var phConnectionError: PlaceHolderView
     private lateinit var suggestionsContainer: FrameLayout
+    private lateinit var progressBar: ProgressBar
     private var handler: Handler? = null
     private val suggestionAdapter = SuggestionAdapter()
     private val compositeAdapter = CompositeAdapter.Builder()
@@ -121,6 +123,7 @@ class SearchFragment : Fragment() {
                 updateSuggestionsItem()
             } else {
                 suggestionsContainer.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
             }
         }
         viewModel.serverStatus.observe(viewLifecycleOwner) {
@@ -156,6 +159,7 @@ class SearchFragment : Fragment() {
         phConnectionError = view.findViewById(R.id.ph_connection_error)
         suggestionsContainer = view.findViewById(R.id.suggestions_container)
         rvSuggestions = view.findViewById(R.id.rv_suggestions)
+        progressBar = view.findViewById(R.id.progressBar)
         swipeRefresh.setProgressViewOffset(
             true,
             resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin),
@@ -184,6 +188,7 @@ class SearchFragment : Fragment() {
             if (localTracks.isNotEmpty() || globalTracks.isNotEmpty() ){
                 swipeRefresh.isRefreshing = false
             }
+            progressBar.visibility = View.GONE
             addAdapterItems("This playlist", localTracks)
             addAdapterItems("Global search", globalTracks)
             showNoResultPlaceHolder(localTracks.isEmpty() && globalTracks.isEmpty())
