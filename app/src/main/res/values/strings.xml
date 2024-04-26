@@ -15,6 +15,10 @@
     <string name="ph_no_result_title">No result</string>
     <string name="ph_no_result_description">There are no results for your queries</string>
 
+    <!-- SharedPreferences -->
+    <string name="preference_file_key">app settings</string>
+    <string name="preference_theme_mode">theme mode</string>
+
     <!-- Notification -->
     <string name="notification_download">Download</string>
     <string name="example">example</string>

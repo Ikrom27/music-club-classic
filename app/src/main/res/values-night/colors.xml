@@ -8,7 +8,9 @@
     <color name="app_background_color">@color/black</color>
     <color name="bg_bottom_bar">@color/app_background_color</color>
     <color name="bg_top_bar">@color/app_background_color</color>
-    <color name="bg_surface">#303030</color>
+    <color name="bg_surface">#1c1c1f</color>
     <color name="secondary_text">@color/grey</color>
     <color name="placeholder">#474747</color>
+    <color name="icon_tint">#ffffff</color>
+    <color name="bg_separator">#171717</color>
 </resources>

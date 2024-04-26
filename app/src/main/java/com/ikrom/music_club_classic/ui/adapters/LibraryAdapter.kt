@@ -36,6 +36,7 @@ class LibraryAdapter: BaseAdapter<LibraryItem>() {
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
+                .placeholder(R.drawable.ph_album)
                 .into(ivThumbnail)
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle

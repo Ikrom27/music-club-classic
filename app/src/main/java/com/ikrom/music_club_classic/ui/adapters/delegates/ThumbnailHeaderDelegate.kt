@@ -49,6 +49,7 @@ class ThumbnailHeaderDelegate
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
+                .placeholder(R.drawable.ph_album)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
