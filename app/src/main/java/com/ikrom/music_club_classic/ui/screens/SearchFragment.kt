@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.ui.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -47,6 +49,8 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by activityViewModels()
 
+    private val DELAY_MILLISECONDS = 5000L
+
     private lateinit var history: SharedPreferences
     private lateinit var navController: NavController
     private lateinit var rvContent: RecyclerView
@@ -56,17 +60,24 @@ class SearchFragment : Fragment() {
     private lateinit var phNoResult: PlaceHolderView
     private lateinit var phConnectionError: PlaceHolderView
     private lateinit var suggestionsContainer: FrameLayout
+    private var handler: Handler? = null
     private val suggestionAdapter = SuggestionAdapter()
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate())
         .add(TitleDelegate())
         .build()
 
+    private val updateSearchListRunnable = Runnable {
+        viewModel.updateSearchList(searchBar.searchField.text.toString())
+        Toast.makeText(context, "Autosearch", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
+        handler = Handler(Looper.getMainLooper())
         bindViews(view)
         setupAdapter()
         setupRecycleView()
@@ -78,20 +89,6 @@ class SearchFragment : Fragment() {
         return view
     }
 
-    fun updateSuggestionsItem(){
-        val suggestions = SuggestionManager.getSuggestionHistory(requireContext())
-        Log.d("Search", "${suggestions.size}")
-        suggestionAdapter.setItems(
-            suggestions.map {
-                SuggestionItem(
-                    it
-                ) {
-                    searchBar.searchField.setText(it)
-                }
-            }
-        )
-    }
-
     private fun setupSuggestionsAdapter() {
         rvSuggestions.layoutManager = LinearLayoutManager(requireContext())
         rvSuggestions.adapter = suggestionAdapter
@@ -100,10 +97,13 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchBar.doOnTextChanged{ text, _, _, _ ->
-            viewModel.updateSearchList(text.toString())
+//            viewModel.updateSearchList(text.toString())
+            handler?.removeCallbacks(updateSearchListRunnable)
+            handler?.postDelayed(updateSearchListRunnable, DELAY_MILLISECONDS)
         }
         searchBar.searchField.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                viewModel.updateSearchList(searchBar.searchField.text.toString())
                 searchBar.searchField.clearFocus()
                 SuggestionManager.saveSuggestion(
                     requireContext(),
@@ -127,6 +127,19 @@ class SearchFragment : Fragment() {
             showConnectionErrorPlaceHolder(it == 500)
         }
         setupButtons()
+    }
+
+    private fun updateSuggestionsItem(){
+        val suggestions = SuggestionManager.getSuggestionHistory(requireContext())
+        suggestionAdapter.setItems(
+            suggestions.map {
+                SuggestionItem(
+                    it
+                ) {
+                    searchBar.searchField.setText(it)
+                }
+            }
+        )
     }
 
     private fun closeKeyboard(){
