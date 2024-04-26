@@ -36,4 +36,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:translationZ="1dp"/>
+    <FrameLayout
+        android:id="@+id/suggestions_container"
+        android:background="@color/app_background_color"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_suggestions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

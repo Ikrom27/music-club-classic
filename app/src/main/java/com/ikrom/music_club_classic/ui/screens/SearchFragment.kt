@@ -1,12 +1,17 @@
 package com.ikrom.music_club_classic.ui.screens
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MediatorLiveData
@@ -43,6 +48,7 @@ class SearchFragment : Fragment() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var phNoResult: PlaceHolderView
     private lateinit var phConnectionError: PlaceHolderView
+    private lateinit var suggestionsContainer: FrameLayout
     private var adapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate())
         .add(TitleDelegate())
@@ -67,10 +73,31 @@ class SearchFragment : Fragment() {
         searchBar.doOnTextChanged{ text, _, _, _ ->
             viewModel.updateSearchList(text.toString())
         }
+        searchBar.searchField.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                searchBar.searchField.clearFocus()
+                closeKeyboard()
+                true
+            } else {
+                false
+            }
+        }
+        searchBar.searchField.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus){
+                suggestionsContainer.visibility = View.VISIBLE
+            } else {
+                suggestionsContainer.visibility = View.GONE
+            }
+        }
         viewModel.serverStatus.observe(viewLifecycleOwner) {
             showConnectionErrorPlaceHolder(it == 500)
         }
         setupButtons()
+    }
+
+    private fun closeKeyboard(){
+        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(searchBar.searchField.windowToken, 0)
     }
 
     private fun bindViews(view: View){
@@ -80,6 +107,7 @@ class SearchFragment : Fragment() {
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         phNoResult = view.findViewById(R.id.ph_no_result)
         phConnectionError = view.findViewById(R.id.ph_connection_error)
+        suggestionsContainer = view.findViewById(R.id.suggestions_container)
         swipeRefresh.setProgressViewOffset(
             true,
             resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin),
