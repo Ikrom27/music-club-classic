@@ -84,9 +84,10 @@ class SearchFragment : Fragment() {
         suggestionAdapter.setItems(
             suggestions.map {
                 SuggestionItem(
-                    it,
-                    {}
-                )
+                    it
+                ) {
+                    searchBar.searchField.setText(it)
+                }
             }
         )
     }

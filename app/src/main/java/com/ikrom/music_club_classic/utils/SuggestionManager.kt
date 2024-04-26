@@ -45,4 +45,11 @@ object SuggestionManager {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         return getSuggestionList(sharedPreferences)
     }
+
+    fun clearSuggestionHistory(context: Context) {
+        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
 }

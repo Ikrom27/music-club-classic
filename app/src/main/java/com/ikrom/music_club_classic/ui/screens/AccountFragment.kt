@@ -28,6 +28,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderItem
 import com.ikrom.music_club_classic.ui.components.IconButton
+import com.ikrom.music_club_classic.utils.SuggestionManager
 import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -166,6 +167,9 @@ class AccountFragment : Fragment() {
                 IconButton(requireContext()).also {
                     it.leadingIcon = R.drawable.ic_clean
                     it.text = "Clean search history"
+                    it.setOnClickListener{
+                        SuggestionManager.clearSuggestionHistory(requireContext())
+                    }
                 },
                 IconButton(requireContext()).also {
                     it.leadingIcon = R.drawable.ic_clean
