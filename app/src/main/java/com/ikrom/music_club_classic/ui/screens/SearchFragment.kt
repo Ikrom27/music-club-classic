@@ -1,9 +1,11 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.activity.addCallback
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MediatorLiveData
@@ -26,13 +27,17 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
+import com.ikrom.music_club_classic.ui.adapters.delegates.SuggestionAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.SuggestionItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.PlaceHolderView
 import com.ikrom.music_club_classic.ui.components.SearchBar
+import com.ikrom.music_club_classic.utils.SuggestionManager
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,14 +47,17 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by activityViewModels()
 
+    private lateinit var history: SharedPreferences
     private lateinit var navController: NavController
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var rvContent: RecyclerView
+    private lateinit var rvSuggestions: RecyclerView
     private lateinit var searchBar: SearchBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var phNoResult: PlaceHolderView
     private lateinit var phConnectionError: PlaceHolderView
     private lateinit var suggestionsContainer: FrameLayout
-    private var adapter = CompositeAdapter.Builder()
+    private val suggestionAdapter = SuggestionAdapter()
+    private val compositeAdapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate())
         .add(TitleDelegate())
         .build()
@@ -62,10 +70,30 @@ class SearchFragment : Fragment() {
         bindViews(view)
         setupAdapter()
         setupRecycleView()
+        history = requireContext().getSharedPreferences("history", Context.MODE_PRIVATE)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             requireParentFragment().findNavController().navigateUp()
         }
+        setupSuggestionsAdapter()
         return view
+    }
+
+    fun updateSuggestionsItem(){
+        val suggestions = SuggestionManager.getSuggestionHistory(requireContext())
+        Log.d("Search", "${suggestions.size}")
+        suggestionAdapter.setItems(
+            suggestions.map {
+                SuggestionItem(
+                    it,
+                    {}
+                )
+            }
+        )
+    }
+
+    private fun setupSuggestionsAdapter() {
+        rvSuggestions.layoutManager = LinearLayoutManager(requireContext())
+        rvSuggestions.adapter = suggestionAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,6 +104,10 @@ class SearchFragment : Fragment() {
         searchBar.searchField.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH){
                 searchBar.searchField.clearFocus()
+                SuggestionManager.saveSuggestion(
+                    requireContext(),
+                    v.text.toString(),
+                )
                 closeKeyboard()
                 true
             } else {
@@ -85,6 +117,7 @@ class SearchFragment : Fragment() {
         searchBar.searchField.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus){
                 suggestionsContainer.visibility = View.VISIBLE
+                updateSuggestionsItem()
             } else {
                 suggestionsContainer.visibility = View.GONE
             }
@@ -102,12 +135,13 @@ class SearchFragment : Fragment() {
 
     private fun bindViews(view: View){
         navController = requireParentFragment().findNavController()
-        recyclerView = view.findViewById(R.id.rv_content)
+        rvContent = view.findViewById(R.id.rv_content)
         searchBar = view.findViewById(R.id.search_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         phNoResult = view.findViewById(R.id.ph_no_result)
         phConnectionError = view.findViewById(R.id.ph_connection_error)
         suggestionsContainer = view.findViewById(R.id.suggestions_container)
+        rvSuggestions = view.findViewById(R.id.rv_suggestions)
         swipeRefresh.setProgressViewOffset(
             true,
             resources.getDimensionPixelSize(R.dimen.swipe_refresh_start_margin),
@@ -132,7 +166,7 @@ class SearchFragment : Fragment() {
 
     private fun setupAdapter() {
         getCombinedSearchListLiveData().observe(viewLifecycleOwner) { (localTracks, globalTracks) ->
-            adapter.setItems(emptyList())
+            compositeAdapter.setItems(emptyList())
             if (localTracks.isNotEmpty() || globalTracks.isNotEmpty() ){
                 swipeRefresh.isRefreshing = false
             }
@@ -156,8 +190,8 @@ class SearchFragment : Fragment() {
 
     private fun addAdapterItems(title: String, list: List<Track>) {
         if (list.isNotEmpty()) {
-            adapter.addItems(listOf(TitleItem(title)))
-            adapter.addItems(list.map {
+            compositeAdapter.addItems(listOf(TitleItem(title)))
+            compositeAdapter.addItems(list.map {
                 it.toThumbnailSmallItem(
                     onItemClick = {playerHandler.playNow(it)},
                     onButtonClick = {}
@@ -183,13 +217,13 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupRecycleView(){
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        rvContent.layoutManager = LinearLayoutManager(requireContext())
+        rvContent.adapter = compositeAdapter
         val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
         val appbarHeight = resources.getDimensionPixelSize(R.dimen.app_bar_height)
         val margin = resources.getDimensionPixelSize(R.dimen.items_margin)
-        recyclerView.addItemDecoration(
+        rvContent.addItemDecoration(
             MarginItemDecoration(
                 startSpace = appbarHeight + margin,
                 endSpace = playerHeight + navbarHeight + margin,
