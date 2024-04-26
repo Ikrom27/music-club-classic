@@ -10,12 +10,14 @@ import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
+import com.ikrom.music_club_classic.data.data_source.SettingsDataSource
 import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountRemoteDataSource
 import com.ikrom.music_club_classic.data.data_source.media_data_source.YoutubeDataSource
 import com.ikrom.music_club_classic.data.repository.AccountRepository
 import com.ikrom.music_club_classic.data.repository.MediaRepository
+import com.ikrom.music_club_classic.data.repository.SettingsRepository
 import com.ikrom.music_club_classic.data.room.AppDataBase
 import com.ikrom.music_club_classic.domain.RecommendedUseCase
 import com.ikrom.music_club_classic.playback.MusicNotificationManager
@@ -155,4 +157,16 @@ class AppModule {
         mediaRepository: MediaRepository,
         accountRepository: AccountRepository
     ) : RecommendedUseCase = RecommendedUseCase(mediaRepository, accountRepository)
+
+    @Provides
+    @Singleton
+    fun provideSettingsDataSource(
+        @ApplicationContext context: Context
+    ) = SettingsDataSource(context)
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepository(
+        settingsDataSource: SettingsDataSource
+    ) = SettingsRepository(settingsDataSource)
 }

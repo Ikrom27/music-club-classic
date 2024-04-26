@@ -9,13 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.switchmaterial.SwitchMaterial
+import com.ikrom.base_adapter.CompositeAdapter
+import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
@@ -24,20 +28,19 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderItem
 import com.ikrom.music_club_classic.ui.components.IconButton
-import com.ikrom.music_club_classic.viewmodel.AccountViewModel
+import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
-    private val adapter = com.ikrom.base_adapter.CompositeAdapter.Builder()
+    private val adapter = CompositeAdapter.Builder()
         .add(AccountHeaderAdapter())
         .add(ButtonsGroupAdapter())
         .build()
     private lateinit var recycleView: RecyclerView
     private lateinit var navController: NavController
 
-    private val viewModel: AccountViewModel by viewModels()
-
+    private val viewModel: SettingsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +63,7 @@ class AccountFragment : Fragment() {
         recycleView.layoutManager = LinearLayoutManager(view.context)
         recycleView.adapter = adapter
         recycleView.addItemDecoration(
-            com.ikrom.base_adapter.item_decorations.MarginItemDecoration(
+            MarginItemDecoration(
                 80,
                 80,
                 80
@@ -111,6 +114,18 @@ class AccountFragment : Fragment() {
                 },
                 IconButton(requireContext()).also {
                     it.leadingIcon = R.drawable.ic_storage
+                    it.text = "night mode"
+                    it.addTailContent(
+                        SwitchMaterial(requireContext()).also { switchMaterial ->
+                            switchMaterial.isChecked = viewModel.themeState.value == AppCompatDelegate.MODE_NIGHT_YES
+                            switchMaterial.setOnCheckedChangeListener {_, checked->
+                                switchTheme(checked)
+                            }
+                        }
+                    )
+                },
+                IconButton(requireContext()).also {
+                    it.leadingIcon = R.drawable.ic_storage
                     it.text = "Storage"
                     it.addTailContent(
                         ImageView(requireContext()).also { imageView ->
@@ -132,6 +147,16 @@ class AccountFragment : Fragment() {
                     )
                 }
             )
+        )
+    }
+
+    private fun switchTheme(checked: Boolean) {
+        viewModel.setThemeState(
+        if (checked){
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        }
         )
     }
 
