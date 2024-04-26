@@ -182,8 +182,8 @@ class PlayerFragment : Fragment() {
         val bitmap = (resource as BitmapDrawable).bitmap
 
         Palette.from(bitmap).generate { palette ->
-            val dominantColor = ColorsUtil.darkenColor(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK, true)
-            val mutedColor = ColorsUtil.darkenColor(palette?.getMutedColor( Color.WHITE) ?: Color.WHITE, true)
+            val dominantColor = ColorsUtil.adjustColorToBackground(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK, true)
+            val mutedColor = ColorsUtil.adjustColorToBackground(palette?.getMutedColor( Color.WHITE) ?: Color.WHITE, true)
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 intArrayOf(mutedColor, dominantColor)

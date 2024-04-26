@@ -4,7 +4,7 @@ import android.graphics.Color
 import androidx.core.graphics.ColorUtils
 
 object ColorsUtil {
-    fun darkenColor(color: Int, sat: Boolean = false): Int {
+    fun adjustColorToBackground(color: Int, sat: Boolean = false): Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
         val luminance = ColorUtils.calculateLuminance(color)

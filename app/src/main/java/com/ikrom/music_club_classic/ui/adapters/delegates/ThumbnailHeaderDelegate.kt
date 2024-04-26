@@ -3,7 +3,6 @@ package com.ikrom.music_club_classic.ui.adapters.delegates
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
@@ -92,7 +91,7 @@ class ThumbnailHeaderDelegate
             val bitmap = (resource as BitmapDrawable).bitmap
 
             Palette.from(bitmap).generate { palette ->
-                val dominantColor = ColorsUtil.darkenColor(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK)
+                val dominantColor = ColorsUtil.adjustColorToBackground(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK)
                 val background = ContextCompat.getColor(context, R.color.app_background_color)
                 val gradientDrawable = GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,

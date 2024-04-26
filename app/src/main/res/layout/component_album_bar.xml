@@ -6,6 +6,7 @@
     android:focusable="true"
     android:clickable="true"
     android:fitsSystemWindows="true"
+    android:paddingEnd="@dimen/content_horizontal_margin"
     android:background="@color/transparent"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
@@ -18,10 +19,15 @@
             android:src="@drawable/ic_array_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorPrimary" />
         <ImageButton
             android:id="@+id/btn_search"
             style="@style/ToolBarButton"
+            android:background="@drawable/bg_rounded_rectangle_100"
+            android:backgroundTint="@color/bg_surface"
+            android:layout_marginEnd="@dimen/content_horizontal_margin"
+            app:tint="?attr/colorPrimary"
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_more"
@@ -30,6 +36,9 @@
             android:id="@+id/btn_more"
             style="@style/ToolBarButton"
             android:src="@drawable/ic_more_vertical"
+            android:background="@drawable/bg_rounded_rectangle_100"
+            android:backgroundTint="@color/bg_surface"
+            app:tint="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

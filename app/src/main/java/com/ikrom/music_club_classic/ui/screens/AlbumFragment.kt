@@ -79,7 +79,7 @@ class AlbumFragment : Fragment() {
     }
 
     private fun bindViews(view: View){
-        recyclerView = view.findViewById(R.id.rv_tracks)
+        recyclerView = view.findViewById(R.id.rv_content)
         albumBar = view.findViewById(R.id.album_bar)
     }
 
