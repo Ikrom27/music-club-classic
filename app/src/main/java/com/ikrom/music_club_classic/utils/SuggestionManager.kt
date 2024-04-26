@@ -13,15 +13,12 @@ object SuggestionManager {
         val editor = sharedPreferences.edit()
         val suggestionList = getSuggestionList(sharedPreferences)
 
-        // Add the new suggestion
         suggestionList.add(0, suggestion)
 
-        // Truncate the list if it exceeds the maximum size
         if (suggestionList.size > MAX_HISTORY_SIZE) {
             suggestionList.removeAt(suggestionList.size - 1)
         }
 
-        // Save the updated suggestion list
         saveSuggestionList(editor, suggestionList)
         editor.apply()
     }
