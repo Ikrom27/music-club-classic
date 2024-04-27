@@ -3,5 +3,6 @@
     <style name="Base.Theme.MusicClubClassic" parent="Theme.Material3.DayNight.NoActionBar">
 
         <item name="toolbarStyle">@style/AppToolBar</item>
+        <item name="android:windowBackground">@color/app_background_color</item>
     </style>
 </resources>

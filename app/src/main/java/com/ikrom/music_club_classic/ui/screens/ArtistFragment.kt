@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -31,6 +33,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedAdapte
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
+import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -67,7 +70,16 @@ class ArtistFragment : Fragment() {
         bindView(view)
         setupRecyclerView()
         setupAdapterData()
+        setupBackPass()
         return view
+    }
+
+    private fun setupBackPass(){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.navigateUp()
+            }
+        })
     }
 
     private fun setupAdapterData(){
@@ -148,7 +160,6 @@ class ArtistFragment : Fragment() {
     private fun setupRecyclerView(){
         recyclerView.adapter = compositeAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val margins = resources.getDimensionPixelSize(R.dimen.items_margin)
         val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
         val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
         if (recyclerView.itemDecorationCount == 0){
