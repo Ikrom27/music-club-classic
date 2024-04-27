@@ -1,5 +1,6 @@
 package com.ikrom.music_club_classic.extensions.models
 
+import android.os.Bundle
 import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.data.model.Artist
@@ -18,6 +19,22 @@ fun PlaylistItem.toPlayList(): Playlist {
         thumbnail =  thumbnail
     )
 }
+
+fun Bundle.toPlaylist(): Playlist {
+    val id = getString("id") ?: ""
+    val title = getString("title") ?: ""
+    val thumbnail = getString("thumbnail") ?: ""
+    val artistId = getString("artist_id") ?: ""
+    val artistName = getString("artist_name") ?: ""
+    val artistThumbnail = getString("artist_thumbnail") ?: ""
+    val artist = if (artistId.isNotEmpty() && artistName.isNotEmpty()) {
+        Artist(artistId, artistName, artistThumbnail)
+    } else {
+        null
+    }
+    return Playlist(id, title, artist, thumbnail)
+}
+
 
 fun Playlist.toCardItem(
     onItemClick: () -> Unit

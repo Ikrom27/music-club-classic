@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.base_adapter.CompositeAdapter
@@ -37,9 +40,10 @@ import javax.inject.Inject
 class ArtistFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
-    private val viewModel: ArtistViewModel by activityViewModels()
+    private val viewModel: ArtistViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
 
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
@@ -47,6 +51,13 @@ class ArtistFragment : Fragment() {
         .add(NestedItemsDelegate())
         .add(ThumbnailSmallDelegate())
         .build()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val bundle = arguments
+        navController = requireParentFragment().findNavController()
+        viewModel.artistId = bundle!!.getString("id")!!
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,49 +81,64 @@ class ArtistFragment : Fragment() {
                     onPlayClick = {},
                     onShuffleClick = {}
                 ))
-                compositeAdapter.addToEnd(TitleItem("Tracks"))
-                compositeAdapter.addItems(
-                    artistData.tracks.toThumbnailSmallItems({
-                        playerHandler.playNow(it)
-                    }, {})
-                )
-                compositeAdapter.addToEnd(TitleItem("Albums"))
-                compositeAdapter.addToEnd(NestedItems(
-                    items = artistData.albums.toThumbnailLargeItems(
-                        {}, {}
-                    ),
-                    adapter = ThumbnailLargeAdapter()
-                ))
-                compositeAdapter.addToEnd(TitleItem("Singles"))
-                compositeAdapter.addToEnd(NestedItems(
-                    items = artistData.singles.toThumbnailLargeItems(
-                        {}, {}
-                    ),
-                    adapter = ThumbnailLargeAdapter()
-                ))
-                compositeAdapter.addToEnd(TitleItem("Playlist"))
-                compositeAdapter.addToEnd(NestedItems(
-                    items = artistData.relatedPlaylists.toThumbnailMediumItems(
-                        {}, {}
-                    ),
-                    adapter = ThumbnailMediumAdapter()
-                ))
-                compositeAdapter.addToEnd(TitleItem("Similar"))
-                compositeAdapter.addToEnd(NestedItems(
-                    items = artistData.similar.toThumbnailRoundedItems(
-                        onClick = { onArtistClick(it) }
-                    ),
-                    adapter = ThumbnailRoundedAdapter()
-                ))
+                if (artistData.tracks.isNotEmpty()) {
+                    compositeAdapter.addToEnd(TitleItem("Tracks"))
+                    compositeAdapter.addItems(
+                        artistData.tracks.toThumbnailSmallItems({
+                            playerHandler.playNow(it)
+                        }, {})
+                    )
+                }
+
+                if (artistData.albums.isNotEmpty()) {
+                    compositeAdapter.addToEnd(TitleItem("Albums"))
+                    compositeAdapter.addToEnd(NestedItems(
+                        items = artistData.albums.toThumbnailLargeItems(
+                            {}, {}
+                        ),
+                        adapter = ThumbnailLargeAdapter()
+                    ))
+                }
+
+                if (artistData.singles.isNotEmpty()) {
+                    compositeAdapter.addToEnd(TitleItem("Singles"))
+                    compositeAdapter.addToEnd(NestedItems(
+                        items = artistData.singles.toThumbnailLargeItems(
+                            {}, {}
+                        ),
+                        adapter = ThumbnailLargeAdapter()
+                    ))
+                }
+
+                if (artistData.relatedPlaylists.isNotEmpty()) {
+                    compositeAdapter.addToEnd(TitleItem("Playlist"))
+                    compositeAdapter.addToEnd(NestedItems(
+                        items = artistData.relatedPlaylists.toThumbnailMediumItems(
+                            {}, {}
+                        ),
+                        adapter = ThumbnailMediumAdapter()
+                    ))
+                }
+
+                if (artistData.similar.isNotEmpty()) {
+                    compositeAdapter.addToEnd(TitleItem("Similar"))
+                    compositeAdapter.addToEnd(NestedItems(
+                        items = artistData.similar.toThumbnailRoundedItems(
+                            onClick = { onArtistClick(it) }
+                        ),
+                        adapter = ThumbnailRoundedAdapter()
+                    ))
+                }
+
             }
 
         }
     }
 
     private fun onArtistClick(artist: Artist){
-        artist.id?.let {
-            viewModel.artistId = it
-        }
+        val bundle = Bundle()
+        bundle.putString("id", artist.id)
+        navController.navigate(R.id.artist_to_artist, bundle)
     }
 
     private fun bindView(view: View) {

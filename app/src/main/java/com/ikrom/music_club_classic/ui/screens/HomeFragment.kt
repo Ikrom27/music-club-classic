@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val homeViewModel: HomeViewModel by activityViewModels()
-    private val playListViewModel: PlayListViewModel by activityViewModels()
     private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
 
     private lateinit var compositeAdapter: CompositeAdapter
@@ -53,6 +52,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
         navController = requireParentFragment().findNavController()
+        bottomMenuViewModel.navController = navController
         setupAdapter()
         setupRecyclerView(recyclerView)
         setupAdapterData()
@@ -122,8 +122,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun onPlayListClick(playList: Playlist){
-        playListViewModel.setPlaylist(playList)
-        navController.navigate(R.id.action_homeFragment_to_albumFragment)
+        val bundle = Bundle().also {
+            it.putString("id", playList.id)
+            it.putString("title", playList.title)
+            it.putString("thumbnail", playList.thumbnail)
+            it.putString("artist_name", playList.artists?.name)
+        }
+        navController.navigate(R.id.home_to_playlist, bundle)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView){

@@ -37,11 +37,11 @@ data class ArtistData(
     val title: String,
     val thumbnail: String,
     val description: String,
-    val tracks: List<Track>?,
-    val albums: List<Album>?,
-    val singles: List<Album>?,
-    val relatedPlaylists: List<Playlist>?,
-    val similar: List<Artist>?
+    val tracks: List<Track>,
+    val albums: List<Album>,
+    val singles: List<Album>,
+    val relatedPlaylists: List<Playlist>,
+    val similar: List<Artist>
 )
 
 data class ArtistSection(

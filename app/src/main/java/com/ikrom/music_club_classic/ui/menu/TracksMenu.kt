@@ -34,7 +34,6 @@ class TracksMenu : BottomSheetDialogFragment() {
 
     private val viewModel: BottomMenuViewModel by activityViewModels()
     private val albumViewModel: AlbumViewModel by activityViewModels()
-    private val artistViewModel: ArtistViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
@@ -48,7 +47,7 @@ class TracksMenu : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false)
-        navController = requireParentFragment().findNavController()
+        navController = viewModel.navController!!
         setupViews(view)
         setupRecyclerView()
         setupItems()
@@ -94,7 +93,7 @@ class TracksMenu : BottomSheetDialogFragment() {
                 icon = R.drawable.ic_view_album,
                 onClick = {
                     albumViewModel.setAlbum(track.album)
-                    navController.navigate(R.id.action_homeFragment_to_albumFragment2)
+                    navController.navigate(R.id.home_to_album)
                     dismiss()
                 }
             ),
@@ -102,8 +101,10 @@ class TracksMenu : BottomSheetDialogFragment() {
                 title = getString(R.string.open_artist),
                 icon = R.drawable.ic_view_artist,
                 onClick = {
-                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
-                    navController.navigate(R.id.action_homeFragment_to_artistFragment)
+//                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
+                    val bundle = Bundle()
+                    bundle.putString("id", track.album.artists?.first()?.id ?: "")
+                    navController.navigate(R.id.home_to_artist, bundle)
                     dismiss()
                 }
             ),

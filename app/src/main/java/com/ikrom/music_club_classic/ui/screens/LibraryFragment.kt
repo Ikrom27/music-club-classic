@@ -46,8 +46,13 @@ class LibraryFragment : Fragment() {
                 adapter.setItems(it.toLibraryItems(
                     onButtonClick = {},
                     onItemClick = {playlist ->
-                        playListViewModel.setPlaylist(playlist)
-                        requireParentFragment().findNavController().navigate(R.id.action_libraryFragment_to_albumFragment)
+                        val bundle = Bundle().also {
+                            it.putString("id", playlist.id)
+                            it.putString("title", playlist.title)
+                            it.putString("thumbnail", playlist.thumbnail)
+                            it.putString("artist_name", playlist.artists?.name)
+                        }
+                        requireParentFragment().findNavController().navigate(R.id.action_libraryFragment_to_albumFragment, bundle)
                     }
                 ))
             }

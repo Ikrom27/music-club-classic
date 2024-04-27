@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -20,6 +22,7 @@ import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
+import com.ikrom.music_club_classic.extensions.models.toPlaylist
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
@@ -33,8 +36,8 @@ class PlaylistFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
-    private var currentPlaylist: Playlist? = null
-    private val viewModel: PlayListViewModel by activityViewModels()
+    private lateinit var currentPlaylist: Playlist
+    private val viewModel: PlayListViewModel by viewModels()
     private val searchViewModel: SearchViewModel by activityViewModels()
     private lateinit var trackList: LiveData<List<Track>>
 
@@ -47,15 +50,24 @@ class PlaylistFragment : Fragment() {
         .add(ThumbnailSmallDelegate())
         .build()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        navController = requireParentFragment().findNavController()
+        if (arguments != null){
+            currentPlaylist = requireArguments().toPlaylist()
+            viewModel.updatePlaylistItems(currentPlaylist.id)
+        } else {
+            Toast.makeText(requireContext(), "Playlist error", Toast.LENGTH_SHORT).show()
+            navController.navigateUp()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_playlist, container, false)
-        currentPlaylist = viewModel.currentPlaylist.value
         trackList = viewModel.playlistItems
-        navController = requireParentFragment().findNavController()
         bindViews(view)
         setupRecyclerView()
         setupContent()
@@ -117,9 +129,9 @@ class PlaylistFragment : Fragment() {
 
     private fun setupContent() {
         trackList.observe(viewLifecycleOwner) {trackList ->
-            val header = currentPlaylist!!.toThumbnailHeaderItem(
-                onPlayClick = {playerHandler.playNow(trackList)},
-                onShuffleClick = {playerHandler.playNow(trackList.shuffled())}
+            val header = currentPlaylist.toThumbnailHeaderItem(
+                onPlayClick = {playAll()},
+                onShuffleClick = {playShuffled()}
             )
             val tracks = trackList.map{
                 it.toThumbnailSmallItem(

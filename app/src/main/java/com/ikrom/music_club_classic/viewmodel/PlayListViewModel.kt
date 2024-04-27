@@ -15,13 +15,7 @@ import javax.inject.Inject
 class PlayListViewModel @Inject constructor(
     val repository: MediaRepository
 ) : ViewModel() {
-    val currentPlaylist = MutableLiveData<Playlist>()
     val playlistItems = MutableLiveData<List<Track>>()
-
-    fun setPlaylist(playlist: Playlist){
-        currentPlaylist.postValue(playlist)
-        updatePlaylistItems(playlist.id)
-    }
 
     fun updatePlaylistItems(id: String) {
         viewModelScope.launch {
