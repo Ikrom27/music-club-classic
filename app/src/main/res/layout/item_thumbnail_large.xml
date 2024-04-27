@@ -8,7 +8,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/image_card_view"
-        style="@style/CardThumbnailMediumPlus">
+        style="@style/CardThumbnailMediumLarge">
         <ImageView
             android:id="@+id/iv_track_cover"
             android:layout_width="match_parent"

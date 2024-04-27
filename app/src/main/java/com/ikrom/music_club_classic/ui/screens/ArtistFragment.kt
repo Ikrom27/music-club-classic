@@ -12,6 +12,7 @@ import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.data.model.Artist
+import com.ikrom.music_club_classic.extensions.models.toThumbnailLargeItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailRoundedItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItems
@@ -20,6 +21,8 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
@@ -75,17 +78,17 @@ class ArtistFragment : Fragment() {
                 )
                 compositeAdapter.addToEnd(TitleItem("Albums"))
                 compositeAdapter.addToEnd(NestedItems(
-                    items = artistData.albums.toThumbnailMediumItems(
+                    items = artistData.albums.toThumbnailLargeItems(
                         {}, {}
                     ),
-                    adapter = ThumbnailMediumAdapter()
+                    adapter = ThumbnailLargeAdapter()
                 ))
                 compositeAdapter.addToEnd(TitleItem("Singles"))
                 compositeAdapter.addToEnd(NestedItems(
-                    items = artistData.singles.toThumbnailMediumItems(
+                    items = artistData.singles.toThumbnailLargeItems(
                         {}, {}
                     ),
-                    adapter = ThumbnailMediumAdapter()
+                    adapter = ThumbnailLargeAdapter()
                 ))
                 compositeAdapter.addToEnd(TitleItem("Playlist"))
                 compositeAdapter.addToEnd(NestedItems(

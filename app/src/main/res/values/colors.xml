@@ -23,7 +23,7 @@
     <color name="sheet_handle_color">#1A3E3E3E</color>
     <color name="bg_bottom_bar">@color/app_background_color</color>
     <color name="bg_top_bar">@color/app_background_color</color>
-    <color name="bg_separator">#b3b3b3</color>
+    <color name="bg_separator">#b9b9bb</color>
     <color name="bg_surface">#eeeeef</color>
     <color name="bg_item_not_selected">#7e7e7e</color>
     <color name="secondary_text">@color/grey</color>

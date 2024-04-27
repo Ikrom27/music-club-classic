@@ -5,6 +5,7 @@ import com.ikrom.music_club_classic.data.model.Album
 import com.ikrom.music_club_classic.extensions.resize
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 
@@ -63,6 +64,29 @@ fun List<Album>?.toThumbnailMediumItems(
     onLongClick: () -> Unit
 ): List<ThumbnailMediumItem>{
     return this?.map { it.toThumbnailMediumItem(
+        onClick,
+        onLongClick
+    ) } ?: emptyList()
+}
+
+fun Album.toThumbnailLargeItem(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+) : ThumbnailLargeItem {
+    return ThumbnailLargeItem(
+        title = this.title,
+        subtitle = this.year.toString(),
+        thumbnail = this.thumbnail,
+        onClick = onClick,
+        onLongClick = onLongClick
+    )
+}
+
+fun List<Album>?.toThumbnailLargeItems(
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
+): List<ThumbnailLargeItem>{
+    return this?.map { it.toThumbnailLargeItem(
         onClick,
         onLongClick
     ) } ?: emptyList()
