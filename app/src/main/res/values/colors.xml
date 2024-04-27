@@ -14,6 +14,7 @@
     <color name="grey_10">#25777777</color>
     <color name="grey">#FF777777</color>
 
+    <color name="card_stroke">#33777777</color>
     <color name="icon_tint">#000000</color>
     <color name="textColor">#000000</color>
     <color name="onGradientColor">#1AECECEC</color>

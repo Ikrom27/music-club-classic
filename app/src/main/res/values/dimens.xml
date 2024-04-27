@@ -37,7 +37,7 @@
     <dimen name="section_margin">14dp</dimen>
     <dimen name="medium_items_margin">16dp</dimen>
     <dimen name="section_title_margin">14dp</dimen>
-    <dimen name="items_margin">16dp</dimen>
+    <dimen name="items_margin">12dp</dimen>
     <dimen name="content_horizontal_margin">20dp</dimen>
     <dimen name="swipe_refresh_start_margin">0dp</dimen>
     <dimen name="swipe_refresh_end_margin">96dp</dimen>
@@ -47,4 +47,5 @@
     <dimen name="spacer_medium">18dp</dimen>
     <dimen name="spacer_small">14dp</dimen>
     <dimen name="spacer_small_extra">10dp</dimen>
+    <dimen name="spacer_extra_large_double">72dp</dimen>
 </resources>

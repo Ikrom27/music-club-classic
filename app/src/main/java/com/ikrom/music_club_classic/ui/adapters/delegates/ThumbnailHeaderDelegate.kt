@@ -107,7 +107,7 @@ class ThumbnailHeaderDelegate
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.item_album_header
+        return R.layout.item_thumbnail_header
     }
 
 }
