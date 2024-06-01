@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +20,6 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
-import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -104,7 +102,7 @@ class TracksMenu : BottomSheetDialogFragment() {
 //                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
                     val bundle = Bundle()
                     bundle.putString("id", track.album.artists?.first()?.id ?: "")
-                    navController.navigate(R.id.home_to_artist, bundle)
+                    navController.navigate(R.id.to_artist, bundle)
                     dismiss()
                 }
             ),

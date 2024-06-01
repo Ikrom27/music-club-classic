@@ -20,7 +20,7 @@
                 android:id="@+id/home_to_album"
                 app:destination="@id/albumFragment" />
             <action
-                android:id="@+id/home_to_artist"
+                android:id="@+id/to_artist"
                 app:destination="@id/artistFragment" />
         </fragment>
         <fragment
@@ -45,7 +45,11 @@
             android:id="@+id/searchFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.SearchFragment"
             android:label="fragment_search"
-            tools:layout="@layout/fragment_search" />
+            tools:layout="@layout/fragment_search">
+            <action
+                android:id="@+id/to_artist"
+                app:destination="@id/artistFragment" />
+        </fragment>
         <fragment
             android:id="@+id/albumFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.AlbumFragment"
@@ -55,6 +59,15 @@
     <navigation
         android:id="@+id/explore_screen"
         app:startDestination="@id/exploreFragment">
+        <fragment
+            android:id="@+id/artistFragment"
+            android:name="com.ikrom.music_club_classic.ui.screens.ArtistFragment"
+            android:label="fragment_artist"
+            tools:layout="@layout/fragment_artist">
+            <action
+                android:id="@+id/artist_to_artist"
+                app:destination="@id/artistFragment" />
+        </fragment>
         <fragment
             android:id="@+id/exploreFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.ExploreFragment"
@@ -76,7 +89,11 @@
             android:id="@+id/searchFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.SearchFragment"
             android:label="fragment_search"
-            tools:layout="@layout/fragment_search" />
+            tools:layout="@layout/fragment_search">
+            <action
+                android:id="@+id/to_artist"
+                app:destination="@id/artistFragment" />
+        </fragment>
         <fragment
             android:id="@+id/playlistFragment"
             android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"

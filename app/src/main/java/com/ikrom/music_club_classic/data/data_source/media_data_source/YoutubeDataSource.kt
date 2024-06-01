@@ -31,7 +31,6 @@ class YoutubeDataSource: IMediaDataSource {
     override fun getTracksByQuery(query: String): MutableLiveData<List<Track>> {
         val responseLiveData = MutableLiveData<List<Track>>(null)
         CoroutineScope(Dispatchers.IO).launch {
-            getArtistData("UCxgN32UVVztKAQd2HkXzBtw")
             YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).onSuccess { result ->
                 val tracks = result.items.mapNotNull { (it as SongItem).toTrack() }
                 responseLiveData.postValue(tracks)
