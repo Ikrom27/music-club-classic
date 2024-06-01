@@ -26,6 +26,8 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.PlaceHolderView
 import com.ikrom.music_club_classic.ui.components.SearchBar
+import com.ikrom.music_club_classic.ui.menu.TracksMenu
+import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,6 +38,7 @@ class SearchFragment : Fragment() {
     lateinit var playerHandler: PlayerHandler
 
     private val viewModel: SearchViewModel by activityViewModels()
+    private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
 
     private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
@@ -132,7 +135,12 @@ class SearchFragment : Fragment() {
             adapter.addItems(list.map {
                 it.toThumbnailSmallItem(
                     onItemClick = {playerHandler.playNow(it)},
-                    onButtonClick = {}
+                    onButtonClick = {},
+                    onLongClick = {
+                        bottomMenuViewModel.trackLiveData.postValue(it)
+                        val bottomMenu = TracksMenu()
+                        bottomMenu.show(parentFragmentManager, bottomMenu.tag)
+                    }
                 )
             })
         }

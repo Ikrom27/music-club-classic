@@ -35,12 +35,14 @@ fun SongItem.toTrack(): Track? {
 fun Track.toThumbnailSmallItem(
     onItemClick: () -> Unit,
     onButtonClick: () -> Unit,
+    onLongClick: () -> Unit = {}
 ): ThumbnailSmallItem {
     return ThumbnailSmallItem(
         title = this.title,
         subtitle = this.album.artists.getNames(),
         thumbnail = this.album.thumbnail,
         onClick = {onItemClick()},
+        onLongClick = {onLongClick()},
         onButtonClick = {onButtonClick()}
     )
 }
@@ -48,10 +50,12 @@ fun Track.toThumbnailSmallItem(
 fun List<Track>?.toThumbnailSmallItems(
     onItemClick: (Track) -> Unit,
     onButtonClick: () -> Unit,
+    onLongClick: () -> Unit = {}
 ): List<ThumbnailSmallItem> {
     return this?.map { it.toThumbnailSmallItem(
         onItemClick = { onItemClick(it) },
-        onButtonClick = onButtonClick
+        onButtonClick = onButtonClick,
+        onLongClick = onLongClick
     ) } ?: emptyList()
 }
 

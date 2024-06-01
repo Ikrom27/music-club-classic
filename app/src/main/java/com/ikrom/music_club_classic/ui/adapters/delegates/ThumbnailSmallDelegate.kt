@@ -15,7 +15,8 @@ data class ThumbnailSmallItem(
     val subtitle: String,
     val thumbnail: String,
     val onButtonClick: () -> Unit,
-    override val onClick: () -> Unit
+    override val onClick: () -> Unit,
+    override val onLongClick: () -> Unit
 ) : AdapterItem()
 
 
