@@ -77,23 +77,23 @@ class PlayerFragment : Fragment() {
         return view
     }
 
-    private fun bindViews(view: View){
-        trackCover = view.findViewById(R.id.iv_track_cover)
-        trackTitle = view.findViewById(R.id.tv_track_title)
-        trackAuthor = view.findViewById(R.id.tv_track_author)
-        btnPlayPause = view.findViewById(R.id.ib_play_pause)
-        btnSkipNext = view.findViewById(R.id.ib_skip_next)
-        btnSkipPrevious = view.findViewById(R.id.ib_skip_previous)
-        btnToFavorite = view.findViewById(R.id.ib_to_favorite)
-        btnToRepeat = view.findViewById(R.id.ib_to_repeat)
-        seekBarPlayer = view.findViewById(R.id.slider_player_progress)
-        totalTime = view.findViewById(R.id.tv_total_time)
-        progressTime = view.findViewById(R.id.tv_progress_time)
-        container = view.findViewById(R.id.container)
-        handle = view.findViewById(R.id.handle)
-        btnCast = view.findViewById(R.id.ib_cast)
-        btnQueue = view.findViewById(R.id.ib_queue)
-        btnCaptions = view.findViewById(R.id.ib_captions)
+    private fun bindViews(view: View) {
+        trackCover = view.findViewById(R.id.iv_track_cover) ?: ImageView(view.context)
+        trackTitle = view.findViewById(R.id.tv_track_title) ?: TextView(view.context)
+        trackAuthor = view.findViewById(R.id.tv_track_author) ?: TextView(view.context)
+        btnPlayPause = view.findViewById(R.id.ib_play_pause) ?: ImageButton(view.context)
+        btnSkipNext = view.findViewById(R.id.ib_skip_next) ?: ImageButton(view.context)
+        btnSkipPrevious = view.findViewById(R.id.ib_skip_previous) ?: ImageButton(view.context)
+        btnToFavorite = view.findViewById(R.id.ib_to_favorite) ?: ImageButton(view.context)
+        btnToRepeat = view.findViewById(R.id.ib_to_repeat) ?: ImageButton(view.context)
+        seekBarPlayer = view.findViewById(R.id.slider_player_progress) ?: SeekBar(view.context)
+        totalTime = view.findViewById(R.id.tv_total_time) ?: TextView(view.context)
+        progressTime = view.findViewById(R.id.tv_progress_time) ?: TextView(view.context)
+        container = view.findViewById(R.id.container) ?: ConstraintLayout(view.context)
+        handle = view.findViewById(R.id.handle) ?: View(view.context)
+        btnCast = view.findViewById(R.id.ib_cast) ?: ImageButton(view.context)
+        btnQueue = view.findViewById(R.id.ib_queue) ?: ImageButton(view.context)
+        btnCaptions = view.findViewById(R.id.ib_captions) ?: ImageButton(view.context)
     }
 
     private fun setupButtons() {

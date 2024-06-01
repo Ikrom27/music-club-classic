@@ -25,9 +25,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_thumbnail"
-        android:layout_height="match_parent"
         android:layout_width="0dp"
-        android:layout_margin="35dp"
+        android:layout_height="match_parent"
+        android:layout_margin="48dp"
         android:elevation="20dp"
         android:translationZ="20dp"
         app:cardBackgroundColor="@color/black"
@@ -46,9 +46,9 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView_thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/cardView_thumbnail">
 
         <TextView
             android:id="@+id/tv_track_title"
@@ -120,9 +120,9 @@
             android:id="@+id/ib_play_pause"
             android:layout_width="@dimen/icon_extra_large"
             android:layout_height="@dimen/icon_extra_large"
-            android:padding="16dp"
             android:background="@drawable/bg_cyrcle"
             android:backgroundTint="@color/onGradientColor"
+            android:padding="16dp"
             android:src="@drawable/ic_play"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,8 +133,8 @@
             android:id="@+id/ib_skip_next"
             android:layout_width="@dimen/icon_medium_plus"
             android:layout_height="@dimen/icon_medium_plus"
-            android:src="@drawable/ic_skip_next"
             android:layout_marginHorizontal="18dp"
+            android:src="@drawable/ic_skip_next"
             app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
             app:layout_constraintEnd_toStartOf="@+id/ib_to_repeat"
             app:layout_constraintStart_toEndOf="@+id/ib_play_pause"
@@ -144,9 +144,9 @@
             android:id="@+id/ib_skip_previous"
             android:layout_width="@dimen/icon_medium_plus"
             android:layout_height="@dimen/icon_medium_plus"
+            android:layout_marginHorizontal="18dp"
             android:scaleX="-1"
             android:src="@drawable/ic_skip_next"
-            android:layout_marginHorizontal="18dp"
             app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
             app:layout_constraintEnd_toStartOf="@+id/ib_play_pause"
             app:layout_constraintStart_toEndOf="@+id/ib_to_favorite"
@@ -178,11 +178,11 @@
             android:layout_height="@dimen/icon_medium"
             android:src="@drawable/ic_connect"
             android:visibility="gone"
-            app:layout_constraintVertical_bias="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ib_play_pause" />
+            app:layout_constraintTop_toBottomOf="@+id/ib_play_pause"
+            app:layout_constraintVertical_bias="0.4" />
 
         <ImageButton
             android:id="@+id/ib_queue"
