@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +39,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlayerFragment : Fragment() {
-    @Inject
-    lateinit var playerHandler: PlayerHandler
-
     private val playerViewModel: PlayerViewModel by viewModels()
     private lateinit var container: ConstraintLayout
     private lateinit var trackCover: ImageView
@@ -97,17 +95,17 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
+        playerViewModel.isPlayingLiveData.observe(viewLifecycleOwner){
             btnPlayPause.setImageResource(if (it) R.drawable.ic_pause else R.drawable.ic_play)
         }
-        playerHandler.repeatModeLiveData.observe(viewLifecycleOwner) {repeatMode ->
+        playerViewModel.repeatModeLiveData.observe(viewLifecycleOwner){repeatMode ->
             when(repeatMode) {
                 Player.REPEAT_MODE_OFF -> btnToRepeat.setImageResource(R.drawable.ic_repeat_off)
                 Player.REPEAT_MODE_ONE -> btnToRepeat.setImageResource(R.drawable.ic_repeat_one)
                 Player.REPEAT_MODE_ALL -> btnToRepeat.setImageResource(R.drawable.ic_repeat_all)
             }
         }
-        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) {mediaItem ->
+        playerViewModel.currentMediaItemLiveData.observe(viewLifecycleOwner){mediaItem ->
             if (mediaItem != null) {
                 playerViewModel.isFavorite(mediaItem.mediaId).observe(viewLifecycleOwner) {
                     btnToFavorite.setImageResource(if (it) R.drawable.ic_favorite else R.drawable.ic_favorite_bordered)
@@ -123,7 +121,7 @@ class PlayerFragment : Fragment() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                playerHandler.player.seekTo(seekBar?.progress!!.toLong())
+                playerViewModel.seekTo(seekBarPlayer.progress.toLong())
             }
         })
         setSeekbarMaxValue()
@@ -131,7 +129,7 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setSeekbarMaxValue(){
-        playerHandler.totalDurationLiveData.observe(viewLifecycleOwner) {
+        playerViewModel.totalDurationLiveData.observe(viewLifecycleOwner) {
             seekBarPlayer.max = it.toInt()
             totalTime.text = it.toTimeString()
         }
@@ -140,7 +138,7 @@ class PlayerFragment : Fragment() {
     private fun updateSeekBarPosition(){
         requireActivity().runOnUiThread(object : Runnable {
             override fun run() {
-                val position = playerHandler.player.currentPosition
+                val position = playerViewModel.currentPositionLiveData
                 seekBarPlayer.progress = position.toInt()
                 progressTime.text = position.toTimeString()
                 mHandler.postDelayed(this, 100)
@@ -150,19 +148,20 @@ class PlayerFragment : Fragment() {
 
     private fun setupButtonsListener() {
         btnPlayPause.setOnClickListener {
-            playerHandler.togglePlayPause()
+            playerViewModel.togglePlayPause()
         }
         btnSkipNext.setOnClickListener {
-            playerHandler.player.seekToNext()
+            playerViewModel.seekToNext()
         }
         btnSkipPrevious.setOnClickListener {
-            playerHandler.player.seekToPrevious()
+            playerViewModel.seekToPrevious()
         }
         btnToRepeat.setOnClickListener {
-            playerHandler.toggleRepeat()
+            playerViewModel.toggleRepeat()
         }
         btnToFavorite.setOnClickListener {
-            playerViewModel.toggleToFavorite(playerHandler.currentMediaItemLiveData.value!!)
+            // TODO: Not yet implemented
+            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
         }
         btnCast.setOnClickListener {
             // TODO: Not yet implemented
@@ -193,7 +192,7 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupContent() {
-        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) { currentItem ->
+        playerViewModel.currentMediaItemLiveData.observe(viewLifecycleOwner) { currentItem ->
             if (currentItem != null) {
                 Glide
                     .with(requireContext())

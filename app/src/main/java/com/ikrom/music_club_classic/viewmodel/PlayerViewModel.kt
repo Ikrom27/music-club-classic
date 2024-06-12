@@ -5,15 +5,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import com.ikrom.music_club_classic.data.repository.MediaRepository
+import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
-    private val repository: MediaRepository
+    private val repository: MediaRepository,
+    private val playerHandler: PlayerHandler
 ): ViewModel() {
     val isFavoriteLiveData = MutableLiveData(false)
+    val isPlayingLiveData = playerHandler.isPlayingLiveData
+    val repeatModeLiveData = playerHandler.repeatModeLiveData
+    val currentMediaItemLiveData = playerHandler.currentMediaItemLiveData
+    val totalDurationLiveData = playerHandler.totalDurationLiveData
+    var currentPositionLiveData = 0L
+        get() {
+            return playerHandler.player.currentPosition
+        }
+
+    fun seekTo(position: Long){
+        playerHandler.player.seekTo(position)
+    }
 
     fun isFavorite(id: String): MutableLiveData<Boolean> {
         viewModelScope.launch {
@@ -22,29 +36,19 @@ class PlayerViewModel @Inject constructor(
         return isFavoriteLiveData
     }
 
-    fun addToFavorite(mediaItem: MediaItem){
-        repository.getTrackById(mediaItem.mediaId).observeForever {track->
-            if (track != null) {
-                viewModelScope.launch {
-                    repository.addToFavorite(track)
-                }
-            }
-        }
+    fun togglePlayPause() {
+        playerHandler.togglePlayPause()
     }
 
-    fun deleteTrackById(mediaItem: MediaItem){
-        viewModelScope.launch {
-            repository.deleteTrackById(mediaItem.mediaId)
-        }
+    fun seekToNext() {
+        playerHandler.player.seekToNext()
     }
 
-    fun toggleToFavorite(mediaItem: MediaItem){
-        isFavorite(mediaItem.mediaId).observeForever {
-            if (it){
-                deleteTrackById(mediaItem)
-            } else {
-                addToFavorite(mediaItem)
-            }
-        }
+    fun seekToPrevious() {
+        playerHandler.player.seekToPrevious()
+    }
+
+    fun toggleRepeat() {
+        playerHandler.toggleRepeat()
     }
 }
