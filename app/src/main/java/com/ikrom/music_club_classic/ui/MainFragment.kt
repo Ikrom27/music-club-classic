@@ -103,8 +103,10 @@ class MainFragment : Fragment() {
         playerHandler.currentMediaItemLiveData.observe(requireActivity()) {
             if (it == null){
                 slidingView.animate().translationY(WEINDOW_HEIGHT)
+                slidingView.visibility = View.GONE
             }
             else {
+                slidingView.visibility = View.VISIBLE
                 slidingView.animate().translationY(0F)
             }
         }
