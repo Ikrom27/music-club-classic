@@ -29,7 +29,6 @@ import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
 import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
-import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -128,7 +127,7 @@ class HomeFragment : Fragment() {
             it.putString("thumbnail", playList.thumbnail)
             it.putString("artist_name", playList.artists?.name)
         }
-        navController.navigate(R.id.home_to_playlist, bundle)
+        navController.navigate(R.id.explore_to_playlist, bundle)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView){

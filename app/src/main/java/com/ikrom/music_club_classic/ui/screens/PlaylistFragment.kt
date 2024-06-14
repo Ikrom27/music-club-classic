@@ -101,7 +101,6 @@ class PlaylistFragment : Fragment() {
         }
         albumBar.setOnSearchClick {
             searchViewModel.addContentList(trackList.value!!)
-            navController.navigate(R.id.action_playlistFragment_to_searchFragment)
         }
         albumBar.setOnMoreClick {
            //TODO: setOnMoreClick

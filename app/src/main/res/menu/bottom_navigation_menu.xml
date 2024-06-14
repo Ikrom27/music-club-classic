@@ -4,20 +4,24 @@
         android:id="@+id/home_screen"
         android:title="@string/home_screen"
         android:icon="@drawable/ic_home"
+        android:menuCategory="container"
         />
     <item
         android:id="@+id/explore_screen"
         android:title="@string/explore_screen"
         android:icon="@drawable/ic_explore"
+        android:menuCategory="container"
         />
     <item
         android:id="@+id/library_screen"
         android:title="@string/library_screen"
         android:icon="@drawable/ic_library"
+        android:menuCategory="container"
         />
     <item
-        android:id="@+id/account_screen"
+        android:id="@+id/profile_screen"
         android:title="@string/profile_screen"
         android:icon="@drawable/ic_profile"
+        android:menuCategory="container"
         />
 </menu>

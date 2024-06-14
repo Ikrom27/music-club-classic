@@ -102,7 +102,7 @@ class TracksMenu : BottomSheetDialogFragment() {
 //                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
                     val bundle = Bundle()
                     bundle.putString("id", track.album.artists?.first()?.id ?: "")
-                    navController.navigate(R.id.to_artist, bundle)
+                    navController.navigate(R.id.home_to_artist, bundle)
                     dismiss()
                 }
             ),

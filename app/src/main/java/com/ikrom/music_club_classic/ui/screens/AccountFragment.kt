@@ -175,7 +175,7 @@ class AccountFragment : Fragment() {
                     it.leadingIcon = com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark
                     it.text = "Sign in"
                     it.setOnClickListener {
-                        navController.navigate(R.id.action_profileFragment_to_webAuthorizationFragment)
+                        navController.navigate(R.id.profile_to_web_authorization)
                     }
                 })
             )

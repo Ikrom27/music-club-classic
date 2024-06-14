@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import androidx.navigation.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.R

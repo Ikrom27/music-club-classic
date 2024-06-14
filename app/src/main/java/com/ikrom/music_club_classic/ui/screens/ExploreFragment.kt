@@ -67,7 +67,7 @@ class ExploreFragment : Fragment() {
 
     private fun onAlbumClick(album: Album){
         albumViewModel.setAlbum(album)
-        navController.navigate(R.id.exploreFragment_to_albumFragment)
+        navController.navigate(R.id.explore_to_album)
     }
 
     private fun setupRecyclerView() {
@@ -88,7 +88,7 @@ class ExploreFragment : Fragment() {
 
     private fun setupButtons(view: View) {
         appBar.setOnSearchClick {
-            navController.navigate(R.id.action_exploreFragment_to_searchFragment)
+            navController.navigate(R.id.explore_to_search)
         }
     }
 

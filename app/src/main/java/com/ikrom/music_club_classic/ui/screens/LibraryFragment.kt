@@ -52,7 +52,7 @@ class LibraryFragment : Fragment() {
                             it.putString("thumbnail", playlist.thumbnail)
                             it.putString("artist_name", playlist.artists?.name)
                         }
-                        requireParentFragment().findNavController().navigate(R.id.action_libraryFragment_to_albumFragment, bundle)
+                        requireParentFragment().findNavController().navigate(R.id.library_to_playlist, bundle)
                     }
                 ))
             }
