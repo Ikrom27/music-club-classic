@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MediatorLiveData
 import androidx.media3.common.Player
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
@@ -70,9 +71,13 @@ class PlayerFragment : Fragment() {
         setupMarginFromStatusBar(handle)
         setupContent()
         setupButtons()
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
         setupButtonsListener()
         setupSeekBar()
-        return view
     }
 
     private fun bindViews(view: View) {
@@ -194,37 +199,41 @@ class PlayerFragment : Fragment() {
     private fun setupContent() {
         playerViewModel.currentMediaItemLiveData.observe(viewLifecycleOwner) { currentItem ->
             if (currentItem != null) {
-                Glide
-                    .with(requireContext())
-                    .load(currentItem.mediaMetadata.artworkUri)
-                    .centerCrop()
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Toast.makeText(requireContext(), "Fail to load image", Toast.LENGTH_SHORT).show()
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable,
-                            model: Any,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            setupBackground(resource)
-                            return false
-                        }
-
-                    })
-                    .into(trackCover)
+                setupThumbnail(currentItem.mediaMetadata.artworkUri.toString())
                 trackTitle.text = currentItem.mediaMetadata.title
                 trackAuthor.text = currentItem.mediaMetadata.artist
             }
         }
+    }
+
+    private fun setupThumbnail(imageUri: String){
+        Glide
+            .with(requireContext())
+            .load(imageUri)
+            .centerCrop()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Toast.makeText(requireContext(), "Fail to load image", Toast.LENGTH_SHORT).show()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    model: Any,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    setupBackground(resource)
+                    return false
+                }
+
+            })
+            .into(trackCover)
     }
 }

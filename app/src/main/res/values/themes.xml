@@ -10,5 +10,6 @@
         <item name="android:navigationBarColor">@color/bg_bottom_bar</item>
         <item name="imageButtonStyle">@style/ImageButtonBase</item>
         <item name="android:windowBackground">@color/app_background_color</item>
+        <item name="bottomSheetStyle">@color/app_background_color</item>
     </style>
 </resources>
