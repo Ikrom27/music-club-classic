@@ -126,7 +126,7 @@
         <item name="android:background">@color/bg_separator</item>
     </style>
     <style name="BottomSheetMenu" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="backgroundTint">@color/app_background_color</item>
+        <item name="backgroundTint">@color/bottom_sheet_menu</item>
     </style>
     <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet">
         <item name="paddingBottomSystemWindowInsets">false</item>
