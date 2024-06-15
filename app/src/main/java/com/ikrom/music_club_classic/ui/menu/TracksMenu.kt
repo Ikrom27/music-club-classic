@@ -116,7 +116,6 @@ class TracksMenu : BottomSheetDialogFragment() {
         )
     }
 
-
     companion object {
         const val TAG = "BottomMenuFragment"
     }

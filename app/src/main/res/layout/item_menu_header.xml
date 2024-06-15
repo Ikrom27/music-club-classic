@@ -39,11 +39,10 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"/>
     </LinearLayout>
-    <View
-        style="@style/separator"
-        android:background="@color/bg_separator"
-        android:backgroundTint="@color/grey_70"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
