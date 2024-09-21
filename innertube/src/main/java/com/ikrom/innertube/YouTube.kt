@@ -128,9 +128,9 @@ object YouTube {
         )
     }
 
-    suspend fun search(query: String, filter: SearchFilter): Result<SearchResult> = runCatching {
+    suspend fun search(query: String, filter: SearchFilter): SearchResult {
         val response = innerTube.search(WEB_REMIX, query, filter.value).body<SearchResponse>()
-        SearchResult(
+        return SearchResult(
             items = response.contents?.tabbedSearchResultsRenderer?.tabs?.firstOrNull()
                 ?.tabRenderer?.content?.sectionListRenderer?.contents?.lastOrNull()
                 ?.musicShelfRenderer?.contents?.mapNotNull {
@@ -170,13 +170,13 @@ object YouTube {
                 year = response.header.musicDetailHeaderRenderer.subtitle.runs.lastOrNull()?.text?.toIntOrNull(),
                 thumbnail = response.header.musicDetailHeaderRenderer.thumbnail.croppedSquareThumbnailRenderer?.getThumbnailUrl()!!
             ),
-            songs = if (withSongs) albumSongs(playlistId).getOrThrow() else emptyList()
+            songs = if (withSongs) albumSongs(playlistId) else emptyList()
         )
     }
 
-    suspend fun albumSongs(playlistId: String): Result<List<SongItem>> = runCatching {
+    suspend fun albumSongs(playlistId: String): List<SongItem> {
         val response = innerTube.browse(WEB_REMIX, "VL$playlistId").body<BrowseResponse>()
-        response.contents?.singleColumnBrowseResultsRenderer?.tabs?.firstOrNull()
+        return response.contents?.singleColumnBrowseResultsRenderer?.tabs?.firstOrNull()
             ?.tabRenderer?.content?.sectionListRenderer?.contents?.firstOrNull()
             ?.musicPlaylistShelfRenderer?.contents
             ?.mapNotNull {
@@ -184,9 +184,9 @@ object YouTube {
             }!!
     }
 
-    suspend fun artist(browseId: String): Result<ArtistPage> = runCatching {
+    suspend fun artist(browseId: String): ArtistPage {
         val response = innerTube.browse(WEB_REMIX, browseId).body<BrowseResponse>()
-        ArtistPage(
+        return ArtistPage(
             artist = ArtistItem(
                 id = browseId,
                 title = response.header?.musicImmersiveHeaderRenderer?.title?.runs?.firstOrNull()?.text
@@ -312,9 +312,9 @@ object YouTube {
         )
     }
 
-    suspend fun newReleaseAlbums(): Result<List<AlbumItem>> = runCatching {
+    suspend fun newReleaseAlbums(): List<AlbumItem> {
         val response = innerTube.browse(WEB_REMIX, browseId = "FEmusic_new_releases_albums").body<BrowseResponse>()
-        response.contents?.singleColumnBrowseResultsRenderer?.tabs?.firstOrNull()?.tabRenderer?.content?.sectionListRenderer?.contents?.firstOrNull()?.gridRenderer?.items
+        return response.contents?.singleColumnBrowseResultsRenderer?.tabs?.firstOrNull()?.tabRenderer?.content?.sectionListRenderer?.contents?.firstOrNull()?.gridRenderer?.items
             ?.mapNotNull { it.musicTwoRowItemRenderer }
             ?.mapNotNull(NewReleaseAlbumPage::fromMusicTwoRowItemRenderer)
             .orEmpty()
@@ -393,13 +393,13 @@ object YouTube {
         )
     }
 
-    suspend fun next(endpoint: WatchEndpoint, continuation: String? = null): Result<NextResult> = runCatching {
+    suspend fun next(endpoint: WatchEndpoint, continuation: String? = null): NextResult {
         val response = innerTube.next(WEB_REMIX, endpoint.videoId, endpoint.playlistId, endpoint.playlistSetVideoId, endpoint.index, endpoint.params, continuation).body<NextResponse>()
         val playlistPanelRenderer = response.continuationContents?.playlistPanelContinuation
             ?: response.contents.singleColumnMusicWatchNextResultsRenderer.tabbedRenderer.watchNextTabbedResultsRenderer.tabs[0].tabRenderer.content?.musicQueueRenderer?.content?.playlistPanelRenderer!!
         // load automix items
         playlistPanelRenderer.contents.lastOrNull()?.automixPreviewVideoRenderer?.content?.automixPlaylistVideoRenderer?.navigationEndpoint?.watchPlaylistEndpoint?.let { watchPlaylistEndpoint ->
-            return@runCatching next(watchPlaylistEndpoint).getOrThrow().let { result ->
+            return next(watchPlaylistEndpoint).let { result ->
                 result.copy(
                     title = playlistPanelRenderer.title,
                     items = playlistPanelRenderer.contents.mapNotNull {
@@ -414,7 +414,7 @@ object YouTube {
                 )
             }
         }
-        NextResult(
+        return NextResult(
             title = playlistPanelRenderer.title,
             items = playlistPanelRenderer.contents.mapNotNull {
                 it.playlistPanelVideoRenderer?.let(NextPage::fromPlaylistPanelVideoRenderer)
