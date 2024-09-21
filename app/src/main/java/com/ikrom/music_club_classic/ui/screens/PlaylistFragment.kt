@@ -15,20 +15,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Playlist
-import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
-import com.ikrom.music_club_classic.extensions.models.toPlaylist
+import com.ikrom.music_club_classic.extensions.models.toPlaylistModel
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.youtube_data.model.PlaylistModel
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,10 +36,10 @@ class PlaylistFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
-    private lateinit var currentPlaylist: Playlist
+    private lateinit var currentPlaylist: PlaylistModel
     private val viewModel: PlayListViewModel by viewModels()
     private val searchViewModel: SearchViewModel by activityViewModels()
-    private lateinit var trackList: LiveData<List<Track>>
+    private lateinit var trackList: LiveData<List<TrackModel>>
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var albumBar: AlbumBar
@@ -54,7 +54,7 @@ class PlaylistFragment : Fragment() {
         super.onCreate(savedInstanceState)
         navController = requireParentFragment().findNavController()
         if (arguments != null){
-            currentPlaylist = requireArguments().toPlaylist()
+            currentPlaylist = requireArguments().toPlaylistModel()
             viewModel.updatePlaylistItems(currentPlaylist.id)
         } else {
             Toast.makeText(requireContext(), "Playlist error", Toast.LENGTH_SHORT).show()

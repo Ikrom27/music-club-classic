@@ -9,29 +9,22 @@ import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
-import com.ikrom.music_club_classic.data.data_source.IMediaDataSource
 import com.ikrom.music_club_classic.data.data_source.SettingsDataSource
-import com.ikrom.music_club_classic.data.data_source.media_data_source.LocalMediaDataSource
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
-import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountRemoteDataSource
-import com.ikrom.music_club_classic.data.data_source.media_data_source.YoutubeDataSource
-import com.ikrom.music_club_classic.data.repository.AccountRepository
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import com.ikrom.music_club_classic.data.repository.SettingsRepository
-import com.ikrom.music_club_classic.data.room.AppDataBase
 import com.ikrom.music_club_classic.domain.RecommendedUseCase
 import com.ikrom.music_club_classic.playback.MusicNotificationManager
-import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import com.ikrom.music_club_classic.playback.MusicPlayerService
 import com.ikrom.music_club_classic.playback.PlayerHandler
+import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Qualifier
 import javax.inject.Singleton
-
 
 
 @Qualifier
@@ -42,32 +35,10 @@ annotation class PlayerCacheScope
 @Retention(AnnotationRetention.BINARY)
 annotation class DownloadCacheScope
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class YoutubeDataSourceScope
-
 
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-    @Provides
-    @Singleton
-    fun provideMediaRepository(
-        @YoutubeDataSourceScope youtubeMusicDataSource: IMediaDataSource,
-        localMediaDataSource: LocalMediaDataSource,
-        accountLocalDataSource: AccountLocalDataSource
-    ): MediaRepository = MediaRepository(youtubeMusicDataSource, localMediaDataSource, accountLocalDataSource)
-
-    @Provides
-    @Singleton
-    fun provideLocalMediaDataSource(
-        dataBase: AppDataBase
-    ): LocalMediaDataSource = LocalMediaDataSource(dataBase)
-
-    @Provides
-    @Singleton
-    @YoutubeDataSourceScope
-    fun provideYoutubeDataSource(): IMediaDataSource = YoutubeDataSource()
 
     @Provides
     @Singleton
@@ -78,6 +49,7 @@ class AppModule {
         .setMediaSourceFactory(mediaSourceFactory)
         .build()
 
+    @OptIn(UnstableApi::class)
     @Provides
     @Singleton
     fun provideMediaSourceFactory(
@@ -130,7 +102,7 @@ class AppModule {
     @Singleton
     fun providePlayerHandler(
         player: ExoPlayer,
-        repository: MediaRepository
+        repository: IMediaRepository
     ) : PlayerHandler = PlayerHandler(player, repository)
 
     @Provides
@@ -138,25 +110,6 @@ class AppModule {
     fun provideAccountLocalDataSource(
         @ApplicationContext context: Context,
     ) : AccountLocalDataSource = AccountLocalDataSource(context)
-
-    @Provides
-    @Singleton
-    fun provideAccountRemoteDataSource(
-    ) : AccountRemoteDataSource = AccountRemoteDataSource()
-
-    @Provides
-    @Singleton
-    fun provideAccountRepository(
-        localDataStore: AccountLocalDataSource,
-        remoteDataStore: AccountRemoteDataSource
-    ) : AccountRepository = AccountRepository(localDataStore, remoteDataStore)
-
-    @Provides
-    @Singleton
-    fun provideRecommendedUseCase(
-        mediaRepository: MediaRepository,
-        accountRepository: AccountRepository
-    ) : RecommendedUseCase = RecommendedUseCase(mediaRepository, accountRepository)
 
     @Provides
     @Singleton

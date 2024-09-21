@@ -3,16 +3,15 @@ package com.ikrom.music_club_classic.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.media3.common.MediaItem
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
-    private val repository: MediaRepository,
+    private val repository: IMediaRepository,
     private val playerHandler: PlayerHandler
 ): ViewModel() {
     val isFavoriteLiveData = MutableLiveData(false)

@@ -3,7 +3,6 @@ package com.ikrom.music_club_classic.utils
 import android.content.Context
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
-import androidx.media3.common.PlaybackException
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultDataSource
@@ -15,15 +14,10 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.extractor.mkv.MatroskaExtractor
 import androidx.media3.extractor.mp4.FragmentedMp4Extractor
-import com.ikrom.innertube.YouTube
 import com.ikrom.music_club_classic.di.DownloadCacheScope
 import com.ikrom.music_club_classic.di.PlayerCacheScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
-import java.net.ConnectException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
+import ru.ikrom.youtube_data.YoutubePlayer
 import javax.inject.Inject
 
 @OptIn(UnstableApi::class)
@@ -47,7 +41,7 @@ class MediaSourceFactory @Inject constructor(
     private fun createOkHttpDataSourceFactory() =
         OkHttpDataSource.Factory(
             OkHttpClient.Builder()
-                .proxy(YouTube.proxy)
+                .proxy(YoutubePlayer.getProxy())
                 .build()
         )
 
@@ -78,28 +72,7 @@ class MediaSourceFactory @Inject constructor(
                 return@Factory dataSpec.withUri(it.first.toUri())
             }
 
-            val playerResponse = runBlocking(Dispatchers.IO) {
-                YouTube.player(mediaId)
-            }.getOrElse { throwable ->
-                when (throwable) {
-                    is ConnectException, is UnknownHostException -> {
-                        throw PlaybackException("", throwable, PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_FAILED)
-                    }
-
-                    is SocketTimeoutException -> {
-                        throw PlaybackException("", throwable, PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_TIMEOUT)
-                    }
-
-                    else -> throw PlaybackException("", throwable, PlaybackException.ERROR_CODE_REMOTE_ERROR)
-                }
-            }
-
-            val format = playerResponse.streamingData?.adaptiveFormats
-                ?.filter { it.isAudio }
-                ?.maxByOrNull {
-                    it.bitrate * 1 + (if (it.mimeType.startsWith("audio/webm")) 10240 else 0) // prefer opus stream
-                }
-            dataSpec.withUri(format!!.url!!.toUri()).subrange(dataSpec.uriPositionOffset, CHUNK_LENGTH)
+            dataSpec.withUri(YoutubePlayer.getUri(mediaId)).subrange(dataSpec.uriPositionOffset, CHUNK_LENGTH)
         }
     }
 }

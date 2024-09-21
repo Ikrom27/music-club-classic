@@ -18,7 +18,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
@@ -30,6 +29,7 @@ import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -118,8 +118,8 @@ class SearchFragment : Fragment() {
 
     }
 
-    private fun getCombinedSearchListLiveData(): MediatorLiveData<Pair<List<Track>, List<Track>>>{
-        return MediatorLiveData<Pair<List<Track>, List<Track>>>().apply {
+    private fun getCombinedSearchListLiveData(): MediatorLiveData<Pair<List<TrackModel>, List<TrackModel>>>{
+        return MediatorLiveData<Pair<List<TrackModel>, List<TrackModel>>>().apply {
             addSource(viewModel.localResultList) { localTracks ->
                 value = Pair(localTracks, viewModel.globalResultList.value ?: listOf())
             }
@@ -129,7 +129,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun addAdapterItems(title: String, list: List<Track>) {
+    private fun addAdapterItems(title: String, list: List<TrackModel>) {
         if (list.isNotEmpty()) {
             adapter.addItems(listOf(TitleItem(title)))
             adapter.addItems(list.map {

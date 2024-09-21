@@ -2,22 +2,21 @@ package com.ikrom.music_club_classic.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    val repository: MediaRepository
+    val repository: IMediaRepository
 ): ViewModel() {
-    val globalResultList = MutableLiveData<List<Track>>()
-    val localResultList = MutableLiveData<List<Track>>()
+    val globalResultList = MutableLiveData<List<TrackModel>>()
+    val localResultList = MutableLiveData<List<TrackModel>>()
     val serverStatus = MutableLiveData<Int>()
-    private val contentList = ArrayList<Track>()
+    private val contentList = ArrayList<TrackModel>()
     private var lastQuery = ""
 
     fun updateSearchList(query: String = lastQuery) {
@@ -43,20 +42,16 @@ class SearchViewModel @Inject constructor(
     }
 
     suspend fun updateServerStatus() {
-        repository.getServerStatus().asFlow().collect {status ->
-            serverStatus.postValue(status)
-        }
+        serverStatus.postValue(200)
     }
 
     suspend fun updateGlobalResult(query: String){
-        repository.getTracksByQuery(query).asFlow().collect {tracks ->
-            if (tracks != null){
-                globalResultList.value = tracks
-            }
+        viewModelScope.launch {
+            globalResultList.postValue(repository.getTracksByQuery(query))
         }
     }
 
-    fun addContentList(tracks: List<Track>){
+    fun addContentList(tracks: List<TrackModel>){
         contentList.clear()
         contentList.addAll(tracks)
     }

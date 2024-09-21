@@ -3,19 +3,18 @@ package com.ikrom.music_club_classic.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.data.model.ArtistData
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.ArtistPageModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
-    val repository: MediaRepository
+    val repository: IMediaRepository
 ): ViewModel() {
-    val artistLiveData = MutableLiveData<ArtistData>()
+    val artistLiveData = MutableLiveData<ArtistPageModel>()
     var artistId = ""
         set(value) {
             field = value
@@ -24,9 +23,7 @@ class ArtistViewModel @Inject constructor(
 
     fun updateArtistData(artistId: String){
         viewModelScope.launch {
-            repository.getArtistData(artistId).asFlow().collect {
-                artistLiveData.postValue(it)
-            }
+            artistLiveData.postValue(repository.getArtistData(artistId))
         }
     }
 }

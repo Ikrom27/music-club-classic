@@ -1,18 +1,19 @@
 package com.ikrom.music_club_classic.viewmodel
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ikrom.music_club_classic.data.model.Playlist
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.PlaylistModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
-    private val repository: MediaRepository
+    private val repository: IMediaRepository
 ): ViewModel() {
+    val likedPlaylists = MutableLiveData<List<PlaylistModel>>()
 
-    fun getLikedPlayLists(): LiveData<List<Playlist>> {
-        return repository.getLikedPlayLists()
+    fun updateLikedPlayLists() {
+        likedPlaylists.postValue(emptyList())
     }
 }

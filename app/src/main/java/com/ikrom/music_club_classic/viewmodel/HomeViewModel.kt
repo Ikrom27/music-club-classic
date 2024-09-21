@@ -4,22 +4,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.data.model.Playlist
-import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import com.ikrom.music_club_classic.domain.RecommendedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.PlaylistModel
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: MediaRepository,
+    private val repository: IMediaRepository,
     private val recommendedUseCase: RecommendedUseCase
 ): ViewModel() {
-    val quickPick = MutableLiveData<List<Track>>()
-    val userPlaylists = MutableLiveData<List<Playlist>>()
-    val trackList = MutableLiveData<List<Track>>()
+    val quickPick = MutableLiveData<List<TrackModel>>()
+    val userPlaylists = MutableLiveData<List<PlaylistModel>>()
+    val trackList = MutableLiveData<List<TrackModel>>()
 
     init {
         update()
@@ -32,16 +32,10 @@ class HomeViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            repository.getLikedPlayLists().asFlow().collect(){
-                userPlaylists.postValue(it)
-            }
+            userPlaylists.postValue(emptyList())
         }
         viewModelScope.launch {
-            repository.getTracksByQuery("Linkin park").asFlow().collect(){
-                if (it != null){
-                    trackList.postValue(it)
-                }
-            }
+            trackList.postValue(repository.getTracksByQuery("Linkin park"))
         }
     }
 }

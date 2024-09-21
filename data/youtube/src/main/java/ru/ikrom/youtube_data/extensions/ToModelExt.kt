@@ -5,8 +5,10 @@ import com.ikrom.innertube.models.ArtistItem
 import com.ikrom.innertube.models.ItemArtist
 import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SongItem
+import com.ikrom.innertube.pages.ArtistPage
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
+import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.PlaylistModel
 import ru.ikrom.youtube_data.model.TrackModel
 
@@ -67,4 +69,43 @@ fun SongItem.toTrackModel(): TrackModel? {
     } catch (e: NullPointerException) {
         null
     }
+}
+
+fun ArtistPage.toArtistPageModel(): ArtistPageModel {
+    var tracks = mutableListOf<TrackModel>()
+    var albums = mutableListOf<AlbumModel>()
+    var singles = mutableListOf<AlbumModel>()
+    var relatedPlaylists = mutableListOf<PlaylistModel>()
+    var similar = mutableListOf<ArtistModel>()
+
+    this.sections.forEach { section ->
+        when (section.items.first()) {
+            is SongItem -> {
+                if (tracks.isEmpty()){
+                    tracks = section.items.mapNotNull { (it as SongItem).toTrackModel() } as MutableList<TrackModel>
+                }
+            }
+            is AlbumItem -> {
+                if(section.items.size == 1){
+                    singles = (section.items.map { (it as AlbumItem).toAlbumModel() }) as MutableList<AlbumModel>
+                } else {
+                    albums = (section.items.map { (it as AlbumItem).toAlbumModel() }) as MutableList<AlbumModel>
+                }
+            }
+            is PlaylistItem -> relatedPlaylists = (section.items.map { (it as PlaylistItem).toPlayListModel() }) as MutableList<PlaylistModel>
+            is ArtistItem -> similar = (section.items.map { (it as ArtistItem).toArtistModel() }) as MutableList<ArtistModel>
+        }
+    }
+
+    return ArtistPageModel(
+        id = this.artist.id,
+        title = this.artist.title,
+        thumbnail = this.artist.thumbnail,
+        description = this.description ?: "",
+        tracks = tracks,
+        albums = albums,
+        singles = singles,
+        relatedPlaylists = relatedPlaylists,
+        similar = similar
+    )
 }

@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Artist
 import com.ikrom.music_club_classic.extensions.models.toThumbnailLargeItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailRoundedItems
@@ -27,15 +24,14 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
-import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.youtube_data.model.ArtistModel
 import javax.inject.Inject
 
 
@@ -147,7 +143,7 @@ class ArtistFragment : Fragment() {
         }
     }
 
-    private fun onArtistClick(artist: Artist){
+    private fun onArtistClick(artist: ArtistModel){
         val bundle = Bundle()
         bundle.putString("id", artist.id)
         navController.navigate(R.id.artist_to_artist, bundle)

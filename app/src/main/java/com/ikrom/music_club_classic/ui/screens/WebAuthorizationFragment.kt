@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.viewmodel.WebAuthorizationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,8 +25,6 @@ class WebAuthorizationFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var btnBack: ImageButton
     private lateinit var urlTextView: TextView
-
-    private val viewModel: WebAuthorizationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +59,7 @@ class WebAuthorizationFragment : Fragment() {
                 view.loadUrl("javascript:window.Android.onUrlChange(window.location.href);")
                 if (url.startsWith("https://music.youtube.com")) {
                     val cookies = CookieManager.getInstance().getCookie(url)
-                    viewModel.saveCookie(cookies)
+
                     navController.navigateUp()
                 }
             }

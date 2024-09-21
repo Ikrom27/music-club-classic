@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@UnstableApi
 class MusicNotificationManager @Inject constructor (
     @ApplicationContext private val context: Context,
     private val player: ExoPlayer

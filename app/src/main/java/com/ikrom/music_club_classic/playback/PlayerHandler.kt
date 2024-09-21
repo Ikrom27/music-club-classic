@@ -7,18 +7,17 @@ import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
-import com.ikrom.innertube.models.WatchEndpoint
-import com.ikrom.music_club_classic.data.model.Track
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import com.ikrom.music_club_classic.extensions.getMediaItemQueue
 import com.ikrom.music_club_classic.extensions.hasOldTracks
 import com.ikrom.music_club_classic.extensions.isLastPlaying
 import com.ikrom.music_club_classic.extensions.toMediaItem
+import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 class PlayerHandler @Inject constructor(
     val player: ExoPlayer,
-    val repository: MediaRepository
+    val repository: IMediaRepository
 ): PlayerConnection(player) {
     val recommendedQueue: MutableList<MediaItem> = mutableListOf()
     val currentQueue = MutableLiveData<List<MediaItem>>()
@@ -28,7 +27,7 @@ class PlayerHandler @Inject constructor(
         currentQueue.value = player.getMediaItemQueue()
     }
 
-    fun playNow(tracks: List<Track>){
+    fun playNow(tracks: List<TrackModel>){
         if (player.currentMediaItem != tracks.first().toMediaItem()){
             player.clearMediaItems()
             player.setMediaItems(tracks.map { it.toMediaItem() })
@@ -37,7 +36,7 @@ class PlayerHandler @Inject constructor(
         }
     }
 
-    fun playNow(track: Track){
+    fun playNow(track: TrackModel){
         playNow(listOf(track))
     }
 
@@ -98,16 +97,6 @@ class PlayerHandler @Inject constructor(
     }
 
     private fun addRecommendedTracks(){
-        if (recommendedQueue.size < 1){
-            repository.getRadioTracks(WatchEndpoint(player.currentMediaItem?.mediaId)).observeForever { trackList ->
-                if (trackList.isNotEmpty()){
-                    recommendedQueue += trackList.map{it.toMediaItem()}.shuffled()
-                    addToQueue(recommendedQueue.removeFirst())
-                }
-            }
-        } else {
-            addToQueue(recommendedQueue.removeFirst())
-        }
     }
 
     private fun removeOldTracks(){

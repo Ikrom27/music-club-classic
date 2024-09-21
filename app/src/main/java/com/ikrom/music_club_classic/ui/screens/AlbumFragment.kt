@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
@@ -32,9 +29,7 @@ class AlbumFragment : Fragment() {
     @Inject
     lateinit var playerHandler: PlayerHandler
 
-    private var currentAlbum: Album? = null
     private val viewModel: AlbumViewModel by activityViewModels()
-    private lateinit var trackList: LiveData<List<Track>>
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var albumBar: AlbumBar
@@ -50,10 +45,8 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_album, container, false)
-        currentAlbum = viewModel.currentAlbum.value
-        trackList = viewModel.albumTracks
         navController = requireParentFragment().findNavController()
-        if(currentAlbum == null){
+        if(viewModel.currentAlbum.value == null){
             navController.navigateUp()
         }
         bindViews(view)
@@ -98,8 +91,8 @@ class AlbumFragment : Fragment() {
     }
 
     private fun setupContent() {
-        trackList.observe(viewLifecycleOwner) {trackList ->
-            val header = currentAlbum!!.toThumbnailHeaderItem(
+        viewModel.albumTracks.observe(viewLifecycleOwner) {trackList ->
+            val header = viewModel.currentAlbum.value!!.toThumbnailHeaderItem(
                 onPlayClick = {playerHandler.playNow(trackList)},
                 onShuffleClick = {playerHandler.playNow(trackList.shuffled())}
             )

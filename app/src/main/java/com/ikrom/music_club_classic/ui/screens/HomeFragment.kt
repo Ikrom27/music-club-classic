@@ -11,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Playlist
-import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.playlistCardItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
@@ -30,6 +28,8 @@ import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.youtube_data.model.PlaylistModel
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onPlayListClick(playList: Playlist){
+    private fun onPlayListClick(playList: PlaylistModel){
         val bundle = Bundle().also {
             it.putString("id", playList.id)
             it.putString("title", playList.title)
@@ -145,7 +145,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onPlayPauseClick(track: Track){
+    private fun onPlayPauseClick(track: TrackModel){
         if (playerHandler.currentMediaItemLiveData.value?.mediaId == track.videoId){
             playerHandler.togglePlayPause()
         }

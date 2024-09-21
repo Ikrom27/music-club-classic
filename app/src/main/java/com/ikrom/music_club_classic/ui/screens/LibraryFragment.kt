@@ -41,7 +41,7 @@ class LibraryFragment : Fragment() {
 
     private fun setupAdapter(){
         adapter = LibraryAdapter()
-        viewModel.getLikedPlayLists().observe(requireActivity()) {
+        viewModel.likedPlaylists.observe(requireActivity()) {
             if (!it.isNullOrEmpty()){
                 adapter.setItems(it.toLibraryItems(
                     onButtonClick = {},

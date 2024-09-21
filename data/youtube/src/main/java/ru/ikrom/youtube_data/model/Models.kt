@@ -37,7 +37,7 @@ data class ArtistPageModel(
     val title: String,
     val thumbnail: String,
     val description: String,
-    val trackModels: List<TrackModel>,
+    val tracks: List<TrackModel>,
     val albums: List<AlbumModel>,
     val singles: List<AlbumModel>,
     val relatedPlaylists: List<PlaylistModel>,

@@ -1,16 +1,18 @@
 package ru.ikrom.youtube_data
 
 import ru.ikrom.youtube_data.extensions.toAlbumModel
+import ru.ikrom.youtube_data.extensions.toArtistPageModel
 import ru.ikrom.youtube_data.extensions.toTrackModel
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
+import javax.inject.Inject
 
-class MediaRepositoryImpl(
+class MediaRepositoryImpl @Inject constructor(
     private val dataSource: IMediaDataSource
 ): IMediaRepository {
     override suspend fun getArtistData(id: String): ArtistPageModel {
-        TODO("Not yet implemented")
+        return dataSource.getArtistData(id).toArtistPageModel()
     }
 
     override suspend fun getTracksByQuery(query: String): List<TrackModel> {
@@ -34,6 +36,6 @@ class MediaRepositoryImpl(
     }
 
     override suspend fun isFavorite(id: String): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 }

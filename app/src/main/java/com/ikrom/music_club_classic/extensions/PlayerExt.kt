@@ -8,8 +8,8 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.util.UnstableApi
-import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.models.getNames
+import ru.ikrom.youtube_data.model.TrackModel
 import java.util.ArrayDeque
 
 
@@ -25,7 +25,7 @@ fun Player.hasOldTracks(n: Int): Boolean{
 }
 
 @OptIn(UnstableApi::class)
-fun Track.toMediaItem(): MediaItem {
+fun TrackModel.toMediaItem(): MediaItem {
     return MediaItem.Builder()
         .setMediaId(this.videoId)
         .setUri(this.videoId)

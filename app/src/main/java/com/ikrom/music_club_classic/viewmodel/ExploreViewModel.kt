@@ -4,25 +4,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.AlbumModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
-    val repository: MediaRepository
+    val repository: IMediaRepository
 ) : ViewModel() {
-    val newReleasesList = MutableLiveData<List<Album>>()
+    val newReleasesList = MutableLiveData<List<AlbumModel>>()
     init {
         update()
     }
     fun update(){
         viewModelScope.launch {
-            repository.getNewReleases().asFlow().collect{
-                newReleasesList.postValue(it)
-            }
+            newReleasesList.postValue(repository.getNewReleases())
         }
     }
 }

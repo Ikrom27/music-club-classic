@@ -1,26 +1,15 @@
 package com.ikrom.music_club_classic.extensions.models
 
 import android.os.Bundle
-import com.ikrom.innertube.models.PlaylistItem
-import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.data.model.Artist
-import com.ikrom.music_club_classic.data.model.Playlist
 import com.ikrom.music_club_classic.ui.adapters.LibraryItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedItem
+import ru.ikrom.youtube_data.model.ArtistModel
+import ru.ikrom.youtube_data.model.PlaylistModel
 
-fun PlaylistItem.toPlayList(): Playlist {
-    return Playlist(
-        id = id,
-        title = title,
-        artists = author?.toArtist(),
-        thumbnail =  thumbnail
-    )
-}
 
-fun Bundle.toPlaylist(): Playlist {
+fun Bundle.toPlaylistModel(): PlaylistModel {
     val id = getString("id") ?: ""
     val title = getString("title") ?: ""
     val thumbnail = getString("thumbnail") ?: ""
@@ -28,15 +17,15 @@ fun Bundle.toPlaylist(): Playlist {
     val artistName = getString("artist_name") ?: ""
     val artistThumbnail = getString("artist_thumbnail") ?: ""
     val artist = if (artistId.isNotEmpty() && artistName.isNotEmpty()) {
-        Artist(artistId, artistName, artistThumbnail)
+        ArtistModel(artistId, artistName, artistThumbnail)
     } else {
         null
     }
-    return Playlist(id, title, artist, thumbnail)
+    return PlaylistModel(id, title, artist, thumbnail)
 }
 
 
-fun Playlist.toCardItem(
+fun PlaylistModel.toCardItem(
     onItemClick: () -> Unit
 )
         : CardItem {
@@ -48,7 +37,7 @@ fun Playlist.toCardItem(
     )
 }
 
-fun Playlist.toThumbnailHeaderItem(
+fun PlaylistModel.toThumbnailHeaderItem(
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit
 ): ThumbnailHeaderItem{
@@ -61,7 +50,7 @@ fun Playlist.toThumbnailHeaderItem(
     )
 }
 
-fun Playlist.toLibraryItem(
+fun PlaylistModel.toLibraryItem(
     onButtonClick: () -> Unit,
     onItemClick: () -> Unit
 )
@@ -75,9 +64,9 @@ fun Playlist.toLibraryItem(
     )
 }
 
-fun List<Playlist>.toLibraryItems(
+fun List<PlaylistModel>.toLibraryItems(
     onButtonClick: () -> Unit,
-    onItemClick: (Playlist) -> Unit
+    onItemClick: (PlaylistModel) -> Unit
 ): List<LibraryItem>{
     return this.map { playlist ->
         playlist.toLibraryItem(
@@ -87,8 +76,8 @@ fun List<Playlist>.toLibraryItems(
     }
 }
 
-fun List<Playlist>.playlistCardItems(
-    onItemClick: (Playlist) -> Unit
+fun List<PlaylistModel>.playlistCardItems(
+    onItemClick: (PlaylistModel) -> Unit
 ): List<CardItem>{
     return this.map { playlist ->
         playlist.toCardItem {
@@ -97,7 +86,7 @@ fun List<Playlist>.playlistCardItems(
     }
 }
 
-fun Playlist.toThumbnailMediumItem(
+fun PlaylistModel.toThumbnailMediumItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit
 ) : ThumbnailMediumItem {
@@ -110,7 +99,7 @@ fun Playlist.toThumbnailMediumItem(
     )
 }
 
-fun List<Playlist>?.toThumbnailMediumItems(
+fun List<PlaylistModel>?.toThumbnailMediumItems(
     onClick: () -> Unit,
     onLongClick: () -> Unit
 ): List<ThumbnailMediumItem>{

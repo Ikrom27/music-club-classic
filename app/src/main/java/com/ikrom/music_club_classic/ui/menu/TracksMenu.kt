@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.model.Track
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.base_adapter.CompositeAdapter
@@ -22,6 +21,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -69,7 +69,7 @@ class TracksMenu : BottomSheetDialogFragment() {
         }
     }
 
-    private fun getButtonsList(track: Track): List<MenuButtonItem> {
+    private fun getButtonsList(track: TrackModel): List<MenuButtonItem> {
         return listOf(
             MenuButtonItem(
                 title = getString(R.string.add_to_queue),

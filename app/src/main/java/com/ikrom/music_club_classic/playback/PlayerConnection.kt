@@ -3,10 +3,7 @@ package com.ikrom.music_club_classic.playback
 import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
-import com.ikrom.innertube.models.WatchEndpoint
-import com.ikrom.music_club_classic.data.repository.MediaRepository
 
 open class PlayerConnection (
     player: ExoPlayer,

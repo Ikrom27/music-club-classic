@@ -1,27 +1,13 @@
 package com.ikrom.music_club_classic.extensions.models
 
-import com.ikrom.innertube.models.AlbumItem
-import com.ikrom.music_club_classic.data.model.Album
-import com.ikrom.music_club_classic.extensions.resize
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
+import ru.ikrom.youtube_data.model.AlbumModel
 
-fun AlbumItem.toAlbum(): Album {
-    return Album(
-        id = this.id,
-        title = this.title,
-        artists = this.artists?.map{
-            it.toArtist()
-        },
-        thumbnail = this.thumbnail.resize(1024, 1024),
-        year = this.year
-    )
-}
 
-fun Album.toThumbnailHeaderItem(
+fun AlbumModel.toThumbnailHeaderItem(
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit
 ): ThumbnailHeaderItem {
@@ -34,7 +20,7 @@ fun Album.toThumbnailHeaderItem(
     )
 }
 
-fun Album.toCardItem(
+fun AlbumModel.toCardItem(
     onItemClick: () -> Unit
 )
         : CardItem {
@@ -46,7 +32,7 @@ fun Album.toCardItem(
     )
 }
 
-fun Album.toThumbnailMediumItem(
+fun AlbumModel.toThumbnailMediumItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit
 ) : ThumbnailMediumItem {
@@ -59,17 +45,18 @@ fun Album.toThumbnailMediumItem(
     )
 }
 
-fun List<Album>?.toThumbnailMediumItems(
+fun List<AlbumModel>?.toThumbnailMediumItems(
     onClick: () -> Unit,
     onLongClick: () -> Unit
 ): List<ThumbnailMediumItem>{
-    return this?.map { it.toThumbnailMediumItem(
+    return this?.map {
+        it.toThumbnailMediumItem(
         onClick,
         onLongClick
     ) } ?: emptyList()
 }
 
-fun Album.toThumbnailLargeItem(
+fun AlbumModel.toThumbnailLargeItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit
 ) : ThumbnailLargeItem {
@@ -82,7 +69,7 @@ fun Album.toThumbnailLargeItem(
     )
 }
 
-fun List<Album>?.toThumbnailLargeItems(
+fun List<AlbumModel>?.toThumbnailLargeItems(
     onClick: () -> Unit,
     onLongClick: () -> Unit
 ): List<ThumbnailLargeItem>{
@@ -92,8 +79,8 @@ fun List<Album>?.toThumbnailLargeItems(
     ) } ?: emptyList()
 }
 
-fun List<Album>.albumCardItems(
-    onItemClick: (Album) -> Unit
+fun List<AlbumModel>.albumCardItems(
+    onItemClick: (AlbumModel) -> Unit
 ): List<CardItem>{
     return this.map { album ->
         album.toCardItem {
