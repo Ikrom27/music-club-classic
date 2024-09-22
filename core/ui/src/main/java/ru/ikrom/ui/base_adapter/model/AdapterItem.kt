@@ -1,4 +1,4 @@
-package ru.ikrom.ui.model
+package ru.ikrom.ui.base_adapter.model
 
 abstract class AdapterItem {
     open val onClick: (() -> Unit)? = null

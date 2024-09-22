@@ -1,10 +1,10 @@
-package ru.ikrom.ui
+package ru.ikrom.ui.base_adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 
 abstract class BaseDelegateAdapter<T : AdapterItem, in VH: BaseDelegateAdapter.DelegateViewHolder<T>>(

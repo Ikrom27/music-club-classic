@@ -26,8 +26,8 @@ import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.CompositeAdapter
-import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.PlaylistModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject

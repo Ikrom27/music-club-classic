@@ -4,10 +4,10 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.BaseAdapter
-import ru.ikrom.ui.BaseDelegateAdapter
-import ru.ikrom.ui.item_decorations.MarginItemDecoration
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.BaseAdapter
+import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class NestedItems<T: AdapterItem>(
     val items: List<T>,

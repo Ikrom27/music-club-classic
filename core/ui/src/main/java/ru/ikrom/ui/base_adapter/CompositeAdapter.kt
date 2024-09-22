@@ -1,9 +1,9 @@
-package ru.ikrom.ui
+package ru.ikrom.ui.base_adapter
 
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 class CompositeAdapter(
     private val delegates: SparseArray<BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>>

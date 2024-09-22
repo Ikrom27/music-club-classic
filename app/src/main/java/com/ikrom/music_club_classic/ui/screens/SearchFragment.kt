@@ -15,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import ru.ikrom.ui.CompositeAdapter
-import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.playback.PlayerHandler

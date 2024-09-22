@@ -22,8 +22,8 @@ import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.CompositeAdapter
-import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.AlbumModel
 
 @AndroidEntryPoint

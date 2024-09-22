@@ -29,8 +29,8 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.CompositeAdapter
-import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.ArtistModel
 import javax.inject.Inject
 

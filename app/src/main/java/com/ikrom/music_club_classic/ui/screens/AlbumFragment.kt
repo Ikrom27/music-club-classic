@@ -20,8 +20,8 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegat
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.CompositeAdapter
-import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint

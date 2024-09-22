@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import es.claucookie.miniequalizerlibrary.EqualizerView
-import ru.ikrom.ui.BaseDelegateAdapter
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class PlayerQueueItem(
     val title: String,

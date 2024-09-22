@@ -6,8 +6,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import jp.wasabeef.glide.transformations.BlurTransformation
-import ru.ikrom.ui.BaseAdapter
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.BaseAdapter
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class CardItem(
     val title: String,

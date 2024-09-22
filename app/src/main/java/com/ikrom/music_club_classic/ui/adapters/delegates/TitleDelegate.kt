@@ -4,8 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.BaseDelegateAdapter
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class TitleItem(
     val title: String,

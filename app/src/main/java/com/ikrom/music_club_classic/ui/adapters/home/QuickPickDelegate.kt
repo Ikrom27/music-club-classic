@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.getNames
-import ru.ikrom.ui.BaseDelegateAdapter
-import ru.ikrom.ui.model.AdapterItem
+import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.model.AdapterItem
 import ru.ikrom.youtube_data.model.TrackModel
 
 data class QuickPickItem(
