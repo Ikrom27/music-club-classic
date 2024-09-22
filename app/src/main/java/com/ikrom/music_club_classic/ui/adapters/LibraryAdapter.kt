@@ -6,8 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import com.ikrom.base_adapter.model.AdapterItem
-import com.ikrom.base_adapter.BaseAdapter
+import ru.ikrom.ui.BaseAdapter
+import ru.ikrom.ui.model.AdapterItem
 
 data class LibraryItem(
     val title: String,

@@ -45,6 +45,7 @@ dependencies {
     implementation("com.github.claucookie.miniequalizer:library:1.0.0")
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(project(":core:ui"))
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     implementation("jp.wasabeef:glide-transformations:4.3.0")
     //ExoPlayer
@@ -55,7 +56,6 @@ dependencies {
     implementation("androidx.media3:media3-session:1.1.1")
     implementation("androidx.media3:media3-datasource-okhttp:1.1.1")
     implementation(project(":data:youtube"))
-    implementation(project(":base_adapter"))
     implementation("com.google.android.gms:play-services-fido:20.1.0")
     //dagger hilt
     kapt("com.google.dagger:hilt-android-compiler:2.47")

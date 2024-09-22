@@ -18,9 +18,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.ikrom.base_adapter.CompositeAdapter
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
-import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
 import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupAdapter
@@ -30,6 +27,9 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderItem
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.CompositeAdapter
+import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.model.AdapterItem
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {

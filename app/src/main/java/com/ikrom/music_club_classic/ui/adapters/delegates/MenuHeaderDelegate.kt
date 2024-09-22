@@ -5,9 +5,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ikrom.base_adapter.BaseDelegateAdapter
-import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
+import ru.ikrom.ui.BaseDelegateAdapter
+import ru.ikrom.ui.model.AdapterItem
 
 data class MenuHeaderDelegateItem(
     val title: String,

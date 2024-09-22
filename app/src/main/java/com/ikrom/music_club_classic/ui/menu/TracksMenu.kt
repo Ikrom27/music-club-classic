@@ -13,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toMediaItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.base_adapter.CompositeAdapter
 import com.ikrom.music_club_classic.extensions.models.toMenuHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
@@ -21,6 +20,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.CompositeAdapter
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 

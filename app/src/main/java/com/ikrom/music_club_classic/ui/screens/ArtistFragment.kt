@@ -11,8 +11,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.base_adapter.CompositeAdapter
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.toThumbnailLargeItems
 import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
@@ -31,6 +29,8 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.CompositeAdapter
+import ru.ikrom.ui.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.ArtistModel
 import javax.inject.Inject
 

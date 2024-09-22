@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.ui.CompositeAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate

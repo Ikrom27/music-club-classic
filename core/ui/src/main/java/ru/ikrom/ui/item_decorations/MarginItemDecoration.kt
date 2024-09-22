@@ -1,4 +1,4 @@
-package com.ikrom.base_adapter.item_decorations
+package ru.ikrom.ui.item_decorations
 
 import android.graphics.Rect
 import android.view.View

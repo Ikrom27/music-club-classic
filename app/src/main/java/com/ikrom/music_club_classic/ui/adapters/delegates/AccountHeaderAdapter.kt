@@ -6,9 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
-import com.ikrom.base_adapter.model.AdapterItem
+import ru.ikrom.ui.BaseDelegateAdapter
+import ru.ikrom.ui.model.AdapterItem
 
 data class AccountHeaderItem(
     val imageUrl: String,

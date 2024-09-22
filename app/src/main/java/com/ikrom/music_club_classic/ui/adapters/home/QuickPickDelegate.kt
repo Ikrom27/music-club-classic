@@ -10,9 +10,10 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.media3.common.MediaItem
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.getNames
+import ru.ikrom.ui.BaseDelegateAdapter
+import ru.ikrom.ui.model.AdapterItem
 import ru.ikrom.youtube_data.model.TrackModel
 
 data class QuickPickItem(
@@ -25,7 +26,7 @@ class QuickPickDelegate(
     val lifecycleOwner: LifecycleOwner,
     val onPlayPauseClick: (track: TrackModel) -> Unit,
     val onSkipClick: () -> Unit
-): com.ikrom.base_adapter.BaseDelegateAdapter<QuickPickItem, QuickPickDelegate.QuickPickViewHolder>(
+): BaseDelegateAdapter<QuickPickItem, QuickPickDelegate.QuickPickViewHolder>(
     QuickPickItem::class.java
 ) {
     inner class QuickPickViewHolder(itemView: View): DelegateViewHolder<QuickPickItem>(itemView){

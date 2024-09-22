@@ -1,8 +1,8 @@
-package com.ikrom.base_adapter
+package ru.ikrom.ui
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.base_adapter.model.AdapterItem
+import ru.ikrom.ui.model.AdapterItem
 
 abstract class BaseAdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
     protected val mItems = ArrayList<T>()

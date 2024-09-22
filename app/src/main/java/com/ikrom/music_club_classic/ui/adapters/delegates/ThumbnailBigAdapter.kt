@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.ikrom.base_adapter.BaseAdapter
 import com.ikrom.music_club_classic.R
-import com.ikrom.base_adapter.model.AdapterItem
+import ru.ikrom.ui.BaseAdapter
+import ru.ikrom.ui.model.AdapterItem
 
 data class ThumbnailLargeItem(
     val title: String,

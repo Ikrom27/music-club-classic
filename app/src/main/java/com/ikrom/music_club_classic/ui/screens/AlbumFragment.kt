@@ -15,13 +15,13 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.base_adapter.CompositeAdapter
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.CompositeAdapter
+import ru.ikrom.ui.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint

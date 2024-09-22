@@ -3,11 +3,11 @@ package com.ikrom.music_club_classic.ui.adapters.delegates
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.base_adapter.BaseAdapter
-import com.ikrom.base_adapter.BaseDelegateAdapter
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
-import com.ikrom.base_adapter.model.AdapterItem
+import ru.ikrom.ui.BaseAdapter
+import ru.ikrom.ui.BaseDelegateAdapter
+import ru.ikrom.ui.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.model.AdapterItem
 
 data class NestedItems<T: AdapterItem>(
     val items: List<T>,

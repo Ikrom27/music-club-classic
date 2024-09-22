@@ -3,10 +3,10 @@ package com.ikrom.music_club_classic.ui.adapters.delegates
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.base_adapter.BaseDelegateAdapter
-import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.components.IconButton
+import ru.ikrom.ui.BaseDelegateAdapter
+import ru.ikrom.ui.model.AdapterItem
 
 data class ButtonsGroupItem(
     val buttons: List<IconButton>

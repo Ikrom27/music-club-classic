@@ -1,4 +1,4 @@
-package com.ikrom.base_adapter
+package ru.ikrom.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.ikrom.base_adapter.test", appContext.packageName)
+        assertEquals("ru.ikrom.ui.test", appContext.packageName)
     }
 }

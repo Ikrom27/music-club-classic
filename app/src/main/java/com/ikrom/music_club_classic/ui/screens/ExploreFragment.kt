@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.albumCardItems
-import com.ikrom.base_adapter.CompositeAdapter
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
@@ -24,6 +22,8 @@ import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.CompositeAdapter
+import ru.ikrom.ui.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.AlbumModel
 
 @AndroidEntryPoint

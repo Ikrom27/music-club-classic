@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.toLibraryItems
-import com.ikrom.base_adapter.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.LibraryAdapter
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel

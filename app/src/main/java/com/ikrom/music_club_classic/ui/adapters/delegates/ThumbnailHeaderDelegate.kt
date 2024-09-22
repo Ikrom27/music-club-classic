@@ -18,10 +18,10 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.ikrom.base_adapter.BaseDelegateAdapter
 import com.ikrom.music_club_classic.R
-import com.ikrom.base_adapter.model.AdapterItem
 import com.ikrom.music_club_classic.utils.ColorsUtil
+import ru.ikrom.ui.BaseDelegateAdapter
+import ru.ikrom.ui.model.AdapterItem
 
 data class ThumbnailHeaderItem(
     val title: String,

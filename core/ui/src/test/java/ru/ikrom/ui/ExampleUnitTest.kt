@@ -1,4 +1,4 @@
-package com.ikrom.base_adapter
+package ru.ikrom.ui
 
 import org.junit.Test
 

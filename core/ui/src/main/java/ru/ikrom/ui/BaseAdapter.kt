@@ -1,10 +1,10 @@
-package com.ikrom.base_adapter
+package ru.ikrom.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.base_adapter.model.AdapterItem
+import ru.ikrom.ui.model.AdapterItem
 
 abstract class BaseAdapter<T: AdapterItem>:
     BaseAdapterHandler<T, BaseAdapter.BaseViewHolder<T>>(){
@@ -22,7 +22,8 @@ abstract class BaseAdapter<T: AdapterItem>:
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
-        holder.bind(mItems[position])
+        val item = mItems[position]
+        holder.bind(item)
         super.onBindViewHolder(holder, position)
     }
 }
