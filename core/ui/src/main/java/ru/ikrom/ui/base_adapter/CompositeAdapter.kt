@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 class CompositeAdapter(
-    private val delegates: SparseArray<BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>>
-): BaseAdapterHandler<AdapterItem, RecyclerView.ViewHolder>() {
+    private val delegates: SparseArray<DelegateAdapter<AdapterItem, DelegateAdapter.ViewHolder<AdapterItem>>>
+): AdapterHandler<AdapterItem, RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val currentItem = mItems[position]
@@ -20,7 +20,7 @@ class CompositeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return delegates[viewType].createViewHolder(parent)
+        return delegates[viewType].getViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -40,10 +40,10 @@ class CompositeAdapter(
 
     class Builder(){
         private var count: Int = 0
-        private val delegates: SparseArray<BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>> = SparseArray()
+        private val delegates: SparseArray<DelegateAdapter<AdapterItem, DelegateAdapter.ViewHolder<AdapterItem>>> = SparseArray()
 
-        fun add(delegateAdapter: BaseDelegateAdapter<out AdapterItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as BaseDelegateAdapter<AdapterItem, BaseDelegateAdapter.DelegateViewHolder<AdapterItem>>)
+        fun add(delegateAdapter: DelegateAdapter<out AdapterItem, *>): Builder {
+            delegates.put(count++, delegateAdapter as DelegateAdapter<AdapterItem, DelegateAdapter.ViewHolder<AdapterItem>>)
             return this
         }
 

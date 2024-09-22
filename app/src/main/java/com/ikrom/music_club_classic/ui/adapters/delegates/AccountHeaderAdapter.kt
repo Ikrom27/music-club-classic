@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class AccountHeaderItem(
@@ -15,10 +15,10 @@ data class AccountHeaderItem(
     val fullName: String
 ): AdapterItem()
 
-class AccountHeaderAdapter: BaseDelegateAdapter<AccountHeaderItem, AccountHeaderAdapter.AccountHeaderViewHolder>(
+class AccountHeaderAdapter: DelegateAdapter<AccountHeaderItem, AccountHeaderAdapter.AccountHeaderViewHolder>(
     AccountHeaderItem::class.java
 ) {
-    inner class AccountHeaderViewHolder(itemView: View): DelegateViewHolder<AccountHeaderItem>(itemView) {
+    inner class AccountHeaderViewHolder(itemView: View): ViewHolder<AccountHeaderItem>(itemView) {
         private val ivAccountPicture: ImageView = itemView.findViewById(R.id.iv_account_image)
         private val tvName: TextView = itemView.findViewById(R.id.tv_full_name)
 
@@ -34,7 +34,7 @@ class AccountHeaderAdapter: BaseDelegateAdapter<AccountHeaderItem, AccountHeader
 
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return AccountHeaderViewHolder(binding)
     }
 

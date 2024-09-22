@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailLargeItem(
@@ -17,8 +17,8 @@ data class ThumbnailLargeItem(
     override val onLongClick: () -> Unit
 ) : AdapterItem()
 
-class ThumbnailLargeAdapter: BaseAdapter<ThumbnailLargeItem>() {
-    override fun getViewHolder(binding: View): BaseViewHolder<ThumbnailLargeItem> {
+class ThumbnailLargeAdapter: DelegateAdapter<ThumbnailLargeItem, ThumbnailLargeAdapter.ThumbnailLargeViewHolder>(ThumbnailLargeItem::class.java) {
+    override fun getViewHolder(binding: View): ViewHolder<ThumbnailLargeItem> {
         return ThumbnailLargeViewHolder(binding)
     }
 
@@ -26,7 +26,7 @@ class ThumbnailLargeAdapter: BaseAdapter<ThumbnailLargeItem>() {
         return R.layout.item_thumbnail_large
     }
 
-    inner class ThumbnailLargeViewHolder(itemView: View): BaseViewHolder<ThumbnailLargeItem>(itemView) {
+    inner class ThumbnailLargeViewHolder(itemView: View): ViewHolder<ThumbnailLargeItem>(itemView) {
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)
         private val trackTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val trackAuthor = itemView.findViewById<TextView>(R.id.tv_subtitle)

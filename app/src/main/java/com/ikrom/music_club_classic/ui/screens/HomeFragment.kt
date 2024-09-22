@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
                 compositeAdapter.updateItem(3,
                     NestedItems(
                         items = playlists.playlistCardItems { onPlayListClick(it) },
-                        adapter = CardAdapter()
+                        adapter = CompositeAdapter.Builder().add(CardAdapter()).build()
                     )
                 )
             }
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
                 compositeAdapter.updateItem(4, TitleItem("From Linkin park"))
                 compositeAdapter.updateItem(5,
                     NestedItems(
-                        adapter = ThumbnailMediumAdapter(),
+                        adapter = CompositeAdapter.Builder().add(ThumbnailMediumAdapter()).build(),
                         items = tracks.toThumbnailMediumItems(
                             onClick = {
                                 playerHandler.playNow(it)

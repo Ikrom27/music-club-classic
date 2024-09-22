@@ -4,20 +4,20 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseAdapter
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class NestedItems<T: AdapterItem>(
     val items: List<T>,
-    val adapter: BaseAdapter<T>,
+    val adapter: CompositeAdapter,
 ): AdapterItem()
 
-class NestedItemsDelegate: BaseDelegateAdapter<NestedItems<AdapterItem>, NestedItemsDelegate.RecyclerViewHolder>(
+class NestedItemsDelegate: DelegateAdapter<NestedItems<AdapterItem>, NestedItemsDelegate.RecyclerViewHolder>(
     NestedItems::class.java as Class<out NestedItems<AdapterItem>>){
     inner class RecyclerViewHolder(itemView: View):
-        DelegateViewHolder<NestedItems<AdapterItem>>(itemView)
+        ViewHolder<NestedItems<AdapterItem>>(itemView)
     {
         private val rvHorizontalItems = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_items)
         private val marginStart = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
@@ -47,7 +47,7 @@ class NestedItemsDelegate: BaseDelegateAdapter<NestedItems<AdapterItem>, NestedI
         }
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return RecyclerViewHolder(binding)
     }
 

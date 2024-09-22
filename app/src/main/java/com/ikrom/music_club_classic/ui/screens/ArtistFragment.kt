@@ -104,7 +104,7 @@ class ArtistFragment : Fragment() {
                         items = artistData.albums.toThumbnailLargeItems(
                             {}, {}
                         ),
-                        adapter = ThumbnailLargeAdapter()
+                        adapter = CompositeAdapter.Builder().add(ThumbnailLargeAdapter()).build()
                     ))
                 }
 
@@ -114,7 +114,7 @@ class ArtistFragment : Fragment() {
                         items = artistData.singles.toThumbnailLargeItems(
                             {}, {}
                         ),
-                        adapter = ThumbnailLargeAdapter()
+                        adapter = CompositeAdapter.Builder().add(ThumbnailLargeAdapter()).build()
                     ))
                 }
 
@@ -124,7 +124,7 @@ class ArtistFragment : Fragment() {
                         items = artistData.relatedPlaylists.toThumbnailMediumItems(
                             {}, {}
                         ),
-                        adapter = ThumbnailMediumAdapter()
+                        adapter = CompositeAdapter.Builder().add(ThumbnailMediumAdapter()).build()
                     ))
                 }
 
@@ -134,7 +134,7 @@ class ArtistFragment : Fragment() {
                         items = artistData.similar.toThumbnailRoundedItems(
                             onClick = { onArtistClick(it) }
                         ),
-                        adapter = ThumbnailRoundedAdapter()
+                        adapter = CompositeAdapter.Builder().add(ThumbnailRoundedAdapter()).build()
                     ))
                 }
 

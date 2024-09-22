@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ArtistHeaderItem(
@@ -18,11 +18,11 @@ data class ArtistHeaderItem(
     val onShuffleClick: () -> Unit
 ): AdapterItem()
 
-class ArtistHeaderDelegate: BaseDelegateAdapter<ArtistHeaderItem, ArtistHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
+class ArtistHeaderDelegate: DelegateAdapter<ArtistHeaderItem, ArtistHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
     ArtistHeaderItem::class.java
 ) {
     inner class ThumbnailLargeHeaderViewHolder(itemView: View):
-    DelegateViewHolder<ArtistHeaderItem>(itemView){
+    ViewHolder<ArtistHeaderItem>(itemView){
         private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val title: TextView = itemView.findViewById(R.id.tv_title)
         private val btnPlayAll: Button = itemView.findViewById(R.id.btn_play_all)
@@ -47,7 +47,7 @@ class ArtistHeaderDelegate: BaseDelegateAdapter<ArtistHeaderItem, ArtistHeaderDe
         }
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return ThumbnailLargeHeaderViewHolder(binding)
     }
 

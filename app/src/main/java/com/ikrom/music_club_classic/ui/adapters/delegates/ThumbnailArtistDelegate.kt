@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailRoundedItem(
@@ -16,8 +16,8 @@ data class ThumbnailRoundedItem(
 
 
 class ThumbnailRoundedAdapter:
-    BaseAdapter<ThumbnailRoundedItem>() {
-    inner class ThumbnailRoundedViewHolder(itemView: View): BaseViewHolder<ThumbnailRoundedItem>(itemView) {
+    DelegateAdapter<ThumbnailRoundedItem, ThumbnailRoundedAdapter.ThumbnailRoundedViewHolder>(ThumbnailRoundedItem::class.java) {
+    inner class ThumbnailRoundedViewHolder(itemView: View): ViewHolder<ThumbnailRoundedItem>(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
 
@@ -30,7 +30,7 @@ class ThumbnailRoundedAdapter:
         }
     }
 
-    override fun getViewHolder(binding: View): BaseViewHolder<ThumbnailRoundedItem> {
+    override fun getViewHolder(binding: View): ViewHolder<ThumbnailRoundedItem> {
         return ThumbnailRoundedViewHolder(binding)
     }
 

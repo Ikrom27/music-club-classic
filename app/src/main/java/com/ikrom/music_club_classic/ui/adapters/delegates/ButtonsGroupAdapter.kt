@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.ui.components.IconButton
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ButtonsGroupItem(
     val buttons: List<IconButton>
 ): AdapterItem()
 
-class ButtonsGroupAdapter: BaseDelegateAdapter<ButtonsGroupItem, ButtonsGroupAdapter.ButtonsGroupViewHolder>(
+class ButtonsGroupAdapter: DelegateAdapter<ButtonsGroupItem, ButtonsGroupAdapter.ButtonsGroupViewHolder>(
     ButtonsGroupItem::class.java) {
 
-    inner class ButtonsGroupViewHolder(itemView: View): DelegateViewHolder<ButtonsGroupItem>(itemView){
+    inner class ButtonsGroupViewHolder(itemView: View): ViewHolder<ButtonsGroupItem>(itemView){
         private val container: ViewGroup = itemView.findViewById(R.id.layout_buttons_container)
         override fun bind(item: ButtonsGroupItem) {
             item.buttons.forEach {
@@ -30,7 +30,7 @@ class ButtonsGroupAdapter: BaseDelegateAdapter<ButtonsGroupItem, ButtonsGroupAda
 
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return ButtonsGroupViewHolder(binding)
     }
 

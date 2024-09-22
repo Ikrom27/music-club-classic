@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailSmallItem(
@@ -21,10 +21,10 @@ data class ThumbnailSmallItem(
 
 
 class ThumbnailSmallDelegate:
-    BaseDelegateAdapter<ThumbnailSmallItem, ThumbnailSmallDelegate.ThumbnailSmallViewHolder>(
+    DelegateAdapter<ThumbnailSmallItem, ThumbnailSmallDelegate.ThumbnailSmallViewHolder>(
     ThumbnailSmallItem::class.java
 ) {
-    inner class ThumbnailSmallViewHolder(itemView: View): DelegateViewHolder<ThumbnailSmallItem>(itemView) {
+    inner class ThumbnailSmallViewHolder(itemView: View): ViewHolder<ThumbnailSmallItem>(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)
@@ -41,7 +41,7 @@ class ThumbnailSmallDelegate:
         }
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return ThumbnailSmallViewHolder(binding)
     }
 

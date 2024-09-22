@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class MenuHeaderDelegateItem(
@@ -16,9 +16,9 @@ data class MenuHeaderDelegateItem(
     override val onClick: () -> Unit
 ): AdapterItem()
 
-class MenuHeaderDelegate: BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(
+class MenuHeaderDelegate: DelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(
     MenuHeaderDelegateItem::class.java) {
-    inner class MenuHeaderViewHolder(itemView: View): DelegateViewHolder<MenuHeaderDelegateItem>(itemView){
+    inner class MenuHeaderViewHolder(itemView: View): ViewHolder<MenuHeaderDelegateItem>(itemView){
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
@@ -35,7 +35,7 @@ class MenuHeaderDelegate: BaseDelegateAdapter<MenuHeaderDelegateItem, MenuHeader
 
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return MenuHeaderViewHolder(binding)
     }
 

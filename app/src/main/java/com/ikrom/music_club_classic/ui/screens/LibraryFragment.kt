@@ -16,11 +16,14 @@ import com.ikrom.music_club_classic.ui.adapters.LibraryAdapter
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
 import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.base_adapter.CompositeAdapter
 
 @AndroidEntryPoint
 class LibraryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: LibraryAdapter
+    private val adapter = CompositeAdapter.Builder()
+        .add(LibraryAdapter())
+        .build()
     private val viewModel: LibraryViewModel by activityViewModels()
     private val playListViewModel: PlayListViewModel by activityViewModels()
 
@@ -40,7 +43,6 @@ class LibraryFragment : Fragment() {
     }
 
     private fun setupAdapter(){
-        adapter = LibraryAdapter()
         viewModel.likedPlaylists.observe(requireActivity()) {
             if (!it.isNullOrEmpty()){
                 adapter.setItems(it.toLibraryItems(

@@ -20,7 +20,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.utils.ColorsUtil
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailHeaderItem(
@@ -32,11 +32,11 @@ data class ThumbnailHeaderItem(
 ) : AdapterItem()
 
 class ThumbnailHeaderDelegate
-    : BaseDelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
+    : DelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
     ThumbnailHeaderItem::class.java
     ) {
     inner class ThumbnailViewHolder(itemView: View)
-        : DelegateViewHolder<ThumbnailHeaderItem>(itemView) {
+        : ViewHolder<ThumbnailHeaderItem>(itemView) {
         private val container: View = itemView.findViewById(R.id.container)
         private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail_view)
         private val title: TextView = itemView.findViewById(R.id.tv_title)
@@ -102,7 +102,7 @@ class ThumbnailHeaderDelegate
         }
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return ThumbnailViewHolder(binding)
     }
 

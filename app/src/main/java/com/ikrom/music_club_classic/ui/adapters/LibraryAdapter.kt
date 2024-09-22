@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class LibraryItem(
@@ -17,8 +17,8 @@ data class LibraryItem(
     override val onLongClick: () -> Unit,
 ) : AdapterItem()
 
-class LibraryAdapter: BaseAdapter<LibraryItem>() {
-    override fun getViewHolder(binding: View): BaseViewHolder<LibraryItem> {
+class LibraryAdapter: DelegateAdapter<LibraryItem, LibraryAdapter.LibraryViewHolder>(LibraryItem::class.java) {
+    override fun getViewHolder(binding: View): ViewHolder<LibraryItem> {
         return LibraryViewHolder(binding)
     }
 
@@ -26,7 +26,7 @@ class LibraryAdapter: BaseAdapter<LibraryItem>() {
         return R.layout.item_library_playlist
     }
 
-    inner class LibraryViewHolder(itemView: View): BaseViewHolder<LibraryItem>(itemView){
+    inner class LibraryViewHolder(itemView: View): ViewHolder<LibraryItem>(itemView){
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)

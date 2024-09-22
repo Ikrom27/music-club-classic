@@ -58,7 +58,7 @@ class ExploreFragment : Fragment() {
         viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
             if(albums.isNotEmpty()){
                 val cardItems = albums.albumCardItems { onAlbumClick(it) }
-                val newReleasesItem = NestedItems(cardItems, CardAdapter())
+                val newReleasesItem = NestedItems(cardItems, CompositeAdapter.Builder().add(CardAdapter()).build())
                 adapter.updateItem(0, TitleItem("New releases"))
                 adapter.updateItem(1, newReleasesItem)
             }

@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class TitleItem(
@@ -12,10 +12,10 @@ data class TitleItem(
 ) : AdapterItem()
 
 
-class TitleDelegate: BaseDelegateAdapter<TitleItem, TitleDelegate.TitleDelegateViewHolder>(
+class TitleDelegate: DelegateAdapter<TitleItem, TitleDelegate.TitleViewHolder>(
     TitleItem::class.java
 ) {
-    inner class TitleDelegateViewHolder(itemView: View): DelegateViewHolder<TitleItem>(itemView){
+    inner class TitleViewHolder(itemView: View): ViewHolder<TitleItem>(itemView){
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
 
         override fun bind(item: TitleItem) {
@@ -24,8 +24,8 @@ class TitleDelegate: BaseDelegateAdapter<TitleItem, TitleDelegate.TitleDelegateV
 
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
-        return TitleDelegateViewHolder(binding)
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
+        return TitleViewHolder(binding)
     }
 
     override fun getLayoutId(): Int {

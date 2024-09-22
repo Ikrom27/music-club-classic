@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import es.claucookie.miniequalizerlibrary.EqualizerView
-import ru.ikrom.ui.base_adapter.BaseDelegateAdapter
+import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class PlayerQueueItem(
@@ -18,9 +18,9 @@ data class PlayerQueueItem(
 ): AdapterItem()
 
 class PlayerQueueDelegate :
-    BaseDelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
+    DelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
     PlayerQueueItem::class.java){
-    inner class PlayerQueueViewHolder(itemView: View): DelegateViewHolder<PlayerQueueItem>(itemView){
+    inner class PlayerQueueViewHolder(itemView: View): ViewHolder<PlayerQueueItem>(itemView){
         private val cover: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
         private val subtitleTextView: TextView = itemView.findViewById(R.id.tv_subtitle)
@@ -43,7 +43,7 @@ class PlayerQueueDelegate :
 
     }
 
-    override fun createViewHolder(binding: View): RecyclerView.ViewHolder {
+    override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
         return PlayerQueueViewHolder(binding)
     }
 
