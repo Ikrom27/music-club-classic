@@ -71,7 +71,6 @@ class MusicNotificationManager @Inject constructor (
             .setMediaDescriptionAdapter(DescriptionAdapter(mediaController))
             .build()
             .also {
-                it.setMediaSessionToken(mediaSession.sessionCompatToken)
                 it.setPriority(NotificationCompat.PRIORITY_LOW)
                 it.setUsePreviousActionInCompactView(true)
                 it.setUseFastForwardAction(false)

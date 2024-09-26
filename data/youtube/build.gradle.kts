@@ -1,9 +1,8 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -36,16 +35,13 @@ android {
 }
 
 dependencies {
-    kapt("com.google.dagger:hilt-android-compiler:2.47")
-    implementation("com.google.dagger:hilt-android:2.47")
-    implementation("com.google.dagger:dagger:2.47")
-    kapt("com.google.dagger:dagger-compiler:2.47")
-
+    implementation(libs.bundles.dagger)
+    kapt(libs.bundles.dagger.compiler)
     implementation(project(":innertube"))
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.espresso.core)
 }
