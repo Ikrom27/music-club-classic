@@ -37,16 +37,15 @@ class HomeViewModel @Inject constructor(
 
     fun update(){
         viewModelScope.launch {
-            recommendedUseCase.getRecommendedTracks().asFlow().collect {
-                quickPick.postValue(it)
-            }
+            quickPick.postValue(recommendedUseCase.getRecommendedTracks())
         }
         viewModelScope.launch {
             userPlaylists.postValue(emptyList())
         }
         viewModelScope.launch {
-            tracksModel.postValue(repository.getTracksByQuery("Linkin park"))
-            trackList.postValue(tracksModel.value!!.map { it.toThumbnailMediumItem() })
+            val tracks = repository.getTracksByQuery("Linkin park")
+            tracksModel.postValue(tracks)
+            trackList.postValue(tracks.map { it.toThumbnailMediumItem() })
         }
     }
 }

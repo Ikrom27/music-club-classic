@@ -1,7 +1,5 @@
 package com.ikrom.music_club_classic.domain
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
@@ -11,13 +9,12 @@ class RecommendedUseCase @Inject constructor(
 ) {
     var isAuthorized = false
 
-    suspend fun getRecommendedTracks(): LiveData<List<TrackModel>> {
-        val result = MutableLiveData<List<TrackModel>>()
+    suspend fun getRecommendedTracks(): List<TrackModel> {
         if (isAuthorized){
             val trackId = mediaRepository.getPlaylistTracks(LIKED_TRACKS_ID).shuffled()[0].videoId
-            result.postValue(mediaRepository.getRadioTracks(trackId).shuffled())
+            return mediaRepository.getRadioTracks(trackId).shuffled()
         }
-        return result
+        return emptyList()
     }
 
     companion object {
