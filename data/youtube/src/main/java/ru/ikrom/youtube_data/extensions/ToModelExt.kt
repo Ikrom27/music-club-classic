@@ -5,6 +5,7 @@ import com.ikrom.innertube.models.ArtistItem
 import com.ikrom.innertube.models.ItemArtist
 import com.ikrom.innertube.models.PlaylistItem
 import com.ikrom.innertube.models.SongItem
+import com.ikrom.innertube.pages.AlbumPage
 import com.ikrom.innertube.pages.ArtistPage
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
@@ -108,4 +109,8 @@ fun ArtistPage.toArtistPageModel(): ArtistPageModel {
         relatedPlaylists = relatedPlaylists,
         similar = similar
     )
+}
+
+fun AlbumPage.toAlbumModel(): AlbumModel{
+    return this.album.toAlbumModel()
 }

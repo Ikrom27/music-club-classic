@@ -21,18 +21,17 @@ import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.utils.ColorsUtil
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailHeaderItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
+)
+
+class ThumbnailHeaderDelegate(
     val onPlayClick: () -> Unit,
     val onShuffleClick: () -> Unit
-) : AdapterItem()
-
-class ThumbnailHeaderDelegate
-    : DelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
+): DelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
     ThumbnailHeaderItem::class.java
     ) {
     inner class ThumbnailViewHolder(itemView: View)
@@ -80,10 +79,10 @@ class ThumbnailHeaderDelegate
 
         private fun setupButtons(item: ThumbnailHeaderItem) {
             btnPlayAll.setOnClickListener{
-                item.onPlayClick()
+                onPlayClick()
             }
             btnPlayShuffled.setOnClickListener{
-                item.onShuffleClick()
+                onShuffleClick()
             }
         }
 

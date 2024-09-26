@@ -4,6 +4,7 @@ import com.ikrom.innertube.YouTube
 import com.ikrom.innertube.models.AlbumItem
 import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.WatchEndpoint
+import com.ikrom.innertube.pages.AlbumPage
 import com.ikrom.innertube.pages.ArtistPage
 
 
@@ -31,5 +32,9 @@ class YoutubeDataSource: IMediaDataSource {
 
     override suspend fun getArtistData(artistId: String): ArtistPage {
         return YouTube.artist(artistId)
+    }
+
+    override suspend fun getAlbumById(id: String): AlbumPage {
+        return YouTube.album(id)
     }
 }

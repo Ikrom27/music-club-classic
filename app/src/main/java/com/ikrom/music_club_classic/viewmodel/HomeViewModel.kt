@@ -4,7 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import androidx.media3.extractor.mp4.Track
 import com.ikrom.music_club_classic.domain.RecommendedUseCase
+import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.ikrom.youtube_data.IMediaRepository
@@ -18,11 +22,17 @@ class HomeViewModel @Inject constructor(
     private val recommendedUseCase: RecommendedUseCase
 ): ViewModel() {
     val quickPick = MutableLiveData<List<TrackModel>>()
-    val userPlaylists = MutableLiveData<List<PlaylistModel>>()
-    val trackList = MutableLiveData<List<TrackModel>>()
+    val userPlaylists = MutableLiveData<List<CardItem>>()
+    val trackList = MutableLiveData<List<ThumbnailMediumItem>>()
+
+    private val tracksModel = MutableLiveData<List<TrackModel>>()
 
     init {
         update()
+    }
+
+    fun getTrackById(id: String): TrackModel {
+        return tracksModel.value!!.first { it.videoId == id }
     }
 
     fun update(){
@@ -35,7 +45,8 @@ class HomeViewModel @Inject constructor(
             userPlaylists.postValue(emptyList())
         }
         viewModelScope.launch {
-            trackList.postValue(repository.getTracksByQuery("Linkin park"))
+            tracksModel.postValue(repository.getTracksByQuery("Linkin park"))
+            trackList.postValue(tracksModel.value!!.map { it.toThumbnailMediumItem() })
         }
     }
 }

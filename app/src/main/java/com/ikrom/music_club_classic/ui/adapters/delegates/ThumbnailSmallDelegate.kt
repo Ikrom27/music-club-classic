@@ -8,21 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailSmallItem(
+    val id: String,
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    val onButtonClick: () -> Unit,
-    override val onClick: () -> Unit,
-    override val onLongClick: () -> Unit
-) : AdapterItem()
+)
 
 
-class ThumbnailSmallDelegate:
-    DelegateAdapter<ThumbnailSmallItem, ThumbnailSmallDelegate.ThumbnailSmallViewHolder>(
-    ThumbnailSmallItem::class.java
+class ThumbnailSmallDelegate(
+    onClickItem: (ThumbnailSmallItem) -> Unit,
+    val onLongClickItem: (ThumbnailSmallItem) -> Unit,
+): DelegateAdapter<ThumbnailSmallItem, ThumbnailSmallDelegate.ThumbnailSmallViewHolder>(
+    ThumbnailSmallItem::class.java, onClickItem, onLongClickItem
 ) {
     inner class ThumbnailSmallViewHolder(itemView: View): ViewHolder<ThumbnailSmallItem>(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
@@ -37,7 +36,7 @@ class ThumbnailSmallDelegate:
                 .into(ivThumbnail)
             tvTitle.text = item.title
             tvSubtitle.text= item.subtitle
-            btnMore.setOnClickListener { item.onButtonClick() }
+            btnMore.setOnClickListener { onLongClickItem(item) }
         }
     }
 

@@ -7,17 +7,20 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import jp.wasabeef.glide.transformations.BlurTransformation
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class CardItem(
+    val id: String,
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    override val onClick: () -> Unit = {},
-    override val onLongClick: () -> Unit = {}
-) : AdapterItem()
+)
 
-class CardAdapter: DelegateAdapter<CardItem, CardAdapter.CardViewHolder>(CardItem::class.java) {
+class CardAdapter(
+    onClick: (CardItem) -> Unit,
+    onLongClick: (CardItem) -> Unit
+): DelegateAdapter<CardItem, CardAdapter.CardViewHolder>(
+    CardItem::class.java, onClick, onLongClick
+) {
     inner class CardViewHolder(itemView: View): ViewHolder<CardItem>(itemView){
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.iv_thumbnail)
         private val ivThumbnailBackground = itemView.findViewById<ImageView>(R.id.iv_thumbnail_background)

@@ -25,86 +25,37 @@ fun Bundle.toPlaylistModel(): PlaylistModel {
 }
 
 
-fun PlaylistModel.toCardItem(
-    onItemClick: () -> Unit
-)
-        : CardItem {
+fun PlaylistModel.toCardItem(): CardItem {
     return CardItem(
+        id = id,
         title = title,
         subtitle = artists?.name ?: "unknown author ",
-        thumbnail = thumbnail,
-        onClick = { onItemClick() }
+        thumbnail = thumbnail
     )
 }
 
-fun PlaylistModel.toThumbnailHeaderItem(
-    onPlayClick: () -> Unit,
-    onShuffleClick: () -> Unit
-): ThumbnailHeaderItem{
+fun PlaylistModel.toThumbnailHeaderItem(): ThumbnailHeaderItem{
     return ThumbnailHeaderItem(
         title = title,
         subtitle = artists?.name ?: "unknown author",
-        thumbnail = thumbnail,
-        onPlayClick = { onPlayClick() },
-        onShuffleClick = { onShuffleClick() }
+        thumbnail = thumbnail
     )
 }
 
-fun PlaylistModel.toLibraryItem(
-    onButtonClick: () -> Unit,
-    onItemClick: () -> Unit
-)
-        : LibraryItem {
+fun PlaylistModel.toLibraryItem(): LibraryItem {
     return LibraryItem(
+        id = id,
         title = title,
         subtitle = artists?.name ?: "unknown author ",
         thumbnail = thumbnail,
-        onLongClick = {onButtonClick()},
-        onClick = { onItemClick() }
     )
 }
 
-fun List<PlaylistModel>.toLibraryItems(
-    onButtonClick: () -> Unit,
-    onItemClick: (PlaylistModel) -> Unit
-): List<LibraryItem>{
-    return this.map { playlist ->
-        playlist.toLibraryItem(
-            onButtonClick = {onButtonClick()},
-            onItemClick = {onItemClick(playlist)}
-        )
-    }
-}
-
-fun List<PlaylistModel>.playlistCardItems(
-    onItemClick: (PlaylistModel) -> Unit
-): List<CardItem>{
-    return this.map { playlist ->
-        playlist.toCardItem {
-            onItemClick(playlist)
-        }
-    }
-}
-
-fun PlaylistModel.toThumbnailMediumItem(
-    onClick: () -> Unit,
-    onLongClick: () -> Unit
-) : ThumbnailMediumItem {
+fun PlaylistModel.toThumbnailMediumItem() : ThumbnailMediumItem {
     return ThumbnailMediumItem(
+        id = id,
         title = this.title,
         subtitle = this.artists?.name ?: "",
         thumbnail = this.thumbnail,
-        onClick = onClick,
-        onLongClick = onLongClick
     )
-}
-
-fun List<PlaylistModel>?.toThumbnailMediumItems(
-    onClick: () -> Unit,
-    onLongClick: () -> Unit
-): List<ThumbnailMediumItem>{
-    return this?.map { it.toThumbnailMediumItem(
-        onClick,
-        onLongClick
-    ) } ?: emptyList()
 }

@@ -7,17 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class MenuHeaderDelegateItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    override val onClick: () -> Unit
-): AdapterItem()
+)
 
-class MenuHeaderDelegate: DelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(
-    MenuHeaderDelegateItem::class.java) {
+class MenuHeaderDelegate(
+    val onClick: (MenuHeaderDelegateItem) -> Unit
+): DelegateAdapter<MenuHeaderDelegateItem, MenuHeaderDelegate.MenuHeaderViewHolder>(
+    MenuHeaderDelegateItem::class.java, onClick) {
     inner class MenuHeaderViewHolder(itemView: View): ViewHolder<MenuHeaderDelegateItem>(itemView){
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tv_subtitle)

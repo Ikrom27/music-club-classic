@@ -13,12 +13,11 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.models.getNames
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 import ru.ikrom.youtube_data.model.TrackModel
 
 data class QuickPickItem(
     val track: TrackModel?,
-): AdapterItem()
+)
 
 class QuickPickDelegate(
     val isPlaying: LiveData<Boolean>,
@@ -27,7 +26,7 @@ class QuickPickDelegate(
     val onPlayPauseClick: (track: TrackModel) -> Unit,
     val onSkipClick: () -> Unit
 ): DelegateAdapter<QuickPickItem, QuickPickDelegate.QuickPickViewHolder>(
-    QuickPickItem::class.java
+    QuickPickItem::class.java,
 ) {
     inner class QuickPickViewHolder(itemView: View): ViewHolder<QuickPickItem>(itemView){
         private val trackCover = itemView.findViewById<ImageView>(R.id.iv_track_cover)

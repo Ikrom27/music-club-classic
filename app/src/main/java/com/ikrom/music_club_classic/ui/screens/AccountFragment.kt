@@ -20,16 +20,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
-import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderItem
+import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupAdapter
+import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupItem
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
@@ -83,7 +82,7 @@ class AccountFragment : Fragment() {
         )
     }
 
-    fun getHeader(): AdapterItem {
+    fun getHeader(): AccountHeaderItem {
 //        viewModel.getAccountInfo().observe(viewLifecycleOwner) {
 //            if (it != null){
 //                adapter.updateItem(0,
@@ -98,7 +97,7 @@ class AccountFragment : Fragment() {
             "Donald John Trump")
     }
 
-    fun getMainButtons(): AdapterItem {
+    fun getMainButtons(): ButtonsGroupItem {
         return ButtonsGroupItem(
             listOf(
                 IconButton(requireContext()).also {
@@ -160,7 +159,7 @@ class AccountFragment : Fragment() {
         )
     }
 
-    fun getCleanButtons(): AdapterItem {
+    fun getCleanButtons(): ButtonsGroupItem {
         return ButtonsGroupItem(
             listOf(
                 IconButton(requireContext()).also {
@@ -181,7 +180,7 @@ class AccountFragment : Fragment() {
             )
     }
 
-    fun getExitButton(): AdapterItem {
+    fun getExitButton(): ButtonsGroupItem {
         return ButtonsGroupItem(
             listOf(
                 IconButton(requireContext()).also {

@@ -6,16 +6,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class MenuButtonItem(
     val title: String,
-    val icon: Int,
-    override val onClick: () -> Unit
-) : AdapterItem()
+    val icon: Int
+)
 
-class MenuButtonDelegate: DelegateAdapter<MenuButtonItem, MenuButtonDelegate.MenuButtonViewHolder>(
-    MenuButtonItem::class.java
+class MenuButtonDelegate(
+    val onClick: (MenuButtonItem) -> Unit
+): DelegateAdapter<MenuButtonItem, MenuButtonDelegate.MenuButtonViewHolder>(
+    MenuButtonItem::class.java, onClick
 ) {
     inner class MenuButtonViewHolder(itemView: View) : ViewHolder<MenuButtonItem>(itemView){
         private val container: View = itemView.findViewById(R.id.container)
@@ -23,7 +23,7 @@ class MenuButtonDelegate: DelegateAdapter<MenuButtonItem, MenuButtonDelegate.Men
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
 
         override fun bind(item: MenuButtonItem) {
-            container.setOnClickListener { item.onClick() }
+            container.setOnClickListener { onClick(item) }
             ivIcon.setImageResource(item.icon)
             tvTitle.text = item.title
         }

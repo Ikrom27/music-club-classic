@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ArtistHeaderItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    val onPlayClick: () -> Unit,
-    val onShuffleClick: () -> Unit
-): AdapterItem()
+)
 
-class ArtistHeaderDelegate: DelegateAdapter<ArtistHeaderItem, ArtistHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
+class ArtistHeaderDelegate(
+    private val onPlayClick: () -> Unit,
+    private val onShuffleClick: () -> Unit
+): DelegateAdapter<ArtistHeaderItem, ArtistHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
     ArtistHeaderItem::class.java
 ) {
     inner class ThumbnailLargeHeaderViewHolder(itemView: View):
@@ -39,10 +39,10 @@ class ArtistHeaderDelegate: DelegateAdapter<ArtistHeaderItem, ArtistHeaderDelega
 
         private fun setupButtons(item: ArtistHeaderItem) {
             btnPlayAll.setOnClickListener{
-                item.onPlayClick()
+                onPlayClick()
             }
             btnPlayShuffled.setOnClickListener{
-                item.onShuffleClick()
+                onShuffleClick()
             }
         }
     }

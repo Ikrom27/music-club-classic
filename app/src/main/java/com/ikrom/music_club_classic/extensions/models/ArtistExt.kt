@@ -9,17 +9,10 @@ fun List<ArtistModel>?.getNames(): String {
 }
 
 
-fun ArtistModel.toThumbnailRoundedItem(
-    onClick: () -> Unit
-): ThumbnailRoundedItem {
+fun ArtistModel.toThumbnailRoundedItem(): ThumbnailRoundedItem {
     return ThumbnailRoundedItem(
+        id = this.id!!,
         title = this.name,
         thumbnail = this.thumbnail ?: "",
-        onClick = { onClick() }
     )
-}
-
-fun List<ArtistModel>?.toThumbnailRoundedItems(
-    onClick: (ArtistModel) -> Unit): List<ThumbnailRoundedItem> {
-    return this?.map { it.toThumbnailRoundedItem { onClick(it) } } ?: emptyList()
 }

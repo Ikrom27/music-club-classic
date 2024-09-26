@@ -15,12 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.PlaceHolderView
@@ -29,7 +27,8 @@ import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.youtube_data.model.TrackModel
+import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +46,16 @@ class SearchFragment : Fragment() {
     private lateinit var phNoResult: PlaceHolderView
     private lateinit var phConnectionError: PlaceHolderView
     private var adapter = CompositeAdapter.Builder()
-        .add(ThumbnailSmallDelegate())
+        .add(ThumbnailSmallDelegate(
+            onClickItem = {
+                playerHandler.playNow(viewModel.getTrackById(it.id))
+            },
+            onLongClickItem = {
+                bottomMenuViewModel.trackLiveData.postValue(viewModel.getTrackById(it.id))
+                val bottomMenu = TracksMenu()
+                bottomMenu.show(parentFragmentManager, bottomMenu.tag)
+            }
+        ))
         .add(TitleDelegate())
         .build()
 
@@ -118,8 +126,8 @@ class SearchFragment : Fragment() {
 
     }
 
-    private fun getCombinedSearchListLiveData(): MediatorLiveData<Pair<List<TrackModel>, List<TrackModel>>>{
-        return MediatorLiveData<Pair<List<TrackModel>, List<TrackModel>>>().apply {
+    private fun getCombinedSearchListLiveData(): MediatorLiveData<Pair<List<ThumbnailSmallItem>, List<ThumbnailSmallItem>>>{
+        return MediatorLiveData<Pair<List<ThumbnailSmallItem>, List<ThumbnailSmallItem>>>().apply {
             addSource(viewModel.localResultList) { localTracks ->
                 value = Pair(localTracks, viewModel.globalResultList.value ?: listOf())
             }
@@ -129,20 +137,10 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun addAdapterItems(title: String, list: List<TrackModel>) {
+    private fun addAdapterItems(title: String, list: List<ThumbnailSmallItem>) {
         if (list.isNotEmpty()) {
             adapter.addItems(listOf(TitleItem(title)))
-            adapter.addItems(list.map {
-                it.toThumbnailSmallItem(
-                    onItemClick = {playerHandler.playNow(it)},
-                    onButtonClick = {},
-                    onLongClick = {
-                        bottomMenuViewModel.trackLiveData.postValue(it)
-                        val bottomMenu = TracksMenu()
-                        bottomMenu.show(parentFragmentManager, bottomMenu.tag)
-                    }
-                )
-            })
+            adapter.addItems(list)
         }
     }
 

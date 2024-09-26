@@ -36,8 +36,20 @@ class AlbumFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val compositeAdapter = CompositeAdapter.Builder()
-        .add(ThumbnailHeaderDelegate())
-        .add(ThumbnailSmallDelegate())
+        .add(ThumbnailHeaderDelegate(
+            onPlayClick = {
+                playerHandler.playNow(viewModel.getAllTracks())
+            },
+            onShuffleClick = {
+                playerHandler.playNow(viewModel.getAllTracks().shuffled())
+            }
+        ))
+        .add(ThumbnailSmallDelegate(
+            onClickItem = {
+                playerHandler.playNow(viewModel.getTrackById(it.id)!!)
+            },
+            onLongClickItem = {})
+        )
         .build()
 
     override fun onCreateView(
@@ -46,9 +58,6 @@ class AlbumFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_album, container, false)
         navController = requireParentFragment().findNavController()
-        if(viewModel.currentAlbum.value == null){
-            navController.navigateUp()
-        }
         bindViews(view)
         setupRecyclerView()
         setupContent()
@@ -91,18 +100,9 @@ class AlbumFragment : Fragment() {
     }
 
     private fun setupContent() {
-        viewModel.albumTracks.observe(viewLifecycleOwner) {trackList ->
-            val header = viewModel.currentAlbum.value!!.toThumbnailHeaderItem(
-                onPlayClick = {playerHandler.playNow(trackList)},
-                onShuffleClick = {playerHandler.playNow(trackList.shuffled())}
-            )
-            val tracks = trackList.map {
-                it.toThumbnailSmallItem(
-                    onItemClick = {playerHandler.playNow(it)},
-                    onButtonClick = {})
-            }
+        viewModel.albumTracks.observe(viewLifecycleOwner) { albumTracks ->
             compositeAdapter.setItems(
-                listOf(header) + tracks
+                listOf(viewModel.albumInfo, albumTracks)
             )
         }
     }

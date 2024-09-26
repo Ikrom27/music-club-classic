@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.albumCardItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
@@ -57,16 +56,23 @@ class ExploreFragment : Fragment() {
     private fun setupAdapterData(){
         viewModel.newReleasesList.observe(viewLifecycleOwner){albums ->
             if(albums.isNotEmpty()){
-                val cardItems = albums.albumCardItems { onAlbumClick(it) }
-                val newReleasesItem = NestedItems(cardItems, CompositeAdapter.Builder().add(CardAdapter()).build())
+                val cardItems = albums
+                val newReleasesItem = NestedItems(
+                    cardItems,
+                    CompositeAdapter.Builder()
+                        .add(CardAdapter(
+                            onClick = { onAlbumClick(it.id) },
+                            onLongClick = {}
+                        ))
+                        .build())
                 adapter.updateItem(0, TitleItem("New releases"))
                 adapter.updateItem(1, newReleasesItem)
             }
         }
     }
 
-    private fun onAlbumClick(album: AlbumModel){
-        albumViewModel.setAlbum(album)
+    private fun onAlbumClick(id: String){
+        albumViewModel.updateAlbum(id)
         navController.navigate(R.id.explore_to_album)
     }
 

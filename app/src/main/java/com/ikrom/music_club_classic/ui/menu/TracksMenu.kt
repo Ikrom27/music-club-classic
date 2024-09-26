@@ -36,8 +36,8 @@ class TracksMenu : BottomSheetDialogFragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
     private var compositeAdapter = CompositeAdapter.Builder()
-        .add(MenuHeaderDelegate())
-        .add(MenuButtonDelegate())
+        .add(MenuHeaderDelegate({}))
+        .add(MenuButtonDelegate({}))
         .build()
 
     override fun onCreateView(
@@ -64,55 +64,55 @@ class TracksMenu : BottomSheetDialogFragment() {
     private fun setupItems() {
         Log.d(TAG, viewModel.trackLiveData.value!!.title)
         viewModel.trackLiveData.observe(viewLifecycleOwner) {track ->
-            compositeAdapter.addToStart(track.toMenuHeaderItem {})
+            compositeAdapter.addToStart(track.toMenuHeaderItem())
             compositeAdapter.addItems(getButtonsList(track))
         }
     }
 
     private fun getButtonsList(track: TrackModel): List<MenuButtonItem> {
         return listOf(
-            MenuButtonItem(
-                title = getString(R.string.add_to_queue),
-                icon = R.drawable.ic_add_to_queue,
-                onClick = {
-                    playerHandler.addToQueue(track.toMediaItem())
-                    dismiss()
-                }
-            ),
-            MenuButtonItem(
-                title = getString(R.string.to_download),
-                icon = R.drawable.ic_download,
-                onClick = {
-                    dismiss()
-                }
-            ),
-            MenuButtonItem(
-                title = getString(R.string.open_album),
-                icon = R.drawable.ic_view_album,
-                onClick = {
-                    albumViewModel.setAlbum(track.album)
-                    navController.navigate(R.id.home_to_album)
-                    dismiss()
-                }
-            ),
-            MenuButtonItem(
-                title = getString(R.string.open_artist),
-                icon = R.drawable.ic_view_artist,
-                onClick = {
-//                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
-                    val bundle = Bundle()
-                    bundle.putString("id", track.album.artists?.first()?.id ?: "")
-                    navController.navigate(R.id.home_to_artist, bundle)
-                    dismiss()
-                }
-            ),
-            MenuButtonItem(
-                title = getString(R.string.share),
-                icon = R.drawable.ic_share,
-                onClick = {
-                    dismiss()
-                }
-            )
+//            MenuButtonItem(
+//                title = getString(R.string.add_to_queue),
+//                icon = R.drawable.ic_add_to_queue,
+//                onClick = {
+//                    playerHandler.addToQueue(track.toMediaItem())
+//                    dismiss()
+//                }
+//            ),
+//            MenuButtonItem(
+//                title = getString(R.string.to_download),
+//                icon = R.drawable.ic_download,
+//                onClick = {
+//                    dismiss()
+//                }
+//            ),
+//            MenuButtonItem(
+//                title = getString(R.string.open_album),
+//                icon = R.drawable.ic_view_album,
+//                onClick = {
+//                    albumViewModel.setAlbum(track.album)
+//                    navController.navigate(R.id.home_to_album)
+//                    dismiss()
+//                }
+//            ),
+//            MenuButtonItem(
+//                title = getString(R.string.open_artist),
+//                icon = R.drawable.ic_view_artist,
+//                onClick = {
+////                    artistViewModel.artistId = track.album.artists?.first()?.id ?: ""
+//                    val bundle = Bundle()
+//                    bundle.putString("id", track.album.artists?.first()?.id ?: "")
+//                    navController.navigate(R.id.home_to_artist, bundle)
+//                    dismiss()
+//                }
+//            ),
+//            MenuButtonItem(
+//                title = getString(R.string.share),
+//                icon = R.drawable.ic_share,
+//                onClick = {
+//                    dismiss()
+//                }
+//            )
         )
     }
 

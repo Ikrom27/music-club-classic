@@ -2,25 +2,12 @@ package ru.ikrom.ui.base_adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
-abstract class AdapterHandler<T: AdapterItem, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
+abstract class AdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.Adapter<VH>() {
     protected val mItems = ArrayList<T>()
 
     override fun getItemCount(): Int {
         return mItems.size
-    }
-
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        mItems[position].onClick?.let {unit->
-            holder.itemView.setOnClickListener{unit()}
-        }
-        mItems[position].onLongClick?.let {unit ->
-            holder.itemView.setOnLongClickListener {
-                unit()
-                true
-            }
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

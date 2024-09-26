@@ -11,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.playlistCardItems
-import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItems
 import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
@@ -28,7 +26,6 @@ import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.youtube_data.model.PlaylistModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
@@ -92,8 +89,12 @@ class HomeFragment : Fragment() {
                 compositeAdapter.updateItem(2, TitleItem("Your playlists"))
                 compositeAdapter.updateItem(3,
                     NestedItems(
-                        items = playlists.playlistCardItems { onPlayListClick(it) },
-                        adapter = CompositeAdapter.Builder().add(CardAdapter()).build()
+                        items = playlists,
+                        adapter = CompositeAdapter.Builder()
+                            .add(CardAdapter(
+                                onClick = {},
+                                onLongClick = {}))
+                            .build()
                     )
                 )
             }
@@ -103,31 +104,23 @@ class HomeFragment : Fragment() {
                 compositeAdapter.updateItem(4, TitleItem("From Linkin park"))
                 compositeAdapter.updateItem(5,
                     NestedItems(
-                        adapter = CompositeAdapter.Builder().add(ThumbnailMediumAdapter()).build(),
-                        items = tracks.toThumbnailMediumItems(
-                            onClick = {
-                                playerHandler.playNow(it)
-                            },
-                            onLongClick = {
-                                bottomMenuViewModel.trackLiveData.postValue(it)
-                                val bottomMenu = TracksMenu()
-                                bottomMenu.show(parentFragmentManager, bottomMenu.tag)
-                            }
-                        )
+                        adapter = CompositeAdapter.Builder()
+                            .add(ThumbnailMediumAdapter(
+                                onClick = {
+                                    playerHandler.playNow(homeViewModel.getTrackById(it.id))
+                                },
+                                onLongClick = {
+                                    bottomMenuViewModel.trackLiveData.postValue(homeViewModel.getTrackById(it.id))
+                                    val bottomMenu = TracksMenu()
+                                    bottomMenu.show(parentFragmentManager, bottomMenu.tag)
+                                }
+                            )
+                        ).build(),
+                        items = tracks
                     )
                 )
             }
         }
-    }
-
-    private fun onPlayListClick(playList: PlaylistModel){
-        val bundle = Bundle().also {
-            it.putString("id", playList.id)
-            it.putString("title", playList.title)
-            it.putString("thumbnail", playList.thumbnail)
-            it.putString("artist_name", playList.artists?.name)
-        }
-        navController.navigate(R.id.explore_to_playlist, bundle)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView){

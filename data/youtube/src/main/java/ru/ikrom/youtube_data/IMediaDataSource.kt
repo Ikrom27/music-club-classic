@@ -4,6 +4,7 @@ import com.ikrom.innertube.models.AlbumItem
 import com.ikrom.innertube.models.SongItem
 import com.ikrom.innertube.models.WatchEndpoint
 import com.ikrom.innertube.models.YTItem
+import com.ikrom.innertube.pages.AlbumPage
 import com.ikrom.innertube.pages.ArtistPage
 
 interface IMediaDataSource {
@@ -13,4 +14,5 @@ interface IMediaDataSource {
     suspend fun getRadioTracks(id: String): List<SongItem>
     suspend fun getPlaylistTracks(albumId: String): List<SongItem>
     suspend fun getArtistData(artistId: String): ArtistPage
+    suspend fun getAlbumById(id: String): AlbumPage
 }

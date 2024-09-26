@@ -38,4 +38,8 @@ class MediaRepositoryImpl @Inject constructor(
     override suspend fun isFavorite(id: String): Boolean {
         return false
     }
+
+    override suspend fun getAlbumById(id: String): AlbumModel {
+        return dataSource.getAlbumById(id).toAlbumModel()
+    }
 }

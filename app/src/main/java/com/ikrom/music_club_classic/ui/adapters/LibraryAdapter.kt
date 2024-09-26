@@ -7,17 +7,19 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class LibraryItem(
+    val id: String,
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    override val onClick: () -> Unit,
-    override val onLongClick: () -> Unit,
-) : AdapterItem()
+)
 
-class LibraryAdapter: DelegateAdapter<LibraryItem, LibraryAdapter.LibraryViewHolder>(LibraryItem::class.java) {
+class LibraryAdapter(
+    val onClick: (LibraryItem) -> Unit,
+    val onLongClick: (LibraryItem) -> Unit
+): DelegateAdapter<LibraryItem, LibraryAdapter.LibraryViewHolder>(
+    LibraryItem::class.java, onClick, onLongClick) {
     override fun getViewHolder(binding: View): ViewHolder<LibraryItem> {
         return LibraryViewHolder(binding)
     }
@@ -40,7 +42,7 @@ class LibraryAdapter: DelegateAdapter<LibraryItem, LibraryAdapter.LibraryViewHol
                 .into(ivThumbnail)
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
-            btnMore.setOnClickListener{ item.onLongClick }
+            btnMore.setOnClickListener{ onLongClick(item) }
         }
 
     }

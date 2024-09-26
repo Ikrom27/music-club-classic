@@ -7,18 +7,20 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailMediumItem(
+    val id: String,
     val title: String,
     val subtitle: String,
     val thumbnail: String,
-    override val onClick: () -> Unit,
-    override val onLongClick: () -> Unit
-) : AdapterItem()
+)
 
-class ThumbnailMediumAdapter:
-    DelegateAdapter<ThumbnailMediumItem, ThumbnailMediumAdapter.ThumbnailMediumViewHolder>(ThumbnailMediumItem::class.java) {
+class ThumbnailMediumAdapter(
+    onClick: (ThumbnailMediumItem) -> Unit,
+    onLongClick: (ThumbnailMediumItem) -> Unit
+): DelegateAdapter<ThumbnailMediumItem, ThumbnailMediumAdapter.ThumbnailMediumViewHolder>(
+    ThumbnailMediumItem::class.java, onClick, onLongClick
+) {
     override fun getViewHolder(binding: View): ViewHolder<ThumbnailMediumItem> {
         return ThumbnailMediumViewHolder(binding)
     }

@@ -4,18 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 
-abstract class DelegateAdapter<T : AdapterItem, in VH: DelegateAdapter.ViewHolder<T>>(
+abstract class DelegateAdapter<T: Any, in VH: DelegateAdapter.ViewHolder<T>>(
     private val classType: Class<out T>,
-//    val onClickItem: ((T) -> Unit)? = null,
-//    val onLongClickItem: ((T) -> Unit)? = null
+    private val onClickItem: ((T) -> Unit)? = null,
+    private val onLongClickItem: ((T) -> Unit)? = null
 ) {
     abstract fun getViewHolder(binding: View): RecyclerView.ViewHolder
     abstract fun getLayoutId(): Int
 
-    abstract class ViewHolder<T: AdapterItem>(itemView: View): RecyclerView.ViewHolder(itemView){
+    abstract class ViewHolder<T>(itemView: View): RecyclerView.ViewHolder(itemView){
         abstract fun bind(item: T)
     }
 
@@ -26,9 +25,18 @@ abstract class DelegateAdapter<T : AdapterItem, in VH: DelegateAdapter.ViewHolde
 
     fun onBindViewHolder(item: T, viewHolder: RecyclerView.ViewHolder) {
         (viewHolder as ViewHolder<T>).bind(item)
+        bindClickListeners(viewHolder.itemView, item)
     }
 
-    fun isForViewType(item: AdapterItem): Boolean {
+    fun isForViewType(item: T): Boolean {
         return item.javaClass == classType
+    }
+
+    private fun bindClickListeners(itemView: View, item: T){
+        onClickItem?.let { itemView.setOnClickListener{ it(item) } }
+        onLongClickItem?.let { itemView.setOnLongClickListener{
+            it(item)
+            true
+        } }
     }
 }

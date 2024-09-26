@@ -3,11 +3,10 @@ package ru.ikrom.ui.base_adapter
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 class CompositeAdapter(
-    private val delegates: SparseArray<DelegateAdapter<AdapterItem, DelegateAdapter.ViewHolder<AdapterItem>>>
-): AdapterHandler<AdapterItem, RecyclerView.ViewHolder>() {
+    private val delegates: SparseArray<DelegateAdapter<Any, DelegateAdapter.ViewHolder<Any>>>
+): AdapterHandler<Any, RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val currentItem = mItems[position]
@@ -35,15 +34,14 @@ class CompositeAdapter(
         } else {
             throw NullPointerException("can not find adapter for position $position")
         }
-        super.onBindViewHolder(holder, position)
     }
 
     class Builder(){
         private var count: Int = 0
-        private val delegates: SparseArray<DelegateAdapter<AdapterItem, DelegateAdapter.ViewHolder<AdapterItem>>> = SparseArray()
+        private val delegates: SparseArray<DelegateAdapter<Any, DelegateAdapter.ViewHolder<Any>>> = SparseArray()
 
-        fun add(delegateAdapter: DelegateAdapter<out AdapterItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as DelegateAdapter<AdapterItem, DelegateAdapter.ViewHolder<AdapterItem>>)
+        fun add(delegateAdapter: DelegateAdapter<out Any, *>): Builder {
+            delegates.put(count++, delegateAdapter as DelegateAdapter<Any, DelegateAdapter.ViewHolder<Any>>)
             return this
         }
 

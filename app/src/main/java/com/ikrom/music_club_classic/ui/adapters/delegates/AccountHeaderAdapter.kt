@@ -8,12 +8,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class AccountHeaderItem(
     val imageUrl: String,
     val fullName: String
-): AdapterItem()
+)
 
 class AccountHeaderAdapter: DelegateAdapter<AccountHeaderItem, AccountHeaderAdapter.AccountHeaderViewHolder>(
     AccountHeaderItem::class.java

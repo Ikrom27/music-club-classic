@@ -8,14 +8,13 @@ import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import es.claucookie.miniequalizerlibrary.EqualizerView
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class PlayerQueueItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
     val isPlaying: Boolean = false
-): AdapterItem()
+)
 
 class PlayerQueueDelegate :
     DelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(

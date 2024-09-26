@@ -10,11 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.toLibraryItems
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import com.ikrom.music_club_classic.ui.adapters.LibraryAdapter
+import com.ikrom.music_club_classic.ui.adapters.LibraryItem
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
-import com.ikrom.music_club_classic.viewmodel.PlayListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 
@@ -22,10 +21,12 @@ import ru.ikrom.ui.base_adapter.CompositeAdapter
 class LibraryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val adapter = CompositeAdapter.Builder()
-        .add(LibraryAdapter())
+        .add(LibraryAdapter(
+            onClick = { onItemClick(it) },
+            onLongClick = {}
+        ))
         .build()
     private val viewModel: LibraryViewModel by activityViewModels()
-    private val playListViewModel: PlayListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,21 +45,18 @@ class LibraryFragment : Fragment() {
 
     private fun setupAdapter(){
         viewModel.likedPlaylists.observe(requireActivity()) {
-            if (!it.isNullOrEmpty()){
-                adapter.setItems(it.toLibraryItems(
-                    onButtonClick = {},
-                    onItemClick = {playlist ->
-                        val bundle = Bundle().also {
-                            it.putString("id", playlist.id)
-                            it.putString("title", playlist.title)
-                            it.putString("thumbnail", playlist.thumbnail)
-                            it.putString("artist_name", playlist.artists?.name)
-                        }
-                        requireParentFragment().findNavController().navigate(R.id.library_to_playlist, bundle)
-                    }
-                ))
-            }
+            adapter.setItems(it)
         }
+    }
+
+    private fun onItemClick(item: LibraryItem){
+        val bundle = Bundle().also {
+            it.putString("id", item.id)
+            it.putString("title", item.title)
+            it.putString("thumbnail", item.thumbnail)
+            it.putString("artist_name", item.subtitle)
+        }
+        requireParentFragment().findNavController().navigate(R.id.library_to_playlist, bundle)
     }
 
     private fun setupRecyclerView(){

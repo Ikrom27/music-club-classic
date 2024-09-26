@@ -7,24 +7,23 @@ import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
-data class NestedItems<T: AdapterItem>(
+data class NestedItems<T: Any>(
     val items: List<T>,
     val adapter: CompositeAdapter,
-): AdapterItem()
+)
 
-class NestedItemsDelegate: DelegateAdapter<NestedItems<AdapterItem>, NestedItemsDelegate.RecyclerViewHolder>(
-    NestedItems::class.java as Class<out NestedItems<AdapterItem>>){
+class NestedItemsDelegate: DelegateAdapter<NestedItems<*>, NestedItemsDelegate.RecyclerViewHolder>(
+    NestedItems::class.java as Class<out NestedItems<*>>){
     inner class RecyclerViewHolder(itemView: View):
-        ViewHolder<NestedItems<AdapterItem>>(itemView)
+        ViewHolder<NestedItems<*>>(itemView)
     {
         private val rvHorizontalItems = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_items)
         private val marginStart = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginEnd = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
         private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.items_margin)
 
-        override fun bind(item: NestedItems<AdapterItem>) {
+        override fun bind(item: NestedItems<*>) {
             item.adapter.setItems(item.items)
             rvHorizontalItems.adapter = item.adapter
             setupRecycleView()

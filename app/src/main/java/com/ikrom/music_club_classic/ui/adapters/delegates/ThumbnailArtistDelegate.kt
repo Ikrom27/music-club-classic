@@ -6,17 +6,20 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.base_adapter.model.AdapterItem
 
 data class ThumbnailRoundedItem(
+    val id: String,
     val title: String,
-    val thumbnail: String,
-    override val onClick: () -> Unit
-) : AdapterItem()
+    val thumbnail: String
+)
 
 
-class ThumbnailRoundedAdapter:
-    DelegateAdapter<ThumbnailRoundedItem, ThumbnailRoundedAdapter.ThumbnailRoundedViewHolder>(ThumbnailRoundedItem::class.java) {
+class ThumbnailRoundedAdapter(
+    onClick: (ThumbnailRoundedItem) -> Unit
+):
+    DelegateAdapter<ThumbnailRoundedItem, ThumbnailRoundedAdapter.ThumbnailRoundedViewHolder>(
+        ThumbnailRoundedItem::class.java, onClick
+    ) {
     inner class ThumbnailRoundedViewHolder(itemView: View): ViewHolder<ThumbnailRoundedItem>(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
