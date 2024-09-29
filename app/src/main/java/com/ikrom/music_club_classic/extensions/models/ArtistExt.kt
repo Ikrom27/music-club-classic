@@ -4,11 +4,6 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedItem
 import ru.ikrom.youtube_data.model.ArtistModel
 
 
-fun List<ArtistModel>?.getNames(): String {
-    return this?.joinToString(", ") { it.name } ?: ""
-}
-
-
 fun ArtistModel.toThumbnailRoundedItem(): ThumbnailRoundedItem {
     return ThumbnailRoundedItem(
         id = this.id!!,

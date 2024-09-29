@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
@@ -29,12 +28,9 @@ import com.ikrom.music_club_classic.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-    @Inject
-    lateinit var playerHandler: PlayerHandler
 
     private val viewModel: SearchViewModel by activityViewModels()
     private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
@@ -48,7 +44,7 @@ class SearchFragment : Fragment() {
     private var adapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate(
             onClickItem = {
-                playerHandler.playNow(viewModel.getTrackById(it.id))
+                viewModel.playTrackById(it.id)
             },
             onLongClickItem = {
                 bottomMenuViewModel.trackLiveData.postValue(viewModel.getTrackById(it.id))

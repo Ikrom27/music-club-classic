@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
@@ -27,13 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.ArtistModel
-import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class ArtistFragment : Fragment() {
-    @Inject
-    lateinit var playerHandler: PlayerHandler
     private val viewModel: ArtistViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView

@@ -7,22 +7,16 @@ import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import com.ikrom.music_club_classic.data.data_source.SettingsDataSource
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
 import com.ikrom.music_club_classic.data.repository.SettingsRepository
-import com.ikrom.music_club_classic.domain.RecommendedUseCase
-import com.ikrom.music_club_classic.playback.MusicNotificationManager
-import com.ikrom.music_club_classic.playback.MusicPlayerService
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -39,15 +33,6 @@ annotation class DownloadCacheScope
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-
-    @Provides
-    @Singleton
-    fun providePlayer(
-        @ApplicationContext context: Context,
-        mediaSourceFactory: DefaultMediaSourceFactory
-    ) : ExoPlayer = ExoPlayer.Builder(context)
-        .setMediaSourceFactory(mediaSourceFactory)
-        .build()
 
     @OptIn(UnstableApi::class)
     @Provides
@@ -86,24 +71,6 @@ class AppModule {
         context.filesDir.resolve("download"),
         NoOpCacheEvictor(),
         databaseProvider)
-
-    @Provides
-    @Singleton
-    fun provideMusicPlayerService(): MusicPlayerService = MusicPlayerService()
-
-    @Provides
-    @Singleton
-    fun provideNotificationManager(
-        @ApplicationContext context: Context,
-        player: ExoPlayer
-    ) : MusicNotificationManager = MusicNotificationManager(context, player)
-
-    @Provides
-    @Singleton
-    fun providePlayerHandler(
-        player: ExoPlayer,
-        repository: IMediaRepository
-    ) : PlayerHandler = PlayerHandler(player, repository)
 
     @Provides
     @Singleton

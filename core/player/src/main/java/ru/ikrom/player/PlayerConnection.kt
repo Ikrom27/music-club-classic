@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.playback
+package ru.ikrom.player
 
 import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem

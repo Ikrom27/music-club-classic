@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
@@ -31,10 +30,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    @Inject
-    lateinit var playerHandler: PlayerHandler
     private lateinit var navController: NavController
-
     private val homeViewModel: HomeViewModel by activityViewModels()
     private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
 
@@ -58,8 +54,8 @@ class HomeFragment : Fragment() {
     private fun setupAdapter(){
         compositeAdapter = CompositeAdapter.Builder()
             .add(QuickPickDelegate(
-                isPlaying = playerHandler.isPlayingLiveData,
-                currentMediaItem= playerHandler.currentMediaItemLiveData,
+                isPlaying = homeViewModel.isPlaying,
+                currentMediaItem= homeViewModel.currentTrack,
                 lifecycleOwner = viewLifecycleOwner,
                 onPlayPauseClick = { onPlayPauseClick(it) },
                 onSkipClick = {}
@@ -107,7 +103,7 @@ class HomeFragment : Fragment() {
                         adapter = CompositeAdapter.Builder()
                             .add(ThumbnailMediumAdapter(
                                 onClick = {
-                                    playerHandler.playNow(homeViewModel.getTrackById(it.id))
+                                    homeViewModel.playTrackById(it.id)
                                 },
                                 onLongClick = {
                                     bottomMenuViewModel.trackLiveData.postValue(homeViewModel.getTrackById(it.id))
@@ -139,9 +135,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun onPlayPauseClick(track: TrackModel){
-        if (playerHandler.currentMediaItemLiveData.value?.mediaId == track.videoId){
-            playerHandler.togglePlayPause()
+        if (homeViewModel.currentTrack.value!!.mediaId == track.videoId){
+            homeViewModel.togglePlayPause()
         }
-        playerHandler.playNow(track)
     }
 }

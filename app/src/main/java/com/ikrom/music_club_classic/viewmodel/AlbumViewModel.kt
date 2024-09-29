@@ -9,6 +9,8 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.player.PlayerHandlerImpl
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.TrackModel
@@ -16,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AlbumViewModel @Inject constructor(
-    val repository: IMediaRepository
+    private val playerHandler: IPlayerHandler,
+    private val repository: IMediaRepository
 ) : ViewModel() {
     val albumTracks = MutableLiveData<List<ThumbnailSmallItem>>()
     val albumInfo = MutableLiveData<ThumbnailHeaderItem>()
@@ -32,19 +35,31 @@ class AlbumViewModel @Inject constructor(
         updateAlbumTracks(id)
     }
 
-    fun getTrackById(id: String): TrackModel? {
-        return albumsModelTracks.value?.first { it.videoId == id }
-    }
-
-    fun getAllTracks(): List<TrackModel>{
-        return albumsModelTracks.value ?: emptyList()
-    }
-
     fun updateAlbumTracks(id: String) {
         viewModelScope.launch {
             val tracks = repository.getAlbumTracks(id).map { it }
             albumsModelTracks.postValue(tracks)
             albumTracks.postValue(tracks.map { it.toThumbnailSmallItem() })
         }
+    }
+
+    fun playAllTracks(){
+        albumsModelTracks.value?.let {
+            playerHandler.playNow(it)
+        }
+    }
+
+    fun playShuffled(){
+        albumsModelTracks.value?.let {
+            playerHandler.playNow(it.shuffled())
+        }
+    }
+
+    fun playTrackById(id: String){
+        playerHandler.playNow(getTrackById(id))
+    }
+
+    private fun getTrackById(id: String): TrackModel {
+        return albumsModelTracks.value!!.first { it.videoId == id }
     }
 }

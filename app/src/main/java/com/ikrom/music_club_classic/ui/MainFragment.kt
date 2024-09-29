@@ -10,27 +10,21 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI
-import com.bumptech.glide.Glide
 import androidx.navigation.findNavController
-import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
 import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.ui.components.MiniPlayerView
 import com.ikrom.music_club_classic.ui.screens.PlayerFragment
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-    @Inject
-    lateinit var playerHandler: PlayerHandler
     val viewModel: MainViewModel by viewModels()
 
     private lateinit var miniPlayerView: MiniPlayerView
@@ -82,25 +76,25 @@ class MainFragment : Fragment() {
     }
 
     private fun bindMiniPlayer(){
-        playerHandler.currentMediaItemLiveData.observe(viewLifecycleOwner) {
+        viewModel.currentMediaItem.observe(viewLifecycleOwner) {
             if (it != null){
                 miniPlayerView.title = it.mediaMetadata.title.toString()
                 miniPlayerView.subTitle = it.mediaMetadata.artist.toString()
                 miniPlayerView.thumbnailUrl = it.mediaMetadata.artworkUri?.toString() ?: ""
             }
         }
-        playerHandler.isPlayingLiveData.observe(viewLifecycleOwner) {
+        viewModel.isPlaying.observe(viewLifecycleOwner) {
             miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
         }
     }
 
     private fun setupMiniPlayerButtons(){
-        miniPlayerView.setOnButtonClickListener { playerHandler.togglePlayPause() }
+        miniPlayerView.setOnButtonClickListener { viewModel.togglePlayPause() }
         miniPlayerView.setOnLayoutClickListener {behavior.state = BottomSheetBehavior.STATE_EXPANDED}
     }
 
     private fun setSlidingViewHideAnimation(){
-        playerHandler.currentMediaItemLiveData.observe(requireActivity()) {
+        viewModel.currentMediaItem.observe(requireActivity()) {
             if (it == null){
                 slidingView.animate().translationY(WEINDOW_HEIGHT)
                 slidingView.visibility = View.GONE

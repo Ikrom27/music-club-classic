@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.playback
+package ru.ikrom.player
 
 
 import android.content.Intent

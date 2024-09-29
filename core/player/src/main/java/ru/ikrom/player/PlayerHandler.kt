@@ -1,24 +1,40 @@
-package com.ikrom.music_club_classic.playback
+package ru.ikrom.player
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
-import com.ikrom.music_club_classic.extensions.getMediaItemQueue
-import com.ikrom.music_club_classic.extensions.hasOldTracks
-import com.ikrom.music_club_classic.extensions.isLastPlaying
-import com.ikrom.music_club_classic.extensions.toMediaItem
-import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
-class PlayerHandler @Inject constructor(
+interface IPlayerHandler {
+    val currentMediaItemLiveData: LiveData<MediaItem?>
+    val isPlayingLiveData: LiveData<Boolean>
+    val totalDurationLiveData: LiveData<Long>
+    val repeatModeLiveData: LiveData<Int>
+    val shuffleModeLiveData: LiveData<Boolean>
+
+    fun getCurrentPosition(): Long
+    fun seekTo(position: Long)
+    fun playNow(tracks: List<TrackModel>)
+    fun playNow(track: TrackModel)
+    fun playNext(item: TrackModel)
+    fun playNext(items: List<TrackModel>)
+    fun addToQueue(item: TrackModel)
+    fun addToQueue(items: List<TrackModel>)
+    fun toggleRepeat()
+    fun toggleShuffle()
+    fun togglePlayPause()
+    fun seekToNext()
+    fun seekToPrevious()
+}
+
+class PlayerHandlerImpl @Inject constructor(
     val player: ExoPlayer,
-    val repository: IMediaRepository
-): PlayerConnection(player) {
+): PlayerConnection(player), IPlayerHandler {
     val recommendedQueue: MutableList<MediaItem> = mutableListOf()
     val currentQueue = MutableLiveData<List<MediaItem>>()
 
@@ -27,7 +43,24 @@ class PlayerHandler @Inject constructor(
         currentQueue.value = player.getMediaItemQueue()
     }
 
-    fun playNow(tracks: List<TrackModel>){
+    override fun getCurrentPosition(): Long{
+        return player.currentPosition
+    }
+
+    override fun seekTo(position: Long){
+        player.seekTo(position)
+    }
+
+    override fun seekToNext() {
+        player.seekToNext()
+    }
+
+    override fun seekToPrevious() {
+        player.seekToPrevious()
+    }
+
+
+    override fun playNow(tracks: List<TrackModel>){
         if (player.currentMediaItem != tracks.first().toMediaItem()){
             player.clearMediaItems()
             player.setMediaItems(tracks.map { it.toMediaItem() })
@@ -36,35 +69,37 @@ class PlayerHandler @Inject constructor(
         }
     }
 
-    fun playNow(track: TrackModel){
+    override fun playNow(track: TrackModel){
         playNow(listOf(track))
     }
 
-    fun playNext(item: MediaItem){
+    override fun playNext(item: TrackModel){
         playNext(listOf(item))
     }
 
-    fun playNext(items: List<MediaItem>) {
-        player.addMediaItems(if (player.mediaItemCount == 0) 0 else player.currentMediaItemIndex + 1, items)
+    override fun playNext(items: List<TrackModel>) {
+        val tracks = items.map { it.toMediaItem() }
+        val index = if (player.mediaItemCount == 0) 0 else player.currentMediaItemIndex + 1
+        player.addMediaItems(index, tracks)
         player.prepare()
         player.playWhenReady = true
     }
 
-    fun addToQueue(item: MediaItem) {
+    override fun addToQueue(item: TrackModel) {
         addToQueue(listOf(item))
     }
 
-    fun addToQueue(items: List<MediaItem>) {
+    override fun addToQueue(items: List<TrackModel>) {
+        val tracks = items.map { it.toMediaItem() }
         if (player.mediaItemCount - player.currentMediaItemIndex - 1 == 0 || player.mediaItemCount == 0){
-            player.addMediaItems(items)
+            player.addMediaItems(tracks)
         } else {
-            player.addMediaItems(player.mediaItemCount-1, items)
+            player.addMediaItems(player.mediaItemCount-1, tracks)
         }
         player.prepare()
     }
 
-
-    fun toggleRepeat(){
+    override fun toggleRepeat(){
         when(player.repeatMode) {
             Player.REPEAT_MODE_OFF -> player.repeatMode = Player.REPEAT_MODE_ONE
             Player.REPEAT_MODE_ONE -> player.repeatMode = Player.REPEAT_MODE_ALL
@@ -72,12 +107,12 @@ class PlayerHandler @Inject constructor(
         }
     }
 
-    fun toggleShuffle(){
+    override fun toggleShuffle(){
         player.shuffleModeEnabled = !player.shuffleModeEnabled
         currentQueue.value = player.getMediaItemQueue()
     }
 
-    fun togglePlayPause() {
+    override fun togglePlayPause() {
         player.playWhenReady = !player.playWhenReady
     }
 
@@ -96,8 +131,7 @@ class PlayerHandler @Inject constructor(
         currentQueue.value = player.getMediaItemQueue()
     }
 
-    private fun addRecommendedTracks(){
-    }
+    private fun addRecommendedTracks(){}
 
     private fun removeOldTracks(){
         player.removeMediaItems(0, player.currentMediaItemIndex - SAVE_LAST_TRACK_NUM)

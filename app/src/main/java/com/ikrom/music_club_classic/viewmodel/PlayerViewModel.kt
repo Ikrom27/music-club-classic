@@ -3,16 +3,16 @@ package com.ikrom.music_club_classic.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.ikrom.player.IPlayerHandler
 import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     private val repository: IMediaRepository,
-    private val playerHandler: PlayerHandler
+    private val playerHandler: IPlayerHandler
 ): ViewModel() {
     val isFavoriteLiveData = MutableLiveData(false)
     val isPlayingLiveData = playerHandler.isPlayingLiveData
@@ -21,11 +21,11 @@ class PlayerViewModel @Inject constructor(
     val totalDurationLiveData = playerHandler.totalDurationLiveData
     var currentPositionLiveData = 0L
         get() {
-            return playerHandler.player.currentPosition
+            return playerHandler.getCurrentPosition()
         }
 
     fun seekTo(position: Long){
-        playerHandler.player.seekTo(position)
+        playerHandler.seekTo(position)
     }
 
     fun isFavorite(id: String): MutableLiveData<Boolean> {
@@ -40,11 +40,11 @@ class PlayerViewModel @Inject constructor(
     }
 
     fun seekToNext() {
-        playerHandler.player.seekToNext()
+        playerHandler.seekToNext()
     }
 
     fun seekToPrevious() {
-        playerHandler.player.seekToPrevious()
+        playerHandler.seekToPrevious()
     }
 
     fun toggleRepeat() {

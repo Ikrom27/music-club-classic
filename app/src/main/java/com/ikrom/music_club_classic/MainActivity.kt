@@ -7,10 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.ikrom.music_club_classic.playback.MusicPlayerService
 import com.ikrom.music_club_classic.ui.MainFragment
 import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.player.MusicPlayerService
 
 
 @AndroidEntryPoint

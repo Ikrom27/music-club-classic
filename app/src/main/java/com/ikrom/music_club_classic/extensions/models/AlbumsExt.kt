@@ -5,6 +5,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
 import ru.ikrom.youtube_data.model.AlbumModel
+import ru.ikrom.youtube_data.model.getNames
 
 
 fun AlbumModel.toThumbnailHeaderItem(): ThumbnailHeaderItem {

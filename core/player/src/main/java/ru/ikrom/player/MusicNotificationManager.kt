@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.playback
+package ru.ikrom.player
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.common.util.concurrent.ListenableFuture
-import com.ikrom.music_club_classic.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,7 +66,6 @@ class MusicNotificationManager @Inject constructor (
         val mediaController = MediaController.Builder(context, mediaSession.token).buildAsync()
         playerNotificationManager = PlayerNotificationManager.Builder(context, NOTIFICATION_ID, CHANNEL_ID)
             .setNotificationListener(notificationListener)
-            .setSmallIconResourceId(R.mipmap.ic_launcher_round)
             .setMediaDescriptionAdapter(DescriptionAdapter(mediaController))
             .build()
             .also {

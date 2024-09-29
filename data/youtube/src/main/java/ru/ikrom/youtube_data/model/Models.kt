@@ -48,3 +48,7 @@ data class ArtistSectionModel(
     val title: String,
     val items: List<Any>
 )
+
+fun List<ArtistModel>?.getNames(): String {
+    return this?.joinToString(", ") { it.name } ?: ""
+}

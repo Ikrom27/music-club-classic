@@ -11,7 +11,7 @@ import androidx.media3.common.MediaItem
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.getNames
+import ru.ikrom.youtube_data.model.getNames
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.youtube_data.model.TrackModel
 

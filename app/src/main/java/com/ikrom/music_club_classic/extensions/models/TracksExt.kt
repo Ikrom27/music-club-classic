@@ -4,6 +4,7 @@ import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegateItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
 import ru.ikrom.youtube_data.model.TrackModel
+import ru.ikrom.youtube_data.model.getNames
 
 
 fun TrackModel.toThumbnailSmallItem(): ThumbnailSmallItem {

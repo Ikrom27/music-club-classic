@@ -12,23 +12,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
-import com.ikrom.music_club_classic.extensions.models.toThumbnailHeaderItem
-import com.ikrom.music_club_classic.playback.PlayerHandler
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
+import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlbumFragment : Fragment() {
-    @Inject
-    lateinit var playerHandler: PlayerHandler
-
     private val viewModel: AlbumViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
@@ -38,15 +31,15 @@ class AlbumFragment : Fragment() {
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(ThumbnailHeaderDelegate(
             onPlayClick = {
-                playerHandler.playNow(viewModel.getAllTracks())
+                viewModel.playAllTracks()
             },
             onShuffleClick = {
-                playerHandler.playNow(viewModel.getAllTracks().shuffled())
+                viewModel.playShuffled()
             }
         ))
         .add(ThumbnailSmallDelegate(
             onClickItem = {
-                playerHandler.playNow(viewModel.getTrackById(it.id)!!)
+                viewModel.playTrackById(it.id)
             },
             onLongClickItem = {})
         )
@@ -72,12 +65,8 @@ class AlbumFragment : Fragment() {
         albumBar.setOnBackClick {
             navController.navigateUp()
         }
-        albumBar.setOnSearchClick {
-            //TODO: setOnSearchClick
-        }
-        albumBar.setOnMoreClick {
-            //TODO: setOnMoreClick
-        }
+        albumBar.setOnSearchClick { }
+        albumBar.setOnMoreClick { }
     }
 
     private fun bindViews(view: View){

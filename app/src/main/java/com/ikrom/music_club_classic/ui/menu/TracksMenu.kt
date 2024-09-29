@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.toMediaItem
-import com.ikrom.music_club_classic.playback.PlayerHandler
 import com.ikrom.music_club_classic.extensions.models.toMenuHeaderItem
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
 import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
@@ -22,13 +20,9 @@ import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.youtube_data.model.TrackModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TracksMenu : BottomSheetDialogFragment() {
-
-    @Inject
-    lateinit var playerHandler: PlayerHandler
 
     private val viewModel: BottomMenuViewModel by activityViewModels()
     private val albumViewModel: AlbumViewModel by activityViewModels()
