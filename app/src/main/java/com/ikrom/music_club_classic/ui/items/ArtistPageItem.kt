@@ -1,10 +1,10 @@
 package com.ikrom.music_club_classic.ui.items
 
-import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
+import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailLargeItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 
 class ArtistPageItem(
     val header: ArtistHeaderItem?,

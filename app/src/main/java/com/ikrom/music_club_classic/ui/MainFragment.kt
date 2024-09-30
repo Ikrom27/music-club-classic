@@ -84,7 +84,7 @@ class MainFragment : Fragment() {
             }
         }
         viewModel.isPlaying.observe(viewLifecycleOwner) {
-            miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
+//            miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
         }
     }
 

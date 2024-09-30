@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="title" format="string" />
+    <!-- MINI PLAYER -->
+    <declare-styleable name="MiniPlayer">
+        <attr name="title"/>
+        <attr name="subtitle" format="string"/>
+        <attr name="thumbnail" format="string"/>
+        <attr name="btnIcon" format="reference"/>
+        <attr name="layoutBackgroundColor" format="color"/>
+    </declare-styleable>
+
+    <!-- ActionBar -->
+    <declare-styleable name="AppBar">
+    </declare-styleable>
+    <declare-styleable name="SearchBar">
+    </declare-styleable>
+
+    <!-- IconButton -->
+    <declare-styleable name="IconButton">
+        <attr name="text" format="string"/>
+        <attr name="tint" format="color"/>
+        <attr name="leadingIcon" format="reference"/>
+        <attr name="android:gravity" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="PlaceHolderView">
+        <attr name="imageSrc" format="reference"/>
+        <attr name="title"/>
+        <attr name="description" format="string"/>
+    </declare-styleable>
+</resources>

@@ -1,10 +1,10 @@
 package com.ikrom.music_club_classic.extensions.models
 
 import android.os.Bundle
-import com.ikrom.music_club_classic.ui.adapters.LibraryItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.LibraryItem
+import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.PlaylistModel
 
@@ -34,7 +34,7 @@ fun PlaylistModel.toCardItem(): CardItem {
     )
 }
 
-fun PlaylistModel.toThumbnailHeaderItem(): ThumbnailHeaderItem{
+fun PlaylistModel.toThumbnailHeaderItem(): ThumbnailHeaderItem {
     return ThumbnailHeaderItem(
         title = title,
         subtitle = artists?.name ?: "unknown author",

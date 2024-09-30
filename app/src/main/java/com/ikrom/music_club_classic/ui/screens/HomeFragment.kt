@@ -11,22 +11,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
-import com.ikrom.music_club_classic.ui.adapters.home.QuickPickDelegate
-import com.ikrom.music_club_classic.ui.adapters.home.QuickPickItem
+import ru.ikrom.ui.base_adapter.delegates.CardAdapter
+import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
+import ru.ikrom.ui.base_adapter.delegates.NestedItems
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
+import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
+import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import com.ikrom.music_club_classic.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.delegates.QuickPickDelegate
+import ru.ikrom.ui.base_adapter.delegates.QuickPickItem
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.TrackModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -55,7 +54,7 @@ class HomeFragment : Fragment() {
         compositeAdapter = CompositeAdapter.Builder()
             .add(QuickPickDelegate(
                 isPlaying = homeViewModel.isPlaying,
-                currentMediaItem= homeViewModel.currentTrack,
+//                currentMediaItem= homeViewModel.currentTrack,
                 lifecycleOwner = viewLifecycleOwner,
                 onPlayPauseClick = { onPlayPauseClick(it) },
                 onSkipClick = {}
@@ -87,9 +86,11 @@ class HomeFragment : Fragment() {
                     NestedItems(
                         items = playlists,
                         adapter = CompositeAdapter.Builder()
-                            .add(CardAdapter(
+                            .add(
+                                CardAdapter(
                                 onClick = {},
-                                onLongClick = {}))
+                                onLongClick = {})
+                            )
                             .build()
                     )
                 )
@@ -101,7 +102,8 @@ class HomeFragment : Fragment() {
                 compositeAdapter.updateItem(5,
                     NestedItems(
                         adapter = CompositeAdapter.Builder()
-                            .add(ThumbnailMediumAdapter(
+                            .add(
+                                ThumbnailMediumAdapter(
                                 onClick = {
                                     homeViewModel.playTrackById(it.id)
                                 },

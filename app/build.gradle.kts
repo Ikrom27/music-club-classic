@@ -40,7 +40,6 @@ android {
 dependencies {
     implementation(libs.bundles.dagger)
     kapt(libs.bundles.dagger.compiler)
-    implementation(libs.swiperefreshlayout)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)
     implementation(libs.fido)
@@ -55,6 +54,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(project(":feature:search"))
     implementation(project(":core:player"))
     implementation(project(":core:ui"))
     implementation(project(":data:youtube"))

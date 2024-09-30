@@ -33,9 +33,13 @@ android {
 }
 
 dependencies {
+    implementation(libs.miniequalizer)
+    implementation(libs.bundles.glide)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(project(":data:youtube"))
+    implementation(libs.palette)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

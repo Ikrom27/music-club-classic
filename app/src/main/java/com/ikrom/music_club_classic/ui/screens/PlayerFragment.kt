@@ -29,7 +29,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
-import com.ikrom.music_club_classic.utils.ColorsUtil
+import ru.ikrom.ui.utils.ColorsUtil
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,9 +96,9 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        playerViewModel.isPlayingLiveData.observe(viewLifecycleOwner){
-            btnPlayPause.setImageResource(if (it) R.drawable.ic_pause else R.drawable.ic_play)
-        }
+//        playerViewModel.isPlayingLiveData.observe(viewLifecycleOwner){
+//            btnPlayPause.setImageResource(if (it) R.drawable.ic_pause else R.drawable.ic_play)
+//        }
         playerViewModel.repeatModeLiveData.observe(viewLifecycleOwner){repeatMode ->
             when(repeatMode) {
                 Player.REPEAT_MODE_OFF -> btnToRepeat.setImageResource(R.drawable.ic_repeat_off)

@@ -12,15 +12,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailRoundedAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
+import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderDelegate
+import ru.ikrom.ui.base_adapter.delegates.NestedItems
+import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailLargeAdapter
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedAdapter
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
+import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
+import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
@@ -83,37 +83,45 @@ class ArtistFragment : Fragment() {
 
                 if (artistPage.albums.isNotEmpty()) {
                     compositeAdapter.addToEnd(TitleItem("Albums"))
-                    compositeAdapter.addToEnd(NestedItems(
+                    compositeAdapter.addToEnd(
+                        NestedItems(
                         items = artistPage.albums,
                         adapter = CompositeAdapter.Builder().add(ThumbnailLargeAdapter({}, {})).build()
-                    ))
+                    )
+                    )
                 }
 
                 if (artistPage.singles.isNotEmpty()) {
                     compositeAdapter.addToEnd(TitleItem("Singles"))
-                    compositeAdapter.addToEnd(NestedItems(
+                    compositeAdapter.addToEnd(
+                        NestedItems(
                         items = artistPage.singles,
                         adapter = CompositeAdapter.Builder().add(ThumbnailLargeAdapter({}, {})).build()
-                    ))
+                    )
+                    )
                 }
 
                 if (artistPage.relatedPlaylists.isNotEmpty()) {
                     compositeAdapter.addToEnd(TitleItem("Playlist"))
-                    compositeAdapter.addToEnd(NestedItems(
+                    compositeAdapter.addToEnd(
+                        NestedItems(
                         items = artistPage.relatedPlaylists,
                         adapter = CompositeAdapter.Builder().add(ThumbnailMediumAdapter({}, {})).build()
-                    ))
+                    )
+                    )
                 }
 
                 if (artistPage.similar.isNotEmpty()) {
                     compositeAdapter.addToEnd(TitleItem("Similar"))
-                    compositeAdapter.addToEnd(NestedItems(
+                    compositeAdapter.addToEnd(
+                        NestedItems(
                         items = artistPage.similar,
                         adapter = CompositeAdapter.Builder().add(ThumbnailRoundedAdapter{ similar ->
                             val artist = viewModel.artistModelLiveData.value?.similar?.find{similar.id == it.id}
                             artist?.let { onArtistClick(it) }
                         }).build()
-                    ))
+                    )
+                    )
                 }
 
             }

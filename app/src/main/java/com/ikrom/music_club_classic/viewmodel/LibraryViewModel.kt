@@ -2,10 +2,9 @@ package com.ikrom.music_club_classic.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ikrom.music_club_classic.ui.adapters.LibraryItem
+import ru.ikrom.ui.base_adapter.delegates.LibraryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.ikrom.youtube_data.IMediaRepository
-import ru.ikrom.youtube_data.model.PlaylistModel
 import javax.inject.Inject
 
 @HiltViewModel

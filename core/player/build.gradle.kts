@@ -36,9 +36,8 @@ android {
 
 dependencies {
     implementation(libs.bundles.glide)
-    implementation(libs.bundles.media3)
+    api(libs.bundles.media3)
     implementation(project(":data:youtube"))
-
     implementation(libs.bundles.dagger)
     kapt(libs.bundles.dagger.compiler)
 

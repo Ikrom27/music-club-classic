@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.extensions.models.toMenuHeaderItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.MenuButtonItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegate
+import ru.ikrom.ui.models.toMenuHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.MenuButtonDelegate
+import ru.ikrom.ui.base_adapter.delegates.MenuButtonItem
+import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegate
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -8,15 +8,19 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import androidx.navigation.NavController
 import com.ikrom.music_club_classic.data.data_source.SettingsDataSource
 import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
 import com.ikrom.music_club_classic.data.repository.SettingsRepository
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
+import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.ikrom.search.SearchViewModel
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -89,4 +93,23 @@ class AppModule {
     fun provideSettingsRepository(
         settingsDataSource: SettingsDataSource
     ) = SettingsRepository(settingsDataSource)
+
+    @Provides
+    @Singleton
+    fun provideSearchNavigation() = object : SearchViewModel.Navigate {
+        override fun toBottomMenu(track: TrackModel) {}
+
+        override fun navigateUp() {}
+    }
+
+//    @Provides
+//    @Singleton
+//    fun provideExploreNavigator(
+//        navController: NavController
+//    ) = object : ExploreViewModel.Navigator {
+//        override fun toSearchScreen() {
+//
+//        }
+//
+//    }
 }

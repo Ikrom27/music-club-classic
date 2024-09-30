@@ -1,9 +1,9 @@
 package com.ikrom.music_club_classic.extensions.models
 
-import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailLargeItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailLargeItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.getNames
 

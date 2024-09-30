@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ikrom.music_club_classic.domain.RecommendedUseCase
-import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.CardItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.models.toThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.ikrom.player.IPlayerHandler

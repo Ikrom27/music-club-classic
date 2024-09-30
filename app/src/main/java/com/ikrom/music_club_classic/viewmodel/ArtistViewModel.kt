@@ -4,11 +4,11 @@ package com.ikrom.music_club_classic.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.extensions.models.toThumbnailLargeItem
-import com.ikrom.music_club_classic.extensions.models.toThumbnailMediumItem
+import ru.ikrom.ui.models.toThumbnailLargeItem
+import ru.ikrom.ui.models.toThumbnailMediumItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailRoundedItem
-import com.ikrom.music_club_classic.extensions.models.toThumbnailSmallItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ArtistHeaderItem
+import ru.ikrom.ui.models.toThumbnailSmallItem
+import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderItem
 import com.ikrom.music_club_classic.ui.items.ArtistPageItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

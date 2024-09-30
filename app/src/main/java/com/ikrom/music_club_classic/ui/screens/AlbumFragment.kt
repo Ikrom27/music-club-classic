@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailHeaderDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallDelegate
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderDelegate
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
 import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +37,8 @@ class AlbumFragment : Fragment() {
                 viewModel.playShuffled()
             }
         ))
-        .add(ThumbnailSmallDelegate(
+        .add(
+            ThumbnailSmallDelegate(
             onClickItem = {
                 viewModel.playTrackById(it.id)
             },

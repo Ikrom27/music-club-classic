@@ -26,6 +26,7 @@ logging-interceptor = "4.11.0"
 ktor = "2.3.11"
 kotlin = "1.9.10"
 serialization-json = "1.6.3"
+swiperefreshlayout-version = "1.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -36,7 +37,6 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 [libraries]
 core-ktx = {group = "androidx.core", name="core-ktx", version.ref="ktx"}
-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 miniequalizer = { group = "com.github.claucookie.miniequalizer", name = "library", version.ref = "miniequalizer" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide-compiler" }
@@ -71,6 +71,7 @@ ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-conte
 ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor" }
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-json" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout-version" }
 
 [bundles]
 glide = ["glide", "glide-transformations", "glide-compiler"]

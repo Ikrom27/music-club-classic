@@ -12,18 +12,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.adapters.delegates.CardAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItemsDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.NestedItems
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
+import ru.ikrom.ui.base_adapter.delegates.CardAdapter
+import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
+import ru.ikrom.ui.base_adapter.delegates.NestedItems
+import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
+import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import com.ikrom.music_club_classic.ui.components.AppBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.youtube_data.model.AlbumModel
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment() {

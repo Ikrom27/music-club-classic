@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import com.ikrom.music_club_classic.ui.adapters.LibraryAdapter
-import com.ikrom.music_club_classic.ui.adapters.LibraryItem
+import ru.ikrom.ui.base_adapter.delegates.LibraryAdapter
+import ru.ikrom.ui.base_adapter.delegates.LibraryItem
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
@@ -56,7 +56,6 @@ class LibraryFragment : Fragment() {
             it.putString("thumbnail", item.thumbnail)
             it.putString("artist_name", item.subtitle)
         }
-        requireParentFragment().findNavController().navigate(R.id.library_to_playlist, bundle)
     }
 
     private fun setupRecyclerView(){

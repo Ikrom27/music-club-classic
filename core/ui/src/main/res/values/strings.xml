@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">Music Club Classic</string>
+
+    <!-- App names -->
+    <string name="app_name_first_part">music</string>
+    <string name="app_name_second_part">Club</string>
+
+    <!-- Navigation bar -->
+    <string name="home_screen">Home</string>
+    <string name="explore_screen">Explore</string>
+    <string name="library_screen">Library</string>
+    <string name="profile_screen">Profile</string>
+
+    <!-- Placeholders -->
+    <string name="ph_no_result_title">No result</string>
+    <string name="ph_no_result_description">There are no results for your queries</string>
+
+    <!-- SharedPreferences -->
+    <string name="preference_file_key">app settings</string>
+    <string name="preference_theme_mode">theme mode</string>
+
+    <!-- Notification -->
+    <string name="notification_download">Download</string>
+    <string name="example">example</string>
+    <string name="example_long">it is long examole for your test</string>
+    <string name="search">Search...</string>
+
+    <!-- Buttons -->
+    <string name="add_to_queue">Add to queue</string>
+    <string name="save_in_library">Save in library</string>
+    <string name="to_download">Download</string>
+    <string name="open_album">Open album</string>
+    <string name="open_artist">Open artist</string>
+    <string name="share">Share</string>
+    <string name="play">Play</string>
+    <string name="shuffle">Shuffle</string>
+
+    <!-- Noun -->
+    <plurals name="n_song">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+    <plurals name="n_artist">
+        <item quantity="one">%d artist</item>
+        <item quantity="other">%d artists</item>
+    </plurals>
+    <plurals name="n_album">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+    <plurals name="n_playlist">
+        <item quantity="one">%d playlist</item>
+        <item quantity="other">%d playlists</item>
+    </plurals>
+    <plurals name="n_week">
+        <item quantity="one">%d week</item>
+        <item quantity="other">%d weeks</item>
+    </plurals>
+    <plurals name="n_month">
+        <item quantity="one">%d month</item>
+        <item quantity="other">%d months</item>
+    </plurals>
+    <plurals name="n_year">
+        <item quantity="one">%d year</item>
+        <item quantity="other">%d years</item>
+    </plurals>
+    <string name="next_in_queue">Next in queue</string>
+    <string name="ph_connection_error_description">Error connecting to server</string>
+    <string name="ph_no_connection_error_title">Connection error</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

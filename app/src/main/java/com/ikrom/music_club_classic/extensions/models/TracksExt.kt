@@ -1,8 +1,8 @@
 package com.ikrom.music_club_classic.extensions.models
 
-import com.ikrom.music_club_classic.ui.adapters.delegates.MenuHeaderDelegateItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailMediumItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ThumbnailSmallItem
+import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.youtube_data.model.TrackModel
 import ru.ikrom.youtube_data.model.getNames
 

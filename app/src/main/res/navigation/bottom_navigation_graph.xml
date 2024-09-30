@@ -12,8 +12,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/explore_to_playlist"
-            app:destination="@id/playlist_screen"/>
+            android:id="@+id/explore_to_playlist"/>
         <action
             android:id="@+id/home_to_album"
             app:destination="@id/album_screen" />
@@ -27,12 +26,9 @@
         android:label="fragment_explore"
         tools:layout="@layout/fragment_explore" >
         <action
-            android:id="@+id/explore_to_playlist"
-            app:destination="@id/playlist_screen"/>
+            android:id="@+id/explore_to_playlist"/>
         <action
             android:id="@+id/explore_to_search"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/search_screen" />
         <action
             android:id="@+id/explore_to_album"
@@ -43,9 +39,6 @@
         android:name="com.ikrom.music_club_classic.ui.screens.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" >
-        <action
-            android:id="@+id/library_to_playlist"
-            app:destination="@id/playlist_screen"/>
     </fragment>
     <fragment
         android:id="@+id/profile_screen"
@@ -71,18 +64,13 @@
 
     <fragment
         android:id="@+id/search_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.SearchFragment"
+        android:name="ru.ikrom.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/home_to_artist"
             app:destination="@id/artist_screen" />
     </fragment>
-    <fragment
-        android:id="@+id/playlist_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.PlaylistFragment"
-        android:label="fragment_album_fragment"
-        tools:layout="@layout/fragment_playlist" />
     <fragment
         android:id="@+id/album_screen"
         android:name="com.ikrom.music_club_classic.ui.screens.AlbumFragment"

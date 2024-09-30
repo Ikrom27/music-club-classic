@@ -20,10 +20,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toDp
-import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.AccountHeaderItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.ButtonsGroupItem
+import ru.ikrom.ui.base_adapter.delegates.AccountHeaderAdapter
+import ru.ikrom.ui.base_adapter.delegates.AccountHeaderItem
 import com.ikrom.music_club_classic.ui.components.IconButton
 import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +32,6 @@ import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 class AccountFragment : Fragment() {
     private val adapter = CompositeAdapter.Builder()
         .add(AccountHeaderAdapter())
-        .add(ButtonsGroupAdapter())
         .build()
     private lateinit var recycleView: RecyclerView
     private lateinit var navController: NavController
@@ -49,7 +46,7 @@ class AccountFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_account, container, false)
         navController = requireParentFragment().findNavController()
         bindViews(view)
-        setupAdapterData()
+//        setupAdapterData()
         setupAdapter(view)
         return view
     }
@@ -70,17 +67,17 @@ class AccountFragment : Fragment() {
         )
     }
 
-    @SuppressLint("ResourceAsColor")
-    private fun setupAdapterData(){
-        adapter.setItems(
-            listOf(
-                getHeader(),
-                getMainButtons(),
-                getCleanButtons(),
-                getExitButton()
-            )
-        )
-    }
+//    @SuppressLint("ResourceAsColor")
+//    private fun setupAdapterData(){
+//        adapter.setItems(
+//            listOf(
+//                getHeader(),
+//                getMainButtons(),
+//                getCleanButtons(),
+//                getExitButton()
+//            )
+//        )
+//    }
 
     fun getHeader(): AccountHeaderItem {
 //        viewModel.getAccountInfo().observe(viewLifecycleOwner) {
@@ -97,98 +94,98 @@ class AccountFragment : Fragment() {
             "Donald John Trump")
     }
 
-    fun getMainButtons(): ButtonsGroupItem {
-        return ButtonsGroupItem(
-            listOf(
-                IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_language
-                    it.text = "Language"
-                    it.addTailContent(
-                        TextView(requireContext()).also { textView ->
-                            textView.textSize = 16f
-                            textView.text = "English"
-                            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_50))
-                        }
-                    )
-                },
-                IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_storage
-                    it.text = "night mode"
-                    it.addTailContent(
-                        SwitchMaterial(requireContext()).also { switchMaterial ->
-                            switchMaterial.isChecked = viewModel.themeState.value == AppCompatDelegate.MODE_NIGHT_YES
-                            switchMaterial.setOnCheckedChangeListener {_, checked->
-                                switchTheme(checked)
-                            }
-                        }
-                    )
-                },
-                IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_storage
-                    it.text = "Storage"
-                    it.addTailContent(
-                        ImageView(requireContext()).also { imageView ->
-                            imageView.setImageResource(R.drawable.ic_array_more)
-                            imageView.maxWidth = 32.toDp(requireContext())
-                            imageView.setColorFilter(R.color.grey_50)
-                        }
-                    )
-                },
-                IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_audio_quality
-                    it.text = "Audio quality"
-                    it.addTailContent(
-                        TextView(requireContext()).also { textView ->
-                            textView.textSize = 16f
-                            textView.text = "Auto"
-                            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_50))
-                        }
-                    )
-                }
-            )
-        )
-    }
-
-    private fun switchTheme(checked: Boolean) {
-        viewModel.setThemeState(
-        if (checked){
-            AppCompatDelegate.MODE_NIGHT_YES
-        } else {
-            AppCompatDelegate.MODE_NIGHT_NO
-        }
-        )
-    }
-
-    fun getCleanButtons(): ButtonsGroupItem {
-        return ButtonsGroupItem(
-            listOf(
-                IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_clean
-                    it.text = "Clean search history"
-                },
-                IconButton(requireContext()).also {
-                    it.leadingIcon = R.drawable.ic_clean
-                    it.text = "Clean listened history"
-                },
-                IconButton(requireContext()).also {
-                    it.leadingIcon = com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark
-                    it.text = "Sign in"
-                    it.setOnClickListener {
-                        navController.navigate(R.id.profile_to_web_authorization)
-                    }
-                })
-            )
-    }
-
-    fun getExitButton(): ButtonsGroupItem {
-        return ButtonsGroupItem(
-            listOf(
-                IconButton(requireContext()).also {
-                    it.text = "Exit"
-                    it.tint = Color.RED
-                    it.gravity = Gravity.CENTER
-                },
-            )
-        )
-    }
+//    fun getMainButtons(): ButtonsGroupItem {
+//        return ButtonsGroupItem(
+//            listOf(
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = R.drawable.ic_language
+//                    it.text = "Language"
+//                    it.addTailContent(
+//                        TextView(requireContext()).also { textView ->
+//                            textView.textSize = 16f
+//                            textView.text = "English"
+//                            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_50))
+//                        }
+//                    )
+//                },
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = R.drawable.ic_storage
+//                    it.text = "night mode"
+//                    it.addTailContent(
+//                        SwitchMaterial(requireContext()).also { switchMaterial ->
+//                            switchMaterial.isChecked = viewModel.themeState.value == AppCompatDelegate.MODE_NIGHT_YES
+//                            switchMaterial.setOnCheckedChangeListener {_, checked->
+//                                switchTheme(checked)
+//                            }
+//                        }
+//                    )
+//                },
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = R.drawable.ic_storage
+//                    it.text = "Storage"
+//                    it.addTailContent(
+//                        ImageView(requireContext()).also { imageView ->
+//                            imageView.setImageResource(R.drawable.ic_array_more)
+//                            imageView.maxWidth = 32.toDp(requireContext())
+//                            imageView.setColorFilter(R.color.grey_50)
+//                        }
+//                    )
+//                },
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = R.drawable.ic_audio_quality
+//                    it.text = "Audio quality"
+//                    it.addTailContent(
+//                        TextView(requireContext()).also { textView ->
+//                            textView.textSize = 16f
+//                            textView.text = "Auto"
+//                            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_50))
+//                        }
+//                    )
+//                }
+//            )
+//        )
+//    }
+//
+//    private fun switchTheme(checked: Boolean) {
+//        viewModel.setThemeState(
+//        if (checked){
+//            AppCompatDelegate.MODE_NIGHT_YES
+//        } else {
+//            AppCompatDelegate.MODE_NIGHT_NO
+//        }
+//        )
+//    }
+//
+//    fun getCleanButtons(): ButtonsGroupItem {
+//        return ButtonsGroupItem(
+//            listOf(
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = R.drawable.ic_clean
+//                    it.text = "Clean search history"
+//                },
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = R.drawable.ic_clean
+//                    it.text = "Clean listened history"
+//                },
+//                IconButton(requireContext()).also {
+//                    it.leadingIcon = com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark
+//                    it.text = "Sign in"
+//                    it.setOnClickListener {
+//                        navController.navigate(R.id.profile_to_web_authorization)
+//                    }
+//                })
+//            )
+//    }
+//
+//    fun getExitButton(): ButtonsGroupItem {
+//        return ButtonsGroupItem(
+//            listOf(
+//                IconButton(requireContext()).also {
+//                    it.text = "Exit"
+//                    it.tint = Color.RED
+//                    it.gravity = Gravity.CENTER
+//                },
+//            )
+//        )
+//    }
 }

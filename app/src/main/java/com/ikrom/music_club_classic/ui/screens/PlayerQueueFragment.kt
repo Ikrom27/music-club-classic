@@ -13,10 +13,10 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.CompositeAdapter
-import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.PlayerQueueItem
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleDelegate
-import com.ikrom.music_club_classic.ui.adapters.delegates.TitleItem
+import ru.ikrom.ui.base_adapter.delegates.PlayerQueueDelegate
+import ru.ikrom.ui.base_adapter.delegates.PlayerQueueItem
+import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
+import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.PlayerQueueViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
