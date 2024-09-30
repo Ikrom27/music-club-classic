@@ -1,10 +1,13 @@
 package ru.ikrom.search
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ru.ikrom.ui.models.toThumbnailSmallItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.player.PlayerHandlerImpl
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
@@ -18,20 +21,34 @@ class SearchViewModel @Inject constructor(
     private val repository: IMediaRepository,
     private val navigate: Navigate
 ): ViewModel() {
-    val searchUiResult = MutableLiveData<List<ThumbnailSmallItem>>(emptyList())
+
+    private val _uiState = MutableLiveData<SearchUiState>()
+    val uiState: LiveData<SearchUiState> = _uiState
+
     private var searchModelResult: List<TrackModel> = emptyList()
 
-    private val _searchRequest = MutableLiveData("")
-
     private fun updateSearchList(query: String) {
+        if (query.isBlank()) return
+        _uiState.value = SearchUiState.Loading
         viewModelScope.launch {
-            val tracks = repository.getTracksByQuery(query)
-            searchModelResult = tracks
-            searchUiResult.postValue(
-                tracks.map { it.toThumbnailSmallItem() }
-            )
+            runCatching {
+                repository.getTracksByQuery(query)
+            }.getOrElse {
+                Log.d(TAG, it.message.toString())
+                _uiState.postValue(SearchUiState.Error)
+                return@launch
+            }.apply {
+                _uiState.postValue(
+                    if (isNotEmpty()) {
+                        SearchUiState.Success(map { it.toThumbnailSmallItem() })
+                    } else {
+                        SearchUiState.NoResult
+                    }
+                )
+            }
         }
     }
+
 
     private fun getTrackById(id: String): TrackModel{
         return searchModelResult.first {
@@ -40,7 +57,6 @@ class SearchViewModel @Inject constructor(
     }
 
     fun updateSearchRequest(request: String){
-        _searchRequest.value = request
         updateSearchList(request)
     }
 
@@ -59,5 +75,9 @@ class SearchViewModel @Inject constructor(
     interface Navigate{
         fun toBottomMenu(track: TrackModel)
         fun navigateUp()
+    }
+
+    companion object {
+        val TAG = SearchViewModel::class.simpleName
     }
 }

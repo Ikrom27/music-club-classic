@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.components
+package ru.ikrom.ui.placeholder
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.ikrom.music_club_classic.R
+import ru.ikrom.ui.R
 
 class PlaceHolderView: FrameLayout {
     private lateinit var ivImage: ImageView

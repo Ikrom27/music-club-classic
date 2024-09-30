@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.screens.SearchFragment">
-    <com.ikrom.music_club_classic.ui.components.PlaceHolderView
+    <ru.ikrom.ui.placeholder.PlaceHolderView
         android:id="@+id/ph_no_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         app:title="@string/ph_no_result_title"
         app:description="@string/ph_no_result_description"
         app:imageSrc="@drawable/ph_no_result"/>
-    <com.ikrom.music_club_classic.ui.components.PlaceHolderView
+    <ru.ikrom.ui.placeholder.PlaceHolderView
         android:id="@+id/ph_connection_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
