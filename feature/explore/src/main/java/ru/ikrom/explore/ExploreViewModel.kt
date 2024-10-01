@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ru.ikrom.ui.models.toCardItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.AlbumModel
@@ -25,20 +26,19 @@ class ExploreViewModel @Inject constructor(
         update()
     }
 
-    fun update(){
+    private fun update(){
         _uiState.postValue(ExploreUiState.Loading)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 repository.getNewReleases()
-            }.getOrElse {e ->
+            }.onSuccess { albums ->
+                albumModels = albums
+                _uiState.postValue(
+                    ExploreUiState.Success(albums.map { it.toCardItem() })
+                )
+            }.onFailure {e ->
                 _uiState.postValue(ExploreUiState.Error)
                 Log.d(TAG, e.message.toString())
-                return@launch
-            }.apply {
-                albumModels = this
-                _uiState.postValue(
-                    ExploreUiState.Success(map { it.toCardItem() })
-                )
             }
         }
     }

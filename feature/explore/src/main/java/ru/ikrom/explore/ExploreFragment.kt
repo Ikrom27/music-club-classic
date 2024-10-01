@@ -19,15 +19,15 @@ import ru.ikrom.ui.base_adapter.delegates.NestedItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
-import ru.ikrom.ui.R.dimen
 import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment() {
     @Inject
-    lateinit var destinations: Destinations
+    lateinit var navigator: Navigator
 
     private lateinit var appBar: AppBar
     private lateinit var navController: NavController
@@ -66,9 +66,11 @@ class ExploreFragment : Fragment() {
             CompositeAdapter.Builder()
                 .add(CardAdapter(
                     onClick = {
-                        navController.navigate(destinations.toAlbumScreen(), bundleOf("id" to it.id))
+                        navController.navigate(navigator.toAlbumScreenId(), bundleOf("id" to it.id))
                     },
-                    onLongClick = {}
+                    onLongClick = {
+                        navigator.toAlbumMenu(it.id)
+                    }
                 ))
                 .build())
         adapter.updateItem(0, TitleItem("New releases"))
@@ -78,29 +80,27 @@ class ExploreFragment : Fragment() {
     private fun setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-        val playerHeight = resources.getDimensionPixelSize(dimen.mini_player_height)
-        val navbarHeight = resources.getDimensionPixelSize(dimen.bottom_nav_bar_height)
-        val margin = resources.getDimensionPixelSize(dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = playerHeight + navbarHeight + margin,
-                    betweenSpace = margin
+                    endSpace = DecorationDimens.getBottomMargin(resources),
+                    betweenSpace = DecorationDimens.getBottomMargin(resources)
                 )
             )
         }
     }
 
     private fun bindViews(view: View){
+        recyclerView = view.findViewById(R.id.rv_content)
         appBar = view.findViewById(R.id.action_bar)
         appBar.setOnSearchClick {
-            navController.navigate(destinations.toSearchScreen())
+            navController.navigate(navigator.toSearchScreenId())
         }
-        recyclerView = view.findViewById(R.id.rv_content)
     }
 
-    interface Destinations {
-        fun toSearchScreen(): Int
-        fun toAlbumScreen(): Int
+    interface Navigator {
+        fun toSearchScreenId(): Int
+        fun toAlbumScreenId(): Int
+        fun toAlbumMenu(id: String)
     }
 }
