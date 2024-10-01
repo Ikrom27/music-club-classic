@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ikrom.innertube"
+    namespace = "com.zionhuang.innertube"
     compileSdk = 34
 
     defaultConfig {
@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.ktor.client.logging)
     implementation(libs.brotli)
     implementation(libs.logging.interceptor)
     implementation(libs.ktor.client.core)

@@ -2,8 +2,8 @@ package ru.ikrom.youtube_data
 
 import android.net.Uri
 import androidx.core.net.toUri
-import com.ikrom.innertube.YouTube
-import com.ikrom.innertube.models.response.PlayerResponse
+import com.zionhuang.innertube.YouTube
+import com.zionhuang.innertube.models.response.PlayerResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 

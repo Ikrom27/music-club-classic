@@ -1,6 +1,6 @@
 package com.ikrom.music_club_classic
 
-import com.ikrom.innertube.YouTube
+import com.zionhuang.innertube.YouTube
 import com.ikrom.music_club_classic.data.data_source.media_data_source.YoutubeDataSource
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

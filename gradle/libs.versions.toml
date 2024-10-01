@@ -37,6 +37,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 [libraries]
 core-ktx = {group = "androidx.core", name="core-ktx", version.ref="ktx"}
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 miniequalizer = { group = "com.github.claucookie.miniequalizer", name = "library", version.ref = "miniequalizer" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide-compiler" }

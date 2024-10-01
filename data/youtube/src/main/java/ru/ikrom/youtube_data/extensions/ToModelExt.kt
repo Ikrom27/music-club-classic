@@ -1,12 +1,13 @@
 package ru.ikrom.youtube_data.extensions
 
-import com.ikrom.innertube.models.AlbumItem
-import com.ikrom.innertube.models.ArtistItem
-import com.ikrom.innertube.models.ItemArtist
-import com.ikrom.innertube.models.PlaylistItem
-import com.ikrom.innertube.models.SongItem
-import com.ikrom.innertube.pages.AlbumPage
-import com.ikrom.innertube.pages.ArtistPage
+
+import com.zionhuang.innertube.models.AlbumItem
+import com.zionhuang.innertube.models.Artist
+import com.zionhuang.innertube.models.ArtistItem
+import com.zionhuang.innertube.models.PlaylistItem
+import com.zionhuang.innertube.models.SongItem
+import com.zionhuang.innertube.pages.AlbumPage
+import com.zionhuang.innertube.pages.ArtistPage
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
@@ -33,7 +34,7 @@ fun ArtistItem.toArtistModel(): ArtistModel {
     )
 }
 
-fun ItemArtist.toArtistModel(): ArtistModel {
+fun Artist.toArtistModel(): ArtistModel {
     return ArtistModel(
         name = this.name,
         id = this.id

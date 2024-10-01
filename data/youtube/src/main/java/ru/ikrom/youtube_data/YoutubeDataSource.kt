@@ -1,11 +1,11 @@
 package ru.ikrom.youtube_data
 
-import com.ikrom.innertube.YouTube
-import com.ikrom.innertube.models.AlbumItem
-import com.ikrom.innertube.models.SongItem
-import com.ikrom.innertube.models.WatchEndpoint
-import com.ikrom.innertube.pages.AlbumPage
-import com.ikrom.innertube.pages.ArtistPage
+import com.zionhuang.innertube.YouTube
+import com.zionhuang.innertube.models.AlbumItem
+import com.zionhuang.innertube.models.SongItem
+import com.zionhuang.innertube.models.WatchEndpoint
+import com.zionhuang.innertube.pages.AlbumPage
+import com.zionhuang.innertube.pages.ArtistPage
 
 
 class YoutubeDataSource: IMediaDataSource {
