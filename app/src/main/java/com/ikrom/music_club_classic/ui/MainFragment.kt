@@ -22,9 +22,10 @@ import com.ikrom.music_club_classic.ui.screens.PlayerFragment
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment: Fragment() {
     val viewModel: MainViewModel by viewModels()
 
     private lateinit var miniPlayerView: MiniPlayerView

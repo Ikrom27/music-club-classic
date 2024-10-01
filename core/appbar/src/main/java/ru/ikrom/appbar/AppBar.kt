@@ -1,11 +1,10 @@
-package com.ikrom.music_club_classic.ui.components
+package ru.ikrom.appbar
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageButton
 import com.google.android.material.appbar.AppBarLayout
-import com.ikrom.music_club_classic.R
 
 class AppBar: AppBarLayout {
     private lateinit var btnSearch: ImageButton

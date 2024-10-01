@@ -21,7 +21,7 @@ import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 
 @AndroidEntryPoint
-class AlbumFragment : Fragment() {
+class AlbumFragment : Fragment(R.layout.fragment_album) {
     private val viewModel: AlbumViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
@@ -46,17 +46,14 @@ class AlbumFragment : Fragment() {
         )
         .build()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_album, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         navController = requireParentFragment().findNavController()
-        bindViews(view)
+        arguments?.getString("id")?.let { viewModel.setAlbum(it) }
+        bindViews()
         setupRecyclerView()
         setupContent()
         setupButtons()
-        return view
     }
 
     private fun setupButtons(){
@@ -70,9 +67,9 @@ class AlbumFragment : Fragment() {
         albumBar.setOnMoreClick { }
     }
 
-    private fun bindViews(view: View){
-        recyclerView = view.findViewById(R.id.rv_content)
-        albumBar = view.findViewById(R.id.album_bar)
+    private fun bindViews(){
+        recyclerView = requireView().findViewById(R.id.rv_content)
+        albumBar = requireView().findViewById(R.id.album_bar)
     }
 
     private fun setupRecyclerView(){
@@ -90,10 +87,11 @@ class AlbumFragment : Fragment() {
     }
 
     private fun setupContent() {
+        viewModel.albumInfo.observe(viewLifecycleOwner) { album ->
+            compositeAdapter.addToEnd(album)
+        }
         viewModel.albumTracks.observe(viewLifecycleOwner) { albumTracks ->
-            compositeAdapter.setItems(
-                listOf(viewModel.albumInfo, albumTracks)
-            )
+            compositeAdapter.addToEnd(albumTracks)
         }
     }
 }

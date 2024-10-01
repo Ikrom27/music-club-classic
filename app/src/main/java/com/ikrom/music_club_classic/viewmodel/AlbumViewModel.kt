@@ -8,6 +8,7 @@ import ru.ikrom.ui.models.toThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.player.IPlayerHandler
 import ru.ikrom.youtube_data.IMediaRepository
@@ -25,20 +26,28 @@ class AlbumViewModel @Inject constructor(
     private val currentAlbumModel = MutableLiveData<AlbumModel>()
     private val albumsModelTracks = MutableLiveData<List<TrackModel>>()
 
-    fun updateAlbum(id: String){
-        viewModelScope.launch {
-            val album = repository.getAlbumById(id)
-            currentAlbumModel.postValue(album)
-            albumInfo.postValue(album.toThumbnailHeaderItem())
+    fun setAlbum(id: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                val album = repository.getAlbumById(id)
+                currentAlbumModel.postValue(album)
+                albumInfo.postValue(album.toThumbnailHeaderItem())
+            }.onFailure {
+                println(it.message)
+            }
         }
         updateAlbumTracks(id)
     }
 
     fun updateAlbumTracks(id: String) {
         viewModelScope.launch {
-            val tracks = repository.getAlbumTracks(id).map { it }
-            albumsModelTracks.postValue(tracks)
-            albumTracks.postValue(tracks.map { it.toThumbnailSmallItem() })
+            runCatching {
+                val tracks = repository.getAlbumTracks(id).map { it }
+                albumsModelTracks.postValue(tracks)
+                albumTracks.postValue(tracks.map { it.toThumbnailSmallItem() })
+            }.onFailure {
+                println(it.message)
+            }
         }
     }
 

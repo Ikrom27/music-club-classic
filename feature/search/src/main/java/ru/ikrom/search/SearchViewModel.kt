@@ -38,6 +38,7 @@ class SearchViewModel @Inject constructor(
                 _uiState.postValue(SearchUiState.Error)
                 return@launch
             }.apply {
+                searchModelResult = this
                 _uiState.postValue(
                     if (isNotEmpty()) {
                         SearchUiState.Success(map { it.toThumbnailSmallItem() })

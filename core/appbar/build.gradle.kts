@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
 }
 
 android {
-    namespace = "ru.ikrom.search"
+    namespace = "ru.ikrom.appbar"
     compileSdk = 34
 
     defaultConfig {
@@ -35,15 +33,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.navigation.fragment)
-    implementation(libs.livedata)
-    implementation(project(":core:player"))
-    implementation(project(":core:ui"))
-    implementation(project(":data:youtube"))
-    implementation(project(":core:searchbar"))
-    implementation(libs.bundles.dagger)
-    implementation(libs.androidx.swiperefreshlayout)
-    kapt(libs.bundles.dagger.compiler)
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

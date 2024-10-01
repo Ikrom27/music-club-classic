@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/explore_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.ExploreFragment"
+        android:name="ru.ikrom.explore.ExploreFragment"
         android:label="fragment_explore"
         tools:layout="@layout/fragment_explore" >
         <action
