@@ -84,7 +84,7 @@ class ExploreFragment : Fragment() {
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
                     endSpace = DecorationDimens.getBottomMargin(resources),
-                    betweenSpace = DecorationDimens.getBottomMargin(resources)
+                    betweenSpace = DecorationDimens.getSectionMargin(resources)
                 )
             )
         }
