@@ -41,10 +41,10 @@
         tools:layout="@layout/fragment_library" >
     </fragment>
     <fragment
-        android:id="@+id/profile_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.AccountFragment"
+        android:id="@+id/settings_screen"
+        android:name="ru.ikrom.settings.SettingsFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_account" >
+        tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/profile_to_web_authorization"
             app:destination="@id/web_authorization_screen" />

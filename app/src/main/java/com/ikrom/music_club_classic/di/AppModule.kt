@@ -10,9 +10,6 @@ import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.data.data_source.SettingsDataSource
-import com.ikrom.music_club_classic.data.data_source.account_data_source.AccountLocalDataSource
-import com.ikrom.music_club_classic.data.repository.SettingsRepository
 import com.ikrom.music_club_classic.utils.MediaSourceFactory
 import dagger.Module
 import dagger.Provides
@@ -77,24 +74,6 @@ class AppModule {
         context.filesDir.resolve("download"),
         NoOpCacheEvictor(),
         databaseProvider)
-
-    @Provides
-    @Singleton
-    fun provideAccountLocalDataSource(
-        @ApplicationContext context: Context,
-    ) : AccountLocalDataSource = AccountLocalDataSource(context)
-
-    @Provides
-    @Singleton
-    fun provideSettingsDataSource(
-        @ApplicationContext context: Context
-    ) = SettingsDataSource(context)
-
-    @Provides
-    @Singleton
-    fun provideSettingsRepository(
-        settingsDataSource: SettingsDataSource
-    ) = SettingsRepository(settingsDataSource)
 
     @Provides
     @Singleton

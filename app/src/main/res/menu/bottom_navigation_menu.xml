@@ -19,7 +19,7 @@
         android:menuCategory="container"
         />
     <item
-        android:id="@+id/profile_screen"
+        android:id="@+id/settings_screen"
         android:title="@string/profile_screen"
         android:icon="@drawable/ic_profile"
         android:menuCategory="container"

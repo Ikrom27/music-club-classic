@@ -8,20 +8,17 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.ikrom.music_club_classic.ui.MainFragment
-import com.ikrom.music_club_classic.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.player.MusicPlayerService
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setThemeMode()
         setFragmentContainer(savedInstanceState)
         setupPlayerService()
     }
@@ -43,11 +40,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, MainFragment())
                 .commit()
-        }
-    }
-    private fun setThemeMode(){
-        settingsViewModel.themeState.observe(this) {
-            AppCompatDelegate.setDefaultNightMode(it)
         }
     }
 

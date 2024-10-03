@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(project(":feature:settings"))
     implementation(project(":feature:explore"))
     implementation(project(":feature:search"))
     implementation(project(":component:player"))
