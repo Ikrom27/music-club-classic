@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0"/>
-        <com.ikrom.music_club_classic.ui.components.MiniPlayerView
+        <ru.ikrom.mini_player.MiniPlayer
             android:id="@+id/mini_player"
             android:background="@color/bg_bottom_bar"
             android:layout_width="match_parent"

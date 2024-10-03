@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.components
+package ru.ikrom.mini_player
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,11 +12,10 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.ikrom.music_club_classic.R
 import ru.ikrom.theme.R.styleable
 
 @SuppressLint("ViewConstructor")
-class MiniPlayerView : FrameLayout {
+class MiniPlayer : FrameLayout {
     private lateinit var container: View
     private lateinit var ivThumbnail: ImageView
     private lateinit var tvTitle: TextView
@@ -99,7 +98,6 @@ class MiniPlayerView : FrameLayout {
 
     fun setOnButtonClickListener(onClickListener: OnClickListener) = btnPlayPause.setOnClickListener(onClickListener)
     fun setOnLayoutClickListener(onClickListener: OnClickListener) = container.setOnClickListener(onClickListener)
-
 }
 
 

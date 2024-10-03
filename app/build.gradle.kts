@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation(libs.bundles.dagger)
     implementation(project(":component:topbar"))
+    implementation(project(":component:mini-player"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)
