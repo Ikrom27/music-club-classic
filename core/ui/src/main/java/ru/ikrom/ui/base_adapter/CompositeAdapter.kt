@@ -15,7 +15,7 @@ class CompositeAdapter(
                 return delegates.keyAt(i)
             }
         }
-        throw NullPointerException("Can not get viewType for position $position")
+        throw NullPointerException("Can not get viewType for position $position ${currentItem::class.simpleName}")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

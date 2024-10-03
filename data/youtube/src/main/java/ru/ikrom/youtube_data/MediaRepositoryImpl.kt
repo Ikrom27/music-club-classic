@@ -2,8 +2,10 @@ package ru.ikrom.youtube_data
 
 import ru.ikrom.youtube_data.extensions.toAlbumModel
 import ru.ikrom.youtube_data.extensions.toArtistPageModel
+import ru.ikrom.youtube_data.extensions.toModel
 import ru.ikrom.youtube_data.extensions.toTrackModel
 import ru.ikrom.youtube_data.model.AlbumModel
+import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
@@ -39,7 +41,7 @@ class MediaRepositoryImpl @Inject constructor(
         return false
     }
 
-    override suspend fun getAlbumById(id: String): AlbumModel {
-        return dataSource.getAlbumById(id).toAlbumModel()
+    override suspend fun getAlbumPage(id: String): AlbumPageModel {
+        return dataSource.getAlbumPage(id).toModel()
     }
 }

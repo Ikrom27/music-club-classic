@@ -15,7 +15,7 @@ import ru.ikrom.ui.models.toMenuHeaderItem
 import ru.ikrom.ui.base_adapter.delegates.MenuButtonDelegate
 import ru.ikrom.ui.base_adapter.delegates.MenuButtonItem
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegate
-import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
+import ru.ikrom.album.AlbumViewModel
 import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
@@ -25,7 +25,7 @@ import ru.ikrom.youtube_data.model.TrackModel
 class TracksMenu : BottomSheetDialogFragment() {
 
     private val viewModel: BottomMenuViewModel by activityViewModels()
-    private val albumViewModel: AlbumViewModel by activityViewModels()
+    private val albumViewModel: ru.ikrom.album.AlbumViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController

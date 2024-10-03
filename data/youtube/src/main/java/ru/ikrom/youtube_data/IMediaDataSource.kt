@@ -13,5 +13,5 @@ interface IMediaDataSource {
     suspend fun getRadioTracks(id: String): List<SongItem>
     suspend fun getPlaylistTracks(albumId: String): List<SongItem>
     suspend fun getArtistData(artistId: String): ArtistPage
-    suspend fun getAlbumById(id: String): AlbumPage
+    suspend fun getAlbumPage(id: String): AlbumPage
 }

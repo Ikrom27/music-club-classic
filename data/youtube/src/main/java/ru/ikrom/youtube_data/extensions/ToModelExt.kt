@@ -9,6 +9,7 @@ import com.zionhuang.innertube.models.SongItem
 import com.zionhuang.innertube.pages.AlbumPage
 import com.zionhuang.innertube.pages.ArtistPage
 import ru.ikrom.youtube_data.model.AlbumModel
+import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.PlaylistModel
@@ -112,6 +113,9 @@ fun ArtistPage.toArtistPageModel(): ArtistPageModel {
     )
 }
 
-fun AlbumPage.toAlbumModel(): AlbumModel{
-    return this.album.toAlbumModel()
+fun AlbumPage.toModel(): AlbumPageModel{
+    return AlbumPageModel(
+        albumInfo = album.toAlbumModel(),
+        tracks = songs.mapNotNull { it.toTrackModel() }
+    )
 }

@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/album_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.AlbumFragment"
+        android:name="ru.ikrom.album.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album" />
     <fragment

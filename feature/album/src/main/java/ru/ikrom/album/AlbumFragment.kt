@@ -1,27 +1,27 @@
-package com.ikrom.music_club_classic.ui.screens
+package ru.ikrom.album
 
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
-import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.topbar.TopBar
 import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 
 @AndroidEntryPoint
 class AlbumFragment : Fragment(R.layout.fragment_album) {
-    private val viewModel: AlbumViewModel by activityViewModels()
+    private val viewModel: AlbumViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var albumBar: TopBar
@@ -48,7 +48,7 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = requireParentFragment().findNavController()
-        arguments?.getString("id")?.let { viewModel.setAlbum(it) }
+        arguments?.getString("id")?.let { viewModel.updateAlbum(it) }
         bindViews()
         setupRecyclerView()
         setupContent()
@@ -84,11 +84,24 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
     }
 
     private fun setupContent() {
-        viewModel.albumInfo.observe(viewLifecycleOwner) { album ->
-            compositeAdapter.addToEnd(album)
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                AlbumUiState.Error -> showError()
+                AlbumUiState.Loading -> showLoading()
+                is AlbumUiState.Success -> showContent(state.header, state.tracks)
+            }
         }
-        viewModel.albumTracks.observe(viewLifecycleOwner) { albumTracks ->
-            compositeAdapter.addToEnd(albumTracks)
-        }
+    }
+
+    private fun showError(){
+
+    }
+
+    private fun showLoading(){
+
+    }
+
+    private fun showContent(header: ThumbnailHeaderItem, tracks: List<ThumbnailSmallItem>){
+        compositeAdapter.setItems(listOf(header) + tracks)
     }
 }

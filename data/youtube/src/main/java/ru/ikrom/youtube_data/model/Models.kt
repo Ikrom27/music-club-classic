@@ -19,6 +19,11 @@ data class AlbumModel(
         get() = "https://music.youtube.com/playlist?list=$id"
 }
 
+data class AlbumPageModel(
+    val albumInfo: AlbumModel,
+    val tracks: List<TrackModel>
+)
+
 data class ArtistModel(
     val id: String?,
     val name: String,

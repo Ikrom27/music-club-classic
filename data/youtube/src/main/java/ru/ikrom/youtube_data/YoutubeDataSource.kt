@@ -19,7 +19,7 @@ class YoutubeDataSource: IMediaDataSource {
     }
 
     override suspend fun getAlbumTracks(albumId: String): List<SongItem> {
-        return YouTube.albumSongs(albumId)
+        return YouTube.album(albumId).songs
     }
 
     override suspend fun getRadioTracks(id: String): List<SongItem> {
@@ -34,7 +34,7 @@ class YoutubeDataSource: IMediaDataSource {
         return YouTube.artist(artistId)
     }
 
-    override suspend fun getAlbumById(id: String): AlbumPage {
+    override suspend fun getAlbumPage(id: String): AlbumPage {
         return YouTube.album(id)
     }
 }
