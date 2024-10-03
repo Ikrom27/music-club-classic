@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.utils
+package ru.ikrom.utils
 
 import android.view.View
 import android.view.ViewGroup

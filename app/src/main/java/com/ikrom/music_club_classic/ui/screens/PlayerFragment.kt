@@ -30,10 +30,10 @@ import com.bumptech.glide.request.target.Target
 import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.extensions.toTimeString
 import ru.ikrom.ui.utils.ColorsUtil
-import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.theme.AppIconsId
+import ru.ikrom.utils.setupMarginFromStatusBar
 
 @AndroidEntryPoint
 class PlayerFragment : Fragment() {

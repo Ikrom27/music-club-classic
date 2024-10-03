@@ -18,13 +18,13 @@ import com.ikrom.music_club_classic.R
 import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
 import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import com.ikrom.music_club_classic.ui.screens.PlayerFragment
-import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.mini_player.MiniPlayer
 import ru.ikrom.theme.AppDimens
 import ru.ikrom.theme.AppDimens.toDp
 import ru.ikrom.theme.AppIconsId
+import ru.ikrom.utils.setupMarginFromStatusBar
 
 @AndroidEntryPoint
 class MainFragment: Fragment() {

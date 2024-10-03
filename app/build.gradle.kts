@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation(libs.bundles.dagger)
+    implementation(project(":core:utils"))
     implementation(project(":component:topbar"))
     implementation(project(":component:mini-player"))
     kapt(libs.bundles.dagger.compiler)

@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.utils
+package ru.ikrom.player
 
 import android.content.Context
 import androidx.annotation.OptIn
@@ -14,9 +14,9 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.extractor.mkv.MatroskaExtractor
 import androidx.media3.extractor.mp4.FragmentedMp4Extractor
-import com.ikrom.music_club_classic.di.DownloadCacheScope
-import com.ikrom.music_club_classic.di.PlayerCacheScope
 import okhttp3.OkHttpClient
+import ru.ikrom.player.di.DownloadCacheScope
+import ru.ikrom.player.di.PlayerCacheScope
 import ru.ikrom.youtube_data.YoutubePlayer
 import javax.inject.Inject
 
