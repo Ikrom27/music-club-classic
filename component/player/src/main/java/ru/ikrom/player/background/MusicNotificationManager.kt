@@ -1,4 +1,4 @@
-package ru.ikrom.player
+package ru.ikrom.player.background
 
 import android.app.Notification
 import android.app.NotificationChannel

@@ -1,4 +1,4 @@
-package ru.ikrom.player
+package ru.ikrom.player.ext
 
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
@@ -8,7 +8,6 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
 import ru.ikrom.youtube_data.model.TrackModel
 import ru.ikrom.youtube_data.model.getNames
 import java.util.ArrayDeque

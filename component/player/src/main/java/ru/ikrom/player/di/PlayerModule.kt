@@ -1,4 +1,4 @@
-package ru.ikrom.player
+package ru.ikrom.player.di
 
 import android.content.Context
 import androidx.annotation.OptIn
@@ -10,6 +10,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.player.MusicPlayerService
+import ru.ikrom.player.PlayerHandlerImpl
+import ru.ikrom.player.background.MusicNotificationManager
 import javax.inject.Singleton
 
 @Module

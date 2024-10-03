@@ -1,36 +1,17 @@
 package ru.ikrom.player
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
+import ru.ikrom.player.ext.getMediaItemQueue
+import ru.ikrom.player.ext.hasOldTracks
+import ru.ikrom.player.ext.isLastPlaying
+import ru.ikrom.player.ext.toMediaItem
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
-
-interface IPlayerHandler {
-    val currentMediaItemLiveData: LiveData<MediaItem?>
-    val isPlayingLiveData: LiveData<Boolean>
-    val totalDurationLiveData: LiveData<Long>
-    val repeatModeLiveData: LiveData<Int>
-    val shuffleModeLiveData: LiveData<Boolean>
-
-    fun getCurrentPosition(): Long
-    fun seekTo(position: Long)
-    fun playNow(tracks: List<TrackModel>)
-    fun playNow(track: TrackModel)
-    fun playNext(item: TrackModel)
-    fun playNext(items: List<TrackModel>)
-    fun addToQueue(item: TrackModel)
-    fun addToQueue(items: List<TrackModel>)
-    fun toggleRepeat()
-    fun toggleShuffle()
-    fun togglePlayPause()
-    fun seekToNext()
-    fun seekToPrevious()
-}
 
 class PlayerHandlerImpl @Inject constructor(
     val player: ExoPlayer,

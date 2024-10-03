@@ -3,7 +3,6 @@ package com.ikrom.music_club_classic.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikrom.music_club_classic.domain.RecommendedUseCase
 import ru.ikrom.ui.models.toThumbnailMediumItem
 import ru.ikrom.ui.base_adapter.delegates.CardItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository,
-    private val recommendedUseCase: RecommendedUseCase,
 ): ViewModel() {
     val quickPick = MutableLiveData<List<TrackModel>>()
     val userPlaylists = MutableLiveData<List<CardItem>>()
@@ -37,9 +35,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun update(){
-        viewModelScope.launch {
-            quickPick.postValue(recommendedUseCase.getRecommendedTracks())
-        }
         viewModelScope.launch {
             userPlaylists.postValue(emptyList())
         }
