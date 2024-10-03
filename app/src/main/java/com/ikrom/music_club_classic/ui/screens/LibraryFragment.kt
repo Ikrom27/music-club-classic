@@ -16,6 +16,7 @@ import ru.ikrom.ui.base_adapter.delegates.LibraryItem
 import com.ikrom.music_club_classic.viewmodel.LibraryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 
 @AndroidEntryPoint
 class LibraryFragment : Fragment() {
@@ -61,15 +62,12 @@ class LibraryFragment : Fragment() {
     private fun setupRecyclerView(){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-        val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
-        val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
-        val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    margin,
-                    playerHeight + navbarHeight + margin,
-                    margin
+                    DecorationDimens.getSectionMargin(resources),
+                    DecorationDimens.getBottomMargin(resources),
+                    DecorationDimens.getSectionMargin(resources)
                 )
             )
         }

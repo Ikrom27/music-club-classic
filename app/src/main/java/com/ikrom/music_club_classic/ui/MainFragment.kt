@@ -22,7 +22,9 @@ import com.ikrom.music_club_classic.ui.screens.PlayerFragment
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import ru.ikrom.theme.AppDimens
+import ru.ikrom.theme.AppDimens.toDp
+import ru.ikrom.theme.AppIconsId
 
 @AndroidEntryPoint
 class MainFragment: Fragment() {
@@ -66,8 +68,8 @@ class MainFragment: Fragment() {
     }
 
     private fun setupConstants(){
-        NAV_BAR_HEIGHT = requireContext().resources.getDimension(R.dimen.bottom_nav_bar_height)
-        MINI_PLAYER_HEIGHT = requireContext().resources.getDimension(R.dimen.mini_player_height)
+        NAV_BAR_HEIGHT = AppDimens.bottomNavBarHeight.toDp(requireContext())
+        MINI_PLAYER_HEIGHT = AppDimens.miniPlayerHeight.toDp(requireContext())
         WEINDOW_HEIGHT = requireContext().resources.displayMetrics.heightPixels.toFloat()
     }
 
@@ -85,7 +87,7 @@ class MainFragment: Fragment() {
             }
         }
         viewModel.isPlaying.observe(viewLifecycleOwner) {
-//            miniPlayerView.btnIcon = if (it) R.drawable.ic_pause else R.drawable.ic_play
+            miniPlayerView.btnIcon = if (it) AppIconsId.pause else AppIconsId.play
         }
     }
 

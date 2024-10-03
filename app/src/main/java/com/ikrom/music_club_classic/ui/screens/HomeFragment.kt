@@ -24,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.QuickPickDelegate
 import ru.ikrom.ui.base_adapter.delegates.QuickPickItem
+import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.TrackModel
 
@@ -124,13 +125,10 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView){
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = compositeAdapter
-        val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
-        val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
-        val margin = resources.getDimensionPixelSize(R.dimen.section_margin)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = playerHeight + navbarHeight + margin,
+                    endSpace = DecorationDimens.getBottomMargin(resources),
                 )
             )
         }

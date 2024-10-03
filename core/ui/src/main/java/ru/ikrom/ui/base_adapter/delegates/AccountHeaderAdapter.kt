@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import ru.ikrom.theme.AppIconsId
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
@@ -25,7 +26,7 @@ class AccountHeaderAdapter: DelegateAdapter<AccountHeaderItem, AccountHeaderAdap
             Glide
                 .with(itemView.context)
                 .load(item.imageUrl)
-                .placeholder(R.drawable.ic_profile)
+                .placeholder(AppIconsId.profile)
                 .transform(CircleCrop())
                 .into(ivAccountPicture)
             tvName.text = item.fullName

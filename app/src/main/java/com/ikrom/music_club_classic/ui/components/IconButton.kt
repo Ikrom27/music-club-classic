@@ -71,12 +71,12 @@ class IconButton: FrameLayout {
     }
 
     private fun getStuffFromXML(attrs: AttributeSet?) {
-        val data = context.obtainStyledAttributes(attrs, R.styleable.IconButton)
-        text = data.getString(R.styleable.IconButton_text) ?: ""
-        leadingIcon = data.getResourceId(R.styleable.IconButton_leadingIcon, 0)
-        tint = data.getResourceId(R.styleable.IconButton_tint, buttonText.currentTextColor)
-        gravity = data.getResourceId(R.styleable.IconButton_android_gravity, Gravity.NO_GRAVITY)
-        data.recycle()
+//        val data = context.obtainStyledAttributes(attrs, R.styleable.IconButton)
+//        text = data.getString(R.styleable.IconButton_text) ?: ""
+//        leadingIcon = data.getResourceId(R.styleable.IconButton_leadingIcon, 0)
+//        tint = data.getResourceId(R.styleable.IconButton_tint, buttonText.currentTextColor)
+//        gravity = data.getResourceId(R.styleable.IconButton_android_gravity, Gravity.NO_GRAVITY)
+//        data.recycle()
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

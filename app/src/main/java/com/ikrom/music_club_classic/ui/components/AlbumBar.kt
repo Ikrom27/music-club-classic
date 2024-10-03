@@ -14,24 +14,16 @@ class AlbumBar: AppBarLayout {
     private lateinit var btnSearch: ImageButton
     private lateinit var btnMore: ImageButton
 
-    init {
-        this.addLiftOnScrollListener { elevation, backgroundColor ->
-            this@AlbumBar.setBackgroundColor(ContextCompat.getColor(context, R.color.bg_top_bar))
-        }
-    }
-
     constructor(context: Context) : super(context) {
         init(context)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context)
-        getStuffFromXML(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init(context)
-        getStuffFromXML(attrs)
     }
 
     fun init(context: Context){
@@ -57,9 +49,5 @@ class AlbumBar: AppBarLayout {
         btnMore.setOnClickListener {
             onClick()
         }
-    }
-
-    fun getStuffFromXML(attrs: AttributeSet?){
-        val data = context.obtainStyledAttributes(attrs, R.styleable.AppBar)
     }
 }

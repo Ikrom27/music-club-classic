@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ikrom.music_club_classic.R
+import ru.ikrom.theme.R.styleable
 
 @SuppressLint("ViewConstructor")
 class MiniPlayerView : FrameLayout {
@@ -87,12 +88,12 @@ class MiniPlayerView : FrameLayout {
 
     @SuppressLint("CustomViewStyleable")
     private fun getStuffFromXML(attrs: AttributeSet?) {
-        val data = context.obtainStyledAttributes(attrs, R.styleable.MiniPlayer)
-        title = data.getString(R.styleable.MiniPlayer_title) ?: ""
-        subTitle = data.getString(R.styleable.MiniPlayer_subtitle) ?: ""
-        thumbnail = data.getResourceId(R.styleable.MiniPlayer_thumbnail, 0)
-        btnIcon = data.getResourceId(R.styleable.MiniPlayer_btnIcon, 0)
-        layoutBackgroundColor = data.getColor(R.styleable.MiniPlayer_layoutBackgroundColor, 0)
+        val data = context.obtainStyledAttributes(attrs, styleable.MiniPlayer)
+        title = data.getString(styleable.MiniPlayer_title) ?: ""
+        subTitle = data.getString(styleable.MiniPlayer_subtitle) ?: ""
+        thumbnail = data.getResourceId(styleable.MiniPlayer_thumbnail, 0)
+        btnIcon = data.getResourceId(styleable.MiniPlayer_btnIcon, 0)
+        layoutBackgroundColor = data.getColor(styleable.MiniPlayer_layoutBackgroundColor, 0)
         data.recycle()
     }
 

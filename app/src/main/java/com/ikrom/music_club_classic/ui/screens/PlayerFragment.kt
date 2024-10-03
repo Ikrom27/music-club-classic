@@ -33,6 +33,7 @@ import ru.ikrom.ui.utils.ColorsUtil
 import com.ikrom.music_club_classic.utils.setupMarginFromStatusBar
 import com.ikrom.music_club_classic.viewmodel.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.theme.AppIconsId
 
 @AndroidEntryPoint
 class PlayerFragment : Fragment() {
@@ -96,20 +97,20 @@ class PlayerFragment : Fragment() {
     }
 
     private fun setupButtons() {
-//        playerViewModel.isPlayingLiveData.observe(viewLifecycleOwner){
-//            btnPlayPause.setImageResource(if (it) R.drawable.ic_pause else R.drawable.ic_play)
-//        }
+        playerViewModel.isPlayingLiveData.observe(viewLifecycleOwner){
+            btnPlayPause.setImageResource(if (it) AppIconsId.pause else AppIconsId.play)
+        }
         playerViewModel.repeatModeLiveData.observe(viewLifecycleOwner){repeatMode ->
             when(repeatMode) {
-                Player.REPEAT_MODE_OFF -> btnToRepeat.setImageResource(R.drawable.ic_repeat_off)
-                Player.REPEAT_MODE_ONE -> btnToRepeat.setImageResource(R.drawable.ic_repeat_one)
-                Player.REPEAT_MODE_ALL -> btnToRepeat.setImageResource(R.drawable.ic_repeat_all)
+                Player.REPEAT_MODE_OFF -> btnToRepeat.setImageResource(AppIconsId.repeatOff)
+                Player.REPEAT_MODE_ONE -> btnToRepeat.setImageResource(AppIconsId.repeatOne)
+                Player.REPEAT_MODE_ALL -> btnToRepeat.setImageResource(AppIconsId.repeatAll)
             }
         }
         playerViewModel.currentMediaItemLiveData.observe(viewLifecycleOwner){mediaItem ->
             if (mediaItem != null) {
                 playerViewModel.isFavorite(mediaItem.mediaId).observe(viewLifecycleOwner) {
-                    btnToFavorite.setImageResource(if (it) R.drawable.ic_favorite else R.drawable.ic_favorite_bordered)
+                    btnToFavorite.setImageResource(if (it) AppIconsId.favorite else AppIconsId.favoriteBordered)
                 }
             }
         }

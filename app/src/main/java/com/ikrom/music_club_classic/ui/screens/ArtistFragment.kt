@@ -24,6 +24,7 @@ import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.ArtistModel
 
@@ -142,12 +143,10 @@ class ArtistFragment : Fragment() {
     private fun setupRecyclerView(){
         recyclerView.adapter = compositeAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val playerHeight = resources.getDimensionPixelSize(R.dimen.mini_player_height)
-        val navbarHeight = resources.getDimensionPixelSize(R.dimen.bottom_nav_bar_height)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = playerHeight + navbarHeight
+                    endSpace = DecorationDimens.getBottomMargin(resources)
                 )
             )
         }
