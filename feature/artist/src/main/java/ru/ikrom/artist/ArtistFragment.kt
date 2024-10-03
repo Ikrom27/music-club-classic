@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.screens
+package ru.ikrom.artist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.music_club_classic.R
+import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
@@ -21,17 +21,16 @@ import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedAdapter
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
-import com.ikrom.music_club_classic.viewmodel.ArtistViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.ArtistModel
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class ArtistFragment : Fragment() {
-    private val viewModel: ArtistViewModel by viewModels()
+    @Inject
+    lateinit var navigator: Navigator
 
+    private val viewModel: ArtistViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
 
@@ -133,7 +132,7 @@ class ArtistFragment : Fragment() {
     private fun onArtistClick(artist: ArtistModel){
         val bundle = Bundle()
         bundle.putString("id", artist.id)
-        navController.navigate(R.id.artist_to_artist, bundle)
+        navController.navigate(navigator.toArtistId, bundle)
     }
 
     private fun bindView(view: View) {
@@ -150,5 +149,9 @@ class ArtistFragment : Fragment() {
                 )
             )
         }
+    }
+
+    interface Navigator {
+        val toArtistId: Int
     }
 }

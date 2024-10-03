@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.viewmodel
+package ru.ikrom.artist
 
 
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,6 @@ import ru.ikrom.ui.models.toThumbnailMediumItem
 import com.ikrom.music_club_classic.extensions.models.toThumbnailRoundedItem
 import ru.ikrom.ui.models.toThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderItem
-import com.ikrom.music_club_classic.ui.items.ArtistPageItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.ikrom.youtube_data.IMediaRepository
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
-    val repository: IMediaRepository
+    private val repository: IMediaRepository
 ): ViewModel() {
     val artistItemLiveData = MutableLiveData<ArtistPageItem>()
     val artistModelLiveData = MutableLiveData<ArtistPageModel>()

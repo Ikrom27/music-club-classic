@@ -12,6 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.search.SearchViewModel
 import ru.ikrom.youtube_data.di.YoutubeModule
@@ -53,5 +54,11 @@ class AppModule {
         override fun toAlbumMenu(id: String) {
             Toast.makeText(context, "Menu of ${id}", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideArtistNavigator() = object : ArtistFragment.Navigator{
+        override val toArtistId: Int = R.id.artist_to_artist
     }
 }

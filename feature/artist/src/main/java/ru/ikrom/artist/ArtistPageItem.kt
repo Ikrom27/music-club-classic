@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.ui.items
+package ru.ikrom.artist
 
 import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailLargeItem

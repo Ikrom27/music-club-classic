@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/data/youtube" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/album" />
+            <option value="$PROJECT_DIR$/feature/artist" />
             <option value="$PROJECT_DIR$/feature/explore" />
             <option value="$PROJECT_DIR$/feature/library" />
             <option value="$PROJECT_DIR$/feature/search" />
