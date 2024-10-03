@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(project(":core:appbar"))
+    implementation(project(":component:appbar"))
     implementation(project(":core:ui"))
     implementation(project(":data:youtube"))
     testImplementation(libs.junit)

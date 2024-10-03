@@ -11,11 +11,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/component" />
+            <option value="$PROJECT_DIR$/component/appbar" />
+            <option value="$PROJECT_DIR$/component/player" />
+            <option value="$PROJECT_DIR$/component/searchbar" />
             <option value="$PROJECT_DIR$/component/topbar" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/appbar" />
-            <option value="$PROJECT_DIR$/core/player" />
-            <option value="$PROJECT_DIR$/core/searchbar" />
             <option value="$PROJECT_DIR$/core/theme" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/data" />

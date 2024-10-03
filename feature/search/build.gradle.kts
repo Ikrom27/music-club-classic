@@ -37,10 +37,10 @@ android {
 dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.livedata)
-    implementation(project(":core:player"))
+    implementation(project(":component:player"))
     implementation(project(":core:ui"))
     implementation(project(":data:youtube"))
-    implementation(project(":core:searchbar"))
+    implementation(project(":component:searchbar"))
     implementation(libs.bundles.dagger)
     implementation(libs.androidx.swiperefreshlayout)
     kapt(libs.bundles.dagger.compiler)
