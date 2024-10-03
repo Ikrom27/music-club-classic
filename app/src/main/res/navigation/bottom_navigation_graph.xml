@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/library_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.LibraryFragment"
+        android:name="ru.ikrom.library.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" >
     </fragment>
