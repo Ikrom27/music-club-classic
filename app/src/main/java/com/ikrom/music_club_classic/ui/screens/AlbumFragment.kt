@@ -1,9 +1,7 @@
 package com.ikrom.music_club_classic.ui.screens
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikrom.music_club_classic.R
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
-import com.ikrom.music_club_classic.ui.components.AlbumBar
 import com.ikrom.music_club_classic.viewmodel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.topbar.TopBar
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
@@ -26,7 +24,7 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
     private val viewModel: AlbumViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var albumBar: AlbumBar
+    private lateinit var albumBar: TopBar
     private lateinit var navController: NavController
 
     private val compositeAdapter = CompositeAdapter.Builder()

@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation(libs.bundles.dagger)
+    implementation(project(":component:topbar"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)

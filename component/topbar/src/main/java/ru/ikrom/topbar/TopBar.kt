@@ -1,15 +1,12 @@
-package com.ikrom.music_club_classic.ui.components
+package ru.ikrom.topbar
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageButton
-import androidx.core.content.ContextCompat
 import com.google.android.material.appbar.AppBarLayout
-import com.ikrom.music_club_classic.R
 
-class AlbumBar: AppBarLayout {
+class TopBar: AppBarLayout {
     private lateinit var btnBack: ImageButton
     private lateinit var btnSearch: ImageButton
     private lateinit var btnMore: ImageButton
