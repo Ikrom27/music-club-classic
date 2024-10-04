@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.viewmodel
+package ru.ikrom.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val playerHandler: IPlayerHandler,
+    val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository,
 ): ViewModel() {
     val quickPick = MutableLiveData<List<TrackModel>>()

@@ -8,17 +8,18 @@
     <!-- BOTTOM MENU SCREENS -->
     <fragment
         android:id="@+id/home_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.HomeFragment"
+        android:name="ru.ikrom.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/explore_to_playlist"/>
         <action
             android:id="@+id/home_to_album"
             app:destination="@id/album_screen" />
         <action
             android:id="@+id/home_to_artist"
             app:destination="@id/artist_screen" />
+        <action
+            android:id="@+id/action_home_screen_to_track_menu"
+            app:destination="@id/track_menu" />
     </fragment>
     <fragment
         android:id="@+id/explore_screen"
@@ -45,16 +46,13 @@
         android:name="ru.ikrom.settings.SettingsFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/profile_to_web_authorization"
-            app:destination="@id/web_authorization_screen" />
     </fragment>
 
     <!-- ANOTHER SCREENS -->
 
     <fragment
         android:id="@+id/artist_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.ArtistFragment"
+        android:name="ru.ikrom.artist.ArtistFragment"
         android:label="fragment_artist"
         tools:layout="@layout/fragment_artist">
         <action
@@ -76,9 +74,10 @@
         android:name="ru.ikrom.album.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album" />
-    <fragment
-        android:id="@+id/web_authorization_screen"
-        android:name="com.ikrom.music_club_classic.ui.screens.WebAuthorizationFragment"
-        android:label="fragment_web_authorization"
-        tools:layout="@layout/fragment_web_authorization" />
+
+    <dialog
+        android:id="@+id/track_menu"
+        android:name="com.ikrom.music_club_classic.ui.menu.TracksMenu"
+        android:label="track_menu"
+        />
 </navigation>

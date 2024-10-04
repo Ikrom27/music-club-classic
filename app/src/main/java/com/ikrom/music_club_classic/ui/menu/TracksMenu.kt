@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,8 +26,7 @@ import ru.ikrom.youtube_data.model.TrackModel
 @AndroidEntryPoint
 class TracksMenu : BottomSheetDialogFragment() {
 
-    private val viewModel: BottomMenuViewModel by activityViewModels()
-    private val albumViewModel: ru.ikrom.album.AlbumViewModel by activityViewModels()
+    private val viewModel: BottomMenuViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
@@ -39,7 +40,9 @@ class TracksMenu : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false)
-        navController = viewModel.navController!!
+        navController = findNavController()
+        val args = arguments?.getString("id") ?: ""
+        viewModel.updateTrackModel(args)
         setupViews(view)
         setupRecyclerView()
         setupItems()
@@ -56,7 +59,6 @@ class TracksMenu : BottomSheetDialogFragment() {
     }
 
     private fun setupItems() {
-        Log.d(TAG, viewModel.trackLiveData.value!!.title)
         viewModel.trackLiveData.observe(viewLifecycleOwner) {track ->
             compositeAdapter.addToStart(track.toMenuHeaderItem())
             compositeAdapter.addItems(getButtonsList(track))

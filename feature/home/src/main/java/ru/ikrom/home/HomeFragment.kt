@@ -1,39 +1,38 @@
-package com.ikrom.music_club_classic.ui.screens
+package ru.ikrom.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ikrom.music_club_classic.R
+import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardAdapter
-import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
+import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
+import ru.ikrom.ui.base_adapter.delegates.QuickPickDelegate
+import ru.ikrom.ui.base_adapter.delegates.QuickPickItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
-import com.ikrom.music_club_classic.ui.menu.TracksMenu
-import com.ikrom.music_club_classic.viewmodel.BottomMenuViewModel
-import com.ikrom.music_club_classic.viewmodel.HomeViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.QuickPickDelegate
-import ru.ikrom.ui.base_adapter.delegates.QuickPickItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.TrackModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var navController: NavController
-    private val homeViewModel: HomeViewModel by activityViewModels()
-    private val bottomMenuViewModel: BottomMenuViewModel by activityViewModels()
+    @Inject
+    lateinit var navigator: Navigator
 
+    private lateinit var navController: NavController
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var compositeAdapter: CompositeAdapter
 
     override fun onCreateView(
@@ -44,7 +43,6 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
         navController = requireParentFragment().findNavController()
-        bottomMenuViewModel.navController = navController
         setupAdapter()
         setupRecyclerView(recyclerView)
         setupAdapterData()
@@ -109,9 +107,7 @@ class HomeFragment : Fragment() {
                                     homeViewModel.playTrackById(it.id)
                                 },
                                 onLongClick = {
-                                    bottomMenuViewModel.trackLiveData.postValue(homeViewModel.getTrackById(it.id))
-                                    val bottomMenu = TracksMenu()
-                                    bottomMenu.show(parentFragmentManager, bottomMenu.tag)
+                                    findNavController().navigate(navigator.trackMenuId, bundleOf("id" to it.id))
                                 }
                             )
                         ).build(),
@@ -138,5 +134,9 @@ class HomeFragment : Fragment() {
         if (homeViewModel.currentTrack.value!!.mediaId == track.videoId){
             homeViewModel.togglePlayPause()
         }
+    }
+
+    interface Navigator {
+        val trackMenuId: Int
     }
 }

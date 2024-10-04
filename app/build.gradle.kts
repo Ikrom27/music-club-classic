@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":component:topbar"))
     implementation(project(":component:mini-player"))
     implementation(project(":feature:artist"))
+    implementation(project(":feature:home"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)

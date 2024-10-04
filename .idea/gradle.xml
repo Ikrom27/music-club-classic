@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/feature/album" />
             <option value="$PROJECT_DIR$/feature/artist" />
             <option value="$PROJECT_DIR$/feature/explore" />
+            <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/library" />
             <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/settings" />
