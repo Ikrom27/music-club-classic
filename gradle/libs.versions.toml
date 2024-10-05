@@ -27,6 +27,8 @@ ktor = "2.3.11"
 kotlin = "1.9.10"
 serialization-json = "1.6.3"
 swiperefreshlayout-version = "1.1.0"
+navigation-runtime-ktx = "2.8.2"
+room-compiler = "2.6.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -36,6 +38,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 core-ktx = {group = "androidx.core", name="core-ktx", version.ref="ktx"}
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 miniequalizer = { group = "com.github.claucookie.miniequalizer", name = "library", version.ref = "miniequalizer" }
@@ -73,6 +76,8 @@ ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding", versi
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-json" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout-version" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation-runtime-ktx" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-compiler" }
 
 [bundles]
 glide = ["glide", "glide-transformations", "glide-compiler"]

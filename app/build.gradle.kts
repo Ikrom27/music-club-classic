@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":component:mini-player"))
     implementation(project(":feature:artist"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:menu-track"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)

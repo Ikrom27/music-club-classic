@@ -1,14 +1,13 @@
 package com.ikrom.music_club_classic.di
 
 import android.content.Context
+import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.OptIn
-import androidx.fragment.app.FragmentManager
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
 import com.ikrom.music_club_classic.R
-import com.ikrom.music_club_classic.ui.menu.TracksMenu
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +16,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
+import ru.ikrom.menu_track.TracksMenu
 import ru.ikrom.search.SearchViewModel
 import ru.ikrom.youtube_data.di.YoutubeModule
 import ru.ikrom.youtube_data.model.TrackModel
@@ -51,7 +51,7 @@ class AppModule {
         }
 
         override fun toAlbumScreenId(): Int {
-            return R.id.explore_to_album
+            return R.id.to_album
         }
 
         override fun toAlbumMenu(id: String) {
@@ -68,6 +68,15 @@ class AppModule {
     @Provides
     @Singleton
     fun provideHomeNavigator() = object : HomeFragment.Navigator {
-        override val trackMenuId = R.id.action_home_screen_to_track_menu
+        override val menuTrackId: Int = R.id.to_menu_track
+
+        override fun bundleMenuTrack(
+            id: String,
+            title: String,
+            subtitle: String,
+            thumbnail: String
+        ): Bundle {
+            return TracksMenu.createBundle(id, title, subtitle, thumbnail)
+        }
     }
 }

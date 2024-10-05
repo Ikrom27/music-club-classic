@@ -5,6 +5,8 @@
     android:id="@+id/bottom_navigation_graph"
     app:startDestination="@id/home_screen">
 
+    <include app:graph="@navigation/menu_track_graph" />
+
     <!-- BOTTOM MENU SCREENS -->
     <fragment
         android:id="@+id/home_screen"
@@ -17,23 +19,23 @@
         <action
             android:id="@+id/home_to_artist"
             app:destination="@id/artist_screen" />
-        <action
-            android:id="@+id/action_home_screen_to_track_menu"
-            app:destination="@id/track_menu" />
     </fragment>
+    <action
+        android:id="@+id/to_menu_track"
+        app:destination="@id/track_menu" />
     <fragment
         android:id="@+id/explore_screen"
         android:name="ru.ikrom.explore.ExploreFragment"
         android:label="fragment_explore"
         tools:layout="@layout/fragment_explore" >
         <action
+            android:id="@+id/to_album"
+            app:destination="@id/album_screen" />
+        <action
             android:id="@+id/explore_to_playlist"/>
         <action
             android:id="@+id/explore_to_search"
             app:destination="@id/search_screen" />
-        <action
-            android:id="@+id/explore_to_album"
-            app:destination="@id/album_screen" />
     </fragment>
     <fragment
         android:id="@+id/library_screen"
@@ -74,10 +76,9 @@
         android:name="ru.ikrom.album.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album" />
-
     <dialog
         android:id="@+id/track_menu"
-        android:name="com.ikrom.music_club_classic.ui.menu.TracksMenu"
-        android:label="track_menu"
-        />
+        android:name="ru.ikrom.menu_track.TracksMenu"
+        android:label="track_menu">
+    </dialog>
 </navigation>

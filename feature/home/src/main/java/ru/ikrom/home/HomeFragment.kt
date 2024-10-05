@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -107,7 +106,15 @@ class HomeFragment : Fragment() {
                                     homeViewModel.playTrackById(it.id)
                                 },
                                 onLongClick = {
-                                    findNavController().navigate(navigator.trackMenuId, bundleOf("id" to it.id))
+                                    findNavController().navigate(
+                                        navigator.menuTrackId,
+                                        navigator.bundleMenuTrack(
+                                            it.id,
+                                            it.title,
+                                            it.subtitle,
+                                            it.thumbnail
+                                        )
+                                    )
                                 }
                             )
                         ).build(),
@@ -137,6 +144,12 @@ class HomeFragment : Fragment() {
     }
 
     interface Navigator {
-        val trackMenuId: Int
+        val menuTrackId: Int
+        fun bundleMenuTrack(
+            id: String,
+            title: String,
+            subtitle: String,
+            thumbnail: String
+        ): Bundle
     }
 }
