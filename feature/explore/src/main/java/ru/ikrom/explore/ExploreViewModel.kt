@@ -15,12 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
-    val repository: IMediaRepository,
+    private val repository: IMediaRepository,
 ) : ViewModel() {
+    private var albumModels: List<AlbumModel> = ArrayList()
     private val _uiState = MutableLiveData<ExploreUiState>()
     val uiState: LiveData<ExploreUiState> = _uiState
-
-    private var albumModels: List<AlbumModel> = ArrayList()
+    var scrollPosition = 0
 
     init {
         update()
@@ -41,10 +41,6 @@ class ExploreViewModel @Inject constructor(
                 Log.d(TAG, e.message.toString())
             }
         }
-    }
-
-    private fun getAlbumById (id: String): AlbumModel{
-        return albumModels.first{ it.id == id }
     }
 
     companion object {

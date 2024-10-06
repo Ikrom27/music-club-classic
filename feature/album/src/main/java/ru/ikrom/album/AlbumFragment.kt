@@ -3,6 +3,7 @@ package ru.ikrom.album
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -116,6 +117,10 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
     }
 
     companion object {
-        const val ID = "id"
+        const val ID = "ID"
+
+        fun createBundle(id: String): Bundle{
+            return bundleOf(ID to id)
+        }
     }
 }

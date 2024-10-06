@@ -1,14 +1,10 @@
 package ru.ikrom.explore
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,12 +21,9 @@ import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment() {
+class ExploreFragment : Fragment(R.layout.fragment_explore) {
     @Inject
     lateinit var navigator: Navigator
-
-    private lateinit var appBar: AppBar
-    private lateinit var navController: NavController
     private lateinit var recyclerView: RecyclerView
     private val viewModel: ExploreViewModel by viewModels()
     private val adapter = CompositeAdapter.Builder()
@@ -38,19 +31,10 @@ class ExploreFragment : Fragment() {
         .add(TitleDelegate())
         .build()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_explore, container, false)
-        navController = requireParentFragment().findNavController()
-        bindViews(view)
-        setupRecyclerView()
-        return view
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAppBar(view)
+        setupRecyclerView(view, savedInstanceState?.getInt(SCROLL_POSITION_KEY) ?: 0)
         viewModel.uiState.observe(viewLifecycleOwner) {state ->
             when(state){
                 ExploreUiState.Error -> {}
@@ -66,10 +50,10 @@ class ExploreFragment : Fragment() {
             CompositeAdapter.Builder()
                 .add(CardAdapter(
                     onClick = {
-                        navController.navigate(navigator.toAlbumScreenId(), bundleOf("id" to it.id))
+                        navigator.toAlbumScreen(it.id)
                     },
                     onLongClick = {
-                        navigator.toAlbumMenu(it.id)
+                        navigator.toAlbumMenu(it.id, it.title, it.subtitle, it.thumbnail)
                     }
                 ))
                 .build())
@@ -77,9 +61,11 @@ class ExploreFragment : Fragment() {
         adapter.updateItem(1, newReleasesItem)
     }
 
-    private fun setupRecyclerView() {
+    fun setupRecyclerView(view: View, position: Int) {
+        recyclerView = view.findViewById(R.id.rv_content)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+        recyclerView.scrollToPosition(position)
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
@@ -90,17 +76,21 @@ class ExploreFragment : Fragment() {
         }
     }
 
-    private fun bindViews(view: View){
-        recyclerView = view.findViewById(R.id.rv_content)
-        appBar = view.findViewById(R.id.action_bar)
-        appBar.setOnSearchClick {
-            navController.navigate(navigator.toSearchScreenId())
+    private fun setupAppBar(view: View){
+        view.findViewById<AppBar>(R.id.action_bar).apply {
+            setOnSearchClick {
+                navigator.toSearchScreen()
+            }
         }
     }
 
     interface Navigator {
-        fun toSearchScreenId(): Int
-        fun toAlbumScreenId(): Int
-        fun toAlbumMenu(id: String)
+        fun toSearchScreen()
+        fun toAlbumScreen(albumId: String)
+        fun toAlbumMenu(albumId: String, title: String, subtitle: String, thumbnail: String)
+    }
+
+    companion object {
+        private val SCROLL_POSITION_KEY = "scroll_position_key"
     }
 }

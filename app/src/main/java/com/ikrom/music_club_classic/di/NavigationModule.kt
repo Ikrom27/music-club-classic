@@ -52,20 +52,26 @@ class NavigationModule {
     }
 
     @Provides
-    fun provideExplorerDestinations(
+    fun provideExploreNavigator(
         navController: NavController
     ) = object : ExploreFragment.Navigator {
-        override fun toSearchScreenId(): Int {
-            return R.id.explore_to_search
+        override fun toSearchScreen() {
+            navController.navigate(R.id.to_search)
         }
 
-        override fun toAlbumScreenId(): Int {
-            return R.id.to_album
+        override fun toAlbumScreen(albumId: String) {
+            navController.navigate(R.id.to_album, AlbumFragment.createBundle(albumId))
         }
 
-        override fun toAlbumMenu(id: String) {
-            navController.navigate(R.id.to_album, bundleOf("id" to id))
+        override fun toAlbumMenu(
+            albumId: String,
+            title: String,
+            subtitle: String,
+            thumbnail: String
+        ) {
+            navController.navigate(R.id.to_album, AlbumFragment.createBundle(albumId))
         }
+
     }
 
     @Provides

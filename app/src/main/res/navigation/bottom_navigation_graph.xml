@@ -5,72 +5,36 @@
     android:id="@+id/bottom_navigation_graph"
     app:startDestination="@id/home_screen">
 
-    <include app:graph="@navigation/menu_track_graph" />
-
-    <!-- BOTTOM MENU SCREENS -->
     <fragment
         android:id="@+id/home_screen"
         android:name="ru.ikrom.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/home_to_album"
-            app:destination="@id/album_screen" />
-        <action
-            android:id="@+id/home_to_artist"
-            app:destination="@id/artist_screen" />
-    </fragment>
-    <action
-        android:id="@+id/to_menu_track"
-        app:destination="@id/track_menu" />
+        tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/explore_screen"
         android:name="ru.ikrom.explore.ExploreFragment"
         android:label="fragment_explore"
-        tools:layout="@layout/fragment_explore" >
-        <action
-            android:id="@+id/to_album"
-            app:destination="@id/album_screen" />
-        <action
-            android:id="@+id/explore_to_playlist"/>
-        <action
-            android:id="@+id/explore_to_search"
-            app:destination="@id/search_screen" />
-    </fragment>
+        tools:layout="@layout/fragment_explore"/>
     <fragment
         android:id="@+id/library_screen"
         android:name="ru.ikrom.library.LibraryFragment"
         android:label="fragment_library"
-        tools:layout="@layout/fragment_library" >
-    </fragment>
+        tools:layout="@layout/fragment_library"/>
     <fragment
         android:id="@+id/settings_screen"
         android:name="ru.ikrom.settings.SettingsFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_settings" >
-    </fragment>
-
-    <!-- ANOTHER SCREENS -->
-
+        tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/artist_screen"
         android:name="ru.ikrom.artist.ArtistFragment"
         android:label="fragment_artist"
-        tools:layout="@layout/fragment_artist">
-    </fragment>
-    <action
-        android:id="@+id/to_artist"
-        app:destination="@id/artist_screen" />
-
+        tools:layout="@layout/fragment_artist"/>
     <fragment
         android:id="@+id/search_screen"
         android:name="ru.ikrom.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/home_to_artist"
-            app:destination="@id/artist_screen" />
-    </fragment>
+        tools:layout="@layout/fragment_search"/>
     <fragment
         android:id="@+id/album_screen"
         android:name="ru.ikrom.album.AlbumFragment"
@@ -81,4 +45,17 @@
         android:name="ru.ikrom.menu_track.TrackMenuFragment"
         android:label="track_menu">
     </dialog>
+
+    <action
+        android:id="@+id/to_menu_track"
+        app:destination="@id/track_menu" />
+    <action
+        android:id="@+id/to_search"
+        app:destination="@id/search_screen" />
+    <action
+        android:id="@+id/to_album"
+        app:destination="@id/album_screen" />
+    <action
+        android:id="@+id/to_artist"
+        app:destination="@id/artist_screen" />
 </navigation>
