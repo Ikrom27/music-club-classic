@@ -4,7 +4,7 @@ import android.os.Bundle
 import ru.ikrom.ui.base_adapter.delegates.CardItem
 import ru.ikrom.ui.base_adapter.delegates.LibraryItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.PlaylistModel
 
@@ -51,8 +51,8 @@ fun PlaylistModel.toLibraryItem(): LibraryItem {
     )
 }
 
-fun PlaylistModel.toThumbnailMediumItem() : ThumbnailMediumItem {
-    return ThumbnailMediumItem(
+fun PlaylistModel.toThumbnailMediumItem() : ThumbnailItemMediumItem {
+    return ThumbnailItemMediumItem(
         id = id,
         title = this.title,
         subtitle = this.artists?.name ?: "",

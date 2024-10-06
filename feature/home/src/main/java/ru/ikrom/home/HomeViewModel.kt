@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ru.ikrom.ui.models.toThumbnailMediumItem
 import ru.ikrom.ui.base_adapter.delegates.CardItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.ikrom.player.IPlayerHandler
@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
     val quickPick = MutableLiveData<List<TrackModel>>()
     val userPlaylists = MutableLiveData<List<CardItem>>()
-    val trackList = MutableLiveData<List<ThumbnailMediumItem>>()
+    val trackList = MutableLiveData<List<ThumbnailItemMediumItem>>()
     val currentTrack = playerHandler.currentMediaItemLiveData
     val isPlaying = playerHandler.isPlayingLiveData
 

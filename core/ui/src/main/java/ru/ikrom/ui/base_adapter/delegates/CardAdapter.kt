@@ -9,11 +9,11 @@ import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
 data class CardItem(
-    val id: String,
-    val title: String,
-    val subtitle: String,
-    val thumbnail: String,
-)
+    override val id: String,
+    override val title: String,
+    override val subtitle: String,
+    override val thumbnail: String,
+): ThumbnailItem
 
 class CardAdapter(
     onClick: (CardItem) -> Unit,

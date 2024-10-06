@@ -3,7 +3,7 @@ package ru.ikrom.ui.models
 import ru.ikrom.ui.base_adapter.delegates.CardItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailLargeItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.getNames
 
@@ -25,8 +25,8 @@ fun AlbumModel.toCardItem(): CardItem {
     )
 }
 
-fun AlbumModel.toThumbnailMediumItem() : ThumbnailMediumItem {
-    return ThumbnailMediumItem(
+fun AlbumModel.toThumbnailMediumItem() : ThumbnailItemMediumItem {
+    return ThumbnailItemMediumItem(
         id = this.id,
         title = this.title,
         subtitle = this.artists.getNames(),
@@ -36,6 +36,7 @@ fun AlbumModel.toThumbnailMediumItem() : ThumbnailMediumItem {
 
 fun AlbumModel.toThumbnailLargeItem() : ThumbnailLargeItem {
     return ThumbnailLargeItem(
+        id = this.id,
         title = this.title,
         subtitle = this.year.toString(),
         thumbnail = this.thumbnail,

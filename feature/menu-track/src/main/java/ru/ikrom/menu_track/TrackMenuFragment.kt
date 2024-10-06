@@ -2,10 +2,7 @@ package ru.ikrom.menu_track
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -17,6 +14,7 @@ import ru.ikrom.ui.base_adapter.delegates.MenuButtonDelegate
 import ru.ikrom.ui.base_adapter.delegates.MenuButtonItem
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailArgs
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,7 +22,7 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
     @Inject
     lateinit var navigator: Navigator
     private val viewModel: TrackMenuViewModel by viewModels()
-    private val args: Args by lazy { Args(requireArguments()) }
+    private val args: ThumbnailArgs by lazy { ThumbnailArgs(requireArguments()) }
     private var compositeAdapter = CompositeAdapter.Builder()
         .add(MenuHeaderDelegate({}))
         .add(MenuButtonDelegate {
@@ -74,50 +72,25 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
                 title = getString(AppStringsId.OPEN_ALBUM),
                 icon = AppIconsId.viewAlbum,
                 onClick = {
-                    navigator.toAlbum(findNavController(), viewModel.getAlbumId())
+                    navigator.toAlbum(viewModel.getAlbumId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ARTIST),
                 icon = AppIconsId.viewArtist,
                 onClick = {
-                    navigator.toArtist(findNavController(), viewModel.getArtistId())
+                    navigator.toArtist(viewModel.getArtistId())
                 }
             )
         )
     }
 
     interface Navigator{
-        fun toAlbum(nanController: NavController, id: String)
-        fun toArtist(nanController: NavController, id: String)
-    }
-
-    inner class Args(bundle: Bundle) {
-        val id: String = bundle.getString(ID) ?: ""
-        val title: String = bundle.getString(TITLE) ?: ""
-        val subtitle: String = bundle.getString(SUBTITLE) ?: ""
-        val thumbnail: String = bundle.getString(THUMBNAIL) ?: ""
+        fun toAlbum(albumId: String)
+        fun toArtist(artistId: String)
     }
 
     companion object {
         private const val TAG = "BottomMenuFragment"
-        private const val ID = "id"
-        private const val TITLE = "title"
-        private const val SUBTITLE = "subtitle"
-        private const val THUMBNAIL = "thumbnail"
-
-        fun createBundle(
-            id: String,
-            title: String,
-            subtitle: String,
-            thumbnail: String
-        ): Bundle {
-            return bundleOf(
-                ID to id,
-                TITLE to title,
-                SUBTITLE to subtitle,
-                THUMBNAIL to thumbnail
-            )
-        }
     }
 }

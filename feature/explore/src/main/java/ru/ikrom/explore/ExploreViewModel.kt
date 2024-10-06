@@ -20,7 +20,6 @@ class ExploreViewModel @Inject constructor(
     private var albumModels: List<AlbumModel> = ArrayList()
     private val _uiState = MutableLiveData<ExploreUiState>()
     val uiState: LiveData<ExploreUiState> = _uiState
-    var scrollPosition = 0
 
     init {
         update()

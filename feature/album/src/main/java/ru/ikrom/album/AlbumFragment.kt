@@ -16,9 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.topbar.TopBar
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
+import ru.ikrom.ui.utils.bundleToId
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,8 +29,6 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
     lateinit var navigator: Navigator
 
     private val viewModel: AlbumViewModel by viewModels()
-
-    private val args: Args by lazy { Args(requireArguments()) }
     private lateinit var navController: NavController
 
     private val compositeAdapter = CompositeAdapter.Builder()
@@ -44,7 +44,7 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
         .add(ThumbnailSmallDelegate(
             onClickItem = { viewModel.playTrackById(it.id) },
             onLongClickItem = {
-                navigator.toTrackMenu(it.id, it.title, it.subtitle, it.thumbnail)
+                navigator.toTrackMenu(it)
             })
         )
         .build()
@@ -52,7 +52,7 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = requireParentFragment().findNavController()
-        viewModel.updateAlbum(args.id)
+        viewModel.updateAlbum(bundleToId(requireArguments()))
         setupRecyclerView(view)
         setupButtons(view)
         setupContent()
@@ -107,20 +107,8 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
         compositeAdapter.setItems(listOf(header) + tracks)
     }
 
-    class Args(bundle: Bundle){
-        val id = bundle.getString(ID) ?: ""
-    }
-
     interface Navigator{
         fun toArtist(artistId: String)
-        fun toTrackMenu(trackId: String, title: String, subtitle: String, thumbnail: String)
-    }
-
-    companion object {
-        const val ID = "ID"
-
-        fun createBundle(id: String): Bundle{
-            return bundleOf(ID to id)
-        }
+        fun toTrackMenu(item: ThumbnailItem)
     }
 }

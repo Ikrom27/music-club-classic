@@ -16,6 +16,7 @@ import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
@@ -53,7 +54,7 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
                         navigator.toAlbumScreen(it.id)
                     },
                     onLongClick = {
-                        navigator.toAlbumMenu(it.id, it.title, it.subtitle, it.thumbnail)
+                        navigator.toAlbumMenu(it)
                     }
                 ))
                 .build())
@@ -61,7 +62,7 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         adapter.updateItem(1, newReleasesItem)
     }
 
-    fun setupRecyclerView(view: View, position: Int) {
+    private fun setupRecyclerView(view: View, position: Int) {
         recyclerView = view.findViewById(R.id.rv_content)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
@@ -87,7 +88,7 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     interface Navigator {
         fun toSearchScreen()
         fun toAlbumScreen(albumId: String)
-        fun toAlbumMenu(albumId: String, title: String, subtitle: String, thumbnail: String)
+        fun toAlbumMenu(item: ThumbnailItem)
     }
 
     companion object {

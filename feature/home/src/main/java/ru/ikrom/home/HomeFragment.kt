@@ -17,6 +17,7 @@ import ru.ikrom.ui.base_adapter.delegates.NestedItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
 import ru.ikrom.ui.base_adapter.delegates.QuickPickDelegate
 import ru.ikrom.ui.base_adapter.delegates.QuickPickItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
@@ -29,7 +30,6 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
     @Inject
     lateinit var navigator: Navigator
-
     private lateinit var navController: NavController
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var compositeAdapter: CompositeAdapter
@@ -52,7 +52,6 @@ class HomeFragment : Fragment() {
         compositeAdapter = CompositeAdapter.Builder()
             .add(QuickPickDelegate(
                 isPlaying = homeViewModel.isPlaying,
-//                currentMediaItem= homeViewModel.currentTrack,
                 lifecycleOwner = viewLifecycleOwner,
                 onPlayPauseClick = { onPlayPauseClick(it) },
                 onSkipClick = {}
@@ -106,15 +105,7 @@ class HomeFragment : Fragment() {
                                     homeViewModel.playTrackById(it.id)
                                 },
                                 onLongClick = {
-                                    findNavController().navigate(
-                                        navigator.menuTrackId,
-                                        navigator.bundleMenuTrack(
-                                            it.id,
-                                            it.title,
-                                            it.subtitle,
-                                            it.thumbnail
-                                        )
-                                    )
+                                    navigator.toTrackMenu(it)
                                 }
                             )
                         ).build(),
@@ -144,12 +135,6 @@ class HomeFragment : Fragment() {
     }
 
     interface Navigator {
-        val menuTrackId: Int
-        fun bundleMenuTrack(
-            id: String,
-            title: String,
-            subtitle: String,
-            thumbnail: String
-        ): Bundle
+        fun toTrackMenu(item: ThumbnailItem)
     }
 }

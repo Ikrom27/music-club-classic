@@ -15,12 +15,14 @@ import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
 import ru.ikrom.menu_track.TrackMenuFragment
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
+import ru.ikrom.ui.base_adapter.delegates.toBundle
+import ru.ikrom.ui.utils.idToBundle
 
 
 @Module()
 @InstallIn(ActivityComponent::class)
 class NavigationModule {
-
     @Provides
     fun provideNavController(activity: Activity): NavController {
         return activity.findNavController(R.id.nav_host_fragment)
@@ -31,24 +33,13 @@ class NavigationModule {
         navController: NavController
     ) = object : AlbumFragment.Navigator {
         override fun toArtist(artistId: String) {
-            navController.navigate(R.id.to_artist, bundleOf("id" to artistId))
+            navController.navigate(R.id.to_artist, idToBundle(artistId))
         }
 
-        override fun toTrackMenu(
-            trackId: String,
-            title: String,
-            subtitle: String,
-            thumbnail: String) {
-            navController.navigate(
-                R.id.to_menu_track,
-                TrackMenuFragment.createBundle(
-                    id = trackId,
-                    title = title,
-                    subtitle = subtitle,
-                    thumbnail = thumbnail
-                )
-            )
+        override fun toTrackMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
         }
+
     }
 
     @Provides
@@ -60,47 +51,55 @@ class NavigationModule {
         }
 
         override fun toAlbumScreen(albumId: String) {
-            navController.navigate(R.id.to_album, AlbumFragment.createBundle(albumId))
+            navController.navigate(R.id.to_album, idToBundle(albumId))
         }
 
         override fun toAlbumMenu(
-            albumId: String,
-            title: String,
-            subtitle: String,
-            thumbnail: String
+            item: ThumbnailItem
         ) {
-            navController.navigate(R.id.to_album, AlbumFragment.createBundle(albumId))
+            navController.navigate(R.id.to_album, idToBundle(item.id))
         }
 
     }
 
     @Provides
-    fun provideArtistNavigator() = object : ArtistFragment.Navigator{
-        override val toArtistId: Int = R.id.to_artist
-    }
+    fun provideArtistNavigator(
+        navController: NavController
+    ) = object : ArtistFragment.Navigator{
+        override fun toArtist(artistId: String) {
+            navController.navigate(R.id.to_artist, idToBundle(artistId))
+        }
 
-    @Provides
-    fun provideHomeNavigator() = object : HomeFragment.Navigator {
-        override val menuTrackId: Int = R.id.to_menu_track
+        override fun toAlbum(albumId: String) {
+            navController.navigate(R.id.to_album, idToBundle(albumId))
+        }
 
-        override fun bundleMenuTrack(
-            id: String,
-            title: String,
-            subtitle: String,
-            thumbnail: String
-        ): Bundle {
-            return TrackMenuFragment.createBundle(id, title, subtitle, thumbnail)
+        override fun toAlbumMenu(info: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track)
         }
     }
 
     @Provides
-    fun provideTrackMenuNavigator() = object : TrackMenuFragment.Navigator{
-        override fun toAlbum(nanController: NavController, id: String) {
-
+    fun provideHomeNavigator(
+//        navController: NavController
+    ) = object : HomeFragment.Navigator {
+        override fun toTrackMenu(item: ThumbnailItem) {
+//            navController.navigate(R.id.to_menu_track, item.toBundle())
         }
 
-        override fun toArtist(nanController: NavController, id: String) {
+    }
 
+    @Provides
+    fun provideTrackMenuNavigator(
+        navController: NavController
+    ) = object : TrackMenuFragment.Navigator{
+        override fun toAlbum(albumId: String) {
+            navController.navigate(R.id.to_album, idToBundle(albumId))
         }
+
+        override fun toArtist(artistId: String) {
+            navController.navigate(R.id.to_artist, idToBundle(artistId))
+        }
+
     }
 }
