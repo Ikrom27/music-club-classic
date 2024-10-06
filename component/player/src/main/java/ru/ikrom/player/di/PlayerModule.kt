@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.database.DatabaseProvider
+import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
@@ -90,4 +91,10 @@ class PlayerModule {
         context.filesDir.resolve("download"),
         NoOpCacheEvictor(),
         databaseProvider)
+
+    @Singleton
+    @Provides
+    @OptIn(UnstableApi::class)
+    fun provideDatabaseProvider(@ApplicationContext context: Context): DatabaseProvider =
+        StandaloneDatabaseProvider(context)
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,7 +22,7 @@ import ru.ikrom.ui.placeholder.PlaceHolderView
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-    private val viewModel: SearchViewModel by activityViewModels()
+    private val viewModel: SearchViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar

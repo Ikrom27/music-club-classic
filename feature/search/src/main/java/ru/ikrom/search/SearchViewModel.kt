@@ -19,7 +19,6 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val playerHandler: PlayerHandlerImpl,
     private val repository: IMediaRepository,
-    private val navigate: Navigate
 ): ViewModel() {
 
     private val _uiState = MutableLiveData<SearchUiState>()
@@ -66,16 +65,11 @@ class SearchViewModel @Inject constructor(
     }
 
     fun toTrackMenu(id: String){
-        navigate.toBottomMenu(getTrackById(id))
+//        navigate.toBottomMenu(getTrackById(id))
     }
 
     fun navigateUp(){
-        navigate.navigateUp()
-    }
-
-    interface Navigate{
-        fun toBottomMenu(track: TrackModel)
-        fun navigateUp()
+//        navigate.navigateUp()
     }
 
     companion object {
