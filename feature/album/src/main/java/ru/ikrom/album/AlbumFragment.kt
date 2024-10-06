@@ -18,68 +18,69 @@ import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlbumFragment : Fragment(R.layout.fragment_album) {
+    @Inject
+    lateinit var navigator: Navigator
+
     private val viewModel: AlbumViewModel by viewModels()
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var albumBar: TopBar
+    private val args: Args by lazy { Args(requireArguments()) }
     private lateinit var navController: NavController
 
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(ThumbnailHeaderDelegate(
-            onPlayClick = {
-                viewModel.playAllTracks()
-            },
-            onShuffleClick = {
-                viewModel.playShuffled()
+            onPlayClick = { viewModel.playAllTracks() },
+            onShuffleClick = { viewModel.playShuffled() },
+            onArtistClick = {
+                viewModel.getArtistId()?.let {
+                    navigator.toArtist(it)
+                }
             }
         ))
-        .add(
-            ThumbnailSmallDelegate(
-            onClickItem = {
-                viewModel.playTrackById(it.id)
-            },
-            onLongClickItem = {})
+        .add(ThumbnailSmallDelegate(
+            onClickItem = { viewModel.playTrackById(it.id) },
+            onLongClickItem = {
+                navigator.toTrackMenu(it.id, it.title, it.subtitle, it.thumbnail)
+            })
         )
         .build()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = requireParentFragment().findNavController()
-        arguments?.getString("id")?.let { viewModel.updateAlbum(it) }
-        bindViews()
-        setupRecyclerView()
+        viewModel.updateAlbum(args.id)
+        setupRecyclerView(view)
+        setupButtons(view)
         setupContent()
-        setupButtons()
     }
 
-    private fun setupButtons(){
+    private fun setupButtons(view: View){
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             navController.navigateUp()
         }
-        albumBar.setOnBackClick {
-            navController.navigateUp()
+        view.findViewById<TopBar>(R.id.album_bar).apply {
+            setOnBackClick {
+                navController.navigateUp()
+            }
+            setOnSearchClick { }
+            setOnMoreClick { }
         }
-        albumBar.setOnSearchClick { }
-        albumBar.setOnMoreClick { }
     }
 
-    private fun bindViews(){
-        recyclerView = requireView().findViewById(R.id.rv_content)
-        albumBar = requireView().findViewById(R.id.album_bar)
-    }
-
-    private fun setupRecyclerView(){
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = compositeAdapter
-        if (recyclerView.itemDecorationCount == 0){
-            recyclerView.addItemDecoration(
-                MarginItemDecoration(
-                    endSpace = DecorationDimens.getBottomMargin(resources)
+    private fun setupRecyclerView(view: View){
+        view.findViewById<RecyclerView>(R.id.rv_content).apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = compositeAdapter
+            if(itemDecorationCount == 0){
+                addItemDecoration(
+                    MarginItemDecoration(
+                        endSpace = DecorationDimens.getBottomMargin(resources)
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -103,5 +104,18 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
 
     private fun showContent(header: ThumbnailHeaderItem, tracks: List<ThumbnailSmallItem>){
         compositeAdapter.setItems(listOf(header) + tracks)
+    }
+
+    class Args(bundle: Bundle){
+        val id = bundle.getString(ID) ?: ""
+    }
+
+    interface Navigator{
+        fun toArtist(artistId: String)
+        fun toTrackMenu(trackId: String, title: String, subtitle: String, thumbnail: String)
+    }
+
+    companion object {
+        const val ID = "id"
     }
 }

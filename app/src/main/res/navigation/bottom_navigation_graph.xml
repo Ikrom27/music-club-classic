@@ -57,10 +57,10 @@
         android:name="ru.ikrom.artist.ArtistFragment"
         android:label="fragment_artist"
         tools:layout="@layout/fragment_artist">
-        <action
-            android:id="@+id/artist_to_artist"
-            app:destination="@id/artist_screen" />
     </fragment>
+    <action
+        android:id="@+id/to_artist"
+        app:destination="@id/artist_screen" />
 
     <fragment
         android:id="@+id/search_screen"

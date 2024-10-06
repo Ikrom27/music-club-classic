@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import ru.ikrom.player.IPlayerHandler
 import ru.ikrom.ui.models.toThumbnailHeaderItem
 import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
@@ -24,12 +25,14 @@ class AlbumViewModel @Inject constructor(
     val uiState: LiveData<AlbumUiState> = _uiState
 
     private val albumsModelTracks = MutableLiveData<List<TrackModel>>()
+    private var albumModel: AlbumModel? = null
 
     fun updateAlbum(id: String){
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 repository.getAlbumPage(id)
             }.onSuccess { page ->
+                albumModel = page.albumInfo
                 _uiState.postValue(AlbumUiState.Success(
                     header = page.albumInfo.toThumbnailHeaderItem(),
                     tracks = page.tracks.map { it.toThumbnailSmallItem() }
@@ -58,6 +61,10 @@ class AlbumViewModel @Inject constructor(
 
     private fun getTrackById(id: String): TrackModel {
         return albumsModelTracks.value!!.first { it.videoId == id }
+    }
+
+    fun getArtistId(): String? {
+        return albumModel?.artists?.first()?.id
     }
 
     companion object {

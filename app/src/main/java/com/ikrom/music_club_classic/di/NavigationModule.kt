@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import ru.ikrom.album.AlbumFragment
 import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
@@ -23,6 +24,31 @@ class NavigationModule {
     @Provides
     fun provideNavController(activity: Activity): NavController {
         return activity.findNavController(R.id.nav_host_fragment)
+    }
+
+    @Provides
+    fun provideAlbumNavigator(
+        navController: NavController
+    ) = object : AlbumFragment.Navigator {
+        override fun toArtist(artistId: String) {
+            navController.navigate(R.id.to_artist, bundleOf("id" to artistId))
+        }
+
+        override fun toTrackMenu(
+            trackId: String,
+            title: String,
+            subtitle: String,
+            thumbnail: String) {
+            navController.navigate(
+                R.id.to_menu_track,
+                TrackMenuFragment.createBundle(
+                    id = trackId,
+                    title = title,
+                    subtitle = subtitle,
+                    thumbnail = thumbnail
+                )
+            )
+        }
     }
 
     @Provides
@@ -44,7 +70,7 @@ class NavigationModule {
 
     @Provides
     fun provideArtistNavigator() = object : ArtistFragment.Navigator{
-        override val toArtistId: Int = R.id.artist_to_artist
+        override val toArtistId: Int = R.id.to_artist
     }
 
     @Provides

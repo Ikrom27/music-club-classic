@@ -30,7 +30,8 @@ data class ThumbnailHeaderItem(
 
 class ThumbnailHeaderDelegate(
     val onPlayClick: () -> Unit,
-    val onShuffleClick: () -> Unit
+    val onShuffleClick: () -> Unit,
+    val onArtistClick: () -> Unit
 ): DelegateAdapter<ThumbnailHeaderItem, ThumbnailHeaderDelegate.ThumbnailViewHolder>(
     ThumbnailHeaderItem::class.java
     ) {
@@ -83,6 +84,9 @@ class ThumbnailHeaderDelegate(
             }
             btnPlayShuffled.setOnClickListener{
                 onShuffleClick()
+            }
+            author.setOnClickListener {
+                onArtistClick()
             }
         }
 
