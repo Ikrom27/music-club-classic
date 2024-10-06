@@ -21,13 +21,8 @@ class ArtistViewModel @Inject constructor(
 ): ViewModel() {
     val artistItemLiveData = MutableLiveData<ArtistPageItem>()
     val artistModelLiveData = MutableLiveData<ArtistPageModel>()
-    var artistId = ""
-        set(value) {
-            field = value
-            updateArtistData(value)
-        }
 
-    fun updateArtistData(artistId: String){
+    fun updateArtist(artistId: String){
         viewModelScope.launch {
             val artistPage = repository.getArtistData(artistId)
             artistModelLiveData.postValue(artistPage)

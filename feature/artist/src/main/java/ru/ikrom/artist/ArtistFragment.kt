@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
@@ -26,6 +27,7 @@ import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.youtube_data.model.ArtistModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ArtistFragment : Fragment() {
     @Inject
     lateinit var navigator: Navigator
@@ -48,7 +50,7 @@ class ArtistFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         navController = requireParentFragment().findNavController()
-        viewModel.artistId = bundle!!.getString("id")!!
+        viewModel.updateArtist(bundle!!.getString("id")!!)
     }
 
     override fun onCreateView(
