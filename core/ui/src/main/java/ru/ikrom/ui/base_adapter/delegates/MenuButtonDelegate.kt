@@ -9,7 +9,8 @@ import ru.ikrom.ui.base_adapter.DelegateAdapter
 
 data class MenuButtonItem(
     val title: String,
-    val icon: Int
+    val icon: Int,
+    val onClick: () -> Unit
 )
 
 class MenuButtonDelegate(

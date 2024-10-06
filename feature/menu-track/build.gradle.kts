@@ -35,10 +35,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":data:youtube"))
     implementation(project(":core:theme"))
     implementation(project(":core:ui"))
     implementation(libs.navigation.fragment)
     implementation(libs.dagger.hilt)
+    implementation(project(":component:player"))
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

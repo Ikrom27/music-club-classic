@@ -78,7 +78,7 @@
         tools:layout="@layout/fragment_album" />
     <dialog
         android:id="@+id/track_menu"
-        android:name="ru.ikrom.menu_track.TracksMenu"
+        android:name="ru.ikrom.menu_track.TrackMenuFragment"
         android:label="track_menu">
     </dialog>
 </navigation>

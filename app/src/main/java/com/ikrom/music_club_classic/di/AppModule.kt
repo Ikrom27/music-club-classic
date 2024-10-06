@@ -7,6 +7,7 @@ import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
+import androidx.navigation.NavController
 import com.ikrom.music_club_classic.R
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
-import ru.ikrom.menu_track.TracksMenu
+import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.search.SearchViewModel
 import ru.ikrom.youtube_data.di.YoutubeModule
 import ru.ikrom.youtube_data.model.TrackModel
@@ -76,7 +77,20 @@ class AppModule {
             subtitle: String,
             thumbnail: String
         ): Bundle {
-            return TracksMenu.createBundle(id, title, subtitle, thumbnail)
+            return TrackMenuFragment.createBundle(id, title, subtitle, thumbnail)
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrackMenuNavigator() = object : TrackMenuFragment.Navigator{
+        override fun toAlbum(nanController: NavController, id: String) {
+
+        }
+
+        override fun toArtist(nanController: NavController, id: String) {
+
+        }
+
     }
 }
