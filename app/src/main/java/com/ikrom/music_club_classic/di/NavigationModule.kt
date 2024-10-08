@@ -2,9 +2,11 @@ package com.ikrom.music_club_classic.di
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.ikrom.music_club_classic.R
 import dagger.Module
 import dagger.Provides
@@ -25,7 +27,8 @@ import ru.ikrom.ui.utils.idToBundle
 class NavigationModule {
     @Provides
     fun provideNavController(activity: Activity): NavController {
-        return activity.findNavController(R.id.nav_host_fragment)
+        val navHostFragment = (activity as AppCompatActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+        return navHostFragment?.navController ?: throw IllegalStateException("NavHostFragment not found")
     }
 
     @Provides
@@ -81,10 +84,10 @@ class NavigationModule {
 
     @Provides
     fun provideHomeNavigator(
-//        navController: NavController
+        navController: NavController
     ) = object : HomeFragment.Navigator {
         override fun toTrackMenu(item: ThumbnailItem) {
-//            navController.navigate(R.id.to_menu_track, item.toBundle())
+            navController.navigate(R.id.to_menu_track, item.toBundle())
         }
 
     }
