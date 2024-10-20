@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.viewmodel
+package ru.ikrom.player_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.extensions
+package ru.ikrom.player_screen
 
 fun Long.toTimeString(): String {
     val hours = this / 1000 / 3600

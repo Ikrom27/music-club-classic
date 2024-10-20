@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":feature:artist"))
     implementation(project(":feature:home"))
     implementation(project(":feature:menu-track"))
+    implementation(project(":feature:player-screen"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)

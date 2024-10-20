@@ -1,4 +1,4 @@
-package com.ikrom.music_club_classic.viewmodel
+package com.ikrom.music_club_classic
 
 import androidx.lifecycle.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior

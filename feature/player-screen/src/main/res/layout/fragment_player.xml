@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/content_horizontal_margin"
-    tools:context=".ui.screens.PlayerFragment"
     android:clipToPadding="false">
 
     <View
@@ -47,7 +46,7 @@
         android:layout_marginTop="30dp"
         android:textSize="26sp"
         android:layout_marginEnd="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/ic_more_button"
+        app:layout_constraintEnd_toStartOf="@+id/btn_more"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView_thumbnail" />
 
@@ -58,12 +57,12 @@
         android:textSize="20sp"
         android:layout_marginEnd="12dp"
         android:textColor="@color/onGradientText"
-        app:layout_constraintEnd_toStartOf="@+id/ic_more_button"
+        app:layout_constraintEnd_toStartOf="@+id/btn_more"
         app:layout_constraintStart_toStartOf="@+id/tv_track_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_track_title" />
 
     <SeekBar
-        android:id="@+id/slider_player_progress"
+        android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -74,7 +73,7 @@
         android:paddingEnd="0dp"
         android:splitTrack="false"
         android:thumbOffset="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/ib_play_pause"
+        app:layout_constraintBottom_toTopOf="@+id/btn_play_pause"
         app:layout_constraintTop_toBottomOf="@+id/tv_track_author" />
 
     <TextView
@@ -84,7 +83,7 @@
         android:textSize="14sp"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider_player_progress" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <TextView
         android:id="@+id/tv_total_time"
@@ -93,10 +92,10 @@
         android:layout_marginTop="5dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider_player_progress" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <ImageButton
-        android:id="@+id/ic_more_button"
+        android:id="@+id/btn_more"
         android:layout_width="@dimen/icon_medium_plus"
         android:layout_height="@dimen/icon_medium_plus"
         android:background="@drawable/bg_cyrcle"
@@ -108,7 +107,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_track_title" />
 
     <ImageButton
-        android:id="@+id/ib_play_pause"
+        android:id="@+id/btn_play_pause"
         android:layout_width="@dimen/icon_extra_large"
         android:layout_height="@dimen/icon_extra_large"
         android:padding="20dp"
@@ -121,46 +120,46 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_track_author" />
 
     <ImageButton
-        android:id="@+id/ib_skip_next"
+        android:id="@+id/btn_skip_next"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_skip_next"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
-        app:layout_constraintEnd_toStartOf="@+id/ib_to_repeat"
-        app:layout_constraintStart_toEndOf="@+id/ib_play_pause"
-        app:layout_constraintTop_toTopOf="@+id/ib_play_pause" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_play_pause"
+        app:layout_constraintEnd_toStartOf="@+id/btn_to_repeat"
+        app:layout_constraintStart_toEndOf="@+id/btn_play_pause"
+        app:layout_constraintTop_toTopOf="@+id/btn_play_pause" />
 
     <ImageButton
-        android:id="@+id/ib_skip_previous"
+        android:id="@+id/btn_skip_previous"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_skip_next"
         android:scaleX="-1"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
-        app:layout_constraintEnd_toStartOf="@+id/ib_play_pause"
-        app:layout_constraintStart_toEndOf="@+id/ib_to_favorite"
-        app:layout_constraintTop_toTopOf="@+id/ib_play_pause" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_play_pause"
+        app:layout_constraintEnd_toStartOf="@+id/btn_play_pause"
+        app:layout_constraintStart_toEndOf="@+id/btn_to_favorite"
+        app:layout_constraintTop_toTopOf="@+id/btn_play_pause" />
 
     <ImageButton
-        android:id="@+id/ib_to_favorite"
+        android:id="@+id/btn_to_favorite"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_favorite"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_play_pause"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ib_play_pause" />
+        app:layout_constraintTop_toTopOf="@+id/btn_play_pause" />
 
     <ImageButton
-        android:id="@+id/ib_to_repeat"
+        android:id="@+id/btn_to_repeat"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_repeat_off"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_play_pause"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ib_play_pause" />
+        app:layout_constraintTop_toTopOf="@+id/btn_play_pause" />
 
     <ImageButton
-        android:id="@+id/ib_cast"
+        android:id="@+id/btn_cast"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_connect"
@@ -168,26 +167,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ib_play_pause" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_play_pause" />
 
     <ImageButton
-        android:id="@+id/ib_queue"
+        android:id="@+id/btn_queue"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_list"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_cast"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cast"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ib_cast"
-        app:layout_constraintTop_toTopOf="@+id/ib_cast" />
+        app:layout_constraintStart_toEndOf="@+id/btn_cast"
+        app:layout_constraintTop_toTopOf="@+id/btn_cast" />
 
     <ImageButton
-        android:id="@+id/ib_captions"
+        android:id="@+id/btn_captions"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_cc"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_cast"
-        app:layout_constraintEnd_toStartOf="@+id/ib_cast"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cast"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cast"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ib_cast" />
+        app:layout_constraintTop_toTopOf="@+id/btn_cast" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
