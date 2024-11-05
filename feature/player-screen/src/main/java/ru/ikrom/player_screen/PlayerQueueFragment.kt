@@ -19,7 +19,7 @@ import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
 
 @AndroidEntryPoint
-class PlayerQueueFragment : BottomSheetDialogFragment() {
+class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_queue) {
 
     val viewModel: PlayerQueueViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
@@ -32,16 +32,12 @@ class PlayerQueueFragment : BottomSheetDialogFragment() {
         .add(TitleDelegate())
         .build()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_player_queue, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         setupRecyclerView()
         setupContent()
         setupData()
-        return view
     }
 
     private fun setupViews(view: View) {
@@ -85,20 +81,6 @@ class PlayerQueueFragment : BottomSheetDialogFragment() {
                     }
                 )
             }
-            compositeAdapter.addItems(
-                listOf(
-                    TitleItem("Recommended")
-                )
-            )
-            compositeAdapter.addItems(
-                viewModel.recommendedQueue.map {
-                    PlayerQueueItem(
-                        it.mediaMetadata.title.toString(),
-                        it.mediaMetadata.artist.toString(),
-                        it.mediaMetadata.artworkUri.toString()
-                    )
-                }
-            )
         }
     }
 }

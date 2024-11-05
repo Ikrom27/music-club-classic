@@ -72,11 +72,7 @@ class PlayerHandlerImpl @Inject constructor(
 
     override fun addToQueue(items: List<TrackModel>) {
         val tracks = items.map { it.toMediaItem() }
-        if (player.mediaItemCount - player.currentMediaItemIndex - 1 == 0 || player.mediaItemCount == 0){
-            player.addMediaItems(tracks)
-        } else {
-            player.addMediaItems(player.mediaItemCount-1, tracks)
-        }
+        player.addMediaItems(maxOf(0, player.mediaItemCount), tracks)
         player.prepare()
     }
 

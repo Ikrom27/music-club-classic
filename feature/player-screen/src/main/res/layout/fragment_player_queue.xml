@@ -74,6 +74,7 @@
 
     <ImageButton
         android:id="@+id/btn_player"
+        style="@style/ImageButtonBase"
         android:layout_width="@dimen/icon_medium"
         android:layout_height="@dimen/icon_medium"
         android:src="@drawable/ic_shuffle"
