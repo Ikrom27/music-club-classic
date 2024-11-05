@@ -12,11 +12,11 @@ object YoutubePlayer {
     fun getUri(mediaId: String): Uri {
         return getFormat(mediaId)!!.url!!.toUri()
     }
-    private fun getFormat(mediaId: String): PlayerResponse. StreamingData. Format? {
+    private fun getFormat(mediaId: String): PlayerResponse.StreamingData.Format? {
         return getPlayerResponse(mediaId).getOrNull()?.streamingData?.adaptiveFormats
             ?.filter { it.isAudio }
             ?.maxByOrNull {
-                it.bitrate * 1 + (if (it.mimeType.startsWith("audio/webm")) 10240 else 0) // prefer opus stream
+                it.bitrate * 1 + (if (it.mimeType.startsWith("audio/webm")) 10240 else 0)
             }
     }
     private fun getPlayerResponse(mediaId: String) = runBlocking(Dispatchers.IO) {
