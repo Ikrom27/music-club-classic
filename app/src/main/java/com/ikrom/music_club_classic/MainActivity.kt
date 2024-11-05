@@ -14,6 +14,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
+import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.mini_player.MiniPlayer
 import ru.ikrom.player.MusicPlayerService
@@ -45,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupPlayerService()
-
         bindViews()
         setupSlidingView()
         setupMarginFromStatusBar(navHostFragment)
@@ -108,12 +109,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setSlidingViewHideAnimation() {
         viewModel.currentMediaItem.observe(this) { mediaItem ->
-            if (mediaItem == null) {
-                slidingView.animate().translationY(windowHeight).withEndAction {
-                    slidingView.visibility = View.GONE
-                }
-            } else {
-                slidingView.visibility = View.VISIBLE
+            if (mediaItem == null){
+                slidingView.animate().translationY(windowHeight)
+            }
+            else {
                 slidingView.animate().translationY(0F)
             }
         }
@@ -157,8 +156,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    miniPlayer.alpha = 1 - slideOffset
-                    playerContainer.alpha = slideOffset
+                    miniPlayerAlphaProgress(miniPlayer, slideOffset)
+                    playerContainerAlphaProgress(playerContainer, slideOffset)
                     navigationView.translationY = slideOffset * navBarHeight
                 }
             })
