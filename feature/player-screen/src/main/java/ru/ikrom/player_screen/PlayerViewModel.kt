@@ -2,6 +2,7 @@ package ru.ikrom.player_screen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,10 +20,7 @@ class PlayerViewModel @Inject constructor(
     val repeatModeLiveData = playerHandler.repeatModeLiveData
     val currentMediaItemLiveData = playerHandler.currentMediaItemLiveData
     val totalDurationLiveData = playerHandler.totalDurationLiveData
-    var currentPositionLiveData = 0L
-        get() {
-            return playerHandler.getCurrentPosition()
-        }
+    var currentPositionLiveData = playerHandler.currentPositionFlow.asLiveData()
 
     fun seekTo(position: Long){
         playerHandler.seekTo(position)

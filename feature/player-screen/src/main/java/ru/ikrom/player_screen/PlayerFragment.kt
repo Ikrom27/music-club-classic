@@ -5,8 +5,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -30,8 +28,6 @@ import ru.ikrom.utils.setupMarginFromStatusBar
 class PlayerFragment : Fragment(R.layout.fragment_player) {
     private val playerViewModel: PlayerViewModel by viewModels()
     private lateinit var binding: FragmentPlayerBinding
-
-    private val mHandler = Handler(Looper.getMainLooper())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,14 +81,10 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
     }
 
     private fun updateSeekBarPosition(){
-        requireActivity().runOnUiThread(object : Runnable {
-            override fun run() {
-                val position = playerViewModel.currentPositionLiveData
-                binding.progressBar.progress = position.toInt()
-                binding.tvProgressTime.text = position.toTimeString()
-                mHandler.postDelayed(this, 100)
-            }
-        })
+        playerViewModel.currentPositionLiveData.observe(viewLifecycleOwner){ position->
+            binding.progressBar.progress = position.toInt()
+            binding.tvProgressTime.text = position.toTimeString()
+        }
     }
 
     private fun setupButtonsListener() {

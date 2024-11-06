@@ -1,18 +1,34 @@
 package ru.ikrom.player
 
+import android.app.Activity
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 open class PlayerConnection (
     player: ExoPlayer,
 ): Player.Listener {
-    open val currentMediaItemLiveData = MutableLiveData(player.currentMediaItem)
-    open val isPlayingLiveData = MutableLiveData(player.playWhenReady)
-    open val totalDurationLiveData =  MutableLiveData(0L)
-    open val repeatModeLiveData = MutableLiveData(player.repeatMode)
-    open val shuffleModeLiveData = MutableLiveData(player.shuffleModeEnabled)
+    val currentMediaItemLiveData = MutableLiveData(player.currentMediaItem)
+    val isPlayingLiveData = MutableLiveData(player.playWhenReady)
+    val totalDurationLiveData =  MutableLiveData(0L)
+    val repeatModeLiveData = MutableLiveData(player.repeatMode)
+    val shuffleModeLiveData = MutableLiveData(player.shuffleModeEnabled)
+    val currentPositionFlow: Flow<Long> = flow {
+        while (true) {
+            emit(player.currentPosition)
+            delay(100)
+        }
+    }.flowOn(Dispatchers.Main)
+
 
     override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
         currentMediaItemLiveData.value = mediaItem

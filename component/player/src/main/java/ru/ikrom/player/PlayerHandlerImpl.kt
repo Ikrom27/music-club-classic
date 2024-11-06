@@ -14,7 +14,7 @@ import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 class PlayerHandlerImpl @Inject constructor(
-    val player: ExoPlayer,
+    private val player: ExoPlayer,
 ): PlayerConnection(player), IPlayerHandler {
     val recommendedQueue: MutableList<MediaItem> = mutableListOf()
     val currentQueue = MutableLiveData<List<MediaItem>>()
@@ -22,10 +22,6 @@ class PlayerHandlerImpl @Inject constructor(
     init {
         player.addListener(this)
         currentQueue.value = player.getMediaItemQueue()
-    }
-
-    override fun getCurrentPosition(): Long{
-        return player.currentPosition
     }
 
     override fun seekTo(position: Long){

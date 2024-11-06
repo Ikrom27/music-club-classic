@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var slidingView: FrameLayout
     private lateinit var playerContainer: FrameLayout
 
-    private val mHandler = Handler(Looper.getMainLooper())
     private val navBarHeight by lazy { AppDimens.bottomNavBarHeight.toDp(this) }
     private val miniPlayerHeight by lazy { AppDimens.miniPlayerHeight.toDp(this) }
     private val windowHeight by lazy { resources.displayMetrics.heightPixels.toFloat() }
@@ -91,13 +90,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSeekBar(){
-        runOnUiThread(object : Runnable {
-            override fun run() {
-                val value = viewModel.getPlayingProgress().toInt()
-                miniPlayer.progress = value
-                mHandler.postDelayed(this, 100)
-            }
-        })
+        viewModel.progressLiveData.observe(this){
+            miniPlayer.progress = it.toInt()
+        }
     }
 
     private fun setSeekbarMaxValue(){
