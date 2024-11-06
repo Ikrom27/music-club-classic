@@ -8,13 +8,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    val playerHandler: PlayerHandlerImpl
+    private val playerHandler: PlayerHandlerImpl
 ): ViewModel() {
+    val totalDurationLiveData = playerHandler.totalDurationLiveData
+    var bottomSheetState = BottomSheetBehavior.STATE_COLLAPSED
+    val currentMediaItem = playerHandler.currentMediaItemLiveData
+    val isPlaying = playerHandler.isPlayingLiveData
+
     fun togglePlayPause() {
         playerHandler.togglePlayPause()
     }
 
-    var bottomSheetState = BottomSheetBehavior.STATE_COLLAPSED
-    val currentMediaItem = playerHandler.currentMediaItemLiveData
-    val isPlaying = playerHandler.isPlayingLiveData
+    fun getPlayingProgress() = playerHandler.getCurrentPosition()
 }

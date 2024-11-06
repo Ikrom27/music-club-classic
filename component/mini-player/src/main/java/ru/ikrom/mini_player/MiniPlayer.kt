@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import ru.ikrom.theme.R.styleable
@@ -21,6 +22,7 @@ class MiniPlayer : FrameLayout {
     private lateinit var tvTitle: TextView
     private lateinit var tvSubtitle: TextView
     private lateinit var btnPlayPause: ImageButton
+    private lateinit var seekBar: SeekBar
     var title: String = ""
         set(value) {
             field = value
@@ -62,6 +64,17 @@ class MiniPlayer : FrameLayout {
             container.background = ColorDrawable(value)
         }
 
+    var progress: Int = 0
+        set(value) {
+            field = value
+            seekBar.progress = value
+        }
+    var progressMax: Int = 0
+        set(value){
+            field = value
+            seekBar.max = value
+        }
+
     constructor(context: Context) : super(context) {
         init(context)
     }
@@ -83,6 +96,7 @@ class MiniPlayer : FrameLayout {
         tvTitle = findViewById(R.id.tv_title)
         tvSubtitle = findViewById(R.id.tv_subtitle)
         btnPlayPause = findViewById(R.id.btn_player)
+        seekBar = findViewById(R.id.seekBar)
     }
 
     @SuppressLint("CustomViewStyleable")

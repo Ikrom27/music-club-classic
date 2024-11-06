@@ -2,6 +2,8 @@ package com.ikrom.music_club_classic
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
@@ -17,9 +19,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
 import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.ikrom.mini_player.MiniPlayer
 import ru.ikrom.player.MusicPlayerService
 import ru.ikrom.player_screen.PlayerFragment
+import ru.ikrom.player_screen.toTimeString
 import ru.ikrom.theme.AppDimens
 import ru.ikrom.theme.AppDimens.toDp
 import ru.ikrom.theme.AppIconsId
@@ -38,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var slidingView: FrameLayout
     private lateinit var playerContainer: FrameLayout
 
+    private val mHandler = Handler(Looper.getMainLooper())
     private val navBarHeight by lazy { AppDimens.bottomNavBarHeight.toDp(this) }
     private val miniPlayerHeight by lazy { AppDimens.miniPlayerHeight.toDp(this) }
     private val windowHeight by lazy { resources.displayMetrics.heightPixels.toFloat() }
@@ -51,6 +59,8 @@ class MainActivity : AppCompatActivity() {
         setupSlidingView()
         setupMarginFromStatusBar(navHostFragment)
         restoreBottomSheetState()
+        setSeekbarMaxValue()
+        setupSeekBar()
     }
 
     override fun onStart() {
@@ -78,6 +88,22 @@ class MainActivity : AppCompatActivity() {
     private fun setupPlayerService(){
         val intent = Intent(this, MusicPlayerService::class.java)
         startForegroundService(intent)
+    }
+
+    private fun setupSeekBar(){
+        runOnUiThread(object : Runnable {
+            override fun run() {
+                val value = viewModel.getPlayingProgress().toInt()
+                miniPlayer.progress = value
+                mHandler.postDelayed(this, 100)
+            }
+        })
+    }
+
+    private fun setSeekbarMaxValue(){
+        viewModel.totalDurationLiveData.observe(this) {
+            miniPlayer.progressMax = it.toInt()
+        }
     }
 
     private fun disableInputAdjustment(){
