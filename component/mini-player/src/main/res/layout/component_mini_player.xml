@@ -59,6 +59,15 @@
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
+        android:clickable="false"
+        android:paddingHorizontal="0dp"
+        android:progressBackgroundTint="@color/transparent"
+        android:progressTint="?attr/colorPrimary"
+        android:saveEnabled="false"
+        android:thumb="@color/transparent"
+        android:thumbOffset="0dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
