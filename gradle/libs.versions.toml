@@ -28,7 +28,7 @@ kotlin = "1.9.10"
 serialization-json = "1.6.3"
 swiperefreshlayout-version = "1.1.0"
 navigation-runtime-ktx = "2.8.2"
-room-compiler = "2.6.1"
+room = "2.6.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -38,8 +38,9 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 core-ktx = {group = "androidx.core", name="core-ktx", version.ref="ktx"}
-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 miniequalizer = { group = "com.github.claucookie.miniequalizer", name = "library", version.ref = "miniequalizer" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide-compiler" }
@@ -55,6 +56,7 @@ dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref 
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 palette = { group = "androidx.palette", name = "palette-ktx", version.ref = "palette" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 percentlayout = { group = "androidx.percentlayout", name = "percentlayout", version.ref = "percentlayout" }
 livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "livedata" }
@@ -67,16 +69,12 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 brotli = { group = "org.brotli", name = "dec", version.ref = "brotli" }
-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor" }
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-json" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout-version" }
-androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation-runtime-ktx" }
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-compiler" }
 
 [bundles]
 glide = ["glide", "glide-transformations", "glide-compiler"]

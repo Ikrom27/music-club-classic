@@ -50,12 +50,8 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
                 Player.REPEAT_MODE_ALL -> binding.btnToRepeat.setImageResource(AppIconsId.repeatAll)
             }
         }
-        playerViewModel.currentMediaItemLiveData.observe(viewLifecycleOwner){mediaItem ->
-            if (mediaItem != null) {
-                playerViewModel.isFavorite(mediaItem.mediaId).observe(viewLifecycleOwner) {
-                    binding.btnToFavorite.setImageResource(if (it) AppIconsId.favorite else AppIconsId.favoriteBordered)
-                }
-            }
+        playerViewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {isFavorite ->
+            binding.btnToFavorite.setImageResource(if (isFavorite) AppIconsId.favorite else AppIconsId.favoriteBordered)
         }
     }
 
@@ -101,8 +97,7 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
             playerViewModel.toggleRepeat()
         }
         binding.btnToFavorite.setOnClickListener {
-            // TODO: Not yet implemented
-            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
+            playerViewModel.handleToFavorite()
         }
         binding.btnCast.setOnClickListener {
             // TODO: Not yet implemented
@@ -139,6 +134,7 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
                 binding.tvTrackTitle.text = currentItem.mediaMetadata.title
                 binding.tvTrackAuthor.text = currentItem.mediaMetadata.artist
             }
+            playerViewModel.updateIsFavoriteState()
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.ikrom.youtube_data
 
+import androidx.lifecycle.LiveData
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
@@ -14,4 +15,6 @@ interface IMediaRepository {
     suspend fun getPlaylistTracks(playlistId: String): List<TrackModel>
     suspend fun isFavorite(id: String): Boolean
     suspend fun getAlbumPage(id: String): AlbumPageModel
+    fun getLikedTracks(): LiveData<List<TrackModel>>
+    suspend fun saveTrack(id: String)
 }

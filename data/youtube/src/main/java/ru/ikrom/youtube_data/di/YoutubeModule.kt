@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ru.ikrom.database.LocalDataSource
 import ru.ikrom.youtube_data.IMediaDataSource
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.MediaRepositoryImpl
@@ -22,7 +23,8 @@ class YoutubeModule {
     @Singleton
     fun provideMediaRepository(
         @YoutubeDataSourceScope youtubeMusicDataSource: IMediaDataSource,
-    ): IMediaRepository = MediaRepositoryImpl(youtubeMusicDataSource)
+        localDataSource: LocalDataSource,
+    ): IMediaRepository = MediaRepositoryImpl(youtubeMusicDataSource, localDataSource)
 
     @Provides
     @Singleton

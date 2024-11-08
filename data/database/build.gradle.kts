@@ -1,12 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
     alias(libs.plugins.hilt.android)
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "ru.ikrom.youtube_data"
+    namespace = "ru.ikrom.database"
     compileSdk = 34
 
     defaultConfig {
@@ -37,8 +37,9 @@ android {
 dependencies {
     implementation(libs.bundles.dagger)
     kapt(libs.bundles.dagger.compiler)
-    implementation(project(":innertube"))
-    implementation(project(":data:database"))
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.room.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
