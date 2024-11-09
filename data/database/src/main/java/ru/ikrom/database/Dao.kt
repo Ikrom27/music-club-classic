@@ -10,7 +10,7 @@ import androidx.room.Query
 @Dao
 interface TracksDao {
     @Query("select * from liked_tracks")
-    fun getAllTracks(): LiveData<List<TrackEntity>>
+    fun getAllTracks(): List<TrackEntity>
 
     @Query("SELECT COUNT(*) > 0 FROM liked_tracks WHERE id = :id")
     fun isLikedTrack(id: String): Boolean

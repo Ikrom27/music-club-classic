@@ -54,10 +54,7 @@ class MediaRepositoryImpl @Inject constructor(
         localSource.saveTrack(getTracksByQuery(id).first().toEntity())
     }
 
-    override fun getLikedTracks(): LiveData<List<TrackModel>> {
-        return localSource.getAllTracks().map { trackEntities ->
-            trackEntities.map { it.toModel() }
-        }
+    override suspend fun getLikedTracks(): List<TrackModel> {
+        return localSource.getAllTracks().map { it.toModel() }
     }
-
 }

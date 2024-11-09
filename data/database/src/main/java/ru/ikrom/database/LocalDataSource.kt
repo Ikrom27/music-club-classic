@@ -7,7 +7,7 @@ class LocalDataSource @Inject constructor(
     private val likedTracksDao: TracksDao
 ) : ILocalDataSource {
 
-    override fun getAllTracks(): LiveData<List<TrackEntity>> {
+    override suspend fun getAllTracks(): List<TrackEntity> {
         return likedTracksDao.getAllTracks()
     }
 

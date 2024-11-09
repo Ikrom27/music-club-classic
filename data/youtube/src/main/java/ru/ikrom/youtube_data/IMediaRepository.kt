@@ -15,6 +15,6 @@ interface IMediaRepository {
     suspend fun getPlaylistTracks(playlistId: String): List<TrackModel>
     suspend fun isFavorite(id: String): Boolean
     suspend fun getAlbumPage(id: String): AlbumPageModel
-    fun getLikedTracks(): LiveData<List<TrackModel>>
+    suspend fun getLikedTracks(): List<TrackModel>
     suspend fun saveTrack(id: String)
 }

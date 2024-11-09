@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,7 +35,11 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.bundles.dagger)
+    kapt(libs.bundles.dagger.compiler)
+    implementation(project(":data:youtube"))
+    implementation(project(":core:ui"))
+    implementation(libs.navigation.fragment)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
