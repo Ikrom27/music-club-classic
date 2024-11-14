@@ -1,7 +1,5 @@
 package ru.ikrom.database
 
-import androidx.lifecycle.LiveData
-
 interface ILocalDataSource {
     suspend fun getAllTracks(): List<TrackEntity>
     suspend fun isLikedTrack(id: String): Boolean

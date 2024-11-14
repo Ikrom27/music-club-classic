@@ -1,11 +1,11 @@
-package ru.ikrom.database
+package ru.ikrom.database.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import ru.ikrom.database.TrackEntity
 
 @Dao
 interface TracksDao {

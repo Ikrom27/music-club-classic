@@ -1,9 +1,9 @@
 package ru.ikrom.database
 
-import androidx.lifecycle.LiveData
+import ru.ikrom.database.db.TracksDao
 import javax.inject.Inject
 
-class LocalDataSource @Inject constructor(
+internal class LocalDataSource @Inject constructor(
     private val likedTracksDao: TracksDao
 ) : ILocalDataSource {
 
