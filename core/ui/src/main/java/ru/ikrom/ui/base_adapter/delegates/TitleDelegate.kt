@@ -4,11 +4,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.ikrom.ui.R
+import ru.ikrom.ui.base_adapter.AdapterItem
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
 data class TitleItem(
     val title: String,
-)
+): AdapterItem()
 
 
 class TitleDelegate: DelegateAdapter<TitleItem, TitleDelegate.TitleViewHolder>(

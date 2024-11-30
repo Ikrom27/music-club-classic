@@ -19,6 +19,7 @@ import ru.ikrom.player.MediaSourceFactory
 import ru.ikrom.player.MusicPlayerService
 import ru.ikrom.player.PlayerHandlerImpl
 import ru.ikrom.player.background.MusicNotificationManager
+import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -36,8 +37,9 @@ class PlayerModule {
     @Provides
     @Singleton
     fun providePlayerHandler(
-        player: ExoPlayer
-    ): IPlayerHandler = PlayerHandlerImpl(player)
+        player: ExoPlayer,
+        repository: IMediaRepository
+    ): IPlayerHandler = PlayerHandlerImpl(player, repository)
 
     @Provides
     @Singleton

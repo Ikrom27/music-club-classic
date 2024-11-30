@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.ui.base_adapter.AdapterItem
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.PlayerQueueDelegate
 import ru.ikrom.ui.base_adapter.delegates.PlayerQueueItem
@@ -21,7 +23,8 @@ import ru.ikrom.ui.base_adapter.delegates.TitleItem
 @AndroidEntryPoint
 class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_queue) {
 
-    val viewModel: PlayerQueueViewModel by viewModels()
+    private val viewModel: PlayerQueueViewModel by viewModels()
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var thumbnailImageView: ImageView
     private lateinit var titleTextView: TextView
@@ -65,22 +68,18 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
 
     private fun setupData(){
         viewModel.currentQueue.observe(viewLifecycleOwner) {mediaItems ->
-            compositeAdapter.setItems(emptyList())
-            if (mediaItems.size > 1){
-                compositeAdapter.addItems(listOf(
-                    TitleItem("Current Queue")
-                ))
-                compositeAdapter.addItems(
-                    mediaItems.map {
-                        PlayerQueueItem(
-                            it.mediaMetadata.title.toString(),
-                            it.mediaMetadata.artist.toString(),
-                            it.mediaMetadata.artworkUri.toString(),
-                            it.mediaId == viewModel.currentMediaItem?.mediaId
-                        )
-                    }
+            val data = arrayListOf<AdapterItem>(TitleItem("Current Queue"))
+            data.addAll(mediaItems.map {
+                PlayerQueueItem(
+                    it.mediaMetadata.title.toString(),
+                    it.mediaMetadata.artist.toString(),
+                    it.mediaMetadata.artworkUri.toString(),
+                    it.mediaId == viewModel.currentMediaItem?.mediaId
                 )
             }
+            )
+            data.add(TitleItem("Current Queue"))
+            compositeAdapter.setItems(data)
         }
     }
 }

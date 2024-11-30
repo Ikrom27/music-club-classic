@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
+open class AdapterItem
 
 abstract class DelegateAdapter<T: Any, in VH: DelegateAdapter.ViewHolder<T>>(
     private val classType: Class<out T>,

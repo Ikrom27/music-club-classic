@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import es.claucookie.miniequalizerlibrary.EqualizerView
 import ru.ikrom.ui.R
+import ru.ikrom.ui.base_adapter.AdapterItem
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
 data class PlayerQueueItem(
@@ -14,7 +15,7 @@ data class PlayerQueueItem(
     val subtitle: String,
     val thumbnail: String,
     val isPlaying: Boolean = false
-)
+): AdapterItem()
 
 class PlayerQueueDelegate :
     DelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
@@ -33,11 +34,11 @@ class PlayerQueueDelegate :
                 .into(cover)
             titleTextView.text = item.title
             subtitleTextView.text= item.subtitle
-            if (item.isPlaying){
-                equalizerView.visibility = View.VISIBLE
-                equalizerShadow.visibility = View.VISIBLE
-                equalizerView.animateBars()
-            }
+//            if (item.isPlaying){
+//                equalizerView.visibility = View.VISIBLE
+//                equalizerShadow.visibility = View.VISIBLE
+//                equalizerView.animateBars()
+//            }
         }
 
     }

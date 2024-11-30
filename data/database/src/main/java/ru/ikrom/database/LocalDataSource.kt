@@ -3,7 +3,7 @@ package ru.ikrom.database
 import ru.ikrom.database.db.TracksDao
 import javax.inject.Inject
 
-internal class LocalDataSource @Inject constructor(
+class LocalDataSource @Inject constructor(
     private val likedTracksDao: TracksDao
 ) : ILocalDataSource {
 
