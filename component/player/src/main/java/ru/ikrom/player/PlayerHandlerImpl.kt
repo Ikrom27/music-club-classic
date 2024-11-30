@@ -1,17 +1,13 @@
 package ru.ikrom.player
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.ikrom.player.ext.getMediaItemQueue
 import ru.ikrom.player.ext.hasOldTracks
 import ru.ikrom.player.ext.isLastPlaying
@@ -24,11 +20,7 @@ class PlayerHandlerImpl @Inject constructor(
     private val player: ExoPlayer,
     private val repository: IMediaRepository
 ): PlayerConnection(player), IPlayerHandler {
-    private val _recommendedQueue = MutableLiveData<List<MediaItem>>(emptyList())
-    override val recommendedQueue: LiveData<List<MediaItem>> = _recommendedQueue
-
-    private val _currentQueue = MutableLiveData<List<MediaItem>>(emptyList())
-    override val currentQueue: LiveData<List<MediaItem>> = _currentQueue
+    var _onQueueChanged: (List<MediaItem>) -> Unit = {}
 
     init {
         player.addListener(this)
@@ -110,19 +102,28 @@ class PlayerHandlerImpl @Inject constructor(
         }
     }
 
+    override fun setOnQueueChanged(onChanged: (List<MediaItem>) -> Unit){
+        _onQueueChanged = onChanged
+        _onQueueChanged(player.getMediaItemQueue())
+    }
+
     private fun addRecommendedTracks(){
         val seed = player.currentMediaItem?.mediaId ?: ""
+        val currentQueueSet = player.getMediaItemQueue().toSet()
         CoroutineScope(Dispatchers.IO).launch {
             val recommendations = repository.getRadioTracks(seed).map { it.toMediaItem() }
-            _recommendedQueue.postValue(recommendations.filter {
-                it !in (currentQueue.value ?: emptyList())
-            })
+            val newTracks = recommendations.filterNot {track ->
+                track in currentQueueSet
+            }
+            withContext(Dispatchers.Main) {
+                player.addMediaItems(newTracks)
+                updateQueue()
+            }
         }
-        updateQueue()
     }
 
     private fun updateQueue(){
-        _currentQueue.postValue(player.getMediaItemQueue())
+        _onQueueChanged(player.getMediaItemQueue())
     }
 
     private fun removeOldTracks(){

@@ -1,5 +1,6 @@
 package ru.ikrom.youtube_data
 
+import android.util.Log
 import com.zionhuang.innertube.YouTube
 import com.zionhuang.innertube.models.AlbumItem
 import com.zionhuang.innertube.models.SongItem
@@ -23,7 +24,15 @@ class YoutubeDataSource: IMediaDataSource {
     }
 
     override suspend fun getRadioTracks(id: String): List<SongItem> {
-        return YouTube.next(WatchEndpoint(id), continuation).items
+        runCatching {
+            YouTube.next(WatchEndpoint(id), continuation)
+        }.onSuccess { result ->
+            continuation = result.continuation ?: ""
+            return result.items
+        }.onFailure {
+            Log.e(TAG, "get RadioTracks failure")
+        }
+        return emptyList()
     }
 
     override suspend fun getPlaylistTracks(albumId: String): List<SongItem> {
@@ -36,5 +45,9 @@ class YoutubeDataSource: IMediaDataSource {
 
     override suspend fun getAlbumPage(id: String): AlbumPage {
         return YouTube.album(id)
+    }
+
+    companion object {
+        val TAG = YoutubeDataSource::class.simpleName
     }
 }

@@ -12,8 +12,6 @@ interface IPlayerHandler {
     val repeatModeLiveData: LiveData<Int>
     val shuffleModeLiveData: LiveData<Boolean>
     val currentPositionFlow: Flow<Long>
-    val currentQueue: LiveData<List<MediaItem>>
-    val recommendedQueue: LiveData<List<MediaItem>>
 
     fun seekTo(position: Long)
     fun playNow(tracks: List<TrackModel>)
@@ -27,4 +25,5 @@ interface IPlayerHandler {
     fun togglePlayPause()
     fun seekToNext()
     fun seekToPrevious()
+    fun setOnQueueChanged(onChanged: (List<MediaItem>) -> Unit)
 }

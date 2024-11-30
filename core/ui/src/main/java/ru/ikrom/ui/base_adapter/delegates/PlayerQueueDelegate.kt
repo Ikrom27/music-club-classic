@@ -34,11 +34,14 @@ class PlayerQueueDelegate :
                 .into(cover)
             titleTextView.text = item.title
             subtitleTextView.text= item.subtitle
-//            if (item.isPlaying){
-//                equalizerView.visibility = View.VISIBLE
-//                equalizerShadow.visibility = View.VISIBLE
-//                equalizerView.animateBars()
-//            }
+            if (item.isPlaying){
+                equalizerView.visibility = View.VISIBLE
+                equalizerShadow.visibility = View.VISIBLE
+                equalizerView.animateBars()
+            } else {
+                equalizerView.visibility = View.GONE
+                equalizerShadow.visibility = View.GONE
+            }
         }
 
     }

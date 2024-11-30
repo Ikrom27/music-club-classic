@@ -67,19 +67,9 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
     }
 
     private fun setupData(){
-        viewModel.currentQueue.observe(viewLifecycleOwner) {mediaItems ->
-            val data = arrayListOf<AdapterItem>(TitleItem("Current Queue"))
-            data.addAll(mediaItems.map {
-                PlayerQueueItem(
-                    it.mediaMetadata.title.toString(),
-                    it.mediaMetadata.artist.toString(),
-                    it.mediaMetadata.artworkUri.toString(),
-                    it.mediaId == viewModel.currentMediaItem?.mediaId
-                )
-            }
-            )
-            data.add(TitleItem("Current Queue"))
-            compositeAdapter.setItems(data)
+        viewModel.currentQueue.observe(viewLifecycleOwner) {tracks ->
+            compositeAdapter.setItems(listOf(TitleItem("Current Queue")))
+            compositeAdapter.addItems(tracks)
         }
     }
 }
