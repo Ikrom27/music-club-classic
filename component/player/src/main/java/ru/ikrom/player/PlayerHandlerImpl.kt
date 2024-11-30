@@ -66,6 +66,10 @@ class PlayerHandlerImpl @Inject constructor(
         updateQueue()
     }
 
+    override fun playInQueue(id: String){
+        player.seekTo(player.getMediaItemQueue().indexOfFirst { it.mediaId == id }, 0)
+    }
+
     override fun addToQueue(item: TrackModel) {
         addToQueue(listOf(item))
     }

@@ -18,9 +18,12 @@ data class PlayerQueueItem(
     val isPlaying: Boolean = false
 ): AdapterItem()
 
-class PlayerQueueDelegate :
+class PlayerQueueDelegate(
+    onClickItem: (PlayerQueueItem) -> Unit,
+    onLongClickItem: (PlayerQueueItem) -> Unit = {},
+) :
     DelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
-    PlayerQueueItem::class.java){
+    PlayerQueueItem::class.java, onClickItem, onLongClickItem){
         var currentTrackId = ""
 
     inner class PlayerQueueViewHolder(itemView: View): ViewHolder<PlayerQueueItem>(itemView){
@@ -38,7 +41,6 @@ class PlayerQueueDelegate :
                 .into(cover)
             titleTextView.text = item.title
             subtitleTextView.text= item.subtitle
-
             if (item.id == currentTrackId){
                 equalizerView.visibility = View.VISIBLE
                 equalizerShadow.visibility = View.VISIBLE

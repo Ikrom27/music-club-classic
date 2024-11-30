@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayerQueueViewModel @Inject constructor(
-    playerHandler: IPlayerHandler
+    val playerHandler: IPlayerHandler
 ): ViewModel() {
     val currentMediaItem = playerHandler.currentMediaItemLiveData
     val currentQueue = MutableLiveData<List<PlayerQueueItem>>()
@@ -37,5 +37,9 @@ class PlayerQueueViewModel @Inject constructor(
         prevPlayerTrackPosition = playingTrackPosition
         playingTrackPosition =
             (currentQueue.value?.indexOfFirst { it.id == currentMediaItem.value?.mediaId } ?: 0) + 1
+    }
+
+    fun playTrackById(id: String) {
+        playerHandler.playInQueue(id)
     }
 }
