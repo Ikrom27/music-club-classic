@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/LayoutClickable"
+    android:focusable="true"
     android:paddingVertical="@dimen/spacer_small_extra"
     android:paddingHorizontal="@dimen/content_horizontal_margin">
 

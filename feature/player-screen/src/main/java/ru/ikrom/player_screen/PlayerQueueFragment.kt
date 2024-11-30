@@ -1,24 +1,21 @@
 package ru.ikrom.player_screen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.base_adapter.AdapterItem
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.PlayerQueueDelegate
-import ru.ikrom.ui.base_adapter.delegates.PlayerQueueItem
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
+
 
 @AndroidEntryPoint
 class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_queue) {
@@ -30,10 +27,17 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
     private lateinit var titleTextView: TextView
     private lateinit var subTitleTextView: TextView
 
-    private val compositeAdapter = CompositeAdapter.Builder()
-        .add(PlayerQueueDelegate())
-        .add(TitleDelegate())
-        .build()
+    private val compositeAdapter by lazy {
+        CompositeAdapter.Builder()
+            .add(PlayerQueueDelegate().apply {
+                viewModel.currentMediaItem.observe(viewLifecycleOwner)@SuppressLint("NotifyDataSetChanged") {
+                    currentTrackId = it?.mediaId ?: ""
+                    recyclerView.adapter?.notifyDataSetChanged()
+                }
+            })
+            .add(TitleDelegate())
+            .build()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +60,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
     }
 
     private fun setupContent(){
-        viewModel.currentMediaItem?.let {
+        viewModel.currentMediaItem.value?.let {
             Glide
                 .with(requireContext())
                 .load(it.mediaMetadata.artworkUri)

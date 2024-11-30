@@ -11,6 +11,7 @@ import ru.ikrom.ui.base_adapter.AdapterItem
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
 data class PlayerQueueItem(
+    val id: String,
     val title: String,
     val subtitle: String,
     val thumbnail: String,
@@ -20,7 +21,10 @@ data class PlayerQueueItem(
 class PlayerQueueDelegate :
     DelegateAdapter<PlayerQueueItem, PlayerQueueDelegate.PlayerQueueViewHolder>(
     PlayerQueueItem::class.java){
+        var currentTrackId = ""
+
     inner class PlayerQueueViewHolder(itemView: View): ViewHolder<PlayerQueueItem>(itemView){
+        private val container: View = itemView.findViewById(R.id.container)
         private val cover: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
         private val subtitleTextView: TextView = itemView.findViewById(R.id.tv_subtitle)
@@ -34,16 +38,18 @@ class PlayerQueueDelegate :
                 .into(cover)
             titleTextView.text = item.title
             subtitleTextView.text= item.subtitle
-            if (item.isPlaying){
+
+            if (item.id == currentTrackId){
                 equalizerView.visibility = View.VISIBLE
                 equalizerShadow.visibility = View.VISIBLE
                 equalizerView.animateBars()
+                container.requestFocus()
             } else {
                 equalizerView.visibility = View.GONE
                 equalizerShadow.visibility = View.GONE
+                container.clearFocus()
             }
         }
-
     }
 
     override fun getViewHolder(binding: View): RecyclerView.ViewHolder {
