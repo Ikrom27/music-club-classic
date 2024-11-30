@@ -1,6 +1,6 @@
 package ru.ikrom.player_screen
 
-import android.annotation.SuppressLint
+
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -30,9 +30,11 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
     private val compositeAdapter by lazy {
         CompositeAdapter.Builder()
             .add(PlayerQueueDelegate().apply {
-                viewModel.currentMediaItem.observe(viewLifecycleOwner)@SuppressLint("NotifyDataSetChanged") {
+                viewModel.currentMediaItem.observe(viewLifecycleOwner) {
                     currentTrackId = it?.mediaId ?: ""
-                    recyclerView.adapter?.notifyDataSetChanged()
+                    viewModel.updatePositions()
+                    recyclerView.adapter?.notifyItemChanged(viewModel.prevPlayerTrackPosition)
+                    recyclerView.adapter?.notifyItemChanged(viewModel.playingTrackPosition)
                 }
             })
             .add(TitleDelegate())

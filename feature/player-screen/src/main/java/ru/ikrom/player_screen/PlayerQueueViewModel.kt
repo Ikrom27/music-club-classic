@@ -13,20 +13,29 @@ class PlayerQueueViewModel @Inject constructor(
 ): ViewModel() {
     val currentMediaItem = playerHandler.currentMediaItemLiveData
     val currentQueue = MutableLiveData<List<PlayerQueueItem>>()
-    var playingTrackId = ""
+    var playingTrackPosition = 0
+    var prevPlayerTrackPosition = 0
 
     init {
         playerHandler.setOnQueueChanged { mediaItems ->
-                currentQueue.value = mediaItems.map {
-                    playingTrackId = if (it.mediaId == currentMediaItem.value?.mediaId) it.mediaId else playingTrackId
+                currentQueue.value = mediaItems.mapIndexed { index, mediaItem ->
+                    if(mediaItem.mediaId == currentMediaItem.value?.mediaId){
+                        playingTrackPosition = index
+                    }
                     PlayerQueueItem(
-                        it.mediaId,
-                        it.mediaMetadata.title.toString(),
-                        it.mediaMetadata.artist.toString(),
-                        it.mediaMetadata.artworkUri.toString(),
-                    it.mediaId == currentMediaItem.value?.mediaId
+                        mediaItem.mediaId,
+                        mediaItem.mediaMetadata.title.toString(),
+                        mediaItem.mediaMetadata.artist.toString(),
+                        mediaItem.mediaMetadata.artworkUri.toString(),
+                        mediaItem.mediaId == currentMediaItem.value?.mediaId
                 )
             }
         }
+    }
+
+    fun updatePositions(){
+        prevPlayerTrackPosition = playingTrackPosition
+        playingTrackPosition =
+            (currentQueue.value?.indexOfFirst { it.id == currentMediaItem.value?.mediaId } ?: 0) + 1
     }
 }
