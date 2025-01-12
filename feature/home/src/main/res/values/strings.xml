@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_recommendations">Recommended</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_playlists">Playlists</string>
+</resources>

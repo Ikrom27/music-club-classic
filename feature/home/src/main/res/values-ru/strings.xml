@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_recommendations">Рекомендуем</string>
+    <string name="title_favorites">Любимые</string>
+    <string name="title_playlists">Плейлисты</string>
+</resources>

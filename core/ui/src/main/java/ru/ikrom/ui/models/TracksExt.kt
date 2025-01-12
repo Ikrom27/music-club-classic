@@ -1,6 +1,7 @@
 package ru.ikrom.ui.models
 
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemGrid
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.youtube_data.model.TrackModel
@@ -27,6 +28,15 @@ fun TrackModel.toMenuHeaderItem(): MenuHeaderDelegateItem {
 
 fun TrackModel.toThumbnailMediumItem(): ThumbnailItemMediumItem {
     return ThumbnailItemMediumItem(
+        id = videoId,
+        title = this.title,
+        subtitle = this.album.artists.getNames(),
+        thumbnail = this.album.thumbnail
+    )
+}
+
+fun TrackModel.toGridItem(): ThumbnailItemGrid {
+    return ThumbnailItemGrid(
         id = videoId,
         title = this.title,
         subtitle = this.album.artists.getNames(),

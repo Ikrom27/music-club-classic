@@ -10,7 +10,6 @@ import com.zionhuang.innertube.pages.ArtistPage
 
 
 class YoutubeDataSource: IMediaDataSource {
-    private var continuation = ""
     override suspend fun getTracksByQuery(query: String): List<SongItem> {
         return YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).items.map { it as SongItem }
     }
@@ -23,16 +22,8 @@ class YoutubeDataSource: IMediaDataSource {
         return YouTube.album(albumId).songs
     }
 
-    override suspend fun getRadioTracks(id: String): List<SongItem> {
-        runCatching {
-            YouTube.next(WatchEndpoint(id), continuation)
-        }.onSuccess { result ->
-            continuation = result.continuation ?: ""
-            return result.items
-        }.onFailure {
-            Log.e(TAG, "get RadioTracks failure")
-        }
-        return emptyList()
+    override suspend fun getRadioTracks(id: String, continuation: String): List<SongItem> {
+        return YouTube.next(WatchEndpoint(id), continuation).items
     }
 
     override suspend fun getPlaylistTracks(albumId: String): List<SongItem> {

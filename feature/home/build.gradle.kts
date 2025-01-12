@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.ktor.client.core)
     implementation(libs.navigation.fragment)
     implementation(project(":component:player"))
     implementation(project(":component:appbar"))

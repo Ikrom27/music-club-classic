@@ -10,8 +10,8 @@ interface IMediaDataSource {
     suspend fun getTracksByQuery(query: String): List<SongItem>
     suspend fun getNewReleaseAlbums(): List<AlbumItem>
     suspend fun getAlbumTracks(albumId: String): List<SongItem>
-    suspend fun getRadioTracks(id: String): List<SongItem>
     suspend fun getPlaylistTracks(albumId: String): List<SongItem>
     suspend fun getArtistData(artistId: String): ArtistPage
     suspend fun getAlbumPage(id: String): AlbumPage
+    suspend fun getRadioTracks(id: String, continuation: String = ""): List<SongItem>
 }

@@ -14,9 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.ui.base_adapter.delegates.NestedGridDelegate
+import ru.ikrom.ui.base_adapter.delegates.NestedGridItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailGridDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemGrid
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
@@ -50,6 +54,7 @@ class HomeFragment : Fragment() {
     private fun setupAdapter(){
         compositeAdapter = CompositeAdapter.Builder()
             .add(NestedItemsDelegate())
+            .add(NestedGridDelegate())
             .add(TitleDelegate())
             .build()
     }
@@ -60,7 +65,8 @@ class HomeFragment : Fragment() {
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = DecorationDimens.getBottomMargin(resources),
+                    startSpace = 0,
+                    endSpace = DecorationDimens.getBottomMargin(resources) * 2,
                 )
             )
         }
@@ -78,18 +84,33 @@ class HomeFragment : Fragment() {
     private fun showContent(data: UiState.Success){
         compositeAdapter.setItems(emptyList())
         if(data.quickPickTracks.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem("Quick pick"))
-            compositeAdapter.addToEnd(createMediumNestedItem(data.quickPickTracks))
+            compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_recommendations)))
+            compositeAdapter.addToEnd(createGridNestedItem(data.quickPickTracks))
         }
         if(data.favoriteTracks.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem("Favorite"))
+            compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_favorites)))
             compositeAdapter.addToEnd(createMediumNestedItem(data.favoriteTracks))
         }
         if(data.playlists.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem("Playlists"))
+            compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_playlists)))
             compositeAdapter.addToEnd(createCardNestedItem(data.playlists))
         }
     }
+
+    private fun createGridNestedItem(items: List<ThumbnailItemGrid>) = NestedGridItems(
+        adapter = CompositeAdapter.Builder()
+            .add(
+                ThumbnailGridDelegate(
+                    onClick = {
+                        homeViewModel.playTrackById(it.id)
+                    },
+                    onLongClick = {
+                        navigator.toTrackMenu(it)
+                    }
+                )
+            ).build(),
+        items = items
+    )
 
     private fun createMediumNestedItem(items: List<ThumbnailItemMediumItem>) = NestedItems(
         adapter = CompositeAdapter.Builder()
