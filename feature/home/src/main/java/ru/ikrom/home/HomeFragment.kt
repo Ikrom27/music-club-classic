@@ -13,17 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardAdapter
+import ru.ikrom.ui.base_adapter.delegates.CardItem
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
-import ru.ikrom.ui.base_adapter.delegates.QuickPickDelegate
-import ru.ikrom.ui.base_adapter.delegates.QuickPickItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,76 +43,15 @@ class HomeFragment : Fragment() {
         navController = requireParentFragment().findNavController()
         setupAdapter()
         setupRecyclerView(recyclerView)
-        setupAdapterData()
+        loadItems()
         return view
     }
 
     private fun setupAdapter(){
         compositeAdapter = CompositeAdapter.Builder()
-            .add(QuickPickDelegate(
-                isPlaying = homeViewModel.isPlaying,
-                lifecycleOwner = viewLifecycleOwner,
-                onPlayPauseClick = { onPlayPauseClick(it) },
-                onSkipClick = {}
-            ))
             .add(NestedItemsDelegate())
             .add(TitleDelegate())
             .build()
-    }
-
-    private fun setupAdapterData(){
-        compositeAdapter.setItems(listOf(
-            TitleItem("Quick pick"),
-            QuickPickItem(track = null),
-            TitleItem(""),
-            TitleItem(""),
-            TitleItem(""),
-            TitleItem("")
-        ))
-        homeViewModel.quickPick.observe(viewLifecycleOwner) { tracks ->
-            if (tracks.isNotEmpty()){
-                compositeAdapter.updateItem(1,
-                    QuickPickItem(track = tracks[0]))
-            }
-        }
-        homeViewModel.userPlaylists.observe(viewLifecycleOwner) {playlists ->
-            if (playlists.isNotEmpty()){
-                compositeAdapter.updateItem(2, TitleItem("Your playlists"))
-                compositeAdapter.updateItem(3,
-                    NestedItems(
-                        items = playlists,
-                        adapter = CompositeAdapter.Builder()
-                            .add(
-                                CardAdapter(
-                                onClick = {},
-                                onLongClick = {})
-                            )
-                            .build()
-                    )
-                )
-            }
-        }
-        homeViewModel.trackList.observe(viewLifecycleOwner) {tracks ->
-            if (tracks.isNotEmpty()){
-                compositeAdapter.updateItem(4, TitleItem("From Linkin park"))
-                compositeAdapter.updateItem(5,
-                    NestedItems(
-                        adapter = CompositeAdapter.Builder()
-                            .add(
-                                ThumbnailMediumAdapter(
-                                onClick = {
-                                    homeViewModel.playTrackById(it.id)
-                                },
-                                onLongClick = {
-                                    navigator.toTrackMenu(it)
-                                }
-                            )
-                        ).build(),
-                        items = tracks
-                    )
-                )
-            }
-        }
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView){
@@ -128,13 +66,64 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onPlayPauseClick(track: TrackModel){
-        if (homeViewModel.currentTrack.value!!.mediaId == track.videoId){
-            homeViewModel.togglePlayPause()
+    private fun loadItems(){
+        homeViewModel.state.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Success -> showContent(state)
+                else -> {}
+            }
         }
     }
 
+    private fun showContent(data: UiState.Success){
+        compositeAdapter.setItems(emptyList())
+        if(data.quickPickTracks.isNotEmpty()){
+            compositeAdapter.addToEnd(TitleItem("Quick pick"))
+            compositeAdapter.addToEnd(createMediumNestedItem(data.quickPickTracks))
+        }
+        if(data.favoriteTracks.isNotEmpty()){
+            compositeAdapter.addToEnd(TitleItem("Favorite"))
+            compositeAdapter.addToEnd(createMediumNestedItem(data.favoriteTracks))
+        }
+        if(data.playlists.isNotEmpty()){
+            compositeAdapter.addToEnd(TitleItem("Playlists"))
+            compositeAdapter.addToEnd(createCardNestedItem(data.playlists))
+        }
+    }
+
+    private fun createMediumNestedItem(items: List<ThumbnailItemMediumItem>) = NestedItems(
+        adapter = CompositeAdapter.Builder()
+            .add(
+                ThumbnailMediumAdapter(
+                    onClick = {
+                        homeViewModel.playTrackById(it.id)
+                    },
+                    onLongClick = {
+                        navigator.toTrackMenu(it)
+                    }
+                )
+            ).build(),
+        items = items
+    )
+
+    private fun createCardNestedItem(items: List<CardItem>) = NestedItems(
+        adapter = CompositeAdapter.Builder()
+            .add(
+                CardAdapter(
+                    onClick = {
+                        navigator.toPlaylist(it.id)
+                    },
+                    onLongClick = {
+                        navigator.toPlaylistMenu(it)
+                    }
+                )
+            ).build(),
+        items = items
+    )
+
     interface Navigator {
         fun toTrackMenu(item: ThumbnailItem)
+        fun toPlaylistMenu(item: ThumbnailItem)
+        fun toPlaylist(id: String)
     }
 }

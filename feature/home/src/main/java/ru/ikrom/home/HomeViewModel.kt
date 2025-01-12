@@ -1,55 +1,59 @@
 package ru.ikrom.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ru.ikrom.ui.models.toThumbnailMediumItem
-import ru.ikrom.ui.base_adapter.delegates.CardItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.ui.models.toCardItem
+import ru.ikrom.ui.models.toThumbnailMediumItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    val playerHandler: IPlayerHandler,
+    private val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository,
 ): ViewModel() {
-    val quickPick = MutableLiveData<List<TrackModel>>()
-    val userPlaylists = MutableLiveData<List<CardItem>>()
-    val trackList = MutableLiveData<List<ThumbnailItemMediumItem>>()
-    val currentTrack = playerHandler.currentMediaItemLiveData
-    val isPlaying = playerHandler.isPlayingLiveData
-
-    private val tracksModel = MutableLiveData<List<TrackModel>>()
+    private val _state = MutableLiveData<UiState>()
+    private val tracksMap = mutableMapOf<String, TrackModel>()
+    val state: LiveData<UiState> = _state
 
     init {
         update()
     }
 
-    fun getTrackById(id: String): TrackModel {
-        return tracksModel.value!!.first { it.videoId == id }
-    }
-
     fun update(){
-        viewModelScope.launch {
-            userPlaylists.postValue(emptyList())
-        }
-        viewModelScope.launch {
-            val tracks = repository.getTracksByQuery("Linkin park")
-            tracksModel.postValue(tracks)
-            trackList.postValue(tracks.map { it.toThumbnailMediumItem() })
+        _state.value = UiState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                tracksMap.clear()
+                val quickPickTracks = repository.getRadioTracks("Linkin park").map {
+                    tracksMap[it.videoId] = it
+                    it.toThumbnailMediumItem()
+                }
+                val favoriteTracks = repository.getLikedTracks().map {
+                    tracksMap[it.videoId] = it
+                    it.toThumbnailMediumItem()
+                }
+                val playlists = repository.getNewReleases().map { it.toCardItem() }
+                UiState.Success(
+                    quickPickTracks = quickPickTracks,
+                    favoriteTracks = favoriteTracks,
+                    playlists = playlists)
+            }.onSuccess { successState ->
+                _state.postValue(successState)
+            }.onFailure {
+                _state.postValue(UiState.Error)
+            }
         }
     }
 
     fun playTrackById(id: String){
-        playerHandler.playNow(getTrackById(id))
-    }
-
-    fun togglePlayPause(){
-        playerHandler.togglePlayPause()
+        tracksMap[id]?.let { playerHandler.playNow(it) }
     }
 }

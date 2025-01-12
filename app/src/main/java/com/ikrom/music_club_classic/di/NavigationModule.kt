@@ -1,11 +1,8 @@
 package com.ikrom.music_club_classic.di
 
 import android.app.Activity
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ikrom.music_club_classic.R
 import dagger.Module
@@ -22,7 +19,7 @@ import ru.ikrom.ui.base_adapter.delegates.toBundle
 import ru.ikrom.ui.utils.idToBundle
 
 
-@Module()
+@Module
 @InstallIn(ActivityComponent::class)
 class NavigationModule {
     @Provides
@@ -88,6 +85,14 @@ class NavigationModule {
     ) = object : HomeFragment.Navigator {
         override fun toTrackMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_track, item.toBundle())
+        }
+
+        override fun toPlaylistMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
+        }
+
+        override fun toPlaylist(id: String) {
+            navController.navigate(R.id.to_album, idToBundle(id))
         }
 
     }
