@@ -23,6 +23,11 @@ class YoutubeDataSource: IMediaDataSource {
     }
 
     override suspend fun getRadioTracks(id: String, continuation: String): List<SongItem> {
+        repeat(3){
+            try {
+                return YouTube.next(WatchEndpoint(id), continuation).items
+            } catch (_: Throwable){}
+        }
         return YouTube.next(WatchEndpoint(id), continuation).items
     }
 
