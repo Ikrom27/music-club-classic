@@ -7,6 +7,7 @@ import com.zionhuang.innertube.models.SongItem
 import com.zionhuang.innertube.models.WatchEndpoint
 import com.zionhuang.innertube.pages.AlbumPage
 import com.zionhuang.innertube.pages.ArtistPage
+import kotlinx.coroutines.delay
 
 
 class YoutubeDataSource: IMediaDataSource {
@@ -25,8 +26,11 @@ class YoutubeDataSource: IMediaDataSource {
     override suspend fun getRadioTracks(id: String, continuation: String): List<SongItem> {
         repeat(3){
             try {
-                return YouTube.next(WatchEndpoint(id), continuation).items
-            } catch (_: Throwable){}
+                val result = YouTube.next(WatchEndpoint(id), continuation).items
+                return result
+            } catch (_: Throwable){
+                delay(1000)
+            }
         }
         return YouTube.next(WatchEndpoint(id), continuation).items
     }
