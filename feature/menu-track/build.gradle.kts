@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.dagger.hilt)
     implementation(project(":component:player"))
+    implementation(project(":core:utils"))
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

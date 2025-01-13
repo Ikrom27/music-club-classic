@@ -115,13 +115,15 @@ class PlayerHandlerImpl @Inject constructor(
         val seed = player.currentMediaItem?.mediaId ?: ""
         val currentQueueSet = player.getMediaItemQueue().toSet()
         CoroutineScope(Dispatchers.IO).launch {
-            val recommendations = repository.getRadioTracks(seed).map { it.toMediaItem() }
-            val newTracks = recommendations.filterNot {track ->
-                track in currentQueueSet
-            }
-            withContext(Dispatchers.Main) {
-                player.addMediaItems(newTracks)
-                updateQueue()
+            runCatching {
+                val recommendations = repository.getRadioTracks(seed).map { it.toMediaItem() }
+                val newTracks = recommendations.filterNot {track ->
+                    track in currentQueueSet
+                }
+                withContext(Dispatchers.Main) {
+                    player.addMediaItems(newTracks)
+                    updateQueue()
+                }
             }
         }
     }

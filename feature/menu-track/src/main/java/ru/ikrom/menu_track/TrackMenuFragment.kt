@@ -16,6 +16,7 @@ import ru.ikrom.ui.base_adapter.delegates.MenuButtonItem
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailArgs
+import ru.ikrom.utils.ActionUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -87,19 +88,10 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
                 title = getString(AppStringsId.SHARE),
                 icon = AppIconsId.share,
                 onClick = {
-                    shareWithLink()
+                    context?.let { ActionUtil.shareIntent(it, viewModel.shareLink) }
                 }
             )
         )
-    }
-
-    private fun shareWithLink(){
-        val sendIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, viewModel.shareLink)
-            type = "text/plain"
-        }
-        startActivity(Intent.createChooser(sendIntent, "Share"))
     }
 
     interface Navigator{

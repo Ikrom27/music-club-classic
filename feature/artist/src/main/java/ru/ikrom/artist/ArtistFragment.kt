@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
@@ -23,30 +24,49 @@ import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.ui.utils.bundleToId
+import ru.ikrom.utils.ActionUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ArtistFragment : Fragment(R.layout.fragment_artist) {
+class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fragment_artist) {
     @Inject
     lateinit var navigator: Navigator
 
-    private val viewModel: ArtistViewModel by viewModels()
-
+    override val mViewModel: ArtistViewModel by viewModels()
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
         .add(ArtistHeaderDelegate(
-            onPlayClick = {},
-            onShuffleClick = {}
+            onFavoriteClick = {
+                mViewModel.toggleFavorite()
+            },
+            onShareClick = {
+                context?.let { ActionUtil.shareIntent(it, mViewModel.getShareLink()) }
+            },
+            onPlayClick = {
+                mViewModel.playAll()
+            },
+            onShuffleClick = {
+                mViewModel.playShuffled()
+            }
         ))
         .add(NestedItemsDelegate())
         .add(ThumbnailSmallDelegate({}, {}))
         .build()
 
+    override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter
+    override fun getRecyclerViewId() = R.id.rv_content
+    override fun getLayoutManager() = LinearLayoutManager(requireContext())
+
+    override fun handleState(state: UiState) {
+        when(state){
+            is UiState.Success -> onStateSuccess(state)
+            else -> {}
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.updateArtist(bundleToId(requireArguments()))
-        setupRecyclerView(view)
-        setupAdapterData()
+        mViewModel.updateArtist(bundleToId(requireArguments()))
         setupBackPass()
     }
 
@@ -58,86 +78,60 @@ class ArtistFragment : Fragment(R.layout.fragment_artist) {
         })
     }
 
-    private fun setupAdapterData(){
-        viewModel.artistItemLiveData.observe(viewLifecycleOwner) { artistPage ->
-            if (artistPage != null){
-                compositeAdapter.setItems(emptyList())
-                artistPage.header?.let { compositeAdapter.addToEnd(it) }
-                if (artistPage.tracks.isNotEmpty()) {
-                    compositeAdapter.addToEnd(TitleItem("Tracks"))
-                    compositeAdapter.addItems(artistPage.tracks)
-                }
-
-                if (artistPage.albums.isNotEmpty()) {
-                    compositeAdapter.addToEnd(TitleItem("Albums"))
-                    compositeAdapter.addToEnd(
-                        NestedItems(
-                        items = artistPage.albums,
-                        adapter = CompositeAdapter.Builder()
-                            .add(ThumbnailLargeAdapter(
-                                onClick = { navigator.toAlbum(it.id) },
-                                onLongClick = { navigator.toAlbumMenu(it) }))
-                            .build()
-                    )
-                    )
-                }
-
-                if (artistPage.singles.isNotEmpty()) {
-                    compositeAdapter.addToEnd(TitleItem("Singles"))
-                    compositeAdapter.addToEnd(
-                        NestedItems(
-                        items = artistPage.singles,
-                        adapter = CompositeAdapter.Builder()
-                            .add(ThumbnailLargeAdapter(
-                                onClick = { navigator.toAlbum(it.id) },
-                                onLongClick = { navigator.toAlbumMenu(it) }
-                            )).build()
-                    )
-                    )
-                }
-
-                if (artistPage.relatedPlaylists.isNotEmpty()) {
-                    compositeAdapter.addToEnd(TitleItem("Playlist"))
-                    compositeAdapter.addToEnd(
-                        NestedItems(
-                        items = artistPage.relatedPlaylists,
-                        adapter = CompositeAdapter.Builder()
-                            .add(ThumbnailMediumAdapter(
-                                onClick = {navigator.toAlbum(it.id)},
-                                onLongClick = {navigator.toAlbumMenu(it)}
-                            )).build()
-                    )
-                    )
-                }
-
-                if (artistPage.similar.isNotEmpty()) {
-                    compositeAdapter.addToEnd(TitleItem("Similar"))
-                    compositeAdapter.addToEnd(
-                        NestedItems(
-                        items = artistPage.similar,
-                        adapter = CompositeAdapter.Builder().add(ThumbnailRoundedAdapter{
-                            navigator.toArtist(it.id)
-                        }).build()
-                    )
-                    )
-                }
-
-            }
-
+    private fun onStateSuccess(data: UiState.Success){
+        compositeAdapter.setItems(emptyList())
+        data.header?.let { compositeAdapter.addToEnd(it) }
+        if(data.tracks.isNotEmpty()){
+            compositeAdapter.addToEnd(TitleItem("Tracks"))
+            compositeAdapter.addItems(data.tracks)
+        }
+        if(data.albums.isNotEmpty()){
+            compositeAdapter.addToEnd(TitleItem("Albums"))
+            compositeAdapter.addToEnd(
+                NestedItems(
+                    items = data.albums,
+                    adapter = CompositeAdapter.Builder()
+                        .add(ThumbnailLargeAdapter(
+                            onClick = { navigator.toAlbum(it.id) },
+                            onLongClick = { navigator.toAlbumMenu(it) }))
+                        .build()
+                )
+            )
+        }
+        if(data.singles.isNotEmpty()){
+            compositeAdapter.addToEnd(TitleItem("Singles"))
+            compositeAdapter.addToEnd(
+                NestedItems(
+                    items = data.singles,
+                    adapter = CompositeAdapter.Builder()
+                        .add(ThumbnailLargeAdapter(
+                            onClick = { navigator.toAlbum(it.id) },
+                            onLongClick = { navigator.toAlbumMenu(it) }
+                        )).build()
+                )
+            )
+        }
+        if (data.similar.isNotEmpty()) {
+            compositeAdapter.addToEnd(TitleItem("Similar"))
+            compositeAdapter.addToEnd(
+                NestedItems(
+                    items = data.similar,
+                    adapter = CompositeAdapter.Builder().add(ThumbnailRoundedAdapter{
+                        navigator.toArtist(it.id)
+                    }).build()
+                )
+            )
         }
     }
 
-    private fun setupRecyclerView(view: View){
-        view.findViewById<RecyclerView>(R.id.rv_content).apply {
-            adapter = compositeAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            if (itemDecorationCount == 0){
-                addItemDecoration(
-                    MarginItemDecoration(
-                        endSpace = DecorationDimens.getBottomMargin(resources)
-                    )
+    override fun recyclerViewConfigure(rv: RecyclerView) {
+        super.recyclerViewConfigure(rv)
+        if (rv.itemDecorationCount == 0){
+            rv.addItemDecoration(
+                MarginItemDecoration(
+                    endSpace = DecorationDimens.getBottomMargin(resources)
                 )
-            }
+            )
         }
     }
 

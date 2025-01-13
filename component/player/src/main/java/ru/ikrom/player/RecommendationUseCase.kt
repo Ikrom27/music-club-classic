@@ -8,7 +8,6 @@ class RecommendationUseCase @Inject constructor(
     private val repository: IMediaRepository
 ) {
     suspend fun generateRecommendedTracks(seed: String = ""): List<TrackModel> {
-        val likedTrack = repository.getLikedTracks().random()
         return repository.getRadioTracks(seed)
     }
 }

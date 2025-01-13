@@ -15,3 +15,11 @@ data class TrackEntity(
     @ColumnInfo(name = "artist_id") val artistId: String,
     @ColumnInfo(name = "is_downloaded") val isDownloaded: Boolean,
 )
+
+@Entity(tableName = "liked_artists")
+data class ArtistEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "id")val id: String,
+    @ColumnInfo(name = "name")val name: String,
+    @ColumnInfo(name = "thumbnail")val thumbnail: String? = null
+)

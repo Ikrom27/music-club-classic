@@ -61,7 +61,7 @@ fun SongItem.toTrackModel(): TrackModel? {
                 title = this.album?.name ?: "unknown",
                 artists = this.artists.map { artist ->
                     ArtistModel(
-                        id = artist.id,
+                        id = artist.id!!,
                         name = artist.name
                     )
                 },

@@ -1,7 +1,5 @@
 package ru.ikrom.youtube_data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import ru.ikrom.database.ILocalDataSource
 import ru.ikrom.youtube_data.extensions.toAlbumModel
 import ru.ikrom.youtube_data.extensions.toArtistPageModel
@@ -10,6 +8,7 @@ import ru.ikrom.youtube_data.extensions.toModel
 import ru.ikrom.youtube_data.extensions.toTrackModel
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
+import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
@@ -46,12 +45,24 @@ class MediaRepositoryImpl @Inject constructor(
         return localSource.isLikedTrack(id)
     }
 
+    override suspend fun isFavoriteArtist(id: String): Boolean {
+        return localSource.isLikedArtist(id)
+    }
+
     override suspend fun getAlbumPage(id: String): AlbumPageModel {
         return dataSource.getAlbumPage(id).toModel()
     }
 
     override suspend fun saveTrack(id: String){
         localSource.saveTrack(getTracksByQuery(id).first().toEntity())
+    }
+
+    override suspend fun likeArtist(artistModel: ArtistModel) {
+        artistModel.toEntity()?.let { localSource.saveArtist(it) }
+    }
+
+    override suspend fun unLikeArtist(artistModel: ArtistModel) {
+        artistModel.toEntity()?.let { localSource.removeArtist(it) }
     }
 
     override suspend fun getLikedTracks(): List<TrackModel> {

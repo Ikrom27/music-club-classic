@@ -1,4 +1,4 @@
-package ru.ikrom.database
+package ru.ikrom.database.di
 
 import android.content.Context
 import androidx.room.Room
@@ -22,11 +22,19 @@ class DatabaseModule {
         context,
         AppDatabase::class.java,
         "app-db"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Provides
     @Singleton
     fun provideTracksDao(
         db: AppDatabase
     ): TracksDao = db.likedTracksDao()
+
+    @Provides
+    @Singleton
+    fun provideArtistDao(
+        db: AppDatabase
+    ) = db.likedArtistsDao()
 }

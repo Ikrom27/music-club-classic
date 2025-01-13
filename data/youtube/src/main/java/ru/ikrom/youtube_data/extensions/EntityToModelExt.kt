@@ -7,7 +7,7 @@ import ru.ikrom.youtube_data.model.TrackModel
 
 fun TrackEntity.toModel(): TrackModel {
     val artistModel = ArtistModel(
-        id = artistId.takeIf { it.isNotEmpty() },
+        id = artistId,
         name = artist,
         thumbnail = null
     )

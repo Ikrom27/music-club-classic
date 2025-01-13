@@ -2,10 +2,12 @@ package ru.ikrom.ui.base_adapter.delegates
 
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.ikrom.theme.AppIconsId
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
@@ -13,9 +15,12 @@ data class ArtistHeaderItem(
     val title: String,
     val subtitle: String,
     val thumbnail: String,
+    val isFavorite: Boolean
 )
 
 class ArtistHeaderDelegate(
+    private val onFavoriteClick: () -> Unit,
+    private val onShareClick: () -> Unit,
     private val onPlayClick: () -> Unit,
     private val onShuffleClick: () -> Unit
 ): DelegateAdapter<ArtistHeaderItem, ArtistHeaderDelegate.ThumbnailLargeHeaderViewHolder>(
@@ -25,6 +30,8 @@ class ArtistHeaderDelegate(
     ViewHolder<ArtistHeaderItem>(itemView){
         private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val title: TextView = itemView.findViewById(R.id.tv_title)
+        private val btnFavorite: ImageButton = itemView.findViewById(R.id.btn_favorite)
+        private val btnShare: ImageButton = itemView.findViewById(R.id.btn_share)
         private val btnPlayAll: Button = itemView.findViewById(R.id.btn_play_all)
         private val btnPlayShuffled: Button = itemView.findViewById(R.id.btn_play_shuffled)
         override fun bind(item: ArtistHeaderItem) {
@@ -34,16 +41,15 @@ class ArtistHeaderDelegate(
                 .centerCrop()
                 .into(thumbnail)
             title.text = item.title
-            setupButtons(item)
+            btnFavorite.setImageResource(if(item.isFavorite) AppIconsId.favorite else  AppIconsId.favoriteBordered)
+            setupButtons()
         }
 
-        private fun setupButtons(item: ArtistHeaderItem) {
-            btnPlayAll.setOnClickListener{
-                onPlayClick()
-            }
-            btnPlayShuffled.setOnClickListener{
-                onShuffleClick()
-            }
+        private fun setupButtons() {
+            btnPlayAll.setOnClickListener{ onPlayClick() }
+            btnPlayShuffled.setOnClickListener{ onShuffleClick() }
+            btnFavorite.setOnClickListener{ onFavoriteClick() }
+            btnShare.setOnClickListener{ onShareClick() }
         }
     }
 

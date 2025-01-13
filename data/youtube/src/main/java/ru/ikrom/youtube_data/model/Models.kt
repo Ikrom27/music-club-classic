@@ -50,7 +50,14 @@ data class ArtistPageModel(
     val singles: List<AlbumModel>,
     val relatedPlaylists: List<PlaylistModel>,
     val similar: List<ArtistModel>
-)
+){
+    val shareLink: String
+        get() = "https://music.youtube.com/watch?v=$id"
+
+    fun toArtistModel() = ArtistModel(
+        id, title, thumbnail
+    )
+}
 
 data class ArtistSectionModel(
     val title: String,
