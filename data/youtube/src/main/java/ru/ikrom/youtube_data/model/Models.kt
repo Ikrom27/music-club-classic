@@ -6,7 +6,10 @@ data class TrackModel(
     val videoId: String,
     val album: AlbumModel,
     val isFavorite: Boolean = false
-)
+) {
+    val shareLink: String
+        get() = "https://music.youtube.com/watch?v=$videoId"
+}
 
 data class AlbumModel(
     val id: String,

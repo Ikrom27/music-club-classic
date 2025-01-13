@@ -1,5 +1,6 @@
 package ru.ikrom.menu_track
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -81,8 +82,24 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
                 onClick = {
                     navigator.toArtist(viewModel.getArtistId())
                 }
+            ),
+            MenuButtonItem(
+                title = getString(AppStringsId.SHARE),
+                icon = AppIconsId.share,
+                onClick = {
+                    shareWithLink()
+                }
             )
         )
+    }
+
+    private fun shareWithLink(){
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, viewModel.shareLink)
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(sendIntent, "Share"))
     }
 
     interface Navigator{

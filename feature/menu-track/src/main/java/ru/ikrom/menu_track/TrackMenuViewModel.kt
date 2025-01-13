@@ -16,6 +16,8 @@ class TrackMenuViewModel @Inject constructor(
     private val playerHandler: IPlayerHandler
 ): ViewModel() {
     private var track: TrackModel? = null
+    val shareLink: String
+        get() = track?.shareLink ?: ""
 
     fun setTrackById(id: String){
         viewModelScope.launch(Dispatchers.IO){
@@ -30,7 +32,6 @@ class TrackMenuViewModel @Inject constructor(
     }
 
     fun download() {}
-
     fun getAlbumId(): String = track?.album?.id ?: ""
     fun getArtistId(): String = track?.album?.artists?.first()?.id ?: ""
 }
