@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
-    alias(libs.plugins.hilt.android)
 }
 
 android {
-    namespace = "ru.ikrom.home"
+    namespace = "ru.ikrom.base_fragment"
     compileSdk = 34
 
     defaultConfig {
@@ -35,17 +33,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:base-fragment"))
-    implementation(project(":component:player"))
-    implementation(project(":component:appbar"))
-    implementation(project(":core:ui"))
-    implementation(project(":data:youtube"))
     implementation(libs.core.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.bundles.dagger)
-    kapt(libs.bundles.dagger.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

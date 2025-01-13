@@ -69,6 +69,7 @@ dependencies {
     implementation(project(":component:player"))
     implementation(project(":core:ui"))
     implementation(project(":core:theme"))
+    implementation(project(":core:base-fragment"))
     implementation(project(":component:appbar"))
     implementation(project(":data:youtube"))
     testImplementation(libs.junit)

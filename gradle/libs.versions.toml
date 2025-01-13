@@ -29,6 +29,7 @@ serialization-json = "1.6.3"
 swiperefreshlayout-version = "1.1.0"
 navigation-runtime-ktx = "2.8.2"
 room = "2.6.1"
+lifecycle-viewmodel-android = "2.8.6"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -75,6 +76,7 @@ ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-conte
 ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor" }
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout-version" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycle-viewmodel-android" }
 
 [bundles]
 glide = ["glide", "glide-transformations", "glide-compiler"]

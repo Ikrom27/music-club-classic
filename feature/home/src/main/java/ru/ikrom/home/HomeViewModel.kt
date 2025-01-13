@@ -1,13 +1,11 @@
 package ru.ikrom.home
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player.IPlayerHandler
 import ru.ikrom.ui.models.toCardItem
 import ru.ikrom.ui.models.toGridItem
@@ -21,16 +19,18 @@ class HomeViewModel @Inject constructor(
     private val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository,
     private val quickPickUseCase: QuickPickUseCase
-): ViewModel() {
-    private val _state = MutableLiveData<UiState>()
+): DefaultStateViewModel<UiState>() {
     private val tracksMap = mutableMapOf<String, TrackModel>()
-    val state: LiveData<UiState> = _state
 
-    init {
-        update()
+    fun playTrackById(id: String){
+        tracksMap[id]?.let { playerHandler.playNow(it) }
     }
 
-    fun update(){
+    companion object {
+        val TAG = HomeViewModel::class.java.simpleName
+    }
+
+    override fun loadState() {
         _state.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
@@ -55,13 +55,5 @@ class HomeViewModel @Inject constructor(
                 _state.postValue(UiState.Error)
             }
         }
-    }
-
-    fun playTrackById(id: String){
-        tracksMap[id]?.let { playerHandler.playNow(it) }
-    }
-
-    companion object {
-        val TAG = HomeViewModel::class.java.simpleName
     }
 }

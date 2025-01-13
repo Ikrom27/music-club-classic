@@ -1,16 +1,10 @@
 package ru.ikrom.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardItem
@@ -30,54 +24,42 @@ import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragment_home) {
     @Inject
     lateinit var navigator: Navigator
-    private lateinit var navController: NavController
-    private val homeViewModel: HomeViewModel by viewModels()
+    override val mViewModel: HomeViewModel by viewModels()
     private lateinit var compositeAdapter: CompositeAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
-        navController = requireParentFragment().findNavController()
-        setupAdapter()
-        setupRecyclerView(recyclerView)
-        loadItems()
-        return view
-    }
-
-    private fun setupAdapter(){
-        compositeAdapter = CompositeAdapter.Builder()
+    override fun getAdapter(): RecyclerView.Adapter<*> {
+        return CompositeAdapter.Builder()
             .add(NestedItemsDelegate())
             .add(NestedGridDelegate())
             .add(TitleDelegate())
             .build()
+            .also {
+                compositeAdapter = it
+            }
+    }
+    override fun getRecyclerViewId() = R.id.rv_main
+    override fun getLayoutManager() = LinearLayoutManager(context)
+    override fun handleState(state: UiState) {
+        mViewModel.state.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Success -> showContent(state)
+                else -> {}
+            }
+        }
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView){
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = compositeAdapter
-        if (recyclerView.itemDecorationCount == 0){
-            recyclerView.addItemDecoration(
+    override fun recyclerViewConfigure(rv: RecyclerView) {
+        super.recyclerViewConfigure(rv)
+        if (rv.itemDecorationCount == 0){
+            rv.addItemDecoration(
                 MarginItemDecoration(
                     startSpace = 0,
                     endSpace = DecorationDimens.getBottomMargin(resources) * 2,
                 )
             )
-        }
-    }
-
-    private fun loadItems(){
-        homeViewModel.state.observe(viewLifecycleOwner) { state ->
-            when(state){
-                is UiState.Success -> showContent(state)
-                else -> {}
-            }
         }
     }
 
@@ -99,46 +81,28 @@ class HomeFragment : Fragment() {
 
     private fun createGridNestedItem(items: List<ThumbnailItemGrid>) = NestedGridItems(
         adapter = CompositeAdapter.Builder()
-            .add(
-                ThumbnailGridDelegate(
-                    onClick = {
-                        homeViewModel.playTrackById(it.id)
-                    },
-                    onLongClick = {
-                        navigator.toTrackMenu(it)
-                    }
-                )
+            .add(ThumbnailGridDelegate(
+                    onClick = { mViewModel.playTrackById(it.id) },
+                    onLongClick = { navigator.toTrackMenu(it) })
             ).build(),
         items = items
     )
 
     private fun createMediumNestedItem(items: List<ThumbnailItemMediumItem>) = NestedItems(
         adapter = CompositeAdapter.Builder()
-            .add(
-                ThumbnailMediumAdapter(
-                    onClick = {
-                        homeViewModel.playTrackById(it.id)
-                    },
-                    onLongClick = {
-                        navigator.toTrackMenu(it)
-                    }
-                )
-            ).build(),
+            .add(ThumbnailMediumAdapter(
+                    onClick = { mViewModel.playTrackById(it.id) },
+                    onLongClick = { navigator.toTrackMenu(it) }
+                )).build(),
         items = items
     )
 
     private fun createCardNestedItem(items: List<CardItem>) = NestedItems(
         adapter = CompositeAdapter.Builder()
-            .add(
-                CardAdapter(
-                    onClick = {
-                        navigator.toPlaylist(it.id)
-                    },
-                    onLongClick = {
-                        navigator.toPlaylistMenu(it)
-                    }
-                )
-            ).build(),
+            .add(CardAdapter(
+                    onClick = { navigator.toPlaylist(it.id) },
+                    onLongClick = { navigator.toPlaylistMenu(it) }
+                ) ).build(),
         items = items
     )
 
