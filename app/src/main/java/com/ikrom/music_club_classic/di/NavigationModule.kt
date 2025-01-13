@@ -13,6 +13,7 @@ import ru.ikrom.album.AlbumFragment
 import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
+import ru.ikrom.library.LibraryFragment
 import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.toBundle
@@ -107,6 +108,16 @@ class NavigationModule {
 
         override fun toArtist(artistId: String) {
             navController.navigate(R.id.to_artist, idToBundle(artistId))
+        }
+
+    }
+
+    @Provides
+    fun provideLibraryNavigator(
+        navController: NavController
+    ) = object : LibraryFragment.Navigator {
+        override fun toTrackMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
         }
 
     }

@@ -1,11 +1,11 @@
 package ru.ikrom.library
 
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 
 sealed class UiState {
-    data object onError: UiState()
-    data object onLoading: UiState()
-    data class onSuccessful(
-        val data: List<ThumbnailSmallItem>
+    data object Error: UiState()
+    data object Loading: UiState()
+    data class Success(
+        val data: List<ThumbnailItemMediumItem>
     ): UiState()
 }

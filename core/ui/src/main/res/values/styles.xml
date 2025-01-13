@@ -33,6 +33,16 @@
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
+    <!-- Icons -->
+    <style name="IconMedium" >
+        <item name="android:layout_width">@dimen/icon_medium</item>
+        <item name="android:layout_height">@dimen/icon_medium</item>
+    </style>
+    <style name="IconSmall" >
+        <item name="android:layout_width">@dimen/icon_small</item>
+        <item name="android:layout_height">@dimen/icon_small</item>
+    </style>
+
     <!-- CardStyle -->
     <style name="CardBase" parent="Widget.MaterialComponents.CardView">
         <item name="android:backgroundTint">@color/grey_20</item>
