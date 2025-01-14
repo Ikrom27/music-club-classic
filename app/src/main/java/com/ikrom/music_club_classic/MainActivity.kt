@@ -17,8 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
 import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.background_player.MusicPlayerService
 import ru.ikrom.mini_player.MiniPlayer
-import ru.ikrom.player.MusicPlayerService
 import ru.ikrom.player_screen.PlayerFragment
 import ru.ikrom.theme.AppDimens
 import ru.ikrom.theme.AppDimens.toDp

@@ -1,4 +1,4 @@
-package ru.ikrom.player.background
+package ru.ikrom.background_player
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -46,8 +46,8 @@ class MusicNotificationManager @Inject constructor (
 
     companion object {
         private const val CHANNEL_ID = "media_player_channel"
-        private const val CHANNEL_NAME = "Media Player Channel" // Название канала
-        private const val CHANNEL_DESCRIPTION = "Channel for Media Player" // Описание канала
+        private const val CHANNEL_NAME = "Media Player Channel"
+        private const val CHANNEL_DESCRIPTION = "Channel for Media Player"
         private const val NOTIFICATION_ID = 1
     }
 

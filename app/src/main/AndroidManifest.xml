@@ -19,7 +19,7 @@
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <service
-            android:name="ru.ikrom.player.MusicPlayerService"
+            android:name="ru.ikrom.background_player.MusicPlayerService"
             android:foregroundServiceType="mediaPlayback"
             android:exported="false">
             <intent-filter>

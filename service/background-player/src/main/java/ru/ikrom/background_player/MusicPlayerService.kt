@@ -1,4 +1,4 @@
-package ru.ikrom.player
+package ru.ikrom.background_player
 
 
 import android.content.Intent
@@ -10,7 +10,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.player.background.MusicNotificationManager
 import javax.inject.Inject
 
 

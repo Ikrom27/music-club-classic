@@ -16,9 +16,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.ikrom.player.IPlayerHandler
 import ru.ikrom.player.MediaSourceFactory
-import ru.ikrom.player.MusicPlayerService
 import ru.ikrom.player.PlayerHandlerImpl
-import ru.ikrom.player.background.MusicNotificationManager
 import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -49,18 +47,6 @@ class PlayerModule {
     ) : ExoPlayer = ExoPlayer.Builder(context)
         .setMediaSourceFactory(mediaSourceFactory)
         .build()
-
-    @Provides
-    @Singleton
-    fun provideMusicPlayerService(): MusicPlayerService = MusicPlayerService()
-
-    @OptIn(UnstableApi::class)
-    @Provides
-    @Singleton
-    fun provideNotificationManager(
-        @ApplicationContext context: Context,
-        player: ExoPlayer
-    ) : MusicNotificationManager = MusicNotificationManager(context, player)
 
     @OptIn(UnstableApi::class)
     @Provides
