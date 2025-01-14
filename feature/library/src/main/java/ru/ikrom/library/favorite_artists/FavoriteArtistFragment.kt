@@ -3,7 +3,6 @@ package ru.ikrom.library.favorite_artists
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.fragment_list_editable.EditableListFragment
-import ru.ikrom.library.favorite_tracks.FavoriteArtistsViewModel
 import ru.ikrom.theme.AppStringsId
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem

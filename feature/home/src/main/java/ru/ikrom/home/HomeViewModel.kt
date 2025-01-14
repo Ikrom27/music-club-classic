@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player.IPlayerHandler
@@ -22,8 +23,8 @@ class HomeViewModel @Inject constructor(
 ): DefaultStateViewModel<UiState>() {
     private val tracksMap = mutableMapOf<String, TrackModel>()
 
-    fun playTrackById(id: String){
-        tracksMap[id]?.let { playerHandler.playNow(it) }
+    init {
+        likedTracksObserver()
     }
 
     companion object {
@@ -31,7 +32,6 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun loadState() {
-        _state.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 tracksMap.clear()
@@ -39,12 +39,12 @@ class HomeViewModel @Inject constructor(
                     tracksMap[it.videoId] = it
                     it.toGridItem()
                 }
-                val favoriteTracks = repository.getLikedTracks().map {
+                val favoriteTracks = repository.getLikedTracks().first().map {
                     tracksMap[it.videoId] = it
                     it.toThumbnailMediumItem()
                 }
                 val playlists = repository.getNewReleases().map { it.toCardItem() }
-                UiState.Success(
+                UiState(
                     quickPickTracks = quickPickTracks,
                     favoriteTracks = favoriteTracks,
                     playlists = playlists)
@@ -52,8 +52,21 @@ class HomeViewModel @Inject constructor(
                 _state.postValue(successState)
             }.onFailure { e ->
                 Log.e(TAG, e.message ?: "unknown")
-                _state.postValue(UiState.Error)
             }
         }
+    }
+
+    private fun likedTracksObserver(){
+        viewModelScope.launch {
+            repository.getLikedTracks().collect { tracks ->
+                _state.value?.apply {
+                    _state.postValue(copy(favoriteTracks = tracks.map { it.toThumbnailMediumItem() }))
+                }
+            }
+        }
+    }
+
+    fun playTrackById(id: String){
+        tracksMap[id]?.let { playerHandler.playNow(it) }
     }
 }

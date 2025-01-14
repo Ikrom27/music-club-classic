@@ -1,7 +1,9 @@
 package ru.ikrom.database
 
+import kotlinx.coroutines.flow.Flow
+
 interface ILocalDataSource {
-    suspend fun getAllTracks(): List<TrackEntity>
+    suspend fun getLikedTracks(): Flow<List<TrackEntity>>
     suspend fun getLikedArtists(): List<ArtistEntity>
     suspend fun isLikedTrack(id: String): Boolean
     suspend fun saveTrack(track: TrackEntity)

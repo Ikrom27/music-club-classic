@@ -3,6 +3,7 @@ package ru.ikrom.library
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player.IPlayerHandler
@@ -24,8 +25,7 @@ class LibraryViewModel @Inject constructor(
         _state.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-                repository.getLikedTracks()
-
+                repository.getLikedTracks().first()
             }.onSuccess { result ->
                 tracks.addAll(result)
                 _state.postValue(UiState.Success(

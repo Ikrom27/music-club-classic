@@ -1,10 +1,13 @@
 package ru.ikrom.youtube_data
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.ikrom.database.ILocalDataSource
 import ru.ikrom.youtube_data.extensions.toAlbumModel
 import ru.ikrom.youtube_data.extensions.toArtistPageModel
 import ru.ikrom.youtube_data.extensions.toEntity
 import ru.ikrom.youtube_data.extensions.toModel
+import ru.ikrom.youtube_data.extensions.toModels
 import ru.ikrom.youtube_data.extensions.toTrackModel
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
@@ -69,8 +72,8 @@ class MediaRepositoryImpl @Inject constructor(
         artistModel.toEntity()?.let { localSource.removeArtist(it) }
     }
 
-    override suspend fun getLikedTracks(): List<TrackModel> {
-        return localSource.getAllTracks().map { it.toModel() }
+    override suspend fun getLikedTracks(): Flow<List<TrackModel>> {
+        return localSource.getLikedTracks().map { it.toModels() }
     }
 
     override suspend fun getLikedArtists(): List<ArtistModel> {

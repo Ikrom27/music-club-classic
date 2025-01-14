@@ -1,19 +1,30 @@
 package ru.ikrom.library.favorite_tracks
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import ru.ikrom.fragment_list_editable.EditableStateViewModel
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedSmallItem
-import ru.ikrom.ui.models.toThumbnailRoundedSmallItem
+import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
+import ru.ikrom.ui.models.toThumbnailSmallItem
 import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteArtistsViewModel @Inject constructor(
+class FavoriteTracksViewModel @Inject constructor(
+    private val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository
-): EditableStateViewModel<ThumbnailRoundedSmallItem>() {
-    override suspend fun getData(): List<ThumbnailRoundedSmallItem> {
-        return repository.getLikedArtists().map {
-            it.toThumbnailRoundedSmallItem()
+): EditableStateViewModel<ThumbnailSmallItem>() {
+    private val tracks = mutableMapOf<String, TrackModel>()
+    override suspend fun getData(): List<ThumbnailSmallItem> {
+        tracks.clear()
+        return repository.getLikedTracks().first().map {
+            tracks[it.videoId] = it
+            it.toThumbnailSmallItem()
         }
+    }
+
+    fun playTrackById(id: String){
+        tracks[id]?.let { playerHandler.playNow(it) }
     }
 }

@@ -1,5 +1,6 @@
 package ru.ikrom.youtube_data
 
+import kotlinx.coroutines.flow.Flow
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistModel
@@ -16,7 +17,7 @@ interface IMediaRepository {
     suspend fun isFavorite(id: String): Boolean
     suspend fun isFavoriteArtist(id: String): Boolean
     suspend fun getAlbumPage(id: String): AlbumPageModel
-    suspend fun getLikedTracks(): List<TrackModel>
+    suspend fun getLikedTracks(): Flow<List<TrackModel>>
     suspend fun getLikedArtists(): List<ArtistModel>
     suspend fun saveTrack(id: String)
     suspend fun likeArtist(artistModel: ArtistModel)

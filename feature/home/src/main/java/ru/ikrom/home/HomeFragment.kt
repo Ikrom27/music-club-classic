@@ -44,10 +44,7 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     override fun getLayoutManager() = LinearLayoutManager(context)
     override fun handleState(state: UiState) {
         mViewModel.state.observe(viewLifecycleOwner) { state ->
-            when(state){
-                is UiState.Success -> showContent(state)
-                else -> {}
-            }
+            showContent(state)
         }
     }
 
@@ -63,7 +60,7 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
         }
     }
 
-    private fun showContent(data: UiState.Success){
+    private fun showContent(data: UiState){
         compositeAdapter.setItems(emptyList())
         if(data.quickPickTracks.isNotEmpty()){
             compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_recommendations)))

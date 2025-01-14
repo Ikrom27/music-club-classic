@@ -32,3 +32,5 @@ fun TrackEntity.toModel(): TrackModel {
 fun ArtistEntity.toModel(): ArtistModel {
     return ArtistModel(id, name, thumbnail)
 }
+
+fun List<TrackEntity>.toModels() = map{it.toModel()}

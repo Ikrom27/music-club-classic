@@ -1,5 +1,6 @@
 package ru.ikrom.database
 
+import kotlinx.coroutines.flow.Flow
 import ru.ikrom.database.db.ArtistDao
 import ru.ikrom.database.db.TracksDao
 import javax.inject.Inject
@@ -9,7 +10,7 @@ class LocalDataSource @Inject constructor(
     private val likedArtistDao: ArtistDao
 ) : ILocalDataSource {
 
-    override suspend fun getAllTracks(): List<TrackEntity> {
+    override suspend fun getLikedTracks(): Flow<List<TrackEntity>> {
         return likedTracksDao.getAllTracks()
     }
 
