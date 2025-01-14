@@ -18,11 +18,12 @@ fun TrackModel.toThumbnailSmallItem(): ThumbnailSmallItem {
 }
 
 
-fun TrackModel.toMenuHeaderItem(): MenuHeaderDelegateItem {
+fun TrackModel.toMenuHeaderItem(isFavorite: Boolean): MenuHeaderDelegateItem {
     return MenuHeaderDelegateItem(
         title = this.title,
         subtitle = this.album.artists.getNames(),
         thumbnail = this.album.thumbnail,
+        isFavorite = isFavorite,
     )
 }
 

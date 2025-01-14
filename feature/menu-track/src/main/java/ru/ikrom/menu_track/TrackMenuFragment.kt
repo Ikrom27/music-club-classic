@@ -13,7 +13,6 @@ import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.MenuButtonDelegate
 import ru.ikrom.ui.base_adapter.delegates.MenuButtonItem
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegate
-import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailArgs
 import ru.ikrom.utils.ActionUtil
 import javax.inject.Inject
@@ -25,15 +24,22 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
     private val viewModel: TrackMenuViewModel by viewModels()
     private val args: ThumbnailArgs by lazy { ThumbnailArgs(requireArguments()) }
     private var compositeAdapter = CompositeAdapter.Builder()
-        .add(MenuHeaderDelegate({}))
+        .add(MenuHeaderDelegate(
+            onClick = { navigator.toArtist(viewModel.getArtistId()) },
+            onFavoriteClick = { viewModel.toggleFavorite() }
+        ))
         .add(MenuButtonDelegate {
             it.onClick()
             dismiss()
         })
         .build()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setTrack(args.id, args.title, args.subtitle, args.thumbnail)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.setTrackById(args.id)
         setupRecyclerView(view)
         setupItems()
         super.onViewCreated(view, savedInstanceState)
@@ -47,14 +53,10 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
     }
 
     private fun setupItems() {
-        compositeAdapter.addToStart(
-            MenuHeaderDelegateItem(
-                args.title,
-                args.subtitle,
-                args.thumbnail
-            )
-        )
-        compositeAdapter.addItems(getButtons())
+        viewModel.uiContent.observe(viewLifecycleOwner) {
+            compositeAdapter.setItems(getButtons())
+            compositeAdapter.addToStart(it)
+        }
     }
 
     private fun getButtons(): List<MenuButtonItem>{

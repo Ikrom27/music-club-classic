@@ -21,4 +21,5 @@ interface IMediaRepository {
     suspend fun saveTrack(id: String)
     suspend fun likeArtist(artistModel: ArtistModel)
     suspend fun unLikeArtist(artistModel: ArtistModel)
+    suspend fun unLikeTrack(track: TrackModel)
 }

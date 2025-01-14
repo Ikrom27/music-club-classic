@@ -57,6 +57,10 @@ class MediaRepositoryImpl @Inject constructor(
         localSource.saveTrack(getTracksByQuery(id).first().toEntity())
     }
 
+    override suspend fun unLikeTrack(track: TrackModel){
+        localSource.removeTrack(track.toEntity())
+    }
+
     override suspend fun likeArtist(artistModel: ArtistModel) {
         artistModel.toEntity()?.let { localSource.saveArtist(it) }
     }
