@@ -25,6 +25,7 @@ class HomeViewModel @Inject constructor(
     private val likedTracks = mutableMapOf<String, TrackModel>()
 
     init {
+        loadState()
         likedTracksObserver()
     }
 
@@ -32,7 +33,7 @@ class HomeViewModel @Inject constructor(
         val TAG = HomeViewModel::class.java.simpleName
     }
 
-    override fun loadState() {
+    fun loadState() {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 quickPickTracks.clear()

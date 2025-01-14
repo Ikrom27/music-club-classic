@@ -61,7 +61,7 @@
             android:id="@+id/btn_play_shuffled"
             style="@style/ButtonSecondary"
             app:iconTint="?attr/colorPrimary"
-            android:text="@string/play"
+            android:text="@string/shuffle"
             app:icon="@drawable/ic_shuffle"
             app:iconGravity="textStart"
             app:layout_constraintEnd_toEndOf="parent"

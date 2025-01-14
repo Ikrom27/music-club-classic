@@ -20,8 +20,8 @@
     <string name="open_album">Открыть альбом</string>
     <string name="open_artist">Открыть исполнителя</string>
     <string name="share">Поделиться</string>
-    <string name="play">Воспроизвести</string>
-    <string name="shuffle">Случайный порядок</string>
+    <string name="play">Играть</string>
+    <string name="shuffle">Случайно</string>
 
     <string name="title_library">Библиотека</string>
     <string name="title_favorite">Избранное</string>

@@ -7,10 +7,4 @@ import androidx.lifecycle.ViewModel
 abstract class DefaultStateViewModel<S>: ViewModel() {
     protected val _state = MutableLiveData<S>()
     val state: LiveData<S> = _state
-
-    init {
-        loadState()
-    }
-
-    abstract fun loadState()
 }

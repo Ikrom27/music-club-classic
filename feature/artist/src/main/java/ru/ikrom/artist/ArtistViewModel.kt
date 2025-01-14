@@ -25,8 +25,10 @@ class ArtistViewModel @Inject constructor(
 
     private val artistModelLiveData = MutableLiveData<ArtistPageModel>()
     private var _isFavorite = false
+    private var lastId = ""
 
-    fun updateArtist(artistId: String){
+    fun updateArtist(artistId: String = lastId){
+        lastId = artistId
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 repository.getArtistData(artistId) to
@@ -62,6 +64,7 @@ class ArtistViewModel @Inject constructor(
                     repository.likeArtist(artistPage.toArtistModel())
                 }
             }
+            updateArtist()
         }
     }
 
@@ -73,5 +76,10 @@ class ArtistViewModel @Inject constructor(
         artistModelLiveData.value?.tracks?.let { playerHandler.playNow(it.shuffled()) }
     }
 
-    override fun loadState() {}
+    fun playTrackById(id: String){
+        artistModelLiveData.value
+            ?.tracks
+            ?.first { it.videoId == id }
+            ?.let { playerHandler.playNow(it) }
+    }
 }

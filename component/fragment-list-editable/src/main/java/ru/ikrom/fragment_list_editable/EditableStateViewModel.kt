@@ -13,7 +13,11 @@ sealed class EditableUiState<out T> {
 }
 
 abstract class EditableStateViewModel<T>: DefaultStateViewModel<EditableUiState<T>>() {
-    override fun loadState() {
+    init {
+        loadState()
+    }
+
+    private fun loadState() {
         _state.value = EditableUiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {

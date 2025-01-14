@@ -21,7 +21,11 @@ class LibraryViewModel @Inject constructor(
 ): DefaultStateViewModel<UiState>() {
     private val tracks = mutableListOf<TrackModel>()
 
-    override fun loadState() {
+    init {
+        loadState()
+    }
+
+    private fun loadState() {
         _state.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {

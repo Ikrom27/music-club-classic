@@ -78,8 +78,12 @@ class NavigationModule {
             navController.navigate(R.id.to_album, idToBundle(albumId))
         }
 
-        override fun toAlbumMenu(info: ThumbnailItem) {
-            navController.navigate(R.id.to_menu_track)
+        override fun toTrackMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
+        }
+
+        override fun toArtistMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
         }
     }
 

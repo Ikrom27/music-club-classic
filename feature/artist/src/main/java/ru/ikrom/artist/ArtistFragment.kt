@@ -48,7 +48,9 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
             }
         ))
         .add(NestedItemsDelegate())
-        .add(ThumbnailSmallDelegate({}, {}))
+        .add(ThumbnailSmallDelegate(
+            onClick = { mViewModel.playTrackById(it.id) },
+            onLongClick = { navigator }))
         .build()
 
     override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter
@@ -91,7 +93,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
                     adapter = CompositeAdapter.Builder()
                         .add(ThumbnailLargeAdapter(
                             onClick = { navigator.toAlbum(it.id) },
-                            onLongClick = { navigator.toAlbumMenu(it) }))
+                            onLongClick = { }))
                         .build()
                 )
             )
@@ -104,7 +106,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
                     adapter = CompositeAdapter.Builder()
                         .add(ThumbnailLargeAdapter(
                             onClick = { navigator.toAlbum(it.id) },
-                            onLongClick = { navigator.toAlbumMenu(it) }
+                            onLongClick = { }
                         )).build()
                 )
             )
@@ -127,7 +129,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
         if (rv.itemDecorationCount == 0){
             rv.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = DecorationDimens.getBottomMargin(resources)
+                    endSpace = DecorationDimens.getBottomMargin(resources) * 2
                 )
             )
         }
@@ -136,6 +138,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
     interface Navigator {
         fun toArtist(artistId: String)
         fun toAlbum(albumId: String)
-        fun toAlbumMenu(info: ThumbnailItem)
+        fun toTrackMenu(item: ThumbnailItem)
+        fun toArtistMenu(item: ThumbnailItem)
     }
 }
