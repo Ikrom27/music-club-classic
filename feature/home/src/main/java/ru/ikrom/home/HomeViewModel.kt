@@ -21,7 +21,8 @@ class HomeViewModel @Inject constructor(
     private val repository: IMediaRepository,
     private val quickPickUseCase: QuickPickUseCase
 ): DefaultStateViewModel<UiState>() {
-    private val tracksMap = mutableMapOf<String, TrackModel>()
+    private val quickPickTracks = mutableMapOf<String, TrackModel>()
+    private val likedTracks = mutableMapOf<String, TrackModel>()
 
     init {
         likedTracksObserver()
@@ -34,13 +35,14 @@ class HomeViewModel @Inject constructor(
     override fun loadState() {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-                tracksMap.clear()
+                quickPickTracks.clear()
+                likedTracks.clear()
                 val quickPickTracks = quickPickUseCase.getQuickPickTracks().map {
-                    tracksMap[it.videoId] = it
+                    quickPickTracks[it.videoId] = it
                     it.toGridItem()
                 }
                 val favoriteTracks = repository.getLikedTracks().first().map {
-                    tracksMap[it.videoId] = it
+                    likedTracks[it.videoId] = it
                     it.toThumbnailMediumItem()
                 }
                 val playlists = repository.getNewReleases().map { it.toCardItem() }
@@ -59,6 +61,8 @@ class HomeViewModel @Inject constructor(
     private fun likedTracksObserver(){
         viewModelScope.launch {
             repository.getLikedTracks().collect { tracks ->
+                likedTracks.clear()
+                tracks.forEach{ likedTracks[it.videoId] = it }
                 _state.value?.apply {
                     _state.postValue(copy(favoriteTracks = tracks.map { it.toThumbnailMediumItem() }))
                 }
@@ -67,6 +71,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun playTrackById(id: String){
-        tracksMap[id]?.let { playerHandler.playNow(it) }
+        likedTracks[id]?.let {
+            playerHandler.playNow(it)
+            return
+        }
+        quickPickTracks[id]?.let {
+            playerHandler.playNow(it)
+            return
+        }
     }
 }
