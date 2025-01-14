@@ -26,7 +26,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         .add(TitleDelegate())
         .add(MenuNavigateDelegate(
             onClickItem = {
-                navigator.toFavoriteTracks()
+                navigateMapper(it.title)
             }
         ))
         .add(NestedItemsDelegate())
@@ -40,6 +40,17 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
             MenuNavigateItem(AppDrawableIds.download, getString(R.string.menu_downloaded)),
             MenuNavigateItem(AppDrawableIds.audioQuality, getString(R.string.menu_in_device)),
         )
+    }
+
+    private fun navigateMapper(title: String) {
+        when (title) {
+            getString(R.string.menu_liked_tracks) -> navigator.toFavoriteTracks()
+            getString(R.string.menu_liked_artists) -> navigator.toFavoriteArtists()
+            getString(R.string.menu_liked_albums) -> navigator.toSavedAlbums()
+            getString(R.string.menu_downloaded) -> navigator.toDownloaded()
+            getString(R.string.menu_in_device) -> navigator.toLocalTracks()
+            else -> throw IllegalArgumentException("Unknown navigation title: $title")
+        }
     }
 
     override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter

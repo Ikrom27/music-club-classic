@@ -17,6 +17,7 @@ interface IMediaRepository {
     suspend fun isFavoriteArtist(id: String): Boolean
     suspend fun getAlbumPage(id: String): AlbumPageModel
     suspend fun getLikedTracks(): List<TrackModel>
+    suspend fun getLikedArtists(): List<ArtistModel>
     suspend fun saveTrack(id: String)
     suspend fun likeArtist(artistModel: ArtistModel)
     suspend fun unLikeArtist(artistModel: ArtistModel)

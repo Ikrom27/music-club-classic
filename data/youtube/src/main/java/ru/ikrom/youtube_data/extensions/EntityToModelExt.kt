@@ -1,5 +1,6 @@
 package ru.ikrom.youtube_data.extensions
 
+import ru.ikrom.database.ArtistEntity
 import ru.ikrom.database.TrackEntity
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
@@ -26,4 +27,8 @@ fun TrackEntity.toModel(): TrackModel {
         album = albumModel,
         isFavorite = true
     )
+}
+
+fun ArtistEntity.toModel(): ArtistModel {
+    return ArtistModel(id, name, thumbnail)
 }

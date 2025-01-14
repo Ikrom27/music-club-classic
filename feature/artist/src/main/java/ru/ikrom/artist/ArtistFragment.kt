@@ -3,7 +3,6 @@ package ru.ikrom.artist
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +15,7 @@ import ru.ikrom.ui.base_adapter.delegates.NestedItems
 import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailLargeAdapter
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedAdapter
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
@@ -116,7 +114,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
             compositeAdapter.addToEnd(
                 NestedItems(
                     items = data.similar,
-                    adapter = CompositeAdapter.Builder().add(ThumbnailRoundedAdapter{
+                    adapter = CompositeAdapter.Builder().add(ThumbnailRoundedDelegate{
                         navigator.toArtist(it.id)
                     }).build()
                 )

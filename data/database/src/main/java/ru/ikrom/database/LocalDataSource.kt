@@ -13,6 +13,10 @@ class LocalDataSource @Inject constructor(
         return likedTracksDao.getAllTracks()
     }
 
+    override suspend fun getLikedArtists(): List<ArtistEntity> {
+        return likedArtistDao.getAllArtists()
+    }
+
     override suspend fun isLikedTrack(id: String): Boolean {
         return likedTracksDao.isLikedTrack(id)
     }

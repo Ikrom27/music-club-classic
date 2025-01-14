@@ -46,6 +46,11 @@
         android:name="ru.ikrom.library.favorite_tracks.FavoriteTracksFragment"
         android:label="FavoriteTracksFragment" />
 
+    <fragment
+        android:id="@+id/favoriteArtistsFragment"
+        android:name="ru.ikrom.library.favorite_artists.FavoriteArtistFragment"
+        android:label="FavoriteArtistsFragment" />
+
     <dialog
         android:id="@+id/track_menu"
         android:name="ru.ikrom.menu_track.TrackMenuFragment"
@@ -67,4 +72,7 @@
     <action
         android:id="@+id/to_favorite_tracks"
         app:destination="@id/favoriteTracksFragment" />
+    <action
+        android:id="@+id/to_favorite_artists"
+        app:destination="@id/favoriteArtistsFragment" />
 </navigation>

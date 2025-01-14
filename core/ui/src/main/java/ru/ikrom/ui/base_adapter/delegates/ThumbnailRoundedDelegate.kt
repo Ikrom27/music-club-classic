@@ -14,10 +14,10 @@ data class ThumbnailRoundedItem(
 )
 
 
-class ThumbnailRoundedAdapter(
+class ThumbnailRoundedDelegate(
     onClick: (ThumbnailRoundedItem) -> Unit
 ):
-    DelegateAdapter<ThumbnailRoundedItem, ThumbnailRoundedAdapter.ThumbnailRoundedViewHolder>(
+    DelegateAdapter<ThumbnailRoundedItem, ThumbnailRoundedDelegate.ThumbnailRoundedViewHolder>(
         ThumbnailRoundedItem::class.java, onClick
     ) {
     inner class ThumbnailRoundedViewHolder(itemView: View): ViewHolder<ThumbnailRoundedItem>(itemView) {

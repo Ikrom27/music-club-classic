@@ -68,4 +68,8 @@ class MediaRepositoryImpl @Inject constructor(
     override suspend fun getLikedTracks(): List<TrackModel> {
         return localSource.getAllTracks().map { it.toModel() }
     }
+
+    override suspend fun getLikedArtists(): List<ArtistModel> {
+        return localSource.getLikedArtists().map { it.toModel() }
+    }
 }
