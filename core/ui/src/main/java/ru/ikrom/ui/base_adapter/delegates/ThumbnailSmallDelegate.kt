@@ -18,10 +18,10 @@ data class ThumbnailSmallItem(
 
 
 class ThumbnailSmallDelegate(
-    onClickItem: (ThumbnailSmallItem) -> Unit,
-    val onLongClickItem: (ThumbnailSmallItem) -> Unit,
+    onClick: (ThumbnailSmallItem) -> Unit,
+    val onLongClick: (ThumbnailSmallItem) -> Unit,
 ): DelegateAdapter<ThumbnailSmallItem, ThumbnailSmallDelegate.ThumbnailSmallViewHolder>(
-    ThumbnailSmallItem::class.java, onClickItem, onLongClickItem
+    ThumbnailSmallItem::class.java, onClick, onLongClick
 ) {
     inner class ThumbnailSmallViewHolder(itemView: View): ViewHolder<ThumbnailSmallItem>(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
@@ -36,7 +36,7 @@ class ThumbnailSmallDelegate(
                 .into(ivThumbnail)
             tvTitle.text = item.title
             tvSubtitle.text= item.subtitle
-            btnMore.setOnClickListener { onLongClickItem(item) }
+            btnMore.setOnClickListener { onLongClick(item) }
         }
     }
 

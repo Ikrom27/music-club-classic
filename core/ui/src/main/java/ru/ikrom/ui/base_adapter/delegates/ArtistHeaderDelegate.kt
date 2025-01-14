@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.ikrom.theme.AppIconsId
+import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
@@ -41,7 +41,7 @@ class ArtistHeaderDelegate(
                 .centerCrop()
                 .into(thumbnail)
             title.text = item.title
-            btnFavorite.setImageResource(if(item.isFavorite) AppIconsId.favorite else  AppIconsId.favoriteBordered)
+            btnFavorite.setImageResource(if(item.isFavorite) AppDrawableIds.favorite else  AppDrawableIds.favoriteBordered)
             setupButtons()
         }
 

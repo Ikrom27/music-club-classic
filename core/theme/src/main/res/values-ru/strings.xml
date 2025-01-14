@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_screen">Главная</string>
+    <string name="explore_screen">Навигатор</string>
+    <string name="library_screen">Библиотека</string>
+    <string name="profile_screen">Профиль</string>
+
+    <string name="ph_no_result_title">Ничего не найден</string>
+    <string name="ph_no_result_description">Ничего не удалось найти</string>
+    <string name="ph_connection_error_description">Ошибка!</string>
+    <string name="ph_no_connection_error_title">Проблема при подклении к сети, попробуйте перезагрузить или попробуйте позже</string>
+
+    <string name="notification_download">Загрузка</string>
+
+    <string name="search">Поиск...</string>
+
+    <string name="add_to_queue">Добавить в очередь</string>
+    <string name="save_in_library">Сохранить</string>
+    <string name="to_download">Скачать</string>
+    <string name="open_album">Открыть альбом</string>
+    <string name="open_artist">Открыть исполнителя</string>
+    <string name="share">Поделиться</string>
+    <string name="play">Воспроизвести</string>
+    <string name="shuffle">Случайный порядок</string>
+
+    <string name="title_library">Библиотека</string>
+    <string name="title_favorite">Избранное</string>
+    <string name="next_in_queue">Следующий в очереди</string>
+
+    <string name="menu_liked_tracks">Любимые треки</string>
+    <string name="menu_liked_artists">Любимые исполнители</string>
+    <string name="menu_liked_albums">Любимые альбомы</string>
+    <string name="menu_downloaded">Загружено</string>
+    <string name="menu_in_device">На устройстве</string>
+</resources>

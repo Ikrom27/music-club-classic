@@ -2,8 +2,6 @@ package com.ikrom.music_club_classic
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
@@ -19,17 +17,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ikrom.music_club_classic.anim.miniPlayerAlphaProgress
 import com.ikrom.music_club_classic.anim.playerContainerAlphaProgress
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.ikrom.mini_player.MiniPlayer
 import ru.ikrom.player.MusicPlayerService
 import ru.ikrom.player_screen.PlayerFragment
-import ru.ikrom.player_screen.toTimeString
 import ru.ikrom.theme.AppDimens
 import ru.ikrom.theme.AppDimens.toDp
-import ru.ikrom.theme.AppIconsId
+import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.utils.setupMarginFromStatusBar
 
 
@@ -151,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.isPlaying.observe(this) { isPlaying ->
-            miniPlayer.btnIcon = if (isPlaying) AppIconsId.pause else AppIconsId.play
+            miniPlayer.btnIcon = if (isPlaying) AppDrawableIds.pause else AppDrawableIds.play
         }
 
         miniPlayer.setOnButtonClickListener { viewModel.togglePlayPause() }

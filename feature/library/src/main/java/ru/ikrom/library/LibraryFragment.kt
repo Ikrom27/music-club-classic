@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.base_fragment.DefaultListFragment
-import ru.ikrom.theme.AppIconsId
+import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.MenuNavigateDelegate
 import ru.ikrom.ui.base_adapter.delegates.MenuNavigateItem
@@ -25,18 +25,20 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
         .add(MenuNavigateDelegate(
-            onClickItem = {}
+            onClickItem = {
+                navigator.toFavoriteTracks()
+            }
         ))
         .add(NestedItemsDelegate())
         .build()
 
     private val screens by lazy {
         listOf(
-            MenuNavigateItem(AppIconsId.favorite, getString(R.string.menu_liked_tracks)),
-            MenuNavigateItem(AppIconsId.viewArtist, getString(R.string.menu_liked_artists)),
-            MenuNavigateItem(AppIconsId.viewAlbum, getString(R.string.menu_liked_albums)),
-            MenuNavigateItem(AppIconsId.download, getString(R.string.menu_downloaded)),
-            MenuNavigateItem(AppIconsId.audioQuality, getString(R.string.menu_in_device)),
+            MenuNavigateItem(AppDrawableIds.favorite, getString(R.string.menu_liked_tracks)),
+            MenuNavigateItem(AppDrawableIds.viewArtist, getString(R.string.menu_liked_artists)),
+            MenuNavigateItem(AppDrawableIds.viewAlbum, getString(R.string.menu_liked_albums)),
+            MenuNavigateItem(AppDrawableIds.download, getString(R.string.menu_downloaded)),
+            MenuNavigateItem(AppDrawableIds.audioQuality, getString(R.string.menu_in_device)),
         )
     }
 
@@ -70,5 +72,10 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
 
     interface Navigator{
         fun toTrackMenu(item: ThumbnailItem)
+        fun toFavoriteTracks()
+        fun toFavoriteArtists()
+        fun toSavedAlbums()
+        fun toDownloaded()
+        fun toLocalTracks()
     }
 }

@@ -20,7 +20,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.player_screen.databinding.FragmentPlayerBinding
-import ru.ikrom.theme.AppIconsId
+import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.utils.ColorsUtil
 import ru.ikrom.utils.setupMarginFromStatusBar
 
@@ -41,17 +41,17 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
 
     private fun setupButtons() {
         playerViewModel.isPlayingLiveData.observe(viewLifecycleOwner){
-            binding.btnPlayPause.setImageResource(if (it) AppIconsId.pause else AppIconsId.play)
+            binding.btnPlayPause.setImageResource(if (it) AppDrawableIds.pause else AppDrawableIds.play)
         }
         playerViewModel.repeatModeLiveData.observe(viewLifecycleOwner){repeatMode ->
             when(repeatMode) {
-                Player.REPEAT_MODE_OFF -> binding.btnToRepeat.setImageResource(AppIconsId.repeatOff)
-                Player.REPEAT_MODE_ONE -> binding.btnToRepeat.setImageResource(AppIconsId.repeatOne)
-                Player.REPEAT_MODE_ALL -> binding.btnToRepeat.setImageResource(AppIconsId.repeatAll)
+                Player.REPEAT_MODE_OFF -> binding.btnToRepeat.setImageResource(AppDrawableIds.repeatOff)
+                Player.REPEAT_MODE_ONE -> binding.btnToRepeat.setImageResource(AppDrawableIds.repeatOne)
+                Player.REPEAT_MODE_ALL -> binding.btnToRepeat.setImageResource(AppDrawableIds.repeatAll)
             }
         }
         playerViewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {isFavorite ->
-            binding.btnToFavorite.setImageResource(if (isFavorite) AppIconsId.favorite else AppIconsId.favoriteBordered)
+            binding.btnToFavorite.setImageResource(if (isFavorite) AppDrawableIds.favorite else AppDrawableIds.favoriteBordered)
         }
     }
 

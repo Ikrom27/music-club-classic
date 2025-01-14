@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -42,6 +43,14 @@ class PlaceHolderView: FrameLayout {
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init(context)
         getStuffFromXML(attrs)
+    }
+
+    fun show(){
+        visibility = View.VISIBLE
+    }
+
+    fun hide(){
+        visibility = View.GONE
     }
 
     fun init(context: Context){

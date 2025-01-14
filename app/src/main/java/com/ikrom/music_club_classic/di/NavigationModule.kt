@@ -14,6 +14,7 @@ import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
 import ru.ikrom.library.LibraryFragment
+import ru.ikrom.library.favorite_tracks.FavoriteTracksFragment
 import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.toBundle
@@ -116,6 +117,37 @@ class NavigationModule {
     fun provideLibraryNavigator(
         navController: NavController
     ) = object : LibraryFragment.Navigator {
+        override fun toTrackMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
+        }
+
+        override fun toFavoriteTracks() {
+            navController.navigate(R.id.to_favorite_tracks)
+        }
+
+        override fun toFavoriteArtists() {
+            TODO("Not yet implemented")
+        }
+
+        override fun toSavedAlbums() {
+            TODO("Not yet implemented")
+        }
+
+        override fun toDownloaded() {
+            TODO("Not yet implemented")
+        }
+
+        override fun toLocalTracks() {
+            TODO("Not yet implemented")
+        }
+
+    }
+
+
+    @Provides
+    fun provideFavoriteTracksNavigator(
+        navController: NavController
+    ) = object : FavoriteTracksFragment.Navigator {
         override fun toTrackMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }

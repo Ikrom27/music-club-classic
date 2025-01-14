@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/component" />
             <option value="$PROJECT_DIR$/component/appbar" />
+            <option value="$PROJECT_DIR$/component/fragment-list-editable" />
             <option value="$PROJECT_DIR$/component/mini-player" />
             <option value="$PROJECT_DIR$/component/player" />
             <option value="$PROJECT_DIR$/component/searchbar" />

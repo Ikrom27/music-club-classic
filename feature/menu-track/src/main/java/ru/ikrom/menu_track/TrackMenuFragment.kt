@@ -1,6 +1,5 @@
 package ru.ikrom.menu_track
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.theme.AppIconsId
+import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.theme.AppStringsId
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.MenuButtonDelegate
@@ -62,31 +61,31 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
         return listOf(
             MenuButtonItem(
                 title = getString(AppStringsId.ADD_TO_QUEUE),
-                icon = AppIconsId.addToQueue,
+                icon = AppDrawableIds.addToQueue,
                 onClick = { viewModel.addToQueue() }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.TO_DOWNLOAD),
-                icon = AppIconsId.download,
+                icon = AppDrawableIds.download,
                 onClick = { viewModel.download() }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ALBUM),
-                icon = AppIconsId.viewAlbum,
+                icon = AppDrawableIds.viewAlbum,
                 onClick = {
                     navigator.toAlbum(viewModel.getAlbumId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ARTIST),
-                icon = AppIconsId.viewArtist,
+                icon = AppDrawableIds.viewArtist,
                 onClick = {
                     navigator.toArtist(viewModel.getArtistId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.SHARE),
-                icon = AppIconsId.share,
+                icon = AppDrawableIds.share,
                 onClick = {
                     context?.let { ActionUtil.shareIntent(it, viewModel.shareLink) }
                 }

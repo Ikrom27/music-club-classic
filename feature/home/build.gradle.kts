@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:base-fragment"))
+    api(project(":core:base-fragment"))
     implementation(project(":component:player"))
     implementation(project(":component:appbar"))
     implementation(project(":core:ui"))

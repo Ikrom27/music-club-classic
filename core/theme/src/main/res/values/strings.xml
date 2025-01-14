@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Music Club Classic</string>
+    <string name="app_name" translatable="false">Music Club Classic</string>
 
     <!-- App names -->
-    <string name="app_name_first_part">music</string>
-    <string name="app_name_second_part">Club</string>
+    <string name="app_name_first_part" translatable="false">music</string>
+    <string name="app_name_second_part" translatable="false">Club</string>
 
     <!-- Navigation bar -->
     <string name="home_screen">Home</string>
@@ -14,15 +14,18 @@
     <!-- Placeholders -->
     <string name="ph_no_result_title">No result</string>
     <string name="ph_no_result_description">There are no results for your queries</string>
+    <string name="ph_connection_error_description">Error connecting to server</string>
+    <string name="ph_no_connection_error_title">Connection error</string>
 
     <!-- SharedPreferences -->
-    <string name="preference_file_key">app settings</string>
-    <string name="preference_theme_mode">theme mode</string>
+    <string name="preference_file_key" translatable="false">app settings</string>
+    <string name="preference_theme_mode" translatable="false">theme mode</string>\
 
     <!-- Notification -->
     <string name="notification_download">Download</string>
-    <string name="example">example</string>
-    <string name="example_long">it is long examole for your test</string>
+
+    <string name="example" translatable="false">example</string>
+    <string name="example_long" translatable="false">it is long examole for your test</string>
     <string name="search">Search...</string>
 
     <!-- Buttons -->
@@ -35,38 +38,44 @@
     <string name="play">Play</string>
     <string name="shuffle">Shuffle</string>
 
+    <!-- TITLES -->
+    <string name="title_library">Library</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="next_in_queue">Next in queue</string>
+
+    <string name="menu_liked_tracks">Liked tracks</string>
+    <string name="menu_liked_artists">Liked artists</string>
+    <string name="menu_liked_albums">Liked albums</string>
+    <string name="menu_downloaded">Downloaded</string>
+    <string name="menu_in_device">In device</string>
+
     <!-- Noun -->
-    <plurals name="n_song">
+    <plurals name="n_song" translatable="false">
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
     </plurals>
-    <plurals name="n_artist">
+    <plurals name="n_artist" translatable="false">
         <item quantity="one">%d artist</item>
         <item quantity="other">%d artists</item>
     </plurals>
-    <plurals name="n_album">
+    <plurals name="n_album" translatable="false">
         <item quantity="one">%d album</item>
         <item quantity="other">%d albums</item>
     </plurals>
-    <plurals name="n_playlist">
+    <plurals name="n_playlist" translatable="false">
         <item quantity="one">%d playlist</item>
         <item quantity="other">%d playlists</item>
     </plurals>
-    <plurals name="n_week">
+    <plurals name="n_week" translatable="false">
         <item quantity="one">%d week</item>
         <item quantity="other">%d weeks</item>
     </plurals>
-    <plurals name="n_month">
+    <plurals name="n_month" translatable="false">
         <item quantity="one">%d month</item>
         <item quantity="other">%d months</item>
     </plurals>
-    <plurals name="n_year">
+    <plurals name="n_year" translatable="false">
         <item quantity="one">%d year</item>
         <item quantity="other">%d years</item>
     </plurals>
-    <string name="next_in_queue">Next in queue</string>
-    <string name="ph_connection_error_description">Error connecting to server</string>
-    <string name="ph_no_connection_error_title">Connection error</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

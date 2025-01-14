@@ -3,7 +3,6 @@ package ru.ikrom.album
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -42,8 +41,8 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
             }
         ))
         .add(ThumbnailSmallDelegate(
-            onClickItem = { viewModel.playTrackById(it.id) },
-            onLongClickItem = {
+            onClick = { viewModel.playTrackById(it.id) },
+            onLongClick = {
                 navigator.toTrackMenu(it)
             })
         )

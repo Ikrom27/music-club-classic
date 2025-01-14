@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,10 +31,10 @@ class SearchFragment : Fragment() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private var adapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate(
-            onClickItem = {
+            onClick = {
                 viewModel.playTrackById(it.id)
             },
-            onLongClickItem = {
+            onLongClick = {
                 viewModel.toTrackMenu(it.id)
             }
         ))

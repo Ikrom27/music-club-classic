@@ -1,6 +1,6 @@
 package ru.ikrom.theme
 
-object AppIconsId {
+object AppDrawableIds {
     val addToQueue = R.drawable.ic_add_to_queue
     val arrayBack = R.drawable.ic_array_back
     val arrayMore = R.drawable.ic_array_more
@@ -34,4 +34,6 @@ object AppIconsId {
     val play = R.drawable.ic_play
     val pause = R.drawable.ic_pause
     val profile = R.drawable.ic_profile
+    val phNoResult = R.drawable.ph_no_result
+    val phError = R.drawable.ph_connection_error
 }

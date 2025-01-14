@@ -1,16 +1,14 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
 }
 
 android {
-    namespace = "ru.ikrom.library"
+    namespace = "ru.ikrom.fragment_list_editable"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -26,27 +24,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
 dependencies {
-    api(project(":component:fragment-list-editable"))
-    implementation(project(":core:base-fragment"))
-    implementation(libs.bundles.dagger)
-    implementation(project(":core:theme"))
-    implementation(project(":component:player"))
-    kapt(libs.bundles.dagger.compiler)
-    implementation(project(":data:youtube"))
-    implementation(project(":core:ui"))
     implementation(libs.navigation.fragment)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(project(":component:searchbar"))
+    implementation(project(":core:base-fragment"))
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(project(":core:ui"))
+    implementation(project(":core:theme"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

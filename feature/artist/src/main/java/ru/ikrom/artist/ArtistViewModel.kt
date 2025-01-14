@@ -74,4 +74,6 @@ class ArtistViewModel @Inject constructor(
     fun playShuffled(){
         artistModelLiveData.value?.tracks?.let { playerHandler.playNow(it.shuffled()) }
     }
+
+    override fun loadState() {}
 }

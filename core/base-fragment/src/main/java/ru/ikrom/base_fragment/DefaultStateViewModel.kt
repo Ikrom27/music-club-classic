@@ -12,5 +12,5 @@ abstract class DefaultStateViewModel<S>: ViewModel() {
         loadState()
     }
 
-    protected open fun loadState() {}
+    abstract fun loadState()
 }

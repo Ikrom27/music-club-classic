@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="home_screen">Главная</string>
+    <string name="explore_screen">Навигатор</string>
+    <string name="library_screen">Библиотека</string>
+    <string name="profile_screen">Профиль</string>
+
     <string name="title_library">Библиотека</string>
     <string name="title_favorite">Избранное</string>
 
