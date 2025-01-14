@@ -43,6 +43,9 @@ class MenuHeaderDelegate(
                 if(item.isFavorite) AppDrawableIds.favorite
                 else AppDrawableIds.favoriteBordered
             )
+            if(item.subtitle.isBlank()){
+                tvSubtitle.visibility = View.GONE
+            }
         }
 
     }

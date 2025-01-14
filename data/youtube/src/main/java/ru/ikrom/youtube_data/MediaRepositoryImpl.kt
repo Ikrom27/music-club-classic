@@ -7,7 +7,8 @@ import ru.ikrom.youtube_data.extensions.toAlbumModel
 import ru.ikrom.youtube_data.extensions.toArtistPageModel
 import ru.ikrom.youtube_data.extensions.toEntity
 import ru.ikrom.youtube_data.extensions.toModel
-import ru.ikrom.youtube_data.extensions.toModels
+import ru.ikrom.youtube_data.extensions.toTrackModels
+import ru.ikrom.youtube_data.extensions.toArtistModels
 import ru.ikrom.youtube_data.extensions.toTrackModel
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
@@ -73,10 +74,10 @@ class MediaRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getLikedTracks(): Flow<List<TrackModel>> {
-        return localSource.getLikedTracks().map { it.toModels() }
+        return localSource.getLikedTracks().map { it.toTrackModels() }
     }
 
-    override suspend fun getLikedArtists(): List<ArtistModel> {
-        return localSource.getLikedArtists().map { it.toModel() }
+    override suspend fun getLikedArtists(): Flow<List<ArtistModel>> {
+        return localSource.getLikedArtists().map { it.toArtistModels() }
     }
 }

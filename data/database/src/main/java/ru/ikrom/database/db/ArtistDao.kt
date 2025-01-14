@@ -5,12 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import ru.ikrom.database.ArtistEntity
 
 @Dao
 interface ArtistDao {
     @Query("select * from liked_artists")
-    fun getAllArtists(): List<ArtistEntity>
+    fun getAllArtists(): Flow<List<ArtistEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArtist(artist: ArtistEntity)

@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":core:theme"))
     implementation(project(":component:appbar"))
     implementation(project(":data:youtube"))
+    implementation(project(":feature:menu-artist"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

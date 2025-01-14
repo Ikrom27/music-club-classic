@@ -14,7 +14,7 @@ class LocalDataSource @Inject constructor(
         return likedTracksDao.getAllTracks()
     }
 
-    override suspend fun getLikedArtists(): List<ArtistEntity> {
+    override suspend fun getLikedArtists(): Flow<List<ArtistEntity>> {
         return likedArtistDao.getAllArtists()
     }
 

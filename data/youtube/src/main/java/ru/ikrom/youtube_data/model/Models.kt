@@ -31,7 +31,10 @@ data class ArtistModel(
     val id: String?,
     val name: String,
     val thumbnail: String? = null
-)
+){
+    val shareLink: String
+        get() = "https://music.youtube.com/watch?v=$id"
+}
 
 data class PlaylistModel(
     val id: String,

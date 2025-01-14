@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ILocalDataSource {
     suspend fun getLikedTracks(): Flow<List<TrackEntity>>
-    suspend fun getLikedArtists(): List<ArtistEntity>
+    suspend fun getLikedArtists(): Flow<List<ArtistEntity>>
     suspend fun isLikedTrack(id: String): Boolean
     suspend fun saveTrack(track: TrackEntity)
     suspend fun removeTrack(track: TrackEntity)

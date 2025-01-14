@@ -30,5 +30,9 @@ abstract class EditableStateViewModel<T>: DefaultStateViewModel<EditableUiState<
         }
     }
 
+    protected fun refresh(data: List<T>){
+        _state.postValue(EditableUiState.Success(data))
+    }
+
     abstract suspend fun getData(): List<T>
 }
