@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation(libs.bundles.dagger)
     implementation(libs.navigation.fragment)
+    implementation(project(":core:utils"))
     kapt(libs.bundles.dagger.compiler)
     implementation(project(":data:youtube"))
     implementation(project(":common:player-handler"))

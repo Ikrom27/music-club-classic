@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":data:youtube"))
     implementation(libs.palette)
     implementation(project(":core:theme"))
+    implementation(project(":core:utils"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

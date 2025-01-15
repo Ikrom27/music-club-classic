@@ -1,4 +1,4 @@
-package ru.ikrom.ui.utils
+package ru.ikrom.utils
 
 import android.os.Bundle
 import androidx.core.os.bundleOf

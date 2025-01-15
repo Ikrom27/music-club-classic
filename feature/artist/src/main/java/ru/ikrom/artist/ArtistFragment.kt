@@ -21,7 +21,7 @@ import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.ui.utils.bundleToId
+import ru.ikrom.utils.bundleToId
 import ru.ikrom.utils.ActionUtil
 import javax.inject.Inject
 

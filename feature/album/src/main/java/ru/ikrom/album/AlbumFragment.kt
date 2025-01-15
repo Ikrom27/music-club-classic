@@ -19,7 +19,7 @@ import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.ui.utils.bundleToId
+import ru.ikrom.utils.bundleToId
 import javax.inject.Inject
 
 @AndroidEntryPoint

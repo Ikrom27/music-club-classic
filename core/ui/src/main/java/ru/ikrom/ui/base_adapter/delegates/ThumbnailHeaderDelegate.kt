@@ -20,7 +20,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
-import ru.ikrom.ui.utils.ColorsUtil
+import ru.ikrom.utils.ColorsUtil
 
 data class ThumbnailHeaderItem(
     val title: String,

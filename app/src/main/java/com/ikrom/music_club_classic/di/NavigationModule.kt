@@ -21,7 +21,7 @@ import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.search.SearchFragment
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.toBundle
-import ru.ikrom.ui.utils.idToBundle
+import ru.ikrom.utils.idToBundle
 
 
 @Module
