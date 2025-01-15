@@ -54,8 +54,8 @@ fun PlaylistModel.toLibraryItem(): LibraryItem {
 fun PlaylistModel.toThumbnailMediumItem() : ThumbnailItemMediumItem {
     return ThumbnailItemMediumItem(
         id = id,
-        title = this.title,
-        subtitle = this.artists?.name ?: "",
-        thumbnail = this.thumbnail,
+        title = title,
+        subtitle = artists?.name ?: "",
+        thumbnail = thumbnail,
     )
 }

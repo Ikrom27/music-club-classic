@@ -18,6 +18,7 @@ import ru.ikrom.library.favorite_artists.FavoriteArtistFragment
 import ru.ikrom.library.favorite_tracks.FavoriteTracksFragment
 import ru.ikrom.menu_artist.ArtistMenuFragment
 import ru.ikrom.menu_track.TrackMenuFragment
+import ru.ikrom.search.SearchFragment
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.toBundle
 import ru.ikrom.ui.utils.idToBundle
@@ -181,5 +182,14 @@ class NavigationModule {
             navController.navigate(R.id.to_artist, idToBundle(artistId))
         }
 
+    }
+
+    @Provides
+    fun provideSearchNavigator(
+        navController: NavController
+    ) = object : SearchFragment.Navigator {
+        override fun toTrackMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
+        }
     }
 }

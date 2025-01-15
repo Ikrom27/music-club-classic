@@ -20,7 +20,7 @@ class FavoriteTracksFragment : EditableListFragment<ThumbnailSmallItem, Favorite
     private val mAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
         .add(ThumbnailSmallDelegate(
-            onClick = { mViewModel.playTrackById(it.id) },
+            onClick = { mViewModel.playTrack(it) },
             onLongClick = { navigator.toTrackMenu(it) }
         ))
         .build()

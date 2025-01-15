@@ -49,7 +49,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
         ))
         .add(NestedItemsDelegate())
         .add(ThumbnailSmallDelegate(
-            onClick = { mViewModel.playTrackById(it.id) },
+            onClick = { mViewModel.playTrack(it.id) },
             onLongClick = { navigator }))
         .build()
 

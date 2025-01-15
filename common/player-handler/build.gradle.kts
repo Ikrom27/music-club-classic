@@ -37,7 +37,6 @@ android {
 dependencies {
     implementation(libs.bundles.media3)
     implementation(libs.bundles.dagger)
-    implementation(project(":data:youtube"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

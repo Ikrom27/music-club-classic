@@ -39,7 +39,7 @@ class PlayerQueueViewModel @Inject constructor(
             (currentQueue.value?.indexOfFirst { it.id == currentMediaItem.value?.mediaId } ?: 0) + 1
     }
 
-    fun playTrackById(id: String) {
+    fun playTrack(id: String) {
         playerHandler.playInQueue(id)
     }
 }

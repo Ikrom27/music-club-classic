@@ -7,8 +7,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player_handler.IPlayerHandler
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
+import ru.ikrom.ui.base_adapter.delegates.toMediaItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel
 import ru.ikrom.youtube_data.model.getNames
@@ -48,7 +50,7 @@ class LibraryViewModel @Inject constructor(
         }
     }
 
-    fun playTrackById(id: String) {
-        tracks.firstOrNull() { it.videoId == id }?.let { playerHandler.playNow(it) }
+    fun playTrack(it: ThumbnailItem) {
+        playerHandler.playNow(it.toMediaItem())
     }
 }

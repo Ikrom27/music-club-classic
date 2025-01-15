@@ -10,19 +10,20 @@ import ru.ikrom.youtube_data.model.getNames
 
 fun TrackModel.toThumbnailSmallItem(): ThumbnailSmallItem {
     return ThumbnailSmallItem(
-        id = this.videoId,
-        title = this.title,
-        subtitle = this.album.artists.getNames(),
-        thumbnail = this.album.thumbnail,
+        id = videoId,
+        title = title,
+        subtitle = album.artists.getNames(),
+        thumbnail = album.thumbnail,
     )
 }
 
 
 fun TrackModel.toMenuHeaderItem(isFavorite: Boolean): MenuHeaderDelegateItem {
     return MenuHeaderDelegateItem(
-        title = this.title,
-        subtitle = this.album.artists.getNames(),
-        thumbnail = this.album.thumbnail,
+        id = videoId,
+        title = title,
+        subtitle = album.artists.getNames(),
+        thumbnail = album.thumbnail,
         isFavorite = isFavorite,
     )
 }
@@ -30,17 +31,17 @@ fun TrackModel.toMenuHeaderItem(isFavorite: Boolean): MenuHeaderDelegateItem {
 fun TrackModel.toThumbnailMediumItem(): ThumbnailItemMediumItem {
     return ThumbnailItemMediumItem(
         id = videoId,
-        title = this.title,
-        subtitle = this.album.artists.getNames(),
-        thumbnail = this.album.thumbnail
+        title = title,
+        subtitle = album.artists.getNames(),
+        thumbnail = album.thumbnail
     )
 }
 
 fun TrackModel.toGridItem(): ThumbnailItemGrid {
     return ThumbnailItemGrid(
         id = videoId,
-        title = this.title,
-        subtitle = this.album.artists.getNames(),
-        thumbnail = this.album.thumbnail
+        title = title,
+        subtitle = album.artists.getNames(),
+        thumbnail = album.thumbnail
     )
 }

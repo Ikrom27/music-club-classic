@@ -79,7 +79,7 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     private fun createGridNestedItem(items: List<ThumbnailItemGrid>) = NestedGridItems(
         adapter = CompositeAdapter.Builder()
             .add(ThumbnailGridDelegate(
-                    onClick = { mViewModel.playTrackById(it.id) },
+                    onClick = { mViewModel.playTrack(it) },
                     onLongClick = { navigator.toTrackMenu(it) })
             ).build(),
         items = items
@@ -88,7 +88,7 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     private fun createMediumNestedItem(items: List<ThumbnailItemMediumItem>) = NestedItems(
         adapter = CompositeAdapter.Builder()
             .add(ThumbnailMediumAdapter(
-                    onClick = { mViewModel.playTrackById(it.id) },
+                    onClick = { mViewModel.playTrack(it) },
                     onLongClick = { navigator.toTrackMenu(it) }
                 )).build(),
         items = items

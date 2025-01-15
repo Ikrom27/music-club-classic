@@ -9,6 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.player_handler.IPlayerHandler
 import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
+import ru.ikrom.ui.base_adapter.delegates.toMediaItem
 import ru.ikrom.ui.models.toMenuHeaderItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel
@@ -27,7 +29,7 @@ class TrackMenuViewModel @Inject constructor(
         get() = track?.shareLink ?: ""
 
     fun setTrack(id: String, title: String, subtitle: String, thumbnail: String){
-        _uiContent.postValue(MenuHeaderDelegateItem(title, subtitle, thumbnail, false))
+        _uiContent.postValue(MenuHeaderDelegateItem(id, title, subtitle, thumbnail, false))
         updateTrackById(id)
     }
 
@@ -54,7 +56,7 @@ class TrackMenuViewModel @Inject constructor(
     }
 
     fun addToQueue(){
-        track?.let { playerHandler.addToQueue(it) }
+        _uiContent.value?.let { playerHandler.addToQueue(it.toMediaItem()) }
     }
 
     fun download() {}

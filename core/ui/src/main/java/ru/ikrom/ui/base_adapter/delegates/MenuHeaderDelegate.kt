@@ -11,11 +11,12 @@ import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 
 data class MenuHeaderDelegateItem(
-    val title: String,
-    val subtitle: String,
-    val thumbnail: String,
+    override val id: String,
+    override val title: String,
+    override val subtitle: String,
+    override val thumbnail: String,
     val isFavorite: Boolean
-)
+): ThumbnailItem
 
 class MenuHeaderDelegate(
     val onClick: (MenuHeaderDelegateItem) -> Unit,

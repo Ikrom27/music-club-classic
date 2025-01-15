@@ -1,40 +1,17 @@
 package ru.ikrom.player_handler
 
-import androidx.annotation.OptIn
-import androidx.core.net.toUri
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
-import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import ru.ikrom.youtube_data.model.TrackModel
-import ru.ikrom.youtube_data.model.getNames
 import javax.inject.Inject
-
-@OptIn(UnstableApi::class)
-internal fun TrackModel.toMediaItem(): MediaItem {
-    return MediaItem.Builder()
-        .setMediaId(this.videoId)
-        .setUri(this.videoId)
-        .setCustomCacheKey(this.videoId)
-        .setTag(this)
-        .setMediaMetadata(
-            MediaMetadata.Builder()
-                .setTitle(this.title)
-                .setArtist(this.album.artists.getNames())
-                .setArtworkUri(this.album.thumbnail.toUri())
-                .build()
-        )
-        .build()
-}
 
 
 class PlayerHandlerImpl @Inject constructor(
     private val player: ExoPlayer,
 ): PlayerConnection(player), IPlayerHandler {
-    var _onQueueChanged: (List<MediaItem>) -> Unit = {}
+    private var _onQueueChanged: (List<MediaItem>) -> Unit = {}
 
     init {
         player.addListener(this)
@@ -53,28 +30,31 @@ class PlayerHandlerImpl @Inject constructor(
     }
 
 
-    override fun playNow(tracks: List<TrackModel>){
-        if (player.currentMediaItem != tracks.first().toMediaItem()){
+    override fun playNow(items: List<MediaItem>){
+        if (player.currentMediaItem != items.first()){
             player.clearMediaItems()
-            player.setMediaItems(tracks.map { it.toMediaItem() })
+            player.setMediaItems(items)
             player.prepare()
             player.playWhenReady = true
         }
         updateQueue()
     }
 
-    override fun playNow(track: TrackModel){
-        playNow(listOf(track))
+    override fun playNow(items: MediaItem){
+        playNow(listOf(items))
     }
 
-    override fun playNext(item: TrackModel){
+    override fun playShuffle(items: List<MediaItem>) {
+        playNow(items.shuffled())
+    }
+
+    override fun playNext(item: MediaItem){
         playNext(listOf(item))
     }
 
-    override fun playNext(items: List<TrackModel>) {
-        val tracks = items.map { it.toMediaItem() }
+    override fun playNext(items: List<MediaItem>) {
         val index = if (player.mediaItemCount == 0) 0 else player.currentMediaItemIndex + 1
-        player.addMediaItems(index, tracks)
+        player.addMediaItems(index, items)
         player.prepare()
         player.playWhenReady = true
         updateQueue()
@@ -84,13 +64,12 @@ class PlayerHandlerImpl @Inject constructor(
         player.seekTo(getMediaItemQueue().indexOfFirst { it.mediaId == id }, 0)
     }
 
-    override fun addToQueue(item: TrackModel) {
+    override fun addToQueue(item: MediaItem) {
         addToQueue(listOf(item))
     }
 
-    override fun addToQueue(items: List<TrackModel>) {
-        val tracks = items.map { it.toMediaItem() }
-        player.addMediaItems(maxOf(0, player.mediaItemCount), tracks)
+    override fun addToQueue(items: List<MediaItem>) {
+        player.addMediaItems(maxOf(0, player.mediaItemCount), items)
         player.prepare()
     }
 

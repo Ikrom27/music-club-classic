@@ -8,22 +8,23 @@ import ru.ikrom.youtube_data.model.ArtistModel
 
 fun ArtistModel.toThumbnailRoundedItem(): ThumbnailRoundedItem {
     return ThumbnailRoundedItem(
-        id = this.id!!,
-        title = this.name,
-        thumbnail = this.thumbnail ?: "",
+        id = id!!,
+        title = name,
+        thumbnail = thumbnail ?: "",
     )
 }
 
 fun ArtistModel.toThumbnailRoundedSmallItem(): ThumbnailRoundedSmallItem {
     return ThumbnailRoundedSmallItem(
-        id = this.id!!,
-        title = this.name,
+        id = id!!,
+        title = name,
         subtitle = "",
-        thumbnail = this.thumbnail ?: "",
+        thumbnail = thumbnail ?: "",
     )
 }
 
 fun ArtistModel.toMenuHeaderItem(isFavorite: Boolean) = MenuHeaderDelegateItem(
+    id = id ?: "",
     title = name,
     subtitle = "",
     thumbnail = thumbnail ?: "",

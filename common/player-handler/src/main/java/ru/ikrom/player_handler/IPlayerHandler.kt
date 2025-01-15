@@ -3,7 +3,6 @@ package ru.ikrom.player_handler
 import androidx.lifecycle.LiveData
 import androidx.media3.common.MediaItem
 import kotlinx.coroutines.flow.Flow
-import ru.ikrom.youtube_data.model.TrackModel
 
 interface IPlayerHandler {
     val currentMediaItemLiveData: LiveData<MediaItem?>
@@ -14,12 +13,13 @@ interface IPlayerHandler {
     val currentPositionFlow: Flow<Long>
 
     fun seekTo(position: Long)
-    fun playNow(tracks: List<TrackModel>)
-    fun playNow(track: TrackModel)
-    fun playNext(item: TrackModel)
-    fun playNext(items: List<TrackModel>)
-    fun addToQueue(item: TrackModel)
-    fun addToQueue(items: List<TrackModel>)
+    fun playNow(items: List<MediaItem>)
+    fun playShuffle(items: List<MediaItem>)
+    fun playNow(items: MediaItem)
+    fun playNext(item: MediaItem)
+    fun playNext(items: List<MediaItem>)
+    fun addToQueue(item: MediaItem)
+    fun addToQueue(items: List<MediaItem>)
     fun toggleRepeat()
     fun toggleShuffle()
     fun togglePlayPause()

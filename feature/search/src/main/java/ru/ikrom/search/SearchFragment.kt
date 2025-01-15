@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,16 +14,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.searchbar.SearchBar
 import ru.ikrom.ui.R.dimen
 import ru.ikrom.ui.base_adapter.CompositeAdapter
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.ui.placeholder.PlaceHolderView
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
+    @Inject
+    lateinit var navigator: Navigator
+    private val navController by lazy { findNavController() }
     private val viewModel: SearchViewModel by viewModels()
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
     private lateinit var errorPH: PlaceHolderView
@@ -32,10 +37,10 @@ class SearchFragment : Fragment() {
     private var adapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate(
             onClick = {
-                viewModel.playTrackById(it.id)
+                viewModel.playTrack(it)
             },
             onLongClick = {
-                viewModel.toTrackMenu(it.id)
+                navigator.toTrackMenu(it)
             }
         ))
         .add(TitleDelegate())
@@ -105,7 +110,7 @@ class SearchFragment : Fragment() {
 
     private fun setupButtons(){
         searchBar.setOnBackClick {
-            viewModel.navigateUp()
+            navController.navigateUp()
         }
         searchBar.setOnCleanClick {
             viewModel.updateSearchRequest("")
@@ -125,6 +130,10 @@ class SearchFragment : Fragment() {
                 endSpace = playerHeight + navbarHeight + margin,
             )
         )
+    }
+
+    interface Navigator {
+        fun toTrackMenu(item: ThumbnailItem)
     }
 
     companion object {

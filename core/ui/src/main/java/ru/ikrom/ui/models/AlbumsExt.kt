@@ -27,19 +27,19 @@ fun AlbumModel.toCardItem(): CardItem {
 
 fun AlbumModel.toThumbnailMediumItem() : ThumbnailItemMediumItem {
     return ThumbnailItemMediumItem(
-        id = this.id,
-        title = this.title,
-        subtitle = this.artists.getNames(),
-        thumbnail = this.thumbnail
+        id = id,
+        title = title,
+        subtitle = artists.getNames(),
+        thumbnail = thumbnail
     )
 }
 
 fun AlbumModel.toThumbnailLargeItem() : ThumbnailLargeItem {
     return ThumbnailLargeItem(
-        id = this.id,
-        title = this.title,
-        subtitle = this.year.toString(),
-        thumbnail = this.thumbnail,
+        id = id,
+        title = title,
+        subtitle = year.toString(),
+        thumbnail = thumbnail,
     )
 }
 

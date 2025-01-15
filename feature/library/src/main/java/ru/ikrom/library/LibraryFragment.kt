@@ -74,7 +74,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
                 items = data.data,
                 adapter = CompositeAdapter.Builder()
                     .add(ThumbnailMediumAdapter(
-                        onClick = {mViewModel.playTrackById(it.id)},
+                        onClick = {mViewModel.playTrack(it)},
                         onLongClick = { navigator.toTrackMenu(it) }
                 )).build()
             ))

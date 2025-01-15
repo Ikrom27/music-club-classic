@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ru.ikrom.ui.models.toThumbnailSmallItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.ikrom.player_handler.IPlayerHandler
+import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
+import ru.ikrom.ui.base_adapter.delegates.toMediaItem
+import ru.ikrom.ui.models.toThumbnailSmallItem
 import ru.ikrom.youtube_data.IMediaRepository
-import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,35 +23,25 @@ class SearchViewModel @Inject constructor(
     private val _uiState = MutableLiveData<SearchUiState>()
     val uiState: LiveData<SearchUiState> = _uiState
 
-    private var searchModelResult: List<TrackModel> = emptyList()
-
     private fun updateSearchList(query: String) {
         if (query.isBlank()) return
         _uiState.value = SearchUiState.Loading
         viewModelScope.launch {
             runCatching {
                 repository.getTracksByQuery(query)
-            }.getOrElse {
-                Log.d(TAG, it.message.toString())
-                _uiState.postValue(SearchUiState.Error)
-                return@launch
-            }.apply {
-                searchModelResult = this
+            }.onSuccess { result ->
                 _uiState.postValue(
-                    if (isNotEmpty()) {
-                        SearchUiState.Success(map { it.toThumbnailSmallItem() })
+                    if (result.isNotEmpty()) {
+                        SearchUiState.Success(result.map { it.toThumbnailSmallItem() })
                     } else {
                         SearchUiState.NoResult
                     }
                 )
+            }.onFailure {
+                Log.d(TAG, it.message.toString())
+                _uiState.postValue(SearchUiState.Error)
+                return@launch
             }
-        }
-    }
-
-
-    private fun getTrackById(id: String): TrackModel{
-        return searchModelResult.first {
-            it.videoId == id
         }
     }
 
@@ -58,16 +49,8 @@ class SearchViewModel @Inject constructor(
         updateSearchList(request)
     }
 
-    fun playTrackById(id: String) {
-        playerHandler.playNow(getTrackById(id))
-    }
-
-    fun toTrackMenu(id: String){
-//        navigate.toBottomMenu(getTrackById(id))
-    }
-
-    fun navigateUp(){
-//        navigate.navigateUp()
+    fun playTrack(item: ThumbnailItem) {
+        playerHandler.playNow(item.toMediaItem())
     }
 
     companion object {

@@ -24,7 +24,7 @@ class ArtistMenuViewModel @Inject constructor(
         get() = artist?.shareLink ?: ""
 
     fun setArtist(id: String, title: String, subtitle: String, thumbnail: String){
-        _uiContent.postValue(MenuHeaderDelegateItem(title, subtitle, thumbnail, false))
+        _uiContent.postValue(MenuHeaderDelegateItem(id, title, subtitle, thumbnail, false))
         updateContent(id)
     }
 

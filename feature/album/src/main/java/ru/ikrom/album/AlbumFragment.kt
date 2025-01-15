@@ -41,7 +41,7 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
             }
         ))
         .add(ThumbnailSmallDelegate(
-            onClick = { viewModel.playTrackById(it.id) },
+            onClick = { viewModel.playTrack(it) },
             onLongClick = {
                 navigator.toTrackMenu(it)
             })

@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    api(libs.media3.exoplayer)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)
     implementation(libs.core.ktx)

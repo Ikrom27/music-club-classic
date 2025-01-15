@@ -30,7 +30,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
     private val compositeAdapter by lazy {
         CompositeAdapter.Builder()
             .add(PlayerQueueDelegate(
-                onClickItem = { viewModel.playTrackById(it.id) }
+                onClickItem = { viewModel.playTrack(it.id) }
             ).apply {
                 viewModel.currentMediaItem.observe(viewLifecycleOwner) {
                     currentTrackId = it?.mediaId ?: ""

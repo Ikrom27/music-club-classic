@@ -1,20 +1,21 @@
 package ru.ikrom.artist
 
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import ru.ikrom.ui.models.toThumbnailLargeItem
-import ru.ikrom.ui.models.toThumbnailMediumItem
-import ru.ikrom.ui.models.toThumbnailRoundedItem
-import ru.ikrom.ui.models.toThumbnailSmallItem
-import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player_handler.IPlayerHandler
+import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderItem
+import ru.ikrom.ui.base_adapter.delegates.toMediaItem
+import ru.ikrom.ui.base_adapter.delegates.toMediaItems
+import ru.ikrom.ui.models.toThumbnailLargeItem
+import ru.ikrom.ui.models.toThumbnailMediumItem
+import ru.ikrom.ui.models.toThumbnailRoundedItem
+import ru.ikrom.ui.models.toThumbnailSmallItem
 import ru.ikrom.youtube_data.IMediaRepository
-import ru.ikrom.youtube_data.model.ArtistPageModel
+import ru.ikrom.youtube_data.model.ArtistModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,8 +23,7 @@ class ArtistViewModel @Inject constructor(
     private val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository
 ): DefaultStateViewModel<UiState>() {
-
-    private val artistModelLiveData = MutableLiveData<ArtistPageModel>()
+    private var artistModel: ArtistModel? = null
     private var _isFavorite = false
     private var lastId = ""
 
@@ -34,7 +34,7 @@ class ArtistViewModel @Inject constructor(
                 repository.getArtistData(artistId) to
                 repository.isFavoriteArtist(artistId)
             }.onSuccess { (artistPage, isFavorite) ->
-                artistModelLiveData.postValue(artistPage)
+                artistModel = artistPage.toArtistModel()
                 _isFavorite = isFavorite
                 _state.postValue(UiState.Success(
                     header = ArtistHeaderItem(
@@ -53,33 +53,33 @@ class ArtistViewModel @Inject constructor(
         }
     }
 
-    fun getShareLink(): String = artistModelLiveData.value?.shareLink ?: ""
+    fun getShareLink(): String = artistModel?.shareLink ?: ""
 
     fun toggleFavorite(){
         viewModelScope.launch(Dispatchers.IO) {
-            artistModelLiveData.value?.let { artistPage ->
+            artistModel?.let { artist ->
                 if(_isFavorite){
-                    repository.unLikeArtist(artistPage.toArtistModel())
+                    repository.unLikeArtist(artist)
                 } else {
-                    repository.likeArtist(artistPage.toArtistModel())
+                    repository.likeArtist(artist)
                 }
             }
             updateArtist()
         }
     }
 
-    fun playAll(){
-        artistModelLiveData.value?.tracks?.let { playerHandler.playNow(it) }
+    fun playAll() {
+        (_state.value as? UiState.Success)?.tracks?.let { playerHandler.playNow(it.toMediaItems()) }
     }
 
-    fun playShuffled(){
-        artistModelLiveData.value?.tracks?.let { playerHandler.playNow(it.shuffled()) }
+    fun playShuffled() {
+        (_state.value as? UiState.Success)?.tracks?.let { playerHandler.playShuffle(it.toMediaItems()) }
     }
 
-    fun playTrackById(id: String){
-        artistModelLiveData.value
+    fun playTrack(id: String) {
+        (_state.value as? UiState.Success)
             ?.tracks
-            ?.first { it.videoId == id }
-            ?.let { playerHandler.playNow(it) }
+            ?.firstOrNull { it.id == id }
+            ?.let { playerHandler.playNow(it.toMediaItem()) }
     }
 }
