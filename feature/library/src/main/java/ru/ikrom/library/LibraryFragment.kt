@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.theme.AppDrawableIds
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.MenuNavigateDelegate
-import ru.ikrom.ui.base_adapter.delegates.MenuNavigateItem
-import ru.ikrom.ui.base_adapter.delegates.NestedItems
-import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
-import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
-import ru.ikrom.ui.base_adapter.delegates.TitleItem
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.adapter_delegates.delegates.MenuNavigateDelegate
+import ru.ikrom.adapter_delegates.delegates.MenuNavigateItem
+import ru.ikrom.adapter_delegates.delegates.NestedItems
+import ru.ikrom.adapter_delegates.delegates.NestedItemsDelegate
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
+import ru.ikrom.adapter_delegates.delegates.TitleDelegate
+import ru.ikrom.adapter_delegates.delegates.TitleItem
 import javax.inject.Inject
 
 @AndroidEntryPoint

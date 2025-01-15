@@ -4,12 +4,12 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.fragment_list_editable.EditableListFragment
 import ru.ikrom.theme.AppStringsId
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedSmallDelegate
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedSmallItem
-import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
-import ru.ikrom.ui.base_adapter.delegates.TitleItem
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailRoundedSmallDelegate
+import ru.ikrom.adapter_delegates.delegates.ThumbnailRoundedSmallItem
+import ru.ikrom.adapter_delegates.delegates.TitleDelegate
+import ru.ikrom.adapter_delegates.delegates.TitleItem
 import javax.inject.Inject
 
 @AndroidEntryPoint

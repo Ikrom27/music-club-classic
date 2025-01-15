@@ -67,7 +67,7 @@ dependencies {
     implementation(project(":feature:explore"))
     implementation(project(":feature:search"))
     implementation(project(":common:player-handler"))
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(project(":core:theme"))
     implementation(project(":component:appbar"))
     implementation(project(":data:youtube"))

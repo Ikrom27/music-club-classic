@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.PlayerQueueDelegate
-import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
-import ru.ikrom.ui.base_adapter.delegates.TitleItem
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.adapter_delegates.delegates.PlayerQueueDelegate
+import ru.ikrom.adapter_delegates.delegates.TitleDelegate
+import ru.ikrom.adapter_delegates.delegates.TitleItem
 
 
 @AndroidEntryPoint

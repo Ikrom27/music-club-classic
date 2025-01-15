@@ -6,13 +6,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.adapter_delegates.base.toMediaItem
+import ru.ikrom.adapter_delegates.modelsExt.toCardItem
+import ru.ikrom.adapter_delegates.modelsExt.toGridItem
+import ru.ikrom.adapter_delegates.modelsExt.toThumbnailMediumItem
 import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player_handler.IPlayerHandler
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.delegates.toMediaItem
-import ru.ikrom.ui.models.toCardItem
-import ru.ikrom.ui.models.toGridItem
-import ru.ikrom.ui.models.toThumbnailMediumItem
 import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Inject
 

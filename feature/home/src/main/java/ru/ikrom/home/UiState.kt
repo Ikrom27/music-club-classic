@@ -1,8 +1,8 @@
 package ru.ikrom.home
 
-import ru.ikrom.ui.base_adapter.delegates.CardItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemGrid
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
+import ru.ikrom.adapter_delegates.delegates.CardItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailItemGrid
+import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 
 data class UiState (
     val quickPickTracks: List<ThumbnailItemGrid>,

@@ -1,0 +1,68 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/LayoutClickable">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container_thumbnail"
+        style="@style/CardThumbnailMedium"
+        android:layout_marginStart="@dimen/content_horizontal_margin"
+        android:layout_marginVertical="@dimen/spacer_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/iv_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/layout_text_container"
+        style="@style/LayoutTextContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ic_downloaded"
+        app:layout_constraintStart_toEndOf="@+id/container_thumbnail"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextSingleLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/TextSingleLine"
+            android:textColor="@color/secondary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ic_downloaded"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        app:layout_constraintBottom_toBottomOf="@+id/ib_more"
+        app:layout_constraintEnd_toStartOf="@+id/ib_more"
+        app:layout_constraintTop_toTopOf="@+id/ib_more" />
+
+    <ImageButton
+        android:id="@+id/ib_more"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:src="@drawable/ic_more_vertical"
+        android:layout_marginEnd="@dimen/content_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        style="@style/separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/layout_text_container" />
+</androidx.constraintlayout.widget.ConstraintLayout>

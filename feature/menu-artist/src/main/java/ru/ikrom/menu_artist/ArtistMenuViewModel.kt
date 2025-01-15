@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegateItem
-import ru.ikrom.ui.models.toMenuHeaderItem
+import ru.ikrom.adapter_delegates.delegates.MenuHeaderDelegateItem
+import ru.ikrom.adapter_delegates.modelsExt.toMenuHeaderItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.ArtistModel
 import javax.inject.Inject

@@ -41,7 +41,7 @@ dependencies {
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
     implementation(project(":data:youtube"))
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(libs.palette)
     implementation(libs.livedata)
     implementation(libs.navigation.fragment)

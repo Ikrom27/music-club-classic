@@ -9,11 +9,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.player_handler.IPlayerHandler
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.delegates.toMediaItem
-import ru.ikrom.ui.base_adapter.delegates.toMediaItems
-import ru.ikrom.ui.models.toThumbnailHeaderItem
-import ru.ikrom.ui.models.toThumbnailSmallItem
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.adapter_delegates.base.toMediaItem
+import ru.ikrom.adapter_delegates.base.toMediaItems
+import ru.ikrom.adapter_delegates.modelsExt.toThumbnailHeaderItem
+import ru.ikrom.adapter_delegates.modelsExt.toThumbnailSmallItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.AlbumModel
 import javax.inject.Inject

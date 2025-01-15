@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -42,7 +42,7 @@ dependencies {
     implementation(project(":common:player-handler"))
     implementation(project(":core:theme"))
     kapt(libs.bundles.dagger.compiler)
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(project(":data:youtube"))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

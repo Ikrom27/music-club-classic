@@ -6,8 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.ikrom.fragment_list_editable.EditableStateViewModel
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedSmallItem
-import ru.ikrom.ui.models.toThumbnailRoundedSmallItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailRoundedSmallItem
+import ru.ikrom.adapter_delegates.modelsExt.toThumbnailRoundedSmallItem
 import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Inject
 

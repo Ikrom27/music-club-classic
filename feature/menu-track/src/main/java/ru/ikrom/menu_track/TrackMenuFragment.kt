@@ -9,11 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.theme.AppStringsId
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.MenuButtonDelegate
-import ru.ikrom.ui.base_adapter.delegates.MenuButtonItem
-import ru.ikrom.ui.base_adapter.delegates.MenuHeaderDelegate
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailArgs
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.adapter_delegates.delegates.MenuButtonDelegate
+import ru.ikrom.adapter_delegates.delegates.MenuButtonItem
+import ru.ikrom.adapter_delegates.delegates.MenuHeaderDelegate
+import ru.ikrom.adapter_delegates.base.ThumbnailArgs
 import ru.ikrom.utils.ActionUtil
 import javax.inject.Inject
 

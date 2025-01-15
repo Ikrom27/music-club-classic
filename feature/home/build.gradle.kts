@@ -38,7 +38,7 @@ dependencies {
     api(project(":core:base-fragment"))
     implementation(project(":common:player-handler"))
     implementation(project(":component:appbar"))
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(project(":data:youtube"))
     implementation(libs.core.ktx)
     implementation(libs.navigation.fragment)

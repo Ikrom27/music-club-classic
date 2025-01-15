@@ -1,6 +1,6 @@
 package ru.ikrom.search
 
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
 
 sealed class SearchUiState {
     data object Loading: SearchUiState()

@@ -1,7 +1,7 @@
 package ru.ikrom.album
 
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailHeaderItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
 
 sealed class AlbumUiState {
     data object Loading: AlbumUiState()

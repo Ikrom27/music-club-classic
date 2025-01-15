@@ -1,6 +1,6 @@
 package ru.ikrom.library
 
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 
 sealed class UiState {
     data object Error: UiState()

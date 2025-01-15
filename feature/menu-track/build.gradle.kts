@@ -37,7 +37,7 @@ android {
 dependencies {
     implementation(project(":data:youtube"))
     implementation(project(":core:theme"))
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(libs.navigation.fragment)
     implementation(libs.dagger.hilt)
     implementation(project(":common:player-handler"))

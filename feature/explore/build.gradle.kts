@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(project(":component:appbar"))
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(project(":data:youtube"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

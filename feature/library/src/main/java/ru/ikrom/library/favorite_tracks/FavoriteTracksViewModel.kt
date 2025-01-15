@@ -2,12 +2,12 @@ package ru.ikrom.library.favorite_tracks
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.adapter_delegates.base.toMediaItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
+import ru.ikrom.adapter_delegates.modelsExt.toThumbnailSmallItem
 import ru.ikrom.fragment_list_editable.EditableStateViewModel
 import ru.ikrom.player_handler.IPlayerHandler
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
-import ru.ikrom.ui.base_adapter.delegates.toMediaItem
-import ru.ikrom.ui.models.toThumbnailSmallItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package ru.ikrom.explore
 
-import ru.ikrom.ui.base_adapter.delegates.CardItem
+import ru.ikrom.adapter_delegates.delegates.CardItem
 
 sealed class ExploreUiState(){
     data object Loading: ExploreUiState()

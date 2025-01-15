@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.appbar.AppBar
 import ru.ikrom.theme.AppDimens
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.CardAdapter
-import ru.ikrom.ui.base_adapter.delegates.NestedItems
-import ru.ikrom.ui.base_adapter.delegates.NestedItemsDelegate
-import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
-import ru.ikrom.ui.base_adapter.delegates.TitleItem
-import ru.ikrom.ui.base_adapter.delegates.CardItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.adapter_delegates.delegates.CardAdapter
+import ru.ikrom.adapter_delegates.delegates.NestedItems
+import ru.ikrom.adapter_delegates.delegates.NestedItemsDelegate
+import ru.ikrom.adapter_delegates.delegates.TitleDelegate
+import ru.ikrom.adapter_delegates.delegates.TitleItem
+import ru.ikrom.adapter_delegates.delegates.CardItem
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 

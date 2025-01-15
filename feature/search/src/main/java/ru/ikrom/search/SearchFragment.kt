@@ -13,11 +13,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.searchbar.SearchBar
 import ru.ikrom.theme.AppDimens
-import ru.ikrom.ui.base_adapter.CompositeAdapter
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
-import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
-import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
+import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
+import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.ui.placeholder.PlaceHolderView
 import javax.inject.Inject

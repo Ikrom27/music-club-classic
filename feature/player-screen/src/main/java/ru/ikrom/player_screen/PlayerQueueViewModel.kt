@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.ikrom.player_handler.IPlayerHandler
-import ru.ikrom.ui.base_adapter.delegates.PlayerQueueItem
+import ru.ikrom.adapter_delegates.delegates.PlayerQueueItem
 import javax.inject.Inject
 
 @HiltViewModel

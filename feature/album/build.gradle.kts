@@ -42,7 +42,7 @@ dependencies {
     kapt(libs.bundles.dagger.compiler)
     implementation(project(":data:youtube"))
     implementation(project(":common:player-handler"))
-    implementation(project(":core:ui"))
+    implementation(project(":common:adapter-delegates"))
     implementation(project(":component:topbar"))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
