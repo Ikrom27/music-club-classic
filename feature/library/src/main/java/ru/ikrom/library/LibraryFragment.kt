@@ -36,8 +36,6 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         listOf(
             MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks)),
             MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists)),
-            MenuNavigateItem(AppDrawableIds.ALBUM, getString(R.string.menu_liked_albums)),
-            MenuNavigateItem(AppDrawableIds.DOWNLOAD, getString(R.string.menu_downloaded)),
             MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, getString(R.string.menu_in_device)),
         )
     }
@@ -46,8 +44,6 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         when (title) {
             getString(R.string.menu_liked_tracks) -> navigator.toFavoriteTracks()
             getString(R.string.menu_liked_artists) -> navigator.toFavoriteArtists()
-            getString(R.string.menu_liked_albums) -> navigator.toSavedAlbums()
-            getString(R.string.menu_downloaded) -> navigator.toDownloaded()
             getString(R.string.menu_in_device) -> navigator.toLocalTracks()
             else -> throw IllegalArgumentException("Unknown navigation title: $title")
         }
@@ -85,8 +81,6 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         fun toTrackMenu(item: ThumbnailItem)
         fun toFavoriteTracks()
         fun toFavoriteArtists()
-        fun toSavedAlbums()
-        fun toDownloaded()
         fun toLocalTracks()
     }
 }

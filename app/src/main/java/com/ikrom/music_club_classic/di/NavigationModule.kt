@@ -136,16 +136,7 @@ class NavigationModule {
             navController.navigate(R.id.to_favorite_artists)
         }
 
-        override fun toSavedAlbums() {
-            TODO("Not yet implemented")
-        }
-
-        override fun toDownloaded() {
-            TODO("Not yet implemented")
-        }
-
         override fun toLocalTracks() {
-            TODO("Not yet implemented")
         }
 
     }

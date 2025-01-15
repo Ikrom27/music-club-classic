@@ -18,10 +18,4 @@
         android:icon="@drawable/ic_library"
         android:menuCategory="container"
         />
-    <item
-        android:id="@+id/settings_screen"
-        android:title="@string/profile_screen"
-        android:icon="@drawable/ic_profile"
-        android:menuCategory="container"
-        />
 </menu>

@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.SearchFragment">
-    <ru.ikrom.ui.placeholder.PlaceHolderView
+    tools:context=".SearchFragment">
+    <ru.ikrom.placeholder.PlaceholderView
         android:id="@+id/ph_no_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         app:title="@string/ph_no_result_title"
         app:description="@string/ph_no_result_description"
         app:imageSrc="@drawable/ph_no_result"/>
-    <ru.ikrom.ui.placeholder.PlaceHolderView
+    <ru.ikrom.placeholder.PlaceholderView
         android:id="@+id/ph_connection_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
