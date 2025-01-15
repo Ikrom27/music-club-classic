@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.base_fragment.DefaultListFragment
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardItem
@@ -19,7 +20,6 @@ import ru.ikrom.ui.base_adapter.delegates.ThumbnailItemMediumItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailMediumAdapter
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
-import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
@@ -54,7 +54,7 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
             rv.addItemDecoration(
                 MarginItemDecoration(
                     startSpace = 0,
-                    endSpace = DecorationDimens.getBottomMargin(resources) * 2,
+                    endSpace = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR) * 2,
                 )
             )
         }

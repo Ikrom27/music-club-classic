@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":component:searchbar"))
     implementation(libs.bundles.dagger)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation(project(":core:theme"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

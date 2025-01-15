@@ -18,6 +18,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import ru.ikrom.theme.AppColorIds
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.utils.ColorsUtil
@@ -95,7 +96,7 @@ class ThumbnailHeaderDelegate(
 
             Palette.from(bitmap).generate { palette ->
                 val dominantColor = ColorsUtil.adjustColorToBackground(palette?.getDominantColor(Color.BLACK) ?: Color.BLACK)
-                val background = ContextCompat.getColor(context, R.color.app_background_color)
+                val background = ContextCompat.getColor(context, AppColorIds.BACKGROUND)
                 val gradientDrawable = GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
                     intArrayOf(dominantColor, background)

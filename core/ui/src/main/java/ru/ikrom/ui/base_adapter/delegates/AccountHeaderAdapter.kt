@@ -26,7 +26,7 @@ class AccountHeaderAdapter: DelegateAdapter<AccountHeaderItem, AccountHeaderAdap
             Glide
                 .with(itemView.context)
                 .load(item.imageUrl)
-                .placeholder(AppDrawableIds.profile)
+                .placeholder(AppDrawableIds.PROFILE)
                 .transform(CircleCrop())
                 .into(ivAccountPicture)
             tvName.text = item.fullName

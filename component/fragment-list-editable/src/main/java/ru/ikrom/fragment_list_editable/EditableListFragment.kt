@@ -40,11 +40,11 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
         mLoading.show()
     }
     fun onStateError() {
-        mPlaceholder.imageSrc = AppDrawableIds.phError
+        mPlaceholder.imageSrc = AppDrawableIds.PH_ERROR
         mPlaceholder.show()
     }
     fun onStateEmpty() {
-        mPlaceholder.imageSrc = AppDrawableIds.phNoResult
+        mPlaceholder.imageSrc = AppDrawableIds.PH_NO_RESULT
         mPlaceholder.show()
     }
 }

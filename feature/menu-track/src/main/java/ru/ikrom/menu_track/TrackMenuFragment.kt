@@ -63,31 +63,31 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
         return listOf(
             MenuButtonItem(
                 title = getString(AppStringsId.ADD_TO_QUEUE),
-                icon = AppDrawableIds.addToQueue,
+                icon = AppDrawableIds.ADD_TO_QUEUE,
                 onClick = { viewModel.addToQueue() }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.TO_DOWNLOAD),
-                icon = AppDrawableIds.download,
+                icon = AppDrawableIds.DOWNLOAD,
                 onClick = { viewModel.download() }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ALBUM),
-                icon = AppDrawableIds.viewAlbum,
+                icon = AppDrawableIds.ALBUM,
                 onClick = {
                     navigator.toAlbum(viewModel.getAlbumId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ARTIST),
-                icon = AppDrawableIds.viewArtist,
+                icon = AppDrawableIds.ARTIST,
                 onClick = {
                     navigator.toArtist(viewModel.getArtistId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.SHARE),
-                icon = AppDrawableIds.share,
+                icon = AppDrawableIds.SHARE,
                 onClick = {
                     context?.let { ActionUtil.shareIntent(it, viewModel.shareLink) }
                 }

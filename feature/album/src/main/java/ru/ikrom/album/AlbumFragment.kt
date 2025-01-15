@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.topbar.TopBar
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailHeaderItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallItem
-import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.utils.bundleToId
 import javax.inject.Inject
@@ -77,7 +77,7 @@ class AlbumFragment : Fragment(R.layout.fragment_album) {
             if(itemDecorationCount == 0){
                 addItemDecoration(
                     MarginItemDecoration(
-                        endSpace = DecorationDimens.getBottomMargin(resources)
+                        endSpace = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR) * 2
                     )
                 )
             }

@@ -1,7 +1,6 @@
 package ru.ikrom.explore
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.appbar.AppBar
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.CardAdapter
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
@@ -17,7 +17,6 @@ import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
 import ru.ikrom.ui.base_adapter.delegates.CardItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
-import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
@@ -70,8 +69,8 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         if (recyclerView.itemDecorationCount == 0){
             recyclerView.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = DecorationDimens.getBottomMargin(resources),
-                    betweenSpace = DecorationDimens.getSectionMargin(resources)
+                    endSpace = AppDimens.HEIGHT_BOTTOM_NAVBAR,
+                    betweenSpace = AppDimens.MARGIN_SECTIONS
                 )
             )
         }

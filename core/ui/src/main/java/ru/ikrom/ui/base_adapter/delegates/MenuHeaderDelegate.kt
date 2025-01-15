@@ -41,8 +41,8 @@ class MenuHeaderDelegate(
                 onFavoriteClick()
             }
             ibFavorite.setImageResource(
-                if(item.isFavorite) AppDrawableIds.favorite
-                else AppDrawableIds.favoriteBordered
+                if(item.isFavorite) AppDrawableIds.FAVORITE
+                else AppDrawableIds.FAVORITE_BORDERED
             )
             if(item.subtitle.isBlank()){
                 tvSubtitle.visibility = View.GONE

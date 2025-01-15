@@ -1,15 +1,13 @@
 package ru.ikrom.ui.base_adapter.delegates
 
 import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.DelegateAdapter
 import ru.ikrom.ui.base_adapter.item_decorations.GridSpacingItemDecoration
-import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 
 data class NestedGridItems<T: Any>(
     val items: List<T>,
@@ -22,7 +20,7 @@ class NestedGridDelegate: DelegateAdapter<NestedGridItems<*>, NestedGridDelegate
         ViewHolder<NestedGridItems<*>>(itemView)
     {
         private val rvHorizontalItems = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_items)
-        private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
+        private val marginBetween = itemView.resources.getDimensionPixelSize(AppDimens.MARGIN_CONTENT_HORIZONTAL)
 
         override fun bind(item: NestedGridItems<*>) {
             item.adapter.setItems(item.items)

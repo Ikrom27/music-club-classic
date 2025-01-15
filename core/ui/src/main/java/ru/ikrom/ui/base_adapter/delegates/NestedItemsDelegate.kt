@@ -3,6 +3,7 @@ package ru.ikrom.ui.base_adapter.delegates
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.ui.R
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.DelegateAdapter
@@ -19,9 +20,9 @@ class NestedItemsDelegate: DelegateAdapter<NestedItems<*>, NestedItemsDelegate.R
         ViewHolder<NestedItems<*>>(itemView)
     {
         private val rvHorizontalItems = itemView.findViewById<RecyclerView>(R.id.rv_horizontal_items)
-        private val marginStart = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
-        private val marginEnd = itemView.resources.getDimensionPixelSize(R.dimen.content_horizontal_margin)
-        private val marginBetween = itemView.resources.getDimensionPixelSize(R.dimen.items_margin)
+        private val marginStart = itemView.resources.getDimensionPixelSize(AppDimens.MARGIN_CONTENT_HORIZONTAL)
+        private val marginEnd = itemView.resources.getDimensionPixelSize(AppDimens.MARGIN_CONTENT_HORIZONTAL)
+        private val marginBetween = itemView.resources.getDimensionPixelSize(AppDimens.MARGIN_ITEMS)
 
         override fun bind(item: NestedItems<*>) {
             item.adapter.setItems(item.items)

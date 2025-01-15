@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.bundles.dagger)
+    implementation(project(":core:theme"))
     kapt(libs.bundles.dagger.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

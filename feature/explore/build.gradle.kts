@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.livedata)
     implementation(libs.bundles.dagger)
+    implementation(project(":core:theme"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

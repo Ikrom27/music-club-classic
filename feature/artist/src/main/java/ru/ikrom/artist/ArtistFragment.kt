@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.base_fragment.DefaultListFragment
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ArtistHeaderDelegate
 import ru.ikrom.ui.base_adapter.delegates.NestedItems
@@ -19,7 +20,6 @@ import ru.ikrom.ui.base_adapter.delegates.ThumbnailRoundedDelegate
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleDelegate
 import ru.ikrom.ui.base_adapter.delegates.TitleItem
-import ru.ikrom.ui.base_adapter.item_decorations.DecorationDimens
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.utils.bundleToId
 import ru.ikrom.utils.ActionUtil
@@ -129,7 +129,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
         if (rv.itemDecorationCount == 0){
             rv.addItemDecoration(
                 MarginItemDecoration(
-                    endSpace = DecorationDimens.getBottomMargin(resources) * 2
+                    endSpace = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR) * 2
                 )
             )
         }

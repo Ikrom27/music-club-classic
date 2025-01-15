@@ -34,11 +34,11 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
 
     private val screens by lazy {
         listOf(
-            MenuNavigateItem(AppDrawableIds.favorite, getString(R.string.menu_liked_tracks)),
-            MenuNavigateItem(AppDrawableIds.viewArtist, getString(R.string.menu_liked_artists)),
-            MenuNavigateItem(AppDrawableIds.viewAlbum, getString(R.string.menu_liked_albums)),
-            MenuNavigateItem(AppDrawableIds.download, getString(R.string.menu_downloaded)),
-            MenuNavigateItem(AppDrawableIds.audioQuality, getString(R.string.menu_in_device)),
+            MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks)),
+            MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists)),
+            MenuNavigateItem(AppDrawableIds.ALBUM, getString(R.string.menu_liked_albums)),
+            MenuNavigateItem(AppDrawableIds.DOWNLOAD, getString(R.string.menu_downloaded)),
+            MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, getString(R.string.menu_in_device)),
         )
     }
 

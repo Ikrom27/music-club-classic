@@ -41,7 +41,7 @@ class ArtistHeaderDelegate(
                 .centerCrop()
                 .into(thumbnail)
             title.text = item.title
-            btnFavorite.setImageResource(if(item.isFavorite) AppDrawableIds.favorite else  AppDrawableIds.favoriteBordered)
+            btnFavorite.setImageResource(if(item.isFavorite) AppDrawableIds.FAVORITE else  AppDrawableIds.FAVORITE_BORDERED)
             setupButtons()
         }
 

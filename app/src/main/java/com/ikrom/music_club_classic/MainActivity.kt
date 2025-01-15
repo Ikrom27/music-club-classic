@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var slidingView: FrameLayout
     private lateinit var playerContainer: FrameLayout
 
-    private val navBarHeight by lazy { AppDimens.bottomNavBarHeight.toDp(this) }
-    private val miniPlayerHeight by lazy { AppDimens.miniPlayerHeight.toDp(this) }
+    private val navBarHeight by lazy { AppDimens.HEIGHT_BOTTOM_NAVBAR.toDp(this) }
+    private val miniPlayerHeight by lazy { AppDimens.HEIGHT_MINI_PLAYER.toDp(this) }
     private val windowHeight by lazy { resources.displayMetrics.heightPixels.toFloat() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.isPlaying.observe(this) { isPlaying ->
-            miniPlayer.btnIcon = if (isPlaying) AppDrawableIds.pause else AppDrawableIds.play
+            miniPlayer.btnIcon = if (isPlaying) AppDrawableIds.PAUSE else AppDrawableIds.PLAY
         }
 
         miniPlayer.setOnButtonClickListener { viewModel.togglePlayPause() }

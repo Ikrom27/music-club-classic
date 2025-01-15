@@ -66,14 +66,14 @@ class ArtistMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_sh
         return listOf(
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ARTIST),
-                icon = AppDrawableIds.viewArtist,
+                icon = AppDrawableIds.ARTIST,
                 onClick = {
                     navigator.toArtist(viewModel.getArtistId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.SHARE),
-                icon = AppDrawableIds.share,
+                icon = AppDrawableIds.SHARE,
                 onClick = {
                     context?.let { ActionUtil.shareIntent(it, viewModel.shareLink) }
                 }

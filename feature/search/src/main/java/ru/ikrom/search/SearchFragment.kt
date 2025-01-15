@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.searchbar.SearchBar
-import ru.ikrom.ui.R.dimen
+import ru.ikrom.theme.AppDimens
 import ru.ikrom.ui.base_adapter.CompositeAdapter
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailItem
 import ru.ikrom.ui.base_adapter.delegates.ThumbnailSmallDelegate
@@ -120,10 +120,10 @@ class SearchFragment : Fragment() {
     private fun setupRecycleView(){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-        val playerHeight = resources.getDimensionPixelSize(dimen.mini_player_height)
-        val navbarHeight = resources.getDimensionPixelSize(dimen.bottom_nav_bar_height)
-        val appbarHeight = resources.getDimensionPixelSize(dimen.app_bar_height)
-        val margin = resources.getDimensionPixelSize(dimen.items_margin)
+        val playerHeight = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR)
+        val navbarHeight = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR)
+        val appbarHeight = resources.getDimensionPixelSize(AppDimens.HEIGHT_APP_BAR)
+        val margin = resources.getDimensionPixelSize(AppDimens.MARGIN_ITEMS)
         recyclerView.addItemDecoration(
             MarginItemDecoration(
                 startSpace = appbarHeight + margin,
