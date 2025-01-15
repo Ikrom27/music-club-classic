@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.ikrom.fragment_list_editable"
+    namespace = "ru.ikrom.placeholder"
     compileSdk = 34
 
     defaultConfig {
@@ -33,16 +33,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.navigation.fragment)
+    implementation(project(":core:theme"))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(project(":component:searchbar"))
-    implementation(project(":core:base-fragment"))
-    implementation(libs.androidx.swiperefreshlayout)
-    implementation(project(":common:adapter-delegates"))
-    implementation(project(":core:theme"))
-    implementation(project(":component:placeholder"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

@@ -18,8 +18,8 @@ import ru.ikrom.adapter_delegates.base.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
+import ru.ikrom.placeholder.PlaceholderView
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
-import ru.ikrom.ui.placeholder.PlaceHolderView
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,8 +30,8 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: SearchBar
-    private lateinit var errorPH: PlaceHolderView
-    private lateinit var emptyPH: PlaceHolderView
+    private lateinit var errorPH: PlaceholderView
+    private lateinit var emptyPH: PlaceholderView
 
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private var adapter = CompositeAdapter.Builder()

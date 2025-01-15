@@ -5,14 +5,14 @@ import android.view.View
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.ikrom.base_fragment.DefaultListFragment
+import ru.ikrom.placeholder.PlaceholderView
 import ru.ikrom.theme.AppDrawableIds
-import ru.ikrom.ui.placeholder.PlaceHolderView
 
 
 abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     DefaultListFragment<EditableUiState<T>, VM>(R.layout.fragment_list_editable) {
     abstract override val mViewModel: VM
-    private lateinit var mPlaceholder: PlaceHolderView
+    private lateinit var mPlaceholder: PlaceholderView
     private lateinit var mLoading: ContentLoadingProgressBar
     override fun getRecyclerViewId() = R.id.rv_content
     override fun getLayoutManager() = LinearLayoutManager(context)

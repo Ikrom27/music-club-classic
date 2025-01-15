@@ -18,13 +18,13 @@
             <option value="$PROJECT_DIR$/component/appbar" />
             <option value="$PROJECT_DIR$/component/fragment-list-editable" />
             <option value="$PROJECT_DIR$/component/mini-player" />
+            <option value="$PROJECT_DIR$/component/placeholder" />
             <option value="$PROJECT_DIR$/component/searchbar" />
             <option value="$PROJECT_DIR$/component/topbar" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/base-adapter" />
             <option value="$PROJECT_DIR$/core/base-fragment" />
             <option value="$PROJECT_DIR$/core/theme" />
-            <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/utils" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/database" />
