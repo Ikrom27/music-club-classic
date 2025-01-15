@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupSeekBar(){
         viewModel.progressLiveData.observe(this){
-            miniPlayer.progress = it.toInt()
+            miniPlayer.progress =it.toInt()
         }
     }
 

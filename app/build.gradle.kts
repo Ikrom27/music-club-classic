@@ -66,7 +66,7 @@ dependencies {
     implementation(project(":feature:settings"))
     implementation(project(":feature:explore"))
     implementation(project(":feature:search"))
-    implementation(project(":component:player"))
+    implementation(project(":common:player-handler"))
     implementation(project(":core:ui"))
     implementation(project(":core:theme"))
     implementation(project(":component:appbar"))

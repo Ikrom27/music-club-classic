@@ -40,7 +40,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(libs.navigation.fragment)
     implementation(libs.dagger.hilt)
-    implementation(project(":component:player"))
+    implementation(project(":common:player-handler"))
     implementation(project(":core:utils"))
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.core.ktx)

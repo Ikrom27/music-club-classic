@@ -37,7 +37,7 @@ android {
 dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.livedata)
-    implementation(project(":component:player"))
+    implementation(project(":common:player-handler"))
     implementation(project(":core:ui"))
     implementation(project(":data:youtube"))
     implementation(project(":component:searchbar"))

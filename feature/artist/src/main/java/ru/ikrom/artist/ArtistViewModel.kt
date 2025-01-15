@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
-import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.player_handler.IPlayerHandler
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.ArtistPageModel
 import javax.inject.Inject

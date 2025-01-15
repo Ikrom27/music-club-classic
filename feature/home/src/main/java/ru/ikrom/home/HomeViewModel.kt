@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
-import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.player_handler.IPlayerHandler
 import ru.ikrom.ui.models.toCardItem
 import ru.ikrom.ui.models.toGridItem
 import ru.ikrom.ui.models.toThumbnailMediumItem

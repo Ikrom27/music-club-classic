@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     kapt(libs.bundles.dagger.compiler)
     implementation(project(":data:youtube"))
-    implementation(project(":component:player"))
+    implementation(project(":common:player-handler"))
     implementation(project(":core:ui"))
     implementation(project(":component:topbar"))
     implementation(libs.core.ktx)

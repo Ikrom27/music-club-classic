@@ -9,7 +9,7 @@ import ru.ikrom.ui.models.toThumbnailSmallItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.player_handler.IPlayerHandler
 import ru.ikrom.ui.models.toThumbnailHeaderItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.AlbumModel

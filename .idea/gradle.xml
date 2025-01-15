@@ -11,11 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/player-handler" />
             <option value="$PROJECT_DIR$/component" />
             <option value="$PROJECT_DIR$/component/appbar" />
             <option value="$PROJECT_DIR$/component/fragment-list-editable" />
             <option value="$PROJECT_DIR$/component/mini-player" />
-            <option value="$PROJECT_DIR$/component/player" />
             <option value="$PROJECT_DIR$/component/searchbar" />
             <option value="$PROJECT_DIR$/component/topbar" />
             <option value="$PROJECT_DIR$/core" />
@@ -25,6 +26,7 @@
             <option value="$PROJECT_DIR$/core/utils" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/database" />
+            <option value="$PROJECT_DIR$/data/player-repository" />
             <option value="$PROJECT_DIR$/data/youtube" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/album" />

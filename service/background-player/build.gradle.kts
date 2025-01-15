@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data:player-repository"))
+    implementation(project(":common:player-handler"))
     implementation(libs.glide)
     implementation(libs.bundles.media3)
     implementation(libs.bundles.dagger)

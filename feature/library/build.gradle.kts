@@ -39,7 +39,7 @@ dependencies {
     implementation(project(":core:base-fragment"))
     implementation(libs.bundles.dagger)
     implementation(project(":core:theme"))
-    implementation(project(":component:player"))
+    implementation(project(":common:player-handler"))
     kapt(libs.bundles.dagger.compiler)
     implementation(project(":data:youtube"))
     implementation(project(":core:ui"))

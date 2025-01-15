@@ -3,7 +3,7 @@ package ru.ikrom.player_screen
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.ikrom.player.IPlayerHandler
+import ru.ikrom.player_handler.IPlayerHandler
 import ru.ikrom.ui.base_adapter.delegates.PlayerQueueItem
 import javax.inject.Inject
 

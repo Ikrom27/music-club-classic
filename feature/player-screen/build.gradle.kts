@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.bundles.glide)
     implementation(libs.bundles.media3)
     implementation(libs.bundles.dagger)
-    implementation(project(":component:player"))
+    implementation(project(":common:player-handler"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

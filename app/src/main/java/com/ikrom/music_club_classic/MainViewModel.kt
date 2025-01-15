@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.ikrom.player.PlayerHandlerImpl
+import ru.ikrom.player_handler.IPlayerHandler
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val playerHandler: PlayerHandlerImpl
+    private val playerHandler: IPlayerHandler
 ): ViewModel() {
     val totalDurationLiveData = playerHandler.totalDurationLiveData
     var bottomSheetState = BottomSheetBehavior.STATE_COLLAPSED
