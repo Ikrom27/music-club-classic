@@ -84,7 +84,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun showSearchResult(data: List<ThumbnailSmallItem>){
-        adapter.addItems(data)
+        adapter.addAll(data)
     }
 
     private fun showError(){

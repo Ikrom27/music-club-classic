@@ -63,16 +63,16 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     private fun showContent(data: UiState){
         compositeAdapter.setItems(emptyList())
         if(data.quickPickTracks.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_recommendations)))
-            compositeAdapter.addToEnd(createGridNestedItem(data.quickPickTracks))
+            compositeAdapter.add(TitleItem(resources.getString(R.string.title_recommendations)))
+            compositeAdapter.add(createGridNestedItem(data.quickPickTracks))
         }
         if(data.favoriteTracks.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_favorites)))
-            compositeAdapter.addToEnd(createMediumNestedItem(data.favoriteTracks))
+            compositeAdapter.add(TitleItem(resources.getString(R.string.title_favorites)))
+            compositeAdapter.add(createMediumNestedItem(data.favoriteTracks))
         }
         if(data.playlists.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem(resources.getString(R.string.title_playlists)))
-            compositeAdapter.addToEnd(createCardNestedItem(data.playlists))
+            compositeAdapter.add(TitleItem(resources.getString(R.string.title_playlists)))
+            compositeAdapter.add(createCardNestedItem(data.playlists))
         }
     }
 

@@ -77,7 +77,7 @@ class PlayerQueueFragment : BottomSheetDialogFragment(R.layout.fragment_player_q
     private fun setupData(){
         viewModel.currentQueue.observe(viewLifecycleOwner) {tracks ->
             compositeAdapter.setItems(listOf(TitleItem("Current Queue")))
-            compositeAdapter.addItems(tracks)
+            compositeAdapter.addAll(tracks)
         }
     }
 }

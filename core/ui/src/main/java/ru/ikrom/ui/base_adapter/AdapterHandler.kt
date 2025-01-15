@@ -27,7 +27,7 @@ abstract class AdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.Adap
         notifyItemChanged(position)
     }
 
-    fun updateItem(position: Int, item: T){
+    fun updateItemAt(position: Int, item: T){
         if (position >= mItems.size){
             mItems.add(item)
             notifyItemChanged(itemCount)
@@ -38,17 +38,17 @@ abstract class AdapterHandler<T, VH: RecyclerView.ViewHolder>: RecyclerView.Adap
         notifyItemChanged(position)
     }
 
-    fun addToStart(item: T){
+    fun addFirst(item: T){
         addToPosition(0, item)
     }
 
-    fun addItems(items: List<T>){
+    fun addAll(items: List<T>){
         val startPosition = mItems.size - 1
         mItems += items
         notifyItemRangeChanged(startPosition, mItems.size)
     }
 
-    fun addToEnd(item: T){
+    fun add(item: T){
         addToPosition(mItems.size, item)
     }
 }

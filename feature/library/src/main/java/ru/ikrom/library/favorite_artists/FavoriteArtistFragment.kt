@@ -31,7 +31,7 @@ class FavoriteArtistFragment : EditableListFragment<ThumbnailRoundedSmallItem, F
         mAdapter.setItems(listOf(
             TitleItem(getString(AppStringsId.MENU_LIKED_ARTISTS))
         ))
-        mAdapter.addItems(data)
+        mAdapter.addAll(data)
     }
 
     interface Navigator {

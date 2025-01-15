@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/component/searchbar" />
             <option value="$PROJECT_DIR$/component/topbar" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/base-adapter" />
             <option value="$PROJECT_DIR$/core/base-fragment" />
             <option value="$PROJECT_DIR$/core/theme" />
             <option value="$PROJECT_DIR$/core/ui" />

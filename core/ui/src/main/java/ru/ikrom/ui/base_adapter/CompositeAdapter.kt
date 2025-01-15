@@ -36,7 +36,7 @@ class CompositeAdapter(
         }
     }
 
-    class Builder(){
+    class Builder {
         private var count: Int = 0
         private val delegates: SparseArray<DelegateAdapter<Any, DelegateAdapter.ViewHolder<Any>>> = SparseArray()
 

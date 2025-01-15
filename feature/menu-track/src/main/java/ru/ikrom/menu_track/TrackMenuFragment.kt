@@ -55,7 +55,7 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
     private fun setupItems() {
         viewModel.uiContent.observe(viewLifecycleOwner) {
             compositeAdapter.setItems(getButtons())
-            compositeAdapter.addToStart(it)
+            compositeAdapter.addFirst(it)
         }
     }
 

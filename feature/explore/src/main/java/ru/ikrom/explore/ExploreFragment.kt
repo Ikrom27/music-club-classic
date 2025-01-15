@@ -57,8 +57,8 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
                     }
                 ))
                 .build())
-        adapter.updateItem(0, TitleItem("New releases"))
-        adapter.updateItem(1, newReleasesItem)
+        adapter.updateItemAt(0, TitleItem("New releases"))
+        adapter.updateItemAt(1, newReleasesItem)
     }
 
     private fun setupRecyclerView(view: View, position: Int) {

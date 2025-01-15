@@ -60,7 +60,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         compositeAdapter.setItems(listOf(
             TitleItem(getString(R.string.title_library))
         ))
-        compositeAdapter.addItems(screens)
+        compositeAdapter.addAll(screens)
         when(state){
             is UiState.Success -> onSuccessState(state)
             else -> {}
@@ -69,8 +69,8 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
 
     private fun onSuccessState(data: UiState.Success){
         if(data.data.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem(getString(R.string.title_favorite)))
-            compositeAdapter.addToEnd(NestedItems(
+            compositeAdapter.add(TitleItem(getString(R.string.title_favorite)))
+            compositeAdapter.add(NestedItems(
                 items = data.data,
                 adapter = CompositeAdapter.Builder()
                     .add(ThumbnailMediumAdapter(

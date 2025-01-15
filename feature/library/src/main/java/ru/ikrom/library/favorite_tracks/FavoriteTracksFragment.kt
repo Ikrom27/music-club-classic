@@ -31,7 +31,7 @@ class FavoriteTracksFragment : EditableListFragment<ThumbnailSmallItem, Favorite
         mAdapter.setItems(listOf(
             TitleItem(getString(AppStringsId.TITLE_FAVORITE))
         ))
-        mAdapter.addItems(data)
+        mAdapter.addAll(data)
     }
 
     interface Navigator {

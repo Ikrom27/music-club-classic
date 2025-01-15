@@ -80,14 +80,14 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
 
     private fun onStateSuccess(data: UiState.Success){
         compositeAdapter.setItems(emptyList())
-        data.header?.let { compositeAdapter.addToEnd(it) }
+        data.header?.let { compositeAdapter.add(it) }
         if(data.tracks.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem("Tracks"))
-            compositeAdapter.addItems(data.tracks)
+            compositeAdapter.add(TitleItem("Tracks"))
+            compositeAdapter.addAll(data.tracks)
         }
         if(data.albums.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem("Albums"))
-            compositeAdapter.addToEnd(
+            compositeAdapter.add(TitleItem("Albums"))
+            compositeAdapter.add(
                 NestedItems(
                     items = data.albums,
                     adapter = CompositeAdapter.Builder()
@@ -99,8 +99,8 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
             )
         }
         if(data.singles.isNotEmpty()){
-            compositeAdapter.addToEnd(TitleItem("Singles"))
-            compositeAdapter.addToEnd(
+            compositeAdapter.add(TitleItem("Singles"))
+            compositeAdapter.add(
                 NestedItems(
                     items = data.singles,
                     adapter = CompositeAdapter.Builder()
@@ -112,8 +112,8 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
             )
         }
         if (data.similar.isNotEmpty()) {
-            compositeAdapter.addToEnd(TitleItem("Similar"))
-            compositeAdapter.addToEnd(
+            compositeAdapter.add(TitleItem("Similar"))
+            compositeAdapter.add(
                 NestedItems(
                     items = data.similar,
                     adapter = CompositeAdapter.Builder().add(ThumbnailRoundedDelegate{
