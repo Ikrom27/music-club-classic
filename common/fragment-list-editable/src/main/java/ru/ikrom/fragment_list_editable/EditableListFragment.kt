@@ -3,9 +3,11 @@ package ru.ikrom.fragment_list_editable
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.ContentLoadingProgressBar
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.placeholder.PlaceholderView
+import ru.ikrom.searchbar.SearchBar
 import ru.ikrom.theme.AppDrawableIds
 
 
@@ -21,6 +23,17 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
         super.onViewCreated(view, savedInstanceState)
         mPlaceholder = view.findViewById(R.id.placeholder)
         mLoading = view.findViewById(R.id.loading)
+        view.findViewById<SearchBar>(R.id.search_bar).apply {
+            doOnTextChanged { text, _, _, _ ->
+                mViewModel.update(text.toString())
+            }
+            setOnBackClick {
+                findNavController().navigateUp()
+            }
+            setOnCleanClick {
+
+            }
+        }
     }
 
     override fun handleState(state: EditableUiState<T>) {
@@ -36,14 +49,14 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     }
 
     abstract fun onStateSuccess(data: List<T>)
-    fun onStateLoading() {
+    protected fun onStateLoading() {
         mLoading.show()
     }
-    fun onStateError() {
+    protected fun onStateError() {
         mPlaceholder.imageSrc = AppDrawableIds.PH_ERROR
         mPlaceholder.show()
     }
-    fun onStateEmpty() {
+    protected fun onStateEmpty() {
         mPlaceholder.imageSrc = AppDrawableIds.PH_NO_RESULT
         mPlaceholder.show()
     }

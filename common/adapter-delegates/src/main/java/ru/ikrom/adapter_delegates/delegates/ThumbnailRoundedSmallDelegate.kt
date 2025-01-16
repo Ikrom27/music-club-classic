@@ -15,7 +15,9 @@ data class ThumbnailRoundedSmallItem(
     override val title: String,
     override val subtitle: String,
     override val thumbnail: String,
-): ThumbnailItem, AdapterItem
+): ThumbnailItem, AdapterItem {
+    fun filterWithText(text: String) = text.uppercase() in title.uppercase()
+}
 
 
 class ThumbnailRoundedSmallDelegate(
