@@ -13,10 +13,10 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/adapter-delegates" />
+            <option value="$PROJECT_DIR$/common/fragment-list-editable" />
             <option value="$PROJECT_DIR$/common/player-handler" />
             <option value="$PROJECT_DIR$/component" />
             <option value="$PROJECT_DIR$/component/appbar" />
-            <option value="$PROJECT_DIR$/component/fragment-list-editable" />
             <option value="$PROJECT_DIR$/component/mini-player" />
             <option value="$PROJECT_DIR$/component/placeholder" />
             <option value="$PROJECT_DIR$/component/searchbar" />

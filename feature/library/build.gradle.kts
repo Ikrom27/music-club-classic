@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    api(project(":component:fragment-list-editable"))
+    api(project(":common:fragment-list-editable"))
     implementation(project(":core:base-fragment"))
     implementation(libs.bundles.dagger)
     implementation(project(":core:theme"))
