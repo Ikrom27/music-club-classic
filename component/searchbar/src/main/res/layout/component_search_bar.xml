@@ -38,6 +38,7 @@
             <EditText
                 android:id="@+id/et_input_field"
                 style="@style/SearchBar"
+                android:paddingEnd="42dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="10dp"
                 android:imeOptions="actionSearch"
@@ -46,7 +47,7 @@
                 android:id="@+id/btn_clear"
                 style="@style/ToolBarButton"
                 android:padding="11dp"
-                android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                android:layout_marginHorizontal="5dp"
                 android:src="@drawable/ic_close"
                 android:layout_gravity="end|center_vertical"
                 android:visibility="gone"
