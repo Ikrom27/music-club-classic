@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(project(":core:utils"))
     implementation(project(":core:theme"))
+    implementation(project(":core:base-fragment"))
     kapt(libs.bundles.dagger.compiler)
     implementation(project(":data:youtube-repository"))
     implementation(project(":common:player-handler"))

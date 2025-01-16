@@ -22,17 +22,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorPrimary" />
         <ImageButton
-            android:id="@+id/btn_search"
-            style="@style/ToolBarButton"
-            android:background="@drawable/bg_rounded_rectangle_100"
-            android:backgroundTint="@color/bg_surface"
-            android:layout_marginEnd="@dimen/content_horizontal_margin"
-            app:tint="?attr/colorPrimary"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_more"
-            app:layout_constraintTop_toTopOf="parent" />
-        <ImageButton
             android:id="@+id/btn_more"
             style="@style/ToolBarButton"
             android:src="@drawable/ic_more_vertical"

@@ -45,6 +45,14 @@ class NavigationModule {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }
 
+        override fun toUp() {
+            navController.navigateUp()
+        }
+
+        override fun toAlbumMenu(item: ThumbnailItem) {
+            TODO("Not yet implemented")
+        }
+
     }
 
     @Provides
