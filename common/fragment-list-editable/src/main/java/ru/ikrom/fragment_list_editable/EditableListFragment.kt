@@ -5,10 +5,14 @@ import android.view.View
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.placeholder.PlaceholderView
 import ru.ikrom.searchbar.SearchBar
 import ru.ikrom.theme.AppDrawableIds
+import ru.ikrom.theme.appBottomMargin
+import ru.ikrom.theme.appTopMargin
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 
 
 abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
@@ -18,6 +22,13 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     private lateinit var mLoading: ContentLoadingProgressBar
     override fun getRecyclerViewId() = R.id.rv_content
     override fun getLayoutManager() = LinearLayoutManager(context)
+
+    override fun setupItemDecorationsList(rv: RecyclerView): List<RecyclerView.ItemDecoration> {
+        return listOf(MarginItemDecoration(
+            startSpace = resources.appTopMargin(),
+            endSpace = resources.appBottomMargin()
+        ))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
