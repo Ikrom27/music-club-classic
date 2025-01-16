@@ -52,7 +52,6 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
 
     override fun setupItemDecorationsList(rv: RecyclerView) = listOf(
         MarginItemDecoration(
-            startSpace = resources.appTopMargin(),
             endSpace = resources.appBottomMargin(),
         )
     )

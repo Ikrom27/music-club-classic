@@ -38,6 +38,7 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
     override fun getLayoutManager() = LinearLayoutManager(context)
 
     override fun handleState(state: ExplorePageContent) {
+        compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_NEW_RELEASES)))
         if(state.newReleases.isNotEmpty()){
             compositeAdapter.add(NestedItems(
                 items = state.newReleases,
@@ -47,7 +48,6 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
                         onLongClick = { navigator.toAlbumMenu(it) }
                 )).build()))
         }
-        compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_NEW_RELEASES)))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +57,6 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
 
     override fun setupItemDecorationsList(rv: RecyclerView) = listOf(
         MarginItemDecoration(
-            startSpace = resources.appTopMargin(),
             endSpace = resources.appBottomMargin(),
             betweenSpace = resources.getDimensionPixelSize(AppDimens.MARGIN_SECTIONS)
         )
