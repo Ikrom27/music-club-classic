@@ -30,5 +30,5 @@ object AppColorIds {
     val SECONDARY_TEXT = R.color.secondary_text
     val PLACEHOLDER = R.color.placeholder
     val BOTTOM_SHEET_MENU = R.color.bottom_sheet_menu
-    val BG_NEXT = R.color.bg_next
+    val BG_NEXT = R.color.bg_button
 }

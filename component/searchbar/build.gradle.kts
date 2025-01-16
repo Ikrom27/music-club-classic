@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:theme"))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

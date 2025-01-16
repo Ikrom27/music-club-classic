@@ -29,5 +29,5 @@
     <color name="secondary_text">@color/grey</color>
     <color name="placeholder">#C1C1C1</color>
     <color name="bottom_sheet_menu">#eeeeef</color>
-    <color name="bg_next">#C1C1C1</color>
+    <color name="bg_button">#C1C1C1</color>
 </resources>
