@@ -20,6 +20,7 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailRoundedDelegate
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
+import ru.ikrom.theme.AppStringsId
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.utils.bundleToId
 import ru.ikrom.utils.ActionUtil
@@ -82,11 +83,11 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
         compositeAdapter.setItems(emptyList())
         data.header?.let { compositeAdapter.add(it) }
         if(data.tracks.isNotEmpty()){
-            compositeAdapter.add(TitleItem("Tracks"))
+            compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_TRACKS)))
             compositeAdapter.addAll(data.tracks)
         }
         if(data.albums.isNotEmpty()){
-            compositeAdapter.add(TitleItem("Albums"))
+            compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_ALBUMS)))
             compositeAdapter.add(
                 NestedItems(
                     items = data.albums,
@@ -99,7 +100,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
             )
         }
         if(data.singles.isNotEmpty()){
-            compositeAdapter.add(TitleItem("Singles"))
+            compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_SINGLES)))
             compositeAdapter.add(
                 NestedItems(
                     items = data.singles,
@@ -112,7 +113,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
             )
         }
         if (data.similar.isNotEmpty()) {
-            compositeAdapter.add(TitleItem("Similar"))
+            compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_SIMILAR)))
             compositeAdapter.add(
                 NestedItems(
                     items = data.similar,

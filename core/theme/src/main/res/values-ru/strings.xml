@@ -25,6 +25,10 @@
 
     <string name="title_library">Библиотека</string>
     <string name="title_favorite">Избранное</string>
+    <string name="title_tracks">Треки</string>
+    <string name="title_albums">Альбомы</string>
+    <string name="title_singles">Синглы</string>
+    <string name="title_similar">Похожие</string>
     <string name="next_in_queue">Следующий в очереди</string>
 
     <string name="menu_liked_tracks">Любимые треки</string>

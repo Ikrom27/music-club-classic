@@ -41,6 +41,10 @@
     <!-- TITLES -->
     <string name="title_library">Library</string>
     <string name="title_favorite">Favorite</string>
+    <string name="title_tracks">Tracks</string>
+    <string name="title_albums">Albums</string>
+    <string name="title_singles">Singles</string>
+    <string name="title_similar">Singles</string>
     <string name="next_in_queue">Next in queue</string>
 
     <string name="menu_liked_tracks">Liked tracks</string>
