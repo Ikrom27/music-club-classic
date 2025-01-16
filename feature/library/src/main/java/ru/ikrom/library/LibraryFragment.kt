@@ -24,31 +24,17 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
     override val mViewModel: LibraryViewModel by viewModels()
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
-        .add(MenuNavigateDelegate(
-            onClickItem = {
-                navigateMapper(it.title)
-            }
-        ))
+        .add(MenuNavigateDelegate())
         .add(NestedItemsDelegate())
         .build()
 
     private val screens by lazy {
         listOf(
-            MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks)),
-            MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists)),
-            MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, getString(R.string.menu_in_device)),
+            MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks), { navigator.toFavoriteTracks() }),
+            MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists), { navigator.toFavoriteArtists() }),
+            MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, getString(R.string.menu_in_device), { navigator.toLocalTracks() }),
         )
     }
-
-    private fun navigateMapper(title: String) {
-        when (title) {
-            getString(R.string.menu_liked_tracks) -> navigator.toFavoriteTracks()
-            getString(R.string.menu_liked_artists) -> navigator.toFavoriteArtists()
-            getString(R.string.menu_in_device) -> navigator.toLocalTracks()
-            else -> throw IllegalArgumentException("Unknown navigation title: $title")
-        }
-    }
-
     override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter
     override fun getRecyclerViewId() = R.id.rv_main
     override fun getLayoutManager() = LinearLayoutManager(context)
