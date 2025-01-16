@@ -2,7 +2,6 @@ package ru.ikrom.explore
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,57 +16,46 @@ import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
 import ru.ikrom.adapter_delegates.delegates.CardItem
 import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_fragment.DefaultListFragment
+import ru.ikrom.theme.AppStringsId
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment(R.layout.fragment_explore) {
+class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel>(R.layout.fragment_explore) {
     @Inject
     lateinit var navigator: Navigator
-    private lateinit var recyclerView: RecyclerView
-    private val viewModel: ExploreViewModel by viewModels()
-    private val adapter = CompositeAdapter.Builder()
-        .add(NestedItemsDelegate())
+    override val mViewModel: ExploreViewModel by viewModels()
+    private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
+        .add(NestedItemsDelegate())
         .build()
+
+    override fun getAdapter() = compositeAdapter
+    override fun getRecyclerViewId() = R.id.rv_content
+    override fun getLayoutManager() = LinearLayoutManager(context)
+
+    override fun handleState(state: ExplorePageContent) {
+        if(state.newReleases.isNotEmpty()){
+            compositeAdapter.add(NestedItems(
+                items = state.newReleases,
+                adapter = CompositeAdapter.Builder()
+                    .add(CardAdapter(
+                        onClick = { navigator.toAlbumScreen(it.id) },
+                        onLongClick = { navigator.toAlbumMenu(it) }
+                )).build()))
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAppBar(view)
-        setupRecyclerView(view, savedInstanceState?.getInt(SCROLL_POSITION_KEY) ?: 0)
-        viewModel.uiState.observe(viewLifecycleOwner) {state ->
-            when(state){
-                ExploreUiState.Error -> {}
-                ExploreUiState.Loading -> {}
-                is ExploreUiState.Success -> showContent(state.data)
-            }
-        }
     }
 
-    private fun showContent(data: List<CardItem>){
-        val newReleasesItem = NestedItems(
-            data,
-            CompositeAdapter.Builder()
-                .add(CardAdapter(
-                    onClick = {
-                        navigator.toAlbumScreen(it.id)
-                    },
-                    onLongClick = {
-                        navigator.toAlbumMenu(it)
-                    }
-                ))
-                .build())
-        adapter.updateItemAt(0, TitleItem("New releases"))
-        adapter.updateItemAt(1, newReleasesItem)
-    }
-
-    private fun setupRecyclerView(view: View, position: Int) {
-        recyclerView = view.findViewById(R.id.rv_content)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-        recyclerView.scrollToPosition(position)
-        if (recyclerView.itemDecorationCount == 0){
-            recyclerView.addItemDecoration(
+    override fun recyclerViewConfigure(rv: RecyclerView) {
+        super.recyclerViewConfigure(rv)
+        if (rv.itemDecorationCount == 0){
+            rv.addItemDecoration(
                 MarginItemDecoration(
                     endSpace = AppDimens.HEIGHT_BOTTOM_NAVBAR,
                     betweenSpace = AppDimens.MARGIN_SECTIONS
@@ -88,9 +76,5 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         fun toSearchScreen()
         fun toAlbumScreen(albumId: String)
         fun toAlbumMenu(item: ThumbnailItem)
-    }
-
-    companion object {
-        private val SCROLL_POSITION_KEY = "scroll_position_key"
     }
 }

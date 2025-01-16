@@ -9,6 +9,7 @@ import ru.ikrom.adapter_delegates.modelsExt.toCardItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.AlbumModel
 import javax.inject.Inject
@@ -16,27 +17,21 @@ import javax.inject.Inject
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
     private val repository: IMediaRepository,
-) : ViewModel() {
-    private var albumModels: List<AlbumModel> = ArrayList()
-    private val _uiState = MutableLiveData<ExploreUiState>()
-    val uiState: LiveData<ExploreUiState> = _uiState
+) : DefaultStateViewModel<ExplorePageContent>() {
 
     init {
-        update()
+        refresh()
     }
 
-    private fun update(){
-        _uiState.postValue(ExploreUiState.Loading)
+    private fun refresh(){
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 repository.getNewReleases()
             }.onSuccess { albums ->
-                albumModels = albums
-                _uiState.postValue(
-                    ExploreUiState.Success(albums.map { it.toCardItem() })
+                _state.postValue(
+                    ExplorePageContent(albums.map { it.toCardItem() })
                 )
             }.onFailure {e ->
-                _uiState.postValue(ExploreUiState.Error)
                 Log.d(TAG, e.message.toString())
             }
         }

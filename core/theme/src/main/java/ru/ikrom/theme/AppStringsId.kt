@@ -47,6 +47,7 @@ object AppStringsId {
     val TITLE_ALBUMS = R.string.title_albums
     val TITLE_SINGLES = R.string.title_singles
     val TITLE_SIMILAR = R.string.title_similar
+    val TITLE_NEW_RELEASES = R.string.title_new_releases
     val NEXT_IN_QUEUE = R.string.next_in_queue
 
     // Menu items
