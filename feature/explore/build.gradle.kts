@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.material)
     implementation(project(":component:appbar"))
     implementation(project(":common:adapter-delegates"))
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

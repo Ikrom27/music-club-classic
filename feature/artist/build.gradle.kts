@@ -43,7 +43,7 @@ dependencies {
     implementation(project(":core:theme"))
     kapt(libs.bundles.dagger.compiler)
     implementation(project(":common:adapter-delegates"))
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

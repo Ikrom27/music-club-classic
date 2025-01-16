@@ -14,12 +14,11 @@ import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.extractor.mkv.MatroskaExtractor
 import androidx.media3.extractor.mp4.FragmentedMp4Extractor
 import androidx.media3.extractor.text.DefaultSubtitleParserFactory
-import ru.ikrom.youtube_data.YoutubePlayer
 import javax.inject.Inject
 
 
 @OptIn(UnstableApi::class)
-class DefaultPlayerRepository @Inject constructor (
+internal class DefaultPlayerRepository @Inject constructor (
     @DownloadCacheScope
     private val downloadCache: SimpleCache,
     @PlayerCacheScope

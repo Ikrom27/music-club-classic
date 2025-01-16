@@ -1,4 +1,4 @@
-package ru.ikrom.youtube_data
+package ru.ikrom.player_repository
 
 import android.net.Uri
 import androidx.core.net.toUri
@@ -7,7 +7,7 @@ import com.zionhuang.innertube.models.response.PlayerResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-object YoutubePlayer {
+internal object YoutubePlayer {
     fun getProxy() = YouTube.proxy
     fun getUri(mediaId: String): Uri {
         return getFormat(mediaId)!!.url!!.toUri()

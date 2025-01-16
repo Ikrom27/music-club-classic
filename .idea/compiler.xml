@@ -6,6 +6,7 @@
       <module name="Music_Club_Classic.core.opus-codec" target="21" />
       <module name="Music_Club_Classic.core.ui" target="21" />
       <module name="Music_Club_Classic.core.view-placeholder" target="21" />
+      <module name="Music_Club_Classic.data.youtube_repository" target="21" />
       <module name="Music_Club_Classic.services.discord-service" target="21" />
     </bytecodeTargetLevel>
   </component>

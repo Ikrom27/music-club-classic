@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     implementation(project(":core:theme"))
     implementation(project(":common:adapter-delegates"))
     implementation(libs.navigation.fragment)

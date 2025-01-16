@@ -39,7 +39,7 @@ dependencies {
     implementation(project(":common:player-handler"))
     implementation(project(":component:appbar"))
     implementation(project(":common:adapter-delegates"))
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     implementation(libs.core.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.appcompat)

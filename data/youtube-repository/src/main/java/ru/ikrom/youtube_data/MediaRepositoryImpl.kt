@@ -17,7 +17,7 @@ import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
-class MediaRepositoryImpl @Inject constructor(
+internal class MediaRepositoryImpl @Inject constructor(
     private val dataSource: IMediaDataSource,
     private val localSource: ILocalDataSource
 ): IMediaRepository {

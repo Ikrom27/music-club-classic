@@ -29,5 +29,5 @@ class YoutubeModule {
     @Provides
     @Singleton
     @YoutubeDataSourceScope
-    fun provideYoutubeDataSource(): IMediaDataSource = YoutubeDataSource()
+    internal fun provideYoutubeDataSource(): IMediaDataSource = YoutubeDataSource()
 }

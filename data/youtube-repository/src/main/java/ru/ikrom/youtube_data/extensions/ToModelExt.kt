@@ -15,7 +15,7 @@ import ru.ikrom.youtube_data.model.ArtistPageModel
 import ru.ikrom.youtube_data.model.PlaylistModel
 import ru.ikrom.youtube_data.model.TrackModel
 
-fun AlbumItem.toAlbumModel(): AlbumModel {
+internal fun AlbumItem.toAlbumModel(): AlbumModel {
     return AlbumModel(
         id = this.id,
         title = this.title,
@@ -27,7 +27,7 @@ fun AlbumItem.toAlbumModel(): AlbumModel {
     )
 }
 
-fun ArtistItem.toArtistModel(): ArtistModel {
+internal fun ArtistItem.toArtistModel(): ArtistModel {
     return ArtistModel(
         id = this.id,
         name = this.title,
@@ -35,14 +35,14 @@ fun ArtistItem.toArtistModel(): ArtistModel {
     )
 }
 
-fun Artist.toArtistModel(): ArtistModel {
+internal fun Artist.toArtistModel(): ArtistModel {
     return ArtistModel(
         name = this.name,
         id = this.id
     )
 }
 
-fun PlaylistItem.toPlayListModel(): PlaylistModel {
+internal fun PlaylistItem.toPlayListModel(): PlaylistModel {
     return PlaylistModel(
         id = id,
         title = title,
@@ -51,7 +51,7 @@ fun PlaylistItem.toPlayListModel(): PlaylistModel {
     )
 }
 
-fun SongItem.toTrackModel(): TrackModel? {
+internal fun SongItem.toTrackModel(): TrackModel? {
     return try {
         TrackModel(
             title = this.title,
@@ -74,7 +74,7 @@ fun SongItem.toTrackModel(): TrackModel? {
     }
 }
 
-fun ArtistPage.toArtistPageModel(): ArtistPageModel {
+internal fun ArtistPage.toArtistPageModel(): ArtistPageModel {
     var tracks = mutableListOf<TrackModel>()
     var albums = mutableListOf<AlbumModel>()
     var singles = mutableListOf<AlbumModel>()
@@ -113,7 +113,7 @@ fun ArtistPage.toArtistPageModel(): ArtistPageModel {
     )
 }
 
-fun AlbumPage.toModel(): AlbumPageModel{
+internal fun AlbumPage.toModel(): AlbumPageModel{
     return AlbumPageModel(
         albumInfo = album.toAlbumModel(),
         tracks = songs.mapNotNull { it.toTrackModel() }

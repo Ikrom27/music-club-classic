@@ -15,7 +15,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import ru.ikrom.youtube_data.YoutubePlayer
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -34,7 +33,7 @@ annotation class DownloadCacheScope
 class PlayerRepositoryModule {
     @Provides
     @Singleton
-    fun provideDefaultDataSourceFactory(
+    internal fun provideDefaultDataSourceFactory(
         @ApplicationContext context: Context,
     ): DefaultDataSource.Factory {
         val okHttpFactory = OkHttpDataSource.Factory(
@@ -49,7 +48,7 @@ class PlayerRepositoryModule {
     @Singleton
     @PlayerCacheScope
     @OptIn(UnstableApi::class)
-    fun providePlayerCache(@ApplicationContext context: Context, databaseProvider: DatabaseProvider)
+    internal fun providePlayerCache(@ApplicationContext context: Context, databaseProvider: DatabaseProvider)
             = SimpleCache(
         context.filesDir.resolve("player"),
         NoOpCacheEvictor(),
@@ -59,7 +58,7 @@ class PlayerRepositoryModule {
     @Singleton
     @DownloadCacheScope
     @OptIn(UnstableApi::class)
-    fun provideDownloadCache(@ApplicationContext context: Context, databaseProvider: DatabaseProvider)
+    internal fun provideDownloadCache(@ApplicationContext context: Context, databaseProvider: DatabaseProvider)
             = SimpleCache(
         context.filesDir.resolve("download"),
         NoOpCacheEvictor(),
@@ -68,7 +67,7 @@ class PlayerRepositoryModule {
     @Provides
     @Singleton
     @OptIn(UnstableApi::class)
-    fun provideDatabaseProvider(@ApplicationContext context: Context): DatabaseProvider =
+    internal fun provideDatabaseProvider(@ApplicationContext context: Context): DatabaseProvider =
         StandaloneDatabaseProvider(context)
 
     @Provides

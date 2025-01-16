@@ -70,7 +70,6 @@ dependencies {
     implementation(project(":common:adapter-delegates"))
     implementation(project(":core:theme"))
     implementation(project(":component:appbar"))
-    implementation(project(":data:youtube"))
     implementation(project(":feature:menu-artist"))
     implementation(project(":service:background-player"))
     testImplementation(libs.junit)

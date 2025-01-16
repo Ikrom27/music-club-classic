@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.bundles.dagger)
     implementation(project(":core:utils"))
     implementation(project(":core:theme"))
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.navigation.fragment)
     implementation(libs.core.ktx)

@@ -1,7 +1,7 @@
 package ru.ikrom.youtube_data.extensions
 
 
-fun String.resize(
+internal fun String.resize(
     width: Int? = null,
     height: Int? = null,
 ): String {

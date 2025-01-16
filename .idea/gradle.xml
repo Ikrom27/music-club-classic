@@ -29,7 +29,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/database" />
             <option value="$PROJECT_DIR$/data/player-repository" />
-            <option value="$PROJECT_DIR$/data/youtube" />
+            <option value="$PROJECT_DIR$/data/youtube-repository" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/album" />
             <option value="$PROJECT_DIR$/feature/artist" />

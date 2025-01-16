@@ -6,7 +6,7 @@ import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.TrackModel
 
-fun TrackEntity.toModel(): TrackModel {
+internal fun TrackEntity.toModel(): TrackModel {
     val artistModel = ArtistModel(
         id = artistId,
         name = artist,
@@ -29,9 +29,9 @@ fun TrackEntity.toModel(): TrackModel {
     )
 }
 
-fun ArtistEntity.toModel(): ArtistModel {
+internal fun ArtistEntity.toModel(): ArtistModel {
     return ArtistModel(id, name, thumbnail)
 }
 
-fun List<TrackEntity>.toTrackModels() = map{it.toModel()}
-fun List<ArtistEntity>.toArtistModels() = map{it.toModel()}
+internal fun List<TrackEntity>.toTrackModels() = map{it.toModel()}
+internal fun List<ArtistEntity>.toArtistModels() = map{it.toModel()}

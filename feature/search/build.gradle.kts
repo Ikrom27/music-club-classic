@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.livedata)
     implementation(project(":common:player-handler"))
     implementation(project(":common:adapter-delegates"))
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     implementation(project(":component:searchbar"))
     implementation(libs.bundles.dagger)
     implementation(libs.androidx.swiperefreshlayout)

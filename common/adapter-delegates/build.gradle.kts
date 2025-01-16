@@ -43,7 +43,7 @@ dependencies {
     implementation(libs.miniequalizer)
     implementation(libs.palette)
     implementation(project(":core:utils"))
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

@@ -41,7 +41,7 @@ dependencies {
     implementation(project(":core:theme"))
     implementation(project(":common:player-handler"))
     kapt(libs.bundles.dagger.compiler)
-    implementation(project(":data:youtube"))
+    implementation(project(":data:youtube-repository"))
     implementation(project(":common:adapter-delegates"))
     implementation(libs.navigation.fragment)
     implementation(libs.core.ktx)
