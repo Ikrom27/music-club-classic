@@ -45,6 +45,7 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
                         onLongClick = { navigator.toAlbumMenu(it) }
                 )).build()))
         }
+        compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_NEW_RELEASES)))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
