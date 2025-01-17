@@ -31,6 +31,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
     private val screens by lazy {
         listOf(
             MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks), { navigator.toFavoriteTracks() }),
+            MenuNavigateItem(AppDrawableIds.ALBUM, getString(R.string.menu_liked_albums), { navigator.toFavoriteAlbums() }),
             MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists), { navigator.toFavoriteArtists() }),
             MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, getString(R.string.menu_in_device), { navigator.toLocalTracks() }),
         )
@@ -66,6 +67,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
     interface Navigator{
         fun toTrackMenu(item: ThumbnailItem)
         fun toFavoriteTracks()
+        fun toFavoriteAlbums()
         fun toFavoriteArtists()
         fun toLocalTracks()
     }

@@ -14,13 +14,14 @@ import ru.ikrom.artist.ArtistFragment
 import ru.ikrom.explore.ExploreFragment
 import ru.ikrom.home.HomeFragment
 import ru.ikrom.library.LibraryFragment
-import ru.ikrom.library.favorite_artists.FavoriteArtistFragment
 import ru.ikrom.library.favorite_tracks.FavoriteTracksFragment
 import ru.ikrom.menu_artist.ArtistMenuFragment
 import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.search.SearchFragment
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_adapter.toBundle
+import ru.ikrom.library.favorite_albums.FavoriteAlbumsFragment
+import ru.ikrom.library.favorite_artists.FavoriteArtistFragment
 import ru.ikrom.menu_album.AlbumMenuFragment
 import ru.ikrom.utils.idToBundle
 
@@ -144,6 +145,10 @@ class NavigationModule {
             navController.navigate(R.id.to_favorite_tracks)
         }
 
+        override fun toFavoriteAlbums() {
+            navController.navigate(R.id.to_favorite_albums)
+        }
+
         override fun toFavoriteArtists() {
             navController.navigate(R.id.to_favorite_artists)
         }
@@ -212,5 +217,18 @@ class NavigationModule {
             navController.navigate(R.id.to_artist, idToBundle(id))
         }
 
+    }
+
+    @Provides
+    fun provideFavoriteAlbumNavigator(
+        navController: NavController
+    ) = object : FavoriteAlbumsFragment.Navigator {
+        override fun toAlbum(id: String) {
+            navController.navigate(R.id.to_album, idToBundle(id))
+        }
+
+        override fun toAlbumMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_album, item.toBundle())
+        }
     }
 }
