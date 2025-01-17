@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.dagger.hilt)
     implementation(project(":common:player-handler"))
     implementation(project(":core:utils"))
+    implementation(project(":core:base-fragment"))
+    api(project(":common:fragment-bottom-menu"))
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

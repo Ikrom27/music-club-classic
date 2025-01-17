@@ -19,8 +19,8 @@ import ru.ikrom.library.favorite_tracks.FavoriteTracksFragment
 import ru.ikrom.menu_artist.ArtistMenuFragment
 import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.search.SearchFragment
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
-import ru.ikrom.adapter_delegates.base.toBundle
+import ru.ikrom.base_adapter.ThumbnailItem
+import ru.ikrom.base_adapter.toBundle
 import ru.ikrom.utils.idToBundle
 
 

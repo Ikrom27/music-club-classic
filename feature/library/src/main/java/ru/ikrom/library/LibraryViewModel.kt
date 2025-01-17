@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player_handler.IPlayerHandler
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
-import ru.ikrom.adapter_delegates.base.toMediaItem
+import ru.ikrom.base_adapter.ThumbnailItem
+import ru.ikrom.adapter_delegates.ext.toMediaItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.model.TrackModel

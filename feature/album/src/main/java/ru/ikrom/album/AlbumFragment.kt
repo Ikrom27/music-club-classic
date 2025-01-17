@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailHeaderDelegate
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.base_adapter.CompositeAdapter

@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
 }
 
 android {
-    namespace = "ru.ikrom.menu_artist"
+    namespace = "ru.ikrom.fragment_bottom_menu"
     compileSdk = 34
 
     defaultConfig {
@@ -35,17 +33,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.dagger)
-    implementation(project(":core:utils"))
-    implementation(project(":core:theme"))
-    implementation(project(":data:youtube-repository"))
-    api(project(":common:fragment-bottom-menu"))
-    kapt(libs.bundles.dagger.compiler)
-    implementation(libs.navigation.fragment)
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(project(":common:adapter-delegates"))
+    api(project(":core:base-adapter"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

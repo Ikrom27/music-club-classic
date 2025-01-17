@@ -11,7 +11,7 @@ import ru.ikrom.adapter_delegates.delegates.MenuNavigateDelegate
 import ru.ikrom.adapter_delegates.delegates.MenuNavigateItem
 import ru.ikrom.adapter_delegates.delegates.NestedItems
 import ru.ikrom.adapter_delegates.delegates.NestedItemsDelegate
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem

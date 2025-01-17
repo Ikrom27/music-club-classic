@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.theme.AppDimens
 import ru.ikrom.base_adapter.CompositeAdapter

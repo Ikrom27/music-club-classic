@@ -13,11 +13,8 @@ import ru.ikrom.adapter_delegates.delegates.CardAdapter
 import ru.ikrom.adapter_delegates.delegates.NestedItems
 import ru.ikrom.adapter_delegates.delegates.NestedItemsDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
-import ru.ikrom.adapter_delegates.delegates.TitleItem
-import ru.ikrom.adapter_delegates.delegates.CardItem
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_fragment.DefaultListFragment
-import ru.ikrom.theme.AppStringsId
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 

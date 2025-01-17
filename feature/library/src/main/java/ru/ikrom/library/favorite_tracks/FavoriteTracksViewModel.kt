@@ -2,8 +2,8 @@ package ru.ikrom.library.favorite_tracks
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
-import ru.ikrom.adapter_delegates.base.toMediaItem
+import ru.ikrom.base_adapter.ThumbnailItem
+import ru.ikrom.adapter_delegates.ext.toMediaItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
 import ru.ikrom.adapter_delegates.modelsExt.toThumbnailSmallItem
 import ru.ikrom.fragment_list_editable.EditableStateViewModel

@@ -1,32 +1,27 @@
 package ru.ikrom.menu_track
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import ru.ikrom.theme.AppDrawableIds
-import ru.ikrom.theme.AppStringsId
-import ru.ikrom.base_adapter.CompositeAdapter
 import ru.ikrom.adapter_delegates.delegates.MenuButtonDelegate
 import ru.ikrom.adapter_delegates.delegates.MenuButtonItem
 import ru.ikrom.adapter_delegates.delegates.MenuHeaderDelegate
-import ru.ikrom.adapter_delegates.base.ThumbnailArgs
+import ru.ikrom.base_adapter.CompositeAdapter
+import ru.ikrom.fragment_bottom_menu.BaseBottomMenuFragment
+import ru.ikrom.theme.AppDrawableIds
+import ru.ikrom.theme.AppStringsId
 import ru.ikrom.utils.ActionUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_sheet) {
+class TrackMenuFragment : BaseBottomMenuFragment<TrackMenuViewModel>() {
     @Inject
     lateinit var navigator: Navigator
-    private val viewModel: TrackMenuViewModel by viewModels()
-    private val args: ThumbnailArgs by lazy { ThumbnailArgs(requireArguments()) }
-    private var compositeAdapter = CompositeAdapter.Builder()
+    override val mViewModel: TrackMenuViewModel by viewModels()
+
+    override val mAdapter = CompositeAdapter.Builder()
         .add(MenuHeaderDelegate(
-            onClick = { navigator.toArtist(viewModel.getArtistId()) },
-            onFavoriteClick = { viewModel.toggleFavorite() }
+            onClick = { navigator.toArtist(mViewModel.getArtistId()) },
+            onFavoriteClick = { mViewModel.toggleFavorite() }
         ))
         .add(MenuButtonDelegate {
             it.onClick()
@@ -34,62 +29,38 @@ class TrackMenuFragment : BottomSheetDialogFragment(R.layout.fragment_bottom_she
         })
         .build()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.setTrack(args.id, args.title, args.subtitle, args.thumbnail)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupRecyclerView(view)
-        setupItems()
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun setupRecyclerView(view: View) {
-        view.findViewById<RecyclerView>(R.id.rv_content).apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = compositeAdapter
-        }
-    }
-
-    private fun setupItems() {
-        viewModel.uiContent.observe(viewLifecycleOwner) {
-            compositeAdapter.setItems(getButtons())
-            compositeAdapter.addFirst(it)
-        }
-    }
-
-    private fun getButtons(): List<MenuButtonItem>{
+    override fun getMenuButtons(): List<MenuButtonItem>{
         return listOf(
             MenuButtonItem(
                 title = getString(AppStringsId.ADD_TO_QUEUE),
                 icon = AppDrawableIds.ADD_TO_QUEUE,
-                onClick = { viewModel.addToQueue() }
+                onClick = { mViewModel.addToQueue() }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.TO_DOWNLOAD),
                 icon = AppDrawableIds.DOWNLOAD,
-                onClick = { viewModel.download() }
+                onClick = { mViewModel.download() }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ALBUM),
                 icon = AppDrawableIds.ALBUM,
                 onClick = {
-                    navigator.toAlbum(viewModel.getAlbumId())
+                    navigator.toAlbum(mViewModel.getAlbumId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.OPEN_ARTIST),
                 icon = AppDrawableIds.ARTIST,
                 onClick = {
-                    navigator.toArtist(viewModel.getArtistId())
+                    navigator.toArtist(mViewModel.getArtistId())
                 }
             ),
             MenuButtonItem(
                 title = getString(AppStringsId.SHARE),
                 icon = AppDrawableIds.SHARE,
                 onClick = {
-                    context?.let { ActionUtil.shareIntent(it, viewModel.shareLink) }
+                    context?.let { ActionUtil.shareIntent(it, mViewModel.shareLink) }
                 }
             )
         )

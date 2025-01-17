@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import ru.ikrom.adapter_delegates.R
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_adapter.AdapterItem
 import ru.ikrom.base_adapter.DelegateAdapter
 

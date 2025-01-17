@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
-import ru.ikrom.adapter_delegates.base.toMediaItem
-import ru.ikrom.adapter_delegates.base.toMediaItems
+import ru.ikrom.base_adapter.ThumbnailItem
+import ru.ikrom.adapter_delegates.ext.toMediaItem
+import ru.ikrom.adapter_delegates.ext.toMediaItems
 import ru.ikrom.adapter_delegates.modelsExt.toThumbnailHeaderItem
 import ru.ikrom.adapter_delegates.modelsExt.toThumbnailSmallItem
 import ru.ikrom.base_fragment.DefaultStateViewModel

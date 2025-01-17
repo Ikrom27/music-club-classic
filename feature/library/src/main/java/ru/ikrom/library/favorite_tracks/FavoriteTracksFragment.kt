@@ -5,7 +5,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.fragment_list_editable.EditableListFragment
 import ru.ikrom.theme.AppStringsId
 import ru.ikrom.base_adapter.CompositeAdapter
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallItem
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate

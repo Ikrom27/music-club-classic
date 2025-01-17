@@ -14,7 +14,7 @@ import ru.ikrom.adapter_delegates.delegates.NestedGridItems
 import ru.ikrom.adapter_delegates.delegates.NestedItems
 import ru.ikrom.adapter_delegates.delegates.NestedItemsDelegate
 import ru.ikrom.adapter_delegates.delegates.ThumbnailGridDelegate
-import ru.ikrom.adapter_delegates.base.ThumbnailItem
+import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailItemGrid
 import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
