@@ -110,6 +110,10 @@ class NavigationModule {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }
 
+        override fun toSearchScreen() {
+            navController.navigate(R.id.to_search)
+        }
+
         override fun toPlaylistMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_album, item.toBundle())
         }

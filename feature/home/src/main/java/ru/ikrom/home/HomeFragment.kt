@@ -22,6 +22,7 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
+import ru.ikrom.appbar.AppBar
 import ru.ikrom.theme.appBottomMargin
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
@@ -109,10 +110,16 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadingProgressBar = view.findViewById(R.id.progressBar)
+        view.findViewById<AppBar>(R.id.appbar).apply {
+            setOnSearchClick {
+                navigator.toSearchScreen()
+            }
+        }
     }
 
     interface Navigator {
         fun toTrackMenu(item: ThumbnailItem)
+        fun toSearchScreen()
         fun toPlaylistMenu(item: ThumbnailItem)
         fun toPlaylist(id: String)
     }
