@@ -27,4 +27,5 @@ interface IPlayerHandler {
     fun seekToPrevious()
     fun setOnQueueChanged(onChanged: (List<MediaItem>) -> Unit)
     fun playInQueue(id: String)
+    fun setOnTrackChanged(onChanged: (List<MediaItem>, pos: Int) -> Unit)
 }

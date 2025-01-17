@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:menu-track"))
     implementation(project(":feature:player-screen"))
+    implementation(project(":data:youtube-repository"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.miniequalizer)
     implementation(libs.bundles.glide)

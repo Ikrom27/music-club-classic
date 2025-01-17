@@ -4,6 +4,7 @@ import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
+import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
 import javax.inject.Inject
 
@@ -12,6 +13,7 @@ class PlayerHandlerImpl @Inject constructor(
     private val player: ExoPlayer,
 ): PlayerConnection(player), IPlayerHandler {
     private var _onQueueChanged: (List<MediaItem>) -> Unit = {}
+    private var _onTrackChanged: (List<MediaItem>, pos: Int) -> Unit = {_, _ ->}
 
     init {
         player.addListener(this)
@@ -71,6 +73,7 @@ class PlayerHandlerImpl @Inject constructor(
     override fun addToQueue(items: List<MediaItem>) {
         player.addMediaItems(maxOf(0, player.mediaItemCount), items)
         player.prepare()
+        updateQueue()
     }
 
     override fun toggleRepeat(){
@@ -91,7 +94,16 @@ class PlayerHandlerImpl @Inject constructor(
 
     override fun setOnQueueChanged(onChanged: (List<MediaItem>) -> Unit){
         _onQueueChanged = onChanged
-        _onQueueChanged(getMediaItemQueue())
+        updateQueue()
+    }
+
+    override fun setOnTrackChanged(onChanged:  (List<MediaItem>, pos: Int) -> Unit){
+        _onTrackChanged = onChanged
+    }
+
+    override fun onTracksChanged(tracks: Tracks) {
+        super.onTracksChanged(tracks)
+        _onTrackChanged(getMediaItemQueue(), player.currentMediaItemIndex)
     }
 
     private fun updateQueue(){

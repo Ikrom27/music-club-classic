@@ -3,6 +3,7 @@ package ru.ikrom.background_player
 
 import android.content.Intent
 import android.os.Build
+import android.os.IBinder
 import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
 import androidx.media3.common.util.UnstableApi
@@ -33,7 +34,6 @@ class MusicPlayerService: MediaSessionService() {
         mediaSession = MediaSession.Builder(this, player).build()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         notificationManager.start(this, mediaSession)
