@@ -36,6 +36,7 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
     override fun getLayoutManager() = LinearLayoutManager(context)
 
     override fun handleState(state: ExplorePageContent) {
+        compositeAdapter.setItems(emptyList())
         compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_NEW_RELEASES)))
         if(state.newReleases.isNotEmpty()){
             compositeAdapter.add(NestedItems(

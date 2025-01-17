@@ -20,10 +20,7 @@ class ArtistMenuFragment : BaseBottomMenuFragment<ArtistMenuViewModel>() {
     override val mAdapter = CompositeAdapter.Builder()
         .add(MenuHeaderDelegate(
             onClick = { navigator.toArtist(mViewModel.getArtistId()) },
-            onFavoriteClick = {
-                mViewModel.toggleFavorite()
-                dismiss()
-            }
+            onFavoriteClick = { mViewModel.toggleFavorite() }
         ))
         .add(MenuButtonDelegate {
             it.onClick()

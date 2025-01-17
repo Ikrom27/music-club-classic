@@ -71,7 +71,7 @@ class NavigationModule {
         override fun toAlbumMenu(
             item: ThumbnailItem
         ) {
-            navController.navigate(R.id.to_album, idToBundle(item.id))
+            navController.navigate(R.id.to_menu_album, item.toBundle())
         }
 
     }
@@ -92,6 +92,10 @@ class NavigationModule {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }
 
+        override fun toAlbumMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_album, item.toBundle())
+        }
+
         override fun toArtistMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }
@@ -106,13 +110,12 @@ class NavigationModule {
         }
 
         override fun toPlaylistMenu(item: ThumbnailItem) {
-            navController.navigate(R.id.to_menu_track, item.toBundle())
+            navController.navigate(R.id.to_menu_album, item.toBundle())
         }
 
         override fun toPlaylist(id: String) {
             navController.navigate(R.id.to_album, idToBundle(id))
         }
-
     }
 
     @Provides

@@ -56,6 +56,9 @@ class PlayerViewModel @Inject constructor(
     fun handleToFavorite(){
         currentMediaItemLiveData.value?.let {
             viewModelScope.launch(Dispatchers.IO) {
+                runCatching {
+
+                }
                 if(!repository.isFavorite(it.mediaId)) {
                     _isFavoriteLiveData.postValue(true)
                     repository.saveTrack(it.mediaId)

@@ -100,7 +100,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
                     adapter = CompositeAdapter.Builder()
                         .add(ThumbnailLargeAdapter(
                             onClick = { navigator.toAlbum(it.id) },
-                            onLongClick = { }))
+                            onLongClick = { navigator.toAlbumMenu(it) }))
                         .build()
                 )
             )
@@ -113,7 +113,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
                     adapter = CompositeAdapter.Builder()
                         .add(ThumbnailLargeAdapter(
                             onClick = { navigator.toAlbum(it.id) },
-                            onLongClick = { }
+                            onLongClick = { navigator.toAlbumMenu(it) }
                         )).build()
                 )
             )
@@ -135,6 +135,7 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
         fun toArtist(artistId: String)
         fun toAlbum(albumId: String)
         fun toTrackMenu(item: ThumbnailItem)
+        fun toAlbumMenu(item: ThumbnailItem)
         fun toArtistMenu(item: ThumbnailItem)
     }
 }

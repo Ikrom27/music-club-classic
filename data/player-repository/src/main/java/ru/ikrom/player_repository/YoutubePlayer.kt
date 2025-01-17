@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 internal object YoutubePlayer {
     fun getProxy() = YouTube.proxy
     fun getUri(mediaId: String): Uri {
-        return getFormat(mediaId)!!.url!!.toUri()
+        return getFormat(mediaId)?.url?.toUri() ?: "".toUri()
     }
     private fun getFormat(mediaId: String): PlayerResponse.StreamingData.Format? {
         return getPlayerResponse(mediaId).getOrNull()?.streamingData?.adaptiveFormats
