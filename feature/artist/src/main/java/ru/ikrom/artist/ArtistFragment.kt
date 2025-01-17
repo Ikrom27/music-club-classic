@@ -21,6 +21,7 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
 import ru.ikrom.theme.AppStringsId
+import ru.ikrom.theme.appBottomMargin
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.utils.bundleToId
 import ru.ikrom.utils.ActionUtil
@@ -57,6 +58,11 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
     override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter
     override fun getRecyclerViewId() = R.id.rv_content
     override fun getLayoutManager() = LinearLayoutManager(requireContext())
+    override fun setupItemDecorationsList(rv: RecyclerView) = listOf(
+        MarginItemDecoration(
+            endSpace = resources.appBottomMargin()
+        )
+    )
 
     override fun handleState(state: UiState) {
         when(state){
@@ -120,17 +126,6 @@ class ArtistFragment : DefaultListFragment<UiState, ArtistViewModel>(R.layout.fr
                     adapter = CompositeAdapter.Builder().add(ThumbnailRoundedDelegate{
                         navigator.toArtist(it.id)
                     }).build()
-                )
-            )
-        }
-    }
-
-    override fun recyclerViewConfigure(rv: RecyclerView) {
-        super.recyclerViewConfigure(rv)
-        if (rv.itemDecorationCount == 0){
-            rv.addItemDecoration(
-                MarginItemDecoration(
-                    endSpace = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR) * 2
                 )
             )
         }

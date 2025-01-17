@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(project(":core:theme"))
     implementation(project(":component:placeholder"))
+    implementation(project(":core:base-fragment"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

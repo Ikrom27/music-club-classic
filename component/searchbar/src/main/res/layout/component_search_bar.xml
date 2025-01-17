@@ -20,29 +20,39 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/grey_70" />
+            app:tint="@color/bg_button" />
 
-        <EditText
-            android:id="@+id/et_input_field"
-            style="@style/SearchBar"
-            android:layout_marginHorizontal="8dp"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_clear"
-            app:layout_constraintStart_toEndOf="@+id/btn_back"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btn_clear"
-            style="@style/ToolBarButton"
-            android:padding="11dp"
-            android:src="@drawable/ic_close"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="12dp"
+            android:backgroundTint="@color/bg_surface"
+            android:padding="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="@dimen/content_horizontal_margin"
+            android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"
-            app:tint="@color/grey_70"/>
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" >
+            <EditText
+                android:id="@+id/et_input_field"
+                style="@style/SearchBar"
+                android:paddingEnd="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="10dp"
+                android:imeOptions="actionSearch"
+                android:inputType="text" />
+            <ImageButton
+                android:id="@+id/btn_clear"
+                style="@style/ToolBarButton"
+                android:padding="11dp"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/ic_close"
+                android:layout_gravity="end|center_vertical"
+                android:visibility="gone"
+                app:tint="@color/grey_70"/>
+        </androidx.cardview.widget.CardView>
 
         <View
             style="@style/separator"

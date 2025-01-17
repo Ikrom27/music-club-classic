@@ -14,5 +14,5 @@
     <color name="placeholder">#474747</color>
     <color name="icon_tint">#ffffff</color>
     <color name="bg_separator">#171717</color>
-    <color name="bg_next">#474747</color>
+    <color name="bg_button">#474747</color>
 </resources>

@@ -1,15 +1,16 @@
 package ru.ikrom.search
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.ext.toMediaItem
 import ru.ikrom.adapter_delegates.modelsExt.toThumbnailSmallItem
+import ru.ikrom.base_fragment.DefaultStateViewModel
 import ru.ikrom.player_handler.IPlayerHandler
 import ru.ikrom.youtube_data.IMediaRepository
 import javax.inject.Inject
@@ -18,28 +19,28 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val playerHandler: IPlayerHandler,
     private val repository: IMediaRepository,
-): ViewModel() {
-
-    private val _uiState = MutableLiveData<SearchUiState>()
-    val uiState: LiveData<SearchUiState> = _uiState
+): DefaultStateViewModel<SearchUiState>() {
+    private var searchJob: Job? = null
 
     private fun updateSearchList(query: String) {
         if (query.isBlank()) return
-        _uiState.value = SearchUiState.Loading
-        viewModelScope.launch {
+        _state.value = SearchUiState.Loading
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch(Dispatchers.IO) {
+            delay(DEBOUNCE_PERIOD)
             runCatching {
-                repository.getTracksByQuery(query)
+                repository.getTracksByQuery(query).map { it.toThumbnailSmallItem() }
             }.onSuccess { result ->
-                _uiState.postValue(
+                _state.postValue(
                     if (result.isNotEmpty()) {
-                        SearchUiState.Success(result.map { it.toThumbnailSmallItem() })
+                        SearchUiState.Success(result)
                     } else {
                         SearchUiState.NoResult
                     }
                 )
             }.onFailure {
                 Log.d(TAG, it.message.toString())
-                _uiState.postValue(SearchUiState.Error)
+                _state.postValue(SearchUiState.Error)
                 return@launch
             }
         }
@@ -55,5 +56,6 @@ class SearchViewModel @Inject constructor(
 
     companion object {
         val TAG = SearchViewModel::class.simpleName
+        const val DEBOUNCE_PERIOD: Long = 500
     }
 }

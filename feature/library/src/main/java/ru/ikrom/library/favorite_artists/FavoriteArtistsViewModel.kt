@@ -23,7 +23,7 @@ class FavoriteArtistsViewModel @Inject constructor(
     private fun observeLikedArtists(){
         viewModelScope.launch(Dispatchers.IO) {
             repository.getLikedArtists().collect { data ->
-                refresh(data.map { it.toThumbnailRoundedSmallItem() })
+                updateState(data.map { it.toThumbnailRoundedSmallItem() })
             }
         }
     }
@@ -32,5 +32,9 @@ class FavoriteArtistsViewModel @Inject constructor(
         return repository.getLikedArtists().first().map {
             it.toThumbnailRoundedSmallItem()
         }
+    }
+
+    override fun filterBy(item: ThumbnailRoundedSmallItem, textQuery: String): Boolean {
+        return item.filterWithText(textQuery)
     }
 }

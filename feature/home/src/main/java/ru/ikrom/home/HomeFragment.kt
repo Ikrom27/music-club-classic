@@ -20,6 +20,8 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
+import ru.ikrom.theme.appBottomMargin
+import ru.ikrom.theme.appTopMargin
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
@@ -48,17 +50,11 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
         }
     }
 
-    override fun recyclerViewConfigure(rv: RecyclerView) {
-        super.recyclerViewConfigure(rv)
-        if (rv.itemDecorationCount == 0){
-            rv.addItemDecoration(
-                MarginItemDecoration(
-                    startSpace = 0,
-                    endSpace = resources.getDimensionPixelSize(AppDimens.HEIGHT_BOTTOM_NAVBAR) * 2,
-                )
-            )
-        }
-    }
+    override fun setupItemDecorationsList(rv: RecyclerView) = listOf(
+        MarginItemDecoration(
+            endSpace = resources.appBottomMargin(),
+        )
+    )
 
     private fun showContent(data: UiState){
         compositeAdapter.setItems(emptyList())

@@ -12,8 +12,7 @@ import com.google.android.material.appbar.AppBarLayout
 class SearchBar: AppBarLayout {
     private lateinit var btnBack: ImageButton
     private lateinit var btnClean: ImageButton
-
-    lateinit var searchField: EditText
+    private lateinit var searchField: EditText
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -34,14 +33,16 @@ class SearchBar: AppBarLayout {
         btnBack = findViewById(R.id.btn_back)
         btnClean = findViewById(R.id.btn_clear)
         searchField = findViewById(R.id.et_input_field)
+
+        btnClean.setOnClickListener { searchField.setText("") }
     }
 
     private fun getStuffFromXML(attrs: AttributeSet?){
         val data = context.obtainStyledAttributes(attrs, R.styleable.SearchBar)
     }
 
-    inline fun doOnTextChanged(
-        crossinline action: (
+    fun doOnTextChanged(
+        action: (
             text: CharSequence?,
             start: Int,
             before: Int,
@@ -58,7 +59,7 @@ class SearchBar: AppBarLayout {
         }
     }
 
-    fun changeCleanButtonVisibility(visibility: Int){
+    private fun changeCleanButtonVisibility(visibility: Int){
         btnClean.visibility = visibility
     }
 
@@ -70,6 +71,7 @@ class SearchBar: AppBarLayout {
 
     fun setOnCleanClick(onClick: () -> Unit){
         btnClean.setOnClickListener {
+            searchField.setText("")
             onClick()
         }
     }

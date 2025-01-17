@@ -191,6 +191,10 @@ class NavigationModule {
         override fun toTrackMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }
+
+        override fun toUp() {
+            navController.navigateUp()
+        }
     }
 
     @Provides

@@ -3,10 +3,16 @@ package ru.ikrom.fragment_list_editable
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.ContentLoadingProgressBar
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.placeholder.PlaceholderView
+import ru.ikrom.searchbar.SearchBar
 import ru.ikrom.theme.AppDrawableIds
+import ru.ikrom.theme.appBottomMargin
+import ru.ikrom.theme.appTopMargin
+import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 
 
 abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
@@ -17,10 +23,28 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     override fun getRecyclerViewId() = R.id.rv_content
     override fun getLayoutManager() = LinearLayoutManager(context)
 
+    override fun setupItemDecorationsList(rv: RecyclerView): List<RecyclerView.ItemDecoration> {
+        return listOf(MarginItemDecoration(
+            startSpace = resources.appTopMargin(),
+            endSpace = resources.appBottomMargin()
+        ))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPlaceholder = view.findViewById(R.id.placeholder)
         mLoading = view.findViewById(R.id.loading)
+        view.findViewById<SearchBar>(R.id.search_bar).apply {
+            doOnTextChanged { text, _, _, _ ->
+                mViewModel.update(text.toString())
+            }
+            setOnBackClick {
+                findNavController().navigateUp()
+            }
+            setOnCleanClick {
+
+            }
+        }
     }
 
     override fun handleState(state: EditableUiState<T>) {
@@ -36,14 +60,14 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     }
 
     abstract fun onStateSuccess(data: List<T>)
-    fun onStateLoading() {
+    protected fun onStateLoading() {
         mLoading.show()
     }
-    fun onStateError() {
+    protected fun onStateError() {
         mPlaceholder.imageSrc = AppDrawableIds.PH_ERROR
         mPlaceholder.show()
     }
-    fun onStateEmpty() {
+    protected fun onStateEmpty() {
         mPlaceholder.imageSrc = AppDrawableIds.PH_NO_RESULT
         mPlaceholder.show()
     }

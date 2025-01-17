@@ -15,6 +15,9 @@ import ru.ikrom.adapter_delegates.delegates.NestedItemsDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_fragment.DefaultListFragment
+import ru.ikrom.theme.AppStringsId
+import ru.ikrom.theme.appBottomMargin
+import ru.ikrom.theme.appTopMargin
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
@@ -33,6 +36,7 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
     override fun getLayoutManager() = LinearLayoutManager(context)
 
     override fun handleState(state: ExplorePageContent) {
+        compositeAdapter.add(TitleItem(getString(AppStringsId.TITLE_NEW_RELEASES)))
         if(state.newReleases.isNotEmpty()){
             compositeAdapter.add(NestedItems(
                 items = state.newReleases,
@@ -49,17 +53,12 @@ class ExploreFragment : DefaultListFragment<ExplorePageContent, ExploreViewModel
         setupAppBar(view)
     }
 
-    override fun recyclerViewConfigure(rv: RecyclerView) {
-        super.recyclerViewConfigure(rv)
-        if (rv.itemDecorationCount == 0){
-            rv.addItemDecoration(
-                MarginItemDecoration(
-                    endSpace = AppDimens.HEIGHT_BOTTOM_NAVBAR,
-                    betweenSpace = AppDimens.MARGIN_SECTIONS
-                )
-            )
-        }
-    }
+    override fun setupItemDecorationsList(rv: RecyclerView) = listOf(
+        MarginItemDecoration(
+            endSpace = resources.appBottomMargin(),
+            betweenSpace = resources.getDimensionPixelSize(AppDimens.MARGIN_SECTIONS)
+        )
+    )
 
     private fun setupAppBar(view: View){
         view.findViewById<AppBar>(R.id.action_bar).apply {
