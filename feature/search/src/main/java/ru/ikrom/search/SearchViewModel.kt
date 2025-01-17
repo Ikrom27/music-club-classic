@@ -21,6 +21,7 @@ class SearchViewModel @Inject constructor(
     private val repository: IMediaRepository,
 ): DefaultStateViewModel<SearchUiState>() {
     private var searchJob: Job? = null
+    private var lastRequest = ""
 
     private fun updateSearchList(query: String) {
         if (query.isBlank()) return
@@ -46,7 +47,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun updateSearchRequest(request: String){
+    fun updateSearchRequest(request: String = lastRequest){
+        lastRequest = request
         updateSearchList(request)
     }
 

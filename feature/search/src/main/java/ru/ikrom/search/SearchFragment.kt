@@ -31,6 +31,7 @@ class SearchFragment : DefaultListFragment<SearchUiState, SearchViewModel>(R.lay
     override val mViewModel: SearchViewModel by viewModels()
     private lateinit var errorPH: PlaceholderView
     private lateinit var emptyPH: PlaceholderView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private var mAdapter = CompositeAdapter.Builder()
         .add(ThumbnailSmallDelegate(
             onClick = { mViewModel.playTrack(it) },
@@ -52,6 +53,7 @@ class SearchFragment : DefaultListFragment<SearchUiState, SearchViewModel>(R.lay
     override fun handleState(state: SearchUiState) {
         hidePlaceHolders()
         mAdapter.setItems(emptyList())
+        swipeRefresh.isRefreshing = false
         when (state){
             SearchUiState.Error -> showError()
             SearchUiState.Loading -> {}
@@ -72,6 +74,12 @@ class SearchFragment : DefaultListFragment<SearchUiState, SearchViewModel>(R.lay
             }
             setOnBackClick { navigator.toUp() }
             setOnCleanClick { mViewModel.updateSearchRequest("") }
+        }
+        swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
+            setOnRefreshListener {
+                mViewModel.updateSearchRequest()
+            }
+            setProgressViewOffset(true, 0, resources.appTopMargin() * 2)
         }
         errorPH = view.findViewById(R.id.ph_connection_error)
         emptyPH = view.findViewById(R.id.ph_no_result)

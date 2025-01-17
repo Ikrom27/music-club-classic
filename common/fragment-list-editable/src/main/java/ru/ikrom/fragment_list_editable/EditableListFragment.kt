@@ -55,10 +55,11 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     override fun handleState(state: EditableUiState<T>) {
         mLoading.hide()
         mPlaceholder.hide()
-        swipeRefresh.isRefreshing = false
-        mPlaceholder
         when(state){
-            is EditableUiState.Success -> onStateSuccess(state.items)
+            is EditableUiState.Success -> {
+                onStateSuccess(state.items)
+                swipeRefresh.isRefreshing = false
+            }
             is EditableUiState.Loading -> onStateLoading()
             is EditableUiState.Error -> onStateError()
             EditableUiState.Empty -> onStateEmpty()
