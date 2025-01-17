@@ -5,7 +5,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import ru.ikrom.adapter_delegates.delegates.CardItem
+import ru.ikrom.adapter_delegates.delegates.ThumbnailItemGrid
+import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.ext.toMediaItem
 import ru.ikrom.adapter_delegates.modelsExt.toCardItem
@@ -28,31 +32,38 @@ class HomeViewModel @Inject constructor(
         likedTracksObserver()
     }
 
-    companion object {
-        val TAG = HomeViewModel::class.java.simpleName
-    }
-
     private fun loadState() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.postValue(UiState.Loading)
-            runCatching {
-                val quickPickTracks = quickPickUseCase.getQuickPickTracks().map {
-                    it.toGridItem() }
-                val favoriteTracks = repository.getLikedTracks().first().map {
-                    it.toThumbnailMediumItem()
-                }
-                val playlists = repository.getNewReleases().map { it.toCardItem() }
+
+            val quickPickTracks = runCatching {
+                quickPickUseCase.getQuickPickTracks().map { it.toGridItem() }
+            }.getOrElse {
+                emptyList()
+            }
+
+            val favoriteTracks = runCatching {
+                repository.getLikedTracks().firstOrNull()?.map { it.toThumbnailMediumItem() }
+            }.getOrElse {
+                emptyList()
+            } ?: emptyList()
+
+            val playlists = runCatching {
+                repository.getNewReleases().map { it.toCardItem() }
+            }.getOrElse {
+                emptyList()
+            }
+
+            _state.postValue(
                 UiState.Success(
                     quickPickTracks = quickPickTracks,
                     favoriteTracks = favoriteTracks,
-                    playlists = playlists)
-            }.onSuccess { successState ->
-                _state.postValue(successState)
-            }.onFailure { e ->
-                Log.e(TAG, e.message ?: "unknown")
-            }
+                    playlists = playlists
+                )
+            )
         }
     }
+
 
     private fun likedTracksObserver(){
         viewModelScope.launch {
