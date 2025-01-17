@@ -124,9 +124,11 @@ class MainActivity : AppCompatActivity() {
     private fun setSlidingViewHideAnimation() {
         viewModel.currentMediaItem.observe(this) { mediaItem ->
             if (mediaItem == null){
+                slidingView.visibility = View.GONE
                 slidingView.animate().translationY(windowHeight)
             }
             else {
+                slidingView.visibility = View.VISIBLE
                 slidingView.animate().translationY(0F)
             }
         }
