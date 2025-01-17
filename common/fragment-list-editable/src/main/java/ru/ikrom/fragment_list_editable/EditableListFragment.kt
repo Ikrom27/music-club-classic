@@ -6,6 +6,7 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.ikrom.base_fragment.DefaultListFragment
 import ru.ikrom.placeholder.PlaceholderView
 import ru.ikrom.searchbar.SearchBar
@@ -20,6 +21,7 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
     abstract override val mViewModel: VM
     private lateinit var mPlaceholder: PlaceholderView
     private lateinit var mLoading: ContentLoadingProgressBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     override fun getRecyclerViewId() = R.id.rv_content
     override fun getLayoutManager() = LinearLayoutManager(context)
 
@@ -41,15 +43,19 @@ abstract class EditableListFragment<T, VM: EditableStateViewModel<T>>:
             setOnBackClick {
                 findNavController().navigateUp()
             }
-            setOnCleanClick {
-
+        }
+        swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
+            setOnRefreshListener {
+                mViewModel.update()
             }
+            setProgressViewOffset(true, 0, resources.appTopMargin() * 2)
         }
     }
 
     override fun handleState(state: EditableUiState<T>) {
         mLoading.hide()
         mPlaceholder.hide()
+        swipeRefresh.isRefreshing = false
         mPlaceholder
         when(state){
             is EditableUiState.Success -> onStateSuccess(state.items)
