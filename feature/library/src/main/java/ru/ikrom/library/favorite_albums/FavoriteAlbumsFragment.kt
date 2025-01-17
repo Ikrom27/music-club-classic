@@ -30,7 +30,7 @@ class FavoriteAlbumsFragment : EditableListFragment<ThumbnailMediumPlaylistItem,
 
     override fun onStateSuccess(data: List<ThumbnailMediumPlaylistItem>) {
         mAdapter.setItems(listOf(
-            TitleItem(getString(AppStringsId.MENU_LIKED_ARTISTS))
+            TitleItem(getString(AppStringsId.MENU_LIKED_ALBUMS))
         ))
         mAdapter.addAll(data)
     }
