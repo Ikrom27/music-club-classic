@@ -61,6 +61,11 @@
         android:name="ru.ikrom.menu_artist.ArtistMenuFragment"
         android:label="artist_menu">
     </dialog>
+    <dialog
+        android:id="@+id/album_menu"
+        android:name="ru.ikrom.menu_album.AlbumMenuFragment"
+        android:label="artist_menu">
+    </dialog>
 
     <action
         android:id="@+id/to_menu_track"
@@ -68,6 +73,9 @@
     <action
         android:id="@+id/to_menu_artist"
         app:destination="@id/artist_menu" />
+    <action
+        android:id="@+id/to_menu_album"
+        app:destination="@id/album_menu" />
     <action
         android:id="@+id/to_search"
         app:destination="@id/search_screen" />

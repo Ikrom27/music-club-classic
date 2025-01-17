@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":core:theme"))
     implementation(project(":component:appbar"))
     implementation(project(":feature:menu-artist"))
+    implementation(project(":feature:menu-album"))
     implementation(project(":service:background-player"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

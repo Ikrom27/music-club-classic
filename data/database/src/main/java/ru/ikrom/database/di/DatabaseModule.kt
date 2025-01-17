@@ -37,4 +37,10 @@ class DatabaseModule {
     fun provideArtistDao(
         db: AppDatabase
     ) = db.likedArtistsDao()
+
+    @Provides
+    @Singleton
+    fun provideAlbumDao(
+        db: AppDatabase
+    ) = db.likedAlbumDao()
 }

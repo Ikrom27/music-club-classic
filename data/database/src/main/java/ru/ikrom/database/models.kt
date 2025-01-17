@@ -23,3 +23,14 @@ data class ArtistEntity(
     @ColumnInfo(name = "name")val name: String,
     @ColumnInfo(name = "thumbnail")val thumbnail: String? = null
 )
+
+@Entity(tableName = "liked_albums")
+data class AlbumEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "id") val id: String,
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "artist_names") val artistNames: String,
+    @ColumnInfo(name = "artist_id") val artistId: String,
+    @ColumnInfo(name = "thumbnail") val thumbnail: String,
+    @ColumnInfo(name = "year") val year: Int?
+)

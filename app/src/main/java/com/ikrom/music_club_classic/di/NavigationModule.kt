@@ -21,6 +21,7 @@ import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.search.SearchFragment
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_adapter.toBundle
+import ru.ikrom.menu_album.AlbumMenuFragment
 import ru.ikrom.utils.idToBundle
 
 
@@ -50,7 +51,7 @@ class NavigationModule {
         }
 
         override fun toAlbumMenu(item: ThumbnailItem) {
-            TODO("Not yet implemented")
+            navController.navigate(R.id.to_menu_album, item.toBundle())
         }
 
     }
@@ -190,5 +191,19 @@ class NavigationModule {
         override fun toTrackMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_track, item.toBundle())
         }
+    }
+
+    @Provides
+    fun provideAlbumMenuNavigator(
+        navController: NavController
+    ) = object : AlbumMenuFragment.Navigator {
+        override fun toAlbum(id: String) {
+            navController.navigate(R.id.to_album, idToBundle(id))
+        }
+
+        override fun toArtist(id: String) {
+            navController.navigate(R.id.to_artist, idToBundle(id))
+        }
+
     }
 }

@@ -22,5 +22,9 @@ interface IMediaRepository {
     suspend fun saveTrack(id: String)
     suspend fun likeArtist(artistModel: ArtistModel)
     suspend fun unLikeArtist(artistModel: ArtistModel)
+    suspend fun likeAlbum(albumModel: AlbumModel)
+    suspend fun unLikeAlbum(albumModel: AlbumModel)
     suspend fun unLikeTrack(track: TrackModel)
+    suspend fun isFavoriteAlbum(albumId: String): Boolean
+    suspend fun getLikedAlbums(): Flow<List<AlbumModel>>
 }

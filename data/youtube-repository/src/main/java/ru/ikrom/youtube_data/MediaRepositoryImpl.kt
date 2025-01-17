@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.ikrom.database.ILocalDataSource
 import ru.ikrom.youtube_data.extensions.toAlbumModel
+import ru.ikrom.youtube_data.extensions.toAlbumModels
 import ru.ikrom.youtube_data.extensions.toArtistPageModel
 import ru.ikrom.youtube_data.extensions.toEntity
 import ru.ikrom.youtube_data.extensions.toModel
@@ -20,7 +21,8 @@ import javax.inject.Inject
 internal class MediaRepositoryImpl @Inject constructor(
     private val dataSource: IMediaDataSource,
     private val localSource: ILocalDataSource
-): IMediaRepository {
+) : IMediaRepository {
+
     override suspend fun getArtistData(id: String): ArtistPageModel {
         return dataSource.getArtistData(id).toArtistPageModel()
     }
@@ -53,15 +55,27 @@ internal class MediaRepositoryImpl @Inject constructor(
         return localSource.isLikedArtist(id)
     }
 
+    override suspend fun isFavoriteAlbum(albumId: String): Boolean {
+        return localSource.isLikedAlbum(albumId)
+    }
+
     override suspend fun getAlbumPage(id: String): AlbumPageModel {
         return dataSource.getAlbumPage(id).toModel()
     }
 
-    override suspend fun saveTrack(id: String){
+    override suspend fun getLikedTracks(): Flow<List<TrackModel>> {
+        return localSource.getLikedTracks().map { it.toTrackModels() }
+    }
+
+    override suspend fun getLikedArtists(): Flow<List<ArtistModel>> {
+        return localSource.getLikedArtists().map { it.toArtistModels() }
+    }
+
+    override suspend fun saveTrack(id: String) {
         localSource.saveTrack(getTracksByQuery(id).first().toEntity())
     }
 
-    override suspend fun unLikeTrack(track: TrackModel){
+    override suspend fun unLikeTrack(track: TrackModel) {
         localSource.removeTrack(track.toEntity())
     }
 
@@ -73,11 +87,15 @@ internal class MediaRepositoryImpl @Inject constructor(
         artistModel.toEntity()?.let { localSource.removeArtist(it) }
     }
 
-    override suspend fun getLikedTracks(): Flow<List<TrackModel>> {
-        return localSource.getLikedTracks().map { it.toTrackModels() }
+    override suspend fun likeAlbum(albumModel: AlbumModel) {
+        localSource.saveAlbum(albumModel.toEntity())
     }
 
-    override suspend fun getLikedArtists(): Flow<List<ArtistModel>> {
-        return localSource.getLikedArtists().map { it.toArtistModels() }
+    override suspend fun unLikeAlbum(albumModel: AlbumModel) {
+        localSource.removeAlbum(albumModel.toEntity())
+    }
+
+    override suspend fun getLikedAlbums(): Flow<List<AlbumModel>> {
+        return localSource.getLikedAlbums().map {it.toAlbumModels()}
     }
 }

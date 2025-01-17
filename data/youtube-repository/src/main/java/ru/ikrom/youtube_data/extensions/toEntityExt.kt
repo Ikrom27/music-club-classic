@@ -1,7 +1,9 @@
 package ru.ikrom.youtube_data.extensions
 
+import ru.ikrom.database.AlbumEntity
 import ru.ikrom.database.ArtistEntity
 import ru.ikrom.database.TrackEntity
+import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.TrackModel
 import ru.ikrom.youtube_data.model.getNames
@@ -26,4 +28,15 @@ internal fun ArtistModel.toEntity(): ArtistEntity? {
         thumbnail = this.thumbnail
     )
     }
+}
+
+internal fun AlbumModel.toEntity(): AlbumEntity {
+    return AlbumEntity(
+        id = this.id,
+        title = this.title,
+        artistNames = this.artists.getNames(),
+        artistId = this.artists?.first()?.id ?: "",
+        thumbnail = this.thumbnail,
+        year = this.year
+    )
 }

@@ -1,6 +1,7 @@
 package ru.ikrom.adapter_delegates.modelsExt
 
 import ru.ikrom.adapter_delegates.delegates.CardItem
+import ru.ikrom.adapter_delegates.delegates.MenuHeaderDelegateItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailHeaderItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailLargeItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailItemMediumItem
@@ -25,15 +26,6 @@ fun AlbumModel.toCardItem(): CardItem {
     )
 }
 
-fun AlbumModel.toThumbnailMediumItem() : ThumbnailItemMediumItem {
-    return ThumbnailItemMediumItem(
-        id = id,
-        title = title,
-        subtitle = artists.getNames(),
-        thumbnail = thumbnail
-    )
-}
-
 fun AlbumModel.toThumbnailLargeItem() : ThumbnailLargeItem {
     return ThumbnailLargeItem(
         id = id,
@@ -43,7 +35,11 @@ fun AlbumModel.toThumbnailLargeItem() : ThumbnailLargeItem {
     )
 }
 
-fun List<AlbumModel>?.toThumbnailLargeItems(
-): List<ThumbnailLargeItem>{
-    return this?.map { it.toThumbnailLargeItem() } ?: emptyList()
-}
+fun AlbumModel.toMenuHeaderItem(isFavorite: Boolean) = MenuHeaderDelegateItem(
+    id = id,
+    title = title,
+    subtitle = artists?.joinToString(", ") { it.name } ?: "",
+    thumbnail = thumbnail,
+    isFavorite = isFavorite
+)
+
