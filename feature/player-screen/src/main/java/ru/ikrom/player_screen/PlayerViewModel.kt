@@ -57,13 +57,14 @@ class PlayerViewModel @Inject constructor(
         currentMediaItemLiveData.value?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
-
-                }
-                if(!repository.isFavorite(it.mediaId)) {
-                    _isFavoriteLiveData.postValue(true)
-                    repository.saveTrack(it.mediaId)
-                } else {
-
+                    if(!repository.isFavorite(it.mediaId)) {
+                        _isFavoriteLiveData.postValue(true)
+                        repository.saveTrack(it.mediaId)
+                    } else {
+                        repository.unLikeTrack(
+                            repository.getTracksByQuery(it.mediaId).first()
+                        )
+                    }
                 }
             }
         }
