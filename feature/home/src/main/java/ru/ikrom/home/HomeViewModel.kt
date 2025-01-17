@@ -34,6 +34,7 @@ class HomeViewModel @Inject constructor(
 
     private fun loadState() {
         viewModelScope.launch(Dispatchers.IO) {
+            _state.postValue(UiState.Loading)
             runCatching {
                 val quickPickTracks = quickPickUseCase.getQuickPickTracks().map {
                     it.toGridItem() }
@@ -41,7 +42,7 @@ class HomeViewModel @Inject constructor(
                     it.toThumbnailMediumItem()
                 }
                 val playlists = repository.getNewReleases().map { it.toCardItem() }
-                UiState(
+                UiState.Success(
                     quickPickTracks = quickPickTracks,
                     favoriteTracks = favoriteTracks,
                     playlists = playlists)
@@ -56,7 +57,7 @@ class HomeViewModel @Inject constructor(
     private fun likedTracksObserver(){
         viewModelScope.launch {
             repository.getLikedTracks().collect { tracks ->
-                _state.value?.apply {
+                (_state.value as? UiState.Success)?.apply {
                     _state.postValue(copy(favoriteTracks = tracks.map { it.toThumbnailMediumItem() }))
                 }
             }

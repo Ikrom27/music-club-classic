@@ -1,11 +1,13 @@
 package ru.ikrom.home
 
+import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.ikrom.base_fragment.DefaultListFragment
-import ru.ikrom.theme.AppDimens
 import ru.ikrom.base_adapter.CompositeAdapter
 import ru.ikrom.adapter_delegates.delegates.CardAdapter
 import ru.ikrom.adapter_delegates.delegates.CardItem
@@ -21,7 +23,6 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
 import ru.ikrom.theme.appBottomMargin
-import ru.ikrom.theme.appTopMargin
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import javax.inject.Inject
 
@@ -31,6 +32,7 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     lateinit var navigator: Navigator
     override val mViewModel: HomeViewModel by viewModels()
     private lateinit var compositeAdapter: CompositeAdapter
+    private lateinit var loadingProgressBar: ProgressBar
 
     override fun getAdapter(): RecyclerView.Adapter<*> {
         return CompositeAdapter.Builder()
@@ -45,18 +47,19 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
     override fun getRecyclerViewId() = R.id.rv_main
     override fun getLayoutManager() = LinearLayoutManager(context)
     override fun handleState(state: UiState) {
-        mViewModel.state.observe(viewLifecycleOwner) { state ->
-            showContent(state)
+        loadingProgressBar.visibility = View.GONE
+        when(state) {
+            is UiState.Success -> showContent(state)
+            is UiState.Loading -> showLoading()
         }
     }
-
     override fun setupItemDecorationsList(rv: RecyclerView) = listOf(
         MarginItemDecoration(
             endSpace = resources.appBottomMargin(),
         )
     )
 
-    private fun showContent(data: UiState){
+    private fun showContent(data: UiState.Success){
         compositeAdapter.setItems(emptyList())
         if(data.quickPickTracks.isNotEmpty()){
             compositeAdapter.add(TitleItem(resources.getString(R.string.title_recommendations)))
@@ -70,6 +73,10 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
             compositeAdapter.add(TitleItem(resources.getString(R.string.title_playlists)))
             compositeAdapter.add(createCardNestedItem(data.playlists))
         }
+    }
+
+    private fun showLoading(){
+        loadingProgressBar.visibility = View.VISIBLE
     }
 
     private fun createGridNestedItem(items: List<ThumbnailItemGrid>) = NestedGridItems(
@@ -98,6 +105,11 @@ class HomeFragment : DefaultListFragment<UiState, HomeViewModel>(R.layout.fragme
                 ) ).build(),
         items = items
     )
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loadingProgressBar = view.findViewById(R.id.progressBar)
+    }
 
     interface Navigator {
         fun toTrackMenu(item: ThumbnailItem)
