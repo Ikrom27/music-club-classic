@@ -23,7 +23,6 @@ class DatabaseModule {
         AppDatabase::class.java,
         "app-db"
     )
-        .fallbackToDestructiveMigration()
         .build()
 
     @Provides
