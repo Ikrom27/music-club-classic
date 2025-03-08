@@ -145,7 +145,7 @@ class InnerTube {
     }
 
     suspend fun pipedStreams(videoId: String) =
-        httpClient.get("https://pipedapi.kavin.rocks/streams/${videoId}") {
+        httpClient.get("https://pipedapi.drgns.space/streams/${videoId}") {
             contentType(ContentType.Application.Json)
         }
 
