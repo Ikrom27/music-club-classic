@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.ikrom.database.LocalDataSource
+import ru.ikrom.youtube_data.BuildConfig
 import ru.ikrom.youtube_data.IMediaDataSource
 import ru.ikrom.youtube_data.IMediaRepository
 import ru.ikrom.youtube_data.MediaRepositoryImpl
@@ -29,5 +30,5 @@ class YoutubeModule {
     @Provides
     @Singleton
     @YoutubeDataSourceScope
-    internal fun provideYoutubeDataSource(): IMediaDataSource = YoutubeDataSource()
+    internal fun provideYoutubeDataSource(): IMediaDataSource = YoutubeDataSource(BuildConfig.COOKIE)
 }

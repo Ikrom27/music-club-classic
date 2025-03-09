@@ -2,6 +2,7 @@ package ru.ikrom.player_repository
 
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
+import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultDataSource
@@ -14,6 +15,8 @@ import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.extractor.mkv.MatroskaExtractor
 import androidx.media3.extractor.mp4.FragmentedMp4Extractor
 import androidx.media3.extractor.text.DefaultSubtitleParserFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 
@@ -58,12 +61,20 @@ internal class DefaultPlayerRepository @Inject constructor (
             songUrlCache[mediaId]?.takeIf { it.second < System.currentTimeMillis() }?.let {
                 return@Factory dataSpec.withUri(it.first.toUri())
             }
+            val playbackData = runBlocking(Dispatchers.IO) {
+                YTPlayerUtils.playerResponseForPlayback(mediaId)
+            }.getOrElse {
+                Log.e(TAG, it.message.toString())
+                return@Factory dataSpec
+            }
+            val streamUrl = playbackData.streamUrl
 
-            dataSpec.withUri(YoutubePlayer.getUri(mediaId)).subrange(dataSpec.uriPositionOffset, CHUNK_LENGTH)
+            dataSpec.withUri(streamUrl.toUri()).subrange(dataSpec.uriPositionOffset, CHUNK_LENGTH)
         }
     }
 
     companion object {
-        const val CHUNK_LENGTH = 512 * 1024L
+        private const val CHUNK_LENGTH = 512 * 1024L
+        private val TAG = DefaultPlayerRepository::class.simpleName ?: "DefaultPlayerRepository"
     }
 }

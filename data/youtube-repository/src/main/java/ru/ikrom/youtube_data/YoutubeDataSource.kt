@@ -10,7 +10,8 @@ import com.zionhuang.innertube.pages.ArtistPage
 import kotlinx.coroutines.delay
 
 
-internal class YoutubeDataSource: IMediaDataSource {
+internal class YoutubeDataSource(cookie: String): IMediaDataSource {
+
     override suspend fun getTracksByQuery(query: String): List<SongItem> {
         return YouTube.search(query, YouTube.SearchFilter.FILTER_SONG).items.map { it as SongItem }
     }

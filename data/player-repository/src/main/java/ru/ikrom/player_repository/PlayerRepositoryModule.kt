@@ -38,7 +38,7 @@ class PlayerRepositoryModule {
     ): DefaultDataSource.Factory {
         val okHttpFactory = OkHttpDataSource.Factory(
             OkHttpClient.Builder()
-                .proxy(YoutubePlayer.getProxy())
+                .proxy(YTPlayerUtils.proxy)
                 .build()
         )
         return DefaultDataSource.Factory(context, okHttpFactory)
