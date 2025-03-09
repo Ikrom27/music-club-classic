@@ -14,7 +14,6 @@ class CompanionService: IAudioDataListener {
     private var connectJob: Job? = null
     private var streamingJob: Job? = null
     private var isReady = false
-    private var counter = 0
 
     fun connect() {
         connectJob = CoroutineScope(Dispatchers.IO).launch {
@@ -24,9 +23,6 @@ class CompanionService: IAudioDataListener {
             connectJob?.join()
             while (isReady) {
                 audioFramesQueue.take()?.let { audioFrame ->
-//                    if(counter < 100 && audioFrame.isNotEmpty()){
-//                        println("#${counter++} - [${audioFrame.joinToString(" ")}]")
-//                    }
                     streamClient.sendData(audioFrame)
                 }
             }

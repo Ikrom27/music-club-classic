@@ -103,7 +103,6 @@ class PlayerHandlerImpl @Inject constructor(
 
     override fun onTracksChanged(tracks: Tracks) {
         super.onTracksChanged(tracks)
-        val format = tracks.groups.first().getTrackFormat(0)
         _onTrackChanged(getMediaItemQueue(), player.currentMediaItemIndex)
     }
 
