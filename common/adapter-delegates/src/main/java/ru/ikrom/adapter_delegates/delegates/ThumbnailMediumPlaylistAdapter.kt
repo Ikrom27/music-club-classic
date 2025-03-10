@@ -46,6 +46,7 @@ class ThumbnailMediumPlaylistAdapter(
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
+                .centerCrop()
                 .placeholder(AppDrawableIds.PH_ERROR)
                 .into(ivThumbnail)
             tvSubtitle.text = item.subtitle

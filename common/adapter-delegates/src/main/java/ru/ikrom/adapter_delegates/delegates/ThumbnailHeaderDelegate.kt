@@ -50,6 +50,7 @@ class ThumbnailHeaderDelegate(
             Glide
                 .with(itemView.context)
                 .load(item.thumbnail)
+                .centerCrop()
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
