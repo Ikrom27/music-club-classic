@@ -83,5 +83,13 @@ class LocalDataSource @Inject constructor(
     override suspend fun removeTrackFromPlaylist(playlistId: String, trackId: String) {
         playlistDao.removeTrackFromPlaylist(playlistId, trackId)
     }
+
+    override suspend fun getSavedPlaylists(): Flow<List<PlaylistEntity>> {
+        return playlistDao.getSavedPlaylists()
+    }
+
+    override suspend fun savePlaylist(playlist: PlaylistEntity) {
+        playlistDao.savePlaylist(playlist)
+    }
 }
 

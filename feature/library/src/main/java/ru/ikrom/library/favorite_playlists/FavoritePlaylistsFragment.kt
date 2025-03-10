@@ -1,4 +1,4 @@
-package ru.ikrom.library.favorite_albums
+package ru.ikrom.library.favorite_playlists
 
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,19 +10,18 @@ import ru.ikrom.base_adapter.CompositeAdapter
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
-import ru.ikrom.library.favorite_playlists.FavoritePlaylistsViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavoriteAlbumsFragment : EditableListFragment<ThumbnailMediumPlaylistItem, FavoritePlaylistsViewModel>() {
+class FavoritePlaylistsFragment : EditableListFragment<ThumbnailMediumPlaylistItem, FavoritePlaylistsViewModel>() {
     override val mViewModel: FavoritePlaylistsViewModel by viewModels()
     @Inject
     lateinit var navigator: Navigator
     private val mAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
         .add(ThumbnailMediumPlaylistAdapter(
-            onClick = { navigator.toAlbum(it.id) },
-            onLongClick = { navigator.toAlbumMenu(it) }
+            onClick = { navigator.toPlaylist(it.id) },
+            onLongClick = { }
         ))
         .build()
 
@@ -36,7 +35,6 @@ class FavoriteAlbumsFragment : EditableListFragment<ThumbnailMediumPlaylistItem,
     }
 
     interface Navigator {
-        fun toAlbum(id: String)
-        fun toAlbumMenu(item: ThumbnailItem)
+        fun toPlaylist(id: String)
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 import ru.ikrom.database.PlaylistEntity
 import ru.ikrom.database.PlaylistTrackCrossRef
 import ru.ikrom.database.TrackEntity
@@ -13,6 +14,12 @@ import ru.ikrom.database.TrackEntity
 interface PlaylistDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTrackToPlaylist(crossRef: PlaylistTrackCrossRef)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun savePlaylist(playlist: PlaylistEntity)
+
+    @Query("SELECT * FROM user_playlist")
+    fun getSavedPlaylists(): Flow<List<PlaylistEntity>>
 
     @Query("SELECT * FROM user_playlist WHERE id == :playlistId")
     suspend fun getPlaylistById(playlistId: String): PlaylistEntity

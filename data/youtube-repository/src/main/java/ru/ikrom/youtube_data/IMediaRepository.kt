@@ -5,6 +5,7 @@ import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
+import ru.ikrom.youtube_data.model.PlaylistModel
 import ru.ikrom.youtube_data.model.PlaylistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
 
@@ -29,4 +30,6 @@ interface IMediaRepository {
     suspend fun unLikeTrack(track: TrackModel)
     suspend fun isFavoriteAlbum(albumId: String): Boolean
     suspend fun getLikedAlbums(): Flow<List<AlbumModel>>
+    suspend fun getSavedPlaylists(): Flow<List<PlaylistModel>>
+    suspend fun savePlaylist(playlistModel: PlaylistModel)
 }

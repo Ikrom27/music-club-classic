@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(project(":feature:playlist"))
     implementation(project(":feature:album"))
     implementation(project(":feature:library"))
     implementation(project(":feature:settings"))

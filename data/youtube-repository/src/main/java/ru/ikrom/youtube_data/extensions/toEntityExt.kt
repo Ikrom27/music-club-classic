@@ -2,9 +2,11 @@ package ru.ikrom.youtube_data.extensions
 
 import ru.ikrom.database.AlbumEntity
 import ru.ikrom.database.ArtistEntity
+import ru.ikrom.database.PlaylistEntity
 import ru.ikrom.database.TrackEntity
 import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.ArtistModel
+import ru.ikrom.youtube_data.model.PlaylistModel
 import ru.ikrom.youtube_data.model.TrackModel
 import ru.ikrom.youtube_data.model.getNames
 
@@ -40,3 +42,10 @@ internal fun AlbumModel.toEntity(): AlbumEntity {
         year = this.year
     )
 }
+
+internal fun PlaylistModel.toEntity()
+    = PlaylistEntity(
+        id = id.toIntOrNull() ?: hashCode(),
+        title = title,
+        thumbnail = thumbnail
+    )

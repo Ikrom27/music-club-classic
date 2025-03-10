@@ -19,4 +19,6 @@ interface ILocalDataSource {
     suspend fun getPlaylistById(playlistId: String): PlaylistEntity
     suspend fun addTrackToPlaylist(playlistId: String, trackId: String)
     suspend fun removeTrackFromPlaylist(playlistId: String, trackId: String)
+    suspend fun getSavedPlaylists(): Flow<List<PlaylistEntity>>
+    suspend fun savePlaylist(playlist: PlaylistEntity)
 }

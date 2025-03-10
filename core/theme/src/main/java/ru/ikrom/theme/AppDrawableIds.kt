@@ -37,4 +37,5 @@ object AppDrawableIds {
     val PH_NO_RESULT = R.drawable.ph_no_result
     val PH_ERROR = R.drawable.ph_connection_error
     val PH_DISK = R.drawable.ph_disk
+    val PLAYLIST = R.drawable.ic_playlist
 }

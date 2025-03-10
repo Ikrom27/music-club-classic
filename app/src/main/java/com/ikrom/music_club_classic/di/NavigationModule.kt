@@ -22,7 +22,9 @@ import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_adapter.toBundle
 import ru.ikrom.library.favorite_albums.FavoriteAlbumsFragment
 import ru.ikrom.library.favorite_artists.FavoriteArtistFragment
+import ru.ikrom.library.favorite_playlists.FavoritePlaylistsFragment
 import ru.ikrom.menu_album.AlbumMenuFragment
+import ru.ikrom.playlist.PlaylistFragment
 import ru.ikrom.utils.idToBundle
 
 
@@ -154,7 +156,7 @@ class NavigationModule {
         }
 
         override fun toPlaylists() {
-
+            navController.navigate(R.id.to_favorite_playlists)
         }
 
         override fun toFavoriteArtists() {
@@ -238,5 +240,32 @@ class NavigationModule {
         override fun toAlbumMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_album, item.toBundle())
         }
+    }
+
+    @Provides
+    fun provideFavoritePlaylistsNavigator(
+        navController: NavController
+    ) = object : FavoritePlaylistsFragment.Navigator {
+        override fun toPlaylist(id: String) {
+            navController.navigate(R.id.to_playlist, idToBundle(id))
+        }
+    }
+
+    @Provides
+    fun providePlaylistNavigator(
+        navController: NavController
+    ) = object : PlaylistFragment.Navigator {
+        override fun toUp() {
+            navController.navigateUp()
+        }
+
+        override fun toAlbumMenu(item: ThumbnailItem) {
+            TODO("Not yet implemented")
+        }
+
+        override fun toTrackMenu(item: ThumbnailItem) {
+            navController.navigate(R.id.to_menu_track, item.toBundle())
+        }
+
     }
 }

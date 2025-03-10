@@ -6,6 +6,9 @@ import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
+import ru.ikrom.adapter_delegates.delegates.ThumbnailHeaderDelegate
+import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.base_adapter.CompositeAdapter
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_fragment.DefaultListFragment
@@ -15,12 +18,26 @@ import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
 import ru.ikrom.utils.bundleToId
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class PlaylistFragment : DefaultListFragment<PlaylistPageContent, PlaylistViewModel>(R.layout.fragment_playlist) {
     @Inject
     lateinit var navigator: Navigator
+
     override val mViewModel: PlaylistViewModel by viewModels()
-    private val mAdapter = CompositeAdapter.Builder().build()
+    private val mAdapter = CompositeAdapter.Builder()
+        .add(ThumbnailHeaderDelegate(
+            onPlayClick = { mViewModel.playAllTracks() },
+            onShuffleClick = { mViewModel.playShuffled() },
+            onArtistClick = { }
+        ))
+        .add(
+            ThumbnailSmallDelegate(
+            onClick = { mViewModel.playTrack(it) },
+            onLongClick = {
+                navigator.toTrackMenu(it)
+            })
+        )
+        .build()
 
     override fun getAdapter() = mAdapter
     override fun getRecyclerViewId() = R.id.rv_content
@@ -66,9 +83,8 @@ class PlaylistFragment : DefaultListFragment<PlaylistPageContent, PlaylistViewMo
     }
 
     interface Navigator{
-        fun toArtist(artistId: String)
-        fun toTrackMenu(item: ThumbnailItem)
         fun toUp()
         fun toAlbumMenu(item: ThumbnailItem)
+        fun toTrackMenu(item: ThumbnailItem)
     }
 }
