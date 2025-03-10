@@ -34,3 +34,9 @@ data class AlbumEntity(
     @ColumnInfo(name = "thumbnail") val thumbnail: String,
     @ColumnInfo(name = "year") val year: Int?
 )
+
+@Entity(tableName = "companion_data")
+data class CompanionDataEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "data") val title: String,
+)

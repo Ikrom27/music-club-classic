@@ -54,7 +54,7 @@
         android:label="FavoriteAlbumsFragment" />
     <fragment
         android:id="@+id/codeScanner"
-        android:name="ru.ikrom.companion_connect.QRCodeScanner"
+        android:name="ru.ikrom.companion_connect.scanner.QRCodeScanner"
         android:label="QRCodeScanner" />
 
     <dialog

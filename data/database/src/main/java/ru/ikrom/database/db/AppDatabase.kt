@@ -11,4 +11,5 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun likedTracksDao(): TracksDao
     abstract fun likedArtistsDao(): ArtistDao
     abstract fun likedAlbumDao(): AlbumDao
+    abstract fun companionDao(): CompanionDao
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.ikrom.companion_connect"
+    namespace = "ru.ikrom.companion_repository"
     compileSdk = 34
 
     defaultConfig {
@@ -35,11 +35,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:companion-repository"))
-    implementation(libs.navigation.fragment)
+    implementation(project(":data:database"))
     implementation(libs.bundles.dagger)
     kapt(libs.bundles.dagger.compiler)
-    implementation(libs.code.scanner)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
