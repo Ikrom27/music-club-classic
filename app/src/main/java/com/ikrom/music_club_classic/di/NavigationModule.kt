@@ -153,6 +153,10 @@ class NavigationModule {
             navController.navigate(R.id.to_favorite_albums)
         }
 
+        override fun toPlaylists() {
+
+        }
+
         override fun toFavoriteArtists() {
             navController.navigate(R.id.to_favorite_artists)
         }

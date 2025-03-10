@@ -11,6 +11,7 @@
     <string name="menu_liked_tracks">Любимые треки</string>
     <string name="menu_liked_artists">Любимые исполнители</string>
     <string name="menu_liked_albums">Любимые альбомы</string>
+    <string name="menu_playlist">Плейлисты</string>
     <string name="menu_downloaded">Загружено</string>
     <string name="menu_in_device">На устройстве</string>
 </resources>

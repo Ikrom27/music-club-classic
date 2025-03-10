@@ -3,13 +3,15 @@ package ru.ikrom.database
 import kotlinx.coroutines.flow.Flow
 import ru.ikrom.database.db.AlbumDao
 import ru.ikrom.database.db.ArtistDao
+import ru.ikrom.database.db.PlaylistDao
 import ru.ikrom.database.db.TracksDao
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
     private val likedTracksDao: TracksDao,
     private val likedArtistDao: ArtistDao,
-    private val likedAlbumDao: AlbumDao
+    private val likedAlbumDao: AlbumDao,
+    private val playlistDao: PlaylistDao
 ) : ILocalDataSource {
 
     override suspend fun getLikedTracks(): Flow<List<TrackEntity>> {
@@ -58,6 +60,28 @@ class LocalDataSource @Inject constructor(
 
     override suspend fun removeArtist(artistEntity: ArtistEntity) {
         likedArtistDao.deleteArtist(artistEntity)
+    }
+
+    override suspend fun addTrackToPlaylist(playlistId: String, trackId: String) {
+        playlistDao.insertTrackToPlaylist(
+            PlaylistTrackCrossRef(
+                playlistId = playlistId,
+                trackId = trackId,
+                position = System.currentTimeMillis()
+            )
+        )
+    }
+
+    override suspend fun getPlaylistTracks(playlistId: String): List<TrackEntity> {
+        return playlistDao.getTracksForPlaylist(playlistId)
+    }
+
+    override suspend fun getPlaylistById(playlistId: String): PlaylistEntity {
+        return playlistDao.getPlaylistById(playlistId)
+    }
+
+    override suspend fun removeTrackFromPlaylist(playlistId: String, trackId: String) {
+        playlistDao.removeTrackFromPlaylist(playlistId, trackId)
     }
 }
 

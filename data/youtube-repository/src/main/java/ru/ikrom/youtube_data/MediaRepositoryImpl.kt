@@ -15,6 +15,7 @@ import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
+import ru.ikrom.youtube_data.model.PlaylistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
 import javax.inject.Inject
 
@@ -61,6 +62,13 @@ internal class MediaRepositoryImpl @Inject constructor(
 
     override suspend fun getAlbumPage(id: String): AlbumPageModel {
         return dataSource.getAlbumPage(id).toModel()
+    }
+
+    override suspend fun getPlaylistPage(id: String): PlaylistPageModel {
+        return PlaylistPageModel(
+            playlistInfo = localSource.getPlaylistById(id).toModel(),
+            tracks = localSource.getPlaylistTracks(id).toTrackModels()
+        )
     }
 
     override suspend fun getLikedTracks(): Flow<List<TrackModel>> {

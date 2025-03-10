@@ -6,6 +6,7 @@
     <string name="menu_liked_tracks">Liked tracks</string>
     <string name="menu_liked_artists">Liked artists</string>
     <string name="menu_liked_albums">Liked albums</string>
+    <string name="menu_playlist">Playlists</string>
     <string name="menu_downloaded">Downloaded</string>
     <string name="menu_in_device">In device</string>
 </resources>

@@ -27,6 +27,11 @@ data class AlbumPageModel(
     val tracks: List<TrackModel>
 )
 
+data class PlaylistPageModel(
+    val playlistInfo: PlaylistModel,
+    val tracks: List<TrackModel>
+)
+
 data class ArtistModel(
     val id: String?,
     val name: String,
@@ -39,7 +44,7 @@ data class ArtistModel(
 data class PlaylistModel(
     val id: String,
     val title: String,
-    val artists: ArtistModel?,
+    val artists: ArtistModel? = null,
     val thumbnail: String,
 )
 

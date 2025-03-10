@@ -32,7 +32,8 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         listOf(
             MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks), { navigator.toFavoriteTracks() }),
             MenuNavigateItem(AppDrawableIds.ALBUM, getString(R.string.menu_liked_albums), { navigator.toFavoriteAlbums() }),
-            MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists), { navigator.toFavoriteArtists() })
+            MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists), { navigator.toFavoriteArtists() }),
+//            MenuNavigateItem(AppDrawableIds.PL, getString(R.string.menu_playlist), { navigator.toPlaylists() })
         )
     }
     override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter
@@ -67,6 +68,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         fun toTrackMenu(item: ThumbnailItem)
         fun toFavoriteTracks()
         fun toFavoriteAlbums()
+        fun toPlaylists()
         fun toFavoriteArtists()
         fun toLocalTracks()
     }

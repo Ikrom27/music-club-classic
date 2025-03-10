@@ -5,6 +5,7 @@ import ru.ikrom.youtube_data.model.AlbumModel
 import ru.ikrom.youtube_data.model.AlbumPageModel
 import ru.ikrom.youtube_data.model.ArtistModel
 import ru.ikrom.youtube_data.model.ArtistPageModel
+import ru.ikrom.youtube_data.model.PlaylistPageModel
 import ru.ikrom.youtube_data.model.TrackModel
 
 interface IMediaRepository {
@@ -17,6 +18,7 @@ interface IMediaRepository {
     suspend fun isFavorite(id: String): Boolean
     suspend fun isFavoriteArtist(id: String): Boolean
     suspend fun getAlbumPage(id: String): AlbumPageModel
+    suspend fun getPlaylistPage(id: String): PlaylistPageModel
     suspend fun getLikedTracks(): Flow<List<TrackModel>>
     suspend fun getLikedArtists(): Flow<List<ArtistModel>>
     suspend fun saveTrack(id: String)
