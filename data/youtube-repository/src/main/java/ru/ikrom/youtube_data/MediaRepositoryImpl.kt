@@ -1,6 +1,7 @@
 package ru.ikrom.youtube_data
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import ru.ikrom.database.ILocalDataSource
 import ru.ikrom.youtube_data.extensions.toAlbumModel
@@ -45,8 +46,8 @@ internal class MediaRepositoryImpl @Inject constructor(
         return dataSource.getAlbumTracks(albumId).mapNotNull { it.toTrackModel() }
     }
 
-    override suspend fun getPlaylistTracks(playlistId: String): List<TrackModel> {
-        return dataSource.getPlaylistTracks(playlistId).mapNotNull { it.toTrackModel() }
+    override suspend fun getPlaylistTracks(playlistId: String): Flow<List<TrackModel>> {
+        return localSource.getPlaylistTracks(playlistId).map { it.map { it.toModel() } }
     }
 
     override suspend fun isFavorite(id: String): Boolean {
@@ -68,7 +69,7 @@ internal class MediaRepositoryImpl @Inject constructor(
     override suspend fun getPlaylistPage(id: String): PlaylistPageModel {
         return PlaylistPageModel(
             playlistInfo = localSource.getPlaylistById(id).toModel(),
-            tracks = localSource.getPlaylistTracks(id).toTrackModels()
+            tracks = localSource.getPlaylistTracks(id).first().map { it.toModel() }
         )
     }
 
@@ -114,5 +115,8 @@ internal class MediaRepositoryImpl @Inject constructor(
 
     override suspend fun savePlaylist(playlistModel: PlaylistModel){
         localSource.savePlaylist(playlistModel.toEntity())
+    }
+    override suspend fun addTrackToPlaylist(playlistId: String, trackId: String){
+        localSource.addTrackToPlaylist(playlistId, trackId)
     }
 }

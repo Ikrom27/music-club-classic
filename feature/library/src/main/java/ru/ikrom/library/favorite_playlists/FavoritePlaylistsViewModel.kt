@@ -9,6 +9,7 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumPlaylistItem
 import ru.ikrom.adapter_delegates.modelsExt.toThumbnailMediumPlaylistItem
 import ru.ikrom.fragment_list_editable.EditableStateViewModel
 import ru.ikrom.youtube_data.IMediaRepository
+import ru.ikrom.youtube_data.model.PlaylistModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +19,9 @@ class FavoritePlaylistsViewModel @Inject constructor(
 
     init {
         observeLikedArtists()
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.savePlaylist(PlaylistModel("sss", "TEST", null, "https://i.ytimg.com/vi/Ju8CsO26JiY/maxresdefault.jpg"))
+//        }
     }
 
     private fun observeLikedArtists(){

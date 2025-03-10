@@ -72,7 +72,7 @@ class LocalDataSource @Inject constructor(
         )
     }
 
-    override suspend fun getPlaylistTracks(playlistId: String): List<TrackEntity> {
+    override suspend fun getPlaylistTracks(playlistId: String): Flow<List<TrackEntity>> {
         return playlistDao.getTracksForPlaylist(playlistId)
     }
 

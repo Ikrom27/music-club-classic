@@ -15,7 +15,7 @@ interface ILocalDataSource {
     suspend fun isLikedArtist(id: String): Boolean
     suspend fun saveArtist(artistEntity: ArtistEntity)
     suspend fun removeArtist(artistEntity: ArtistEntity)
-    suspend fun getPlaylistTracks(playlistId: String): List<TrackEntity>
+    suspend fun getPlaylistTracks(playlistId: String): Flow<List<TrackEntity>>
     suspend fun getPlaylistById(playlistId: String): PlaylistEntity
     suspend fun addTrackToPlaylist(playlistId: String, trackId: String)
     suspend fun removeTrackFromPlaylist(playlistId: String, trackId: String)

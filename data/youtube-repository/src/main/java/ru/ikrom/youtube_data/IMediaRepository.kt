@@ -15,7 +15,7 @@ interface IMediaRepository {
     suspend fun getNewReleases(): List<AlbumModel>
     suspend fun getRadioTracks(id: String): List<TrackModel>
     suspend fun getAlbumTracks(albumId: String): List<TrackModel>
-    suspend fun getPlaylistTracks(playlistId: String): List<TrackModel>
+    suspend fun getPlaylistTracks(playlistId: String): Flow<List<TrackModel>>
     suspend fun isFavorite(id: String): Boolean
     suspend fun isFavoriteArtist(id: String): Boolean
     suspend fun getAlbumPage(id: String): AlbumPageModel
@@ -32,4 +32,5 @@ interface IMediaRepository {
     suspend fun getLikedAlbums(): Flow<List<AlbumModel>>
     suspend fun getSavedPlaylists(): Flow<List<PlaylistModel>>
     suspend fun savePlaylist(playlistModel: PlaylistModel)
+    suspend fun addTrackToPlaylist(playlistId: String, trackId: String)
 }

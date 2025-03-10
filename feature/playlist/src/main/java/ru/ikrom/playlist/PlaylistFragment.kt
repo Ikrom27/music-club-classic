@@ -12,6 +12,7 @@ import ru.ikrom.adapter_delegates.delegates.ThumbnailSmallDelegate
 import ru.ikrom.base_adapter.CompositeAdapter
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_fragment.DefaultListFragment
+import ru.ikrom.playlist.tracks_choise.ChoiceTracksDialog
 import ru.ikrom.theme.AppDimens
 import ru.ikrom.topbar.TopBar
 import ru.ikrom.ui.base_adapter.item_decorations.MarginItemDecoration
@@ -54,7 +55,8 @@ class PlaylistFragment : DefaultListFragment<PlaylistPageContent, PlaylistViewMo
         setupButtons(view)
         view.findViewById<TopBar>(R.id.album_bar).apply {
             setOnBackClick { navigator.toUp() }
-            setOnMoreClick { }
+            setOnMoreClick { mViewModel.setupPlaylist(bundleToId(requireArguments())) }
+            setOnAddClick { showChoiceTracksDialog() }
         }
     }
 
@@ -80,6 +82,12 @@ class PlaylistFragment : DefaultListFragment<PlaylistPageContent, PlaylistViewMo
                 )
             }
         }
+    }
+
+    private fun showChoiceTracksDialog() {
+        val dialog = ChoiceTracksDialog(bundleToId(requireArguments()))
+        println(bundleToId(requireArguments()))
+        dialog.show(parentFragmentManager, dialog.tag)
     }
 
     interface Navigator{

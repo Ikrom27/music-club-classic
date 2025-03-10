@@ -26,7 +26,7 @@ interface PlaylistDao {
 
     @Transaction
     @Query("SELECT * FROM liked_tracks WHERE id IN (SELECT track_id FROM playlist_tracks WHERE playlist_id = :playlistId)")
-    suspend fun getTracksForPlaylist(playlistId: String): List<TrackEntity>
+    fun getTracksForPlaylist(playlistId: String): Flow<List<TrackEntity>>
 
     @Query("DELETE FROM playlist_tracks WHERE playlist_id = :playlistId AND track_id = :trackId")
     suspend fun removeTrackFromPlaylist(playlistId: String, trackId: String)
