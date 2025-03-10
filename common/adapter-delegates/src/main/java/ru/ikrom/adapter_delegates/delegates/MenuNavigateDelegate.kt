@@ -1,5 +1,6 @@
 package ru.ikrom.adapter_delegates.delegates
 
+import android.media.Image
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,7 +12,8 @@ import ru.ikrom.base_adapter.DelegateAdapter
 data class MenuNavigateItem(
     val iconId: Int,
     val title: String,
-    val onClick: () -> Unit
+    val onClick: () -> Unit,
+    var showNavigateArray: Boolean = true
 ): AdapterItem
 
 
@@ -25,6 +27,9 @@ class MenuNavigateDelegate: DelegateAdapter<MenuNavigateItem, MenuNavigateDelega
             ivIcon.setImageResource(item.iconId)
             tvTitle.text = item.title
             itemView.setOnClickListener { item.onClick() }
+            if(!item.showNavigateArray){
+                itemView.findViewById<ImageView>(R.id.ic_next).visibility = View.INVISIBLE
+            }
         }
     }
 

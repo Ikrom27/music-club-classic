@@ -19,9 +19,12 @@ class FavoritePlaylistsViewModel @Inject constructor(
 
     init {
         observeLikedArtists()
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.savePlaylist(PlaylistModel("sss", "TEST", null, "https://i.ytimg.com/vi/Ju8CsO26JiY/maxresdefault.jpg"))
-//        }
+    }
+
+    fun createPlaylist(title: String, thumbnailUrl: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.savePlaylist(PlaylistModel(title, title, null, thumbnailUrl))
+        }
     }
 
     private fun observeLikedArtists(){

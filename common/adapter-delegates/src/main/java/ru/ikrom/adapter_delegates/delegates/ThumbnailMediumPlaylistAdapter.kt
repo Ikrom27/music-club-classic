@@ -47,7 +47,7 @@ class ThumbnailMediumPlaylistAdapter(
                 .with(itemView.context)
                 .load(item.thumbnail)
                 .centerCrop()
-                .placeholder(AppDrawableIds.PH_ERROR)
+                .placeholder(AppDrawableIds.PH_DISK)
                 .into(ivThumbnail)
             tvSubtitle.text = item.subtitle
             btnMore.setOnClickListener{ onLongClick(item) }

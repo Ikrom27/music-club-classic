@@ -22,6 +22,7 @@ import ru.ikrom.adapter_delegates.R
 import ru.ikrom.base_adapter.AdapterItem
 import ru.ikrom.theme.AppColorIds
 import ru.ikrom.base_adapter.DelegateAdapter
+import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.utils.ColorsUtil
 
 data class ThumbnailHeaderItem(
@@ -51,6 +52,7 @@ class ThumbnailHeaderDelegate(
                 .with(itemView.context)
                 .load(item.thumbnail)
                 .centerCrop()
+                .placeholder(AppDrawableIds.PH_DISK)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
