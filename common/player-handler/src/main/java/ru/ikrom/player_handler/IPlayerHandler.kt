@@ -28,4 +28,6 @@ interface IPlayerHandler {
     fun setOnQueueChanged(onChanged: (List<MediaItem>) -> Unit)
     fun playInQueue(id: String)
     fun setOnTrackChanged(onChanged: (List<MediaItem>, pos: Int) -> Unit)
+    fun connectToCompanion(ip: String, port: Int)
+    fun disconnectFromCompanion()
 }

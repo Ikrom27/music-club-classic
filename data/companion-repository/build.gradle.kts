@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:database"))
+    api(project(":data:database"))
     implementation(libs.bundles.dagger)
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.core.ktx)

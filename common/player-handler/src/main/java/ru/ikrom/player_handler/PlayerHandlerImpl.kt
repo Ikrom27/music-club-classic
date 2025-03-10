@@ -6,11 +6,13 @@ import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
+import ru.ikrom.player_handler.utils.IAudioDataListener
 import javax.inject.Inject
 
 
 class PlayerHandlerImpl @Inject constructor(
     private val player: ExoPlayer,
+    private val audioDataListener: IAudioDataListener
 ): PlayerConnection(player), IPlayerHandler {
     private var _onQueueChanged: (List<MediaItem>) -> Unit = {}
     private var _onTrackChanged: (List<MediaItem>, pos: Int) -> Unit = {_, _ ->}
@@ -99,6 +101,14 @@ class PlayerHandlerImpl @Inject constructor(
 
     override fun setOnTrackChanged(onChanged:  (List<MediaItem>, pos: Int) -> Unit){
         _onTrackChanged = onChanged
+    }
+
+    override fun connectToCompanion(ip: String, port: Int) {
+        audioDataListener.connect(ip, port)
+    }
+
+    override fun disconnectFromCompanion() {
+        audioDataListener.release()
     }
 
     override fun onTracksChanged(tracks: Tracks) {

@@ -16,22 +16,28 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.ikrom.companion_connect.R
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class QRCodeScanner : Fragment(R.layout.fragment_qrcode_scanner) {
     private lateinit var codeScanner: CodeScanner
     private val viewModel: ScannerViewModel by viewModels()
-    @Inject
-    lateinit var navigator: Navigator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         codeScanner = CodeScanner(requireContext(), view.findViewById(R.id.scanner_view))
         codeScanner.decodeCallback = DecodeCallback { data ->
             viewModel.saveCompanionData(data.text)
             val (ip, port) = data.text.split(":")
-            navigator.connectTo(ip, port)
-            findNavController().navigateUp()
+            viewModel.connectTo(ip, port.toInt())
+            CoroutineScope(Dispatchers.Main).launch {
+                findNavController().navigateUp()
+            }
         }
         checkCameraPermission()
     }
@@ -134,9 +140,5 @@ class QRCodeScanner : Fragment(R.layout.fragment_qrcode_scanner) {
 
     companion object {
         private const val CAMERA_PERMISSION_CODE = 101
-    }
-
-    interface Navigator {
-        fun connectTo(ip: String, port: String)
     }
 }

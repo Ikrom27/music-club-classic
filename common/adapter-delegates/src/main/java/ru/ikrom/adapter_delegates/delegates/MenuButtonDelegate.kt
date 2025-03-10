@@ -10,7 +10,7 @@ import ru.ikrom.base_adapter.DelegateAdapter
 
 data class MenuButtonItem(
     val title: String,
-    val icon: Int,
+    val icon: Int?,
     val onClick: () -> Unit
 ): AdapterItem
 
@@ -26,7 +26,7 @@ class MenuButtonDelegate(
 
         override fun bind(item: MenuButtonItem) {
             container.setOnClickListener { onClick(item) }
-            ivIcon.setImageResource(item.icon)
+            item.icon?.let { ivIcon.setImageResource(it) }
             tvTitle.text = item.title
         }
 

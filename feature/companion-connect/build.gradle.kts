@@ -35,9 +35,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":common:adapter-delegates"))
     implementation(project(":data:companion-repository"))
+    implementation(project(":core:base-fragment"))
+    api(project(":common:fragment-bottom-menu"))
+    implementation(project(":common:player-handler"))
     implementation(libs.navigation.fragment)
     implementation(libs.bundles.dagger)
+    implementation(project(":core:theme"))
     kapt(libs.bundles.dagger.compiler)
     implementation(libs.code.scanner)
     implementation(libs.core.ktx)

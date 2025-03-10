@@ -38,5 +38,5 @@ data class AlbumEntity(
 @Entity(tableName = "companion_data")
 data class CompanionDataEntity(
     @PrimaryKey
-    @ColumnInfo(name = "data") val title: String,
+    @ColumnInfo(name = "data") val data: String,
 )

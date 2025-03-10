@@ -9,15 +9,16 @@ import java.util.concurrent.LinkedBlockingQueue
 
 
 class CompanionService: IAudioDataListener {
-    private val streamClient = AudioStreamClient("192.168.1.148", 5000)
+    private val streamClient = AudioStreamClient()
     private val audioFramesQueue = LinkedBlockingQueue<ByteArray>()
     private var connectJob: Job? = null
     private var streamingJob: Job? = null
     private var isReady = false
 
-    fun connect() {
+    override fun connect(ip: String, port: Int) {
+        isReady = true
         connectJob = CoroutineScope(Dispatchers.IO).launch {
-            streamClient.connect()
+            streamClient.connect(ip, port)
         }
         streamingJob = CoroutineScope(Dispatchers.IO).launch {
             connectJob?.join()
@@ -29,16 +30,11 @@ class CompanionService: IAudioDataListener {
         }
     }
 
-    fun release() {
+    override fun release() {
         streamClient.disconnect()
         connectJob?.cancel()
         streamingJob?.cancel()
         isReady = false
-    }
-
-    override fun prepare() {
-        connect()
-        isReady = true
     }
 
     override fun onAudioData(data: ByteArray) {

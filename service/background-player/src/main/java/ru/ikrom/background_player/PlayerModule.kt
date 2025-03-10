@@ -23,7 +23,8 @@ class PlayerModule {
     @Singleton
     fun providePlayerHandler(
         player: ExoPlayer,
-    ): IPlayerHandler = PlayerHandlerImpl(player)
+        audioListener: IAudioDataListener,
+    ): IPlayerHandler = PlayerHandlerImpl(player, audioListener)
 
     @OptIn(UnstableApi::class)
     @Provides

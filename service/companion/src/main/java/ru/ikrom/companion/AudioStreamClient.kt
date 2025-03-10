@@ -9,11 +9,11 @@ import java.net.Socket
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class AudioStreamClient(private val serverIp: String, private val serverPort: Int) {
+class AudioStreamClient {
     private var socket: Socket? = null
     private var outputStream: OutputStream? = null
 
-    suspend fun connect() = withContext(Dispatchers.IO) {
+    suspend fun connect(serverIp: String, serverPort: Int) = withContext(Dispatchers.IO) {
         runCatching {
             socket = Socket(serverIp, serverPort)
             outputStream = socket?.getOutputStream()

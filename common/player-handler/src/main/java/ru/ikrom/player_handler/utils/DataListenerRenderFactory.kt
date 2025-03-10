@@ -33,10 +33,6 @@ class DataListenerAudioSink(
     private var prevBuffer: ByteArray? = null
     private var counter = 0
 
-    init {
-        audioDataListener.prepare()
-    }
-
     override fun handleBuffer(
         buffer: ByteBuffer,
         presentationTimeUs: Long,

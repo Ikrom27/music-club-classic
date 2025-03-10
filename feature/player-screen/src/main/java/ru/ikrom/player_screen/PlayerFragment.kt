@@ -23,11 +23,14 @@ import ru.ikrom.player_screen.databinding.FragmentPlayerBinding
 import ru.ikrom.theme.AppDrawableIds
 import ru.ikrom.utils.ColorsUtil
 import ru.ikrom.utils.setupMarginFromStatusBar
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlayerFragment : Fragment(R.layout.fragment_player) {
     private val playerViewModel: PlayerViewModel by viewModels()
     private lateinit var binding: FragmentPlayerBinding
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -100,8 +103,7 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
             playerViewModel.handleToFavorite()
         }
         binding.btnCast.setOnClickListener {
-            // TODO: Not yet implemented
-            Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
+            navigator.toConnectMenu()
         }
         binding.btnQueue.setOnClickListener {
             val bottomQueueFragment = PlayerQueueFragment()
@@ -167,5 +169,9 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
 
             })
             .into(binding.ivTrackCover)
+    }
+
+    interface Navigator {
+        fun toConnectMenu()
     }
 }

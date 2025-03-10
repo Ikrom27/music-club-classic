@@ -20,9 +20,11 @@ import ru.ikrom.menu_track.TrackMenuFragment
 import ru.ikrom.search.SearchFragment
 import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.base_adapter.toBundle
+import ru.ikrom.companion_connect.CompanionChoiceFragment
 import ru.ikrom.library.favorite_albums.FavoriteAlbumsFragment
 import ru.ikrom.library.favorite_artists.FavoriteArtistFragment
 import ru.ikrom.menu_album.AlbumMenuFragment
+import ru.ikrom.player_screen.PlayerFragment
 import ru.ikrom.utils.idToBundle
 
 
@@ -233,6 +235,24 @@ class NavigationModule {
 
         override fun toAlbumMenu(item: ThumbnailItem) {
             navController.navigate(R.id.to_menu_album, item.toBundle())
+        }
+    }
+
+    @Provides
+    fun providePlayerNavigator(
+        navController: NavController
+    ) = object : PlayerFragment.Navigator {
+        override fun toConnectMenu() {
+            navController.navigate(R.id.connect_menu)
+        }
+    }
+
+    @Provides
+    fun provideCompanionChoiceNavigator(
+        navController: NavController
+    ) = object : CompanionChoiceFragment.Navigator {
+        override fun toScan() {
+            navController.navigate(R.id.qr_code_scanner)
         }
     }
 }
