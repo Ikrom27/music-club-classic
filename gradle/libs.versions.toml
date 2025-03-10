@@ -1,5 +1,6 @@
 [versions]
 android-gradle-plugin = "8.2.2"
+code-scanner = "2.3.0"
 hilt = "2.47"
 newpipeextractor = "v0.24.5"
 swiperefreshlayout = "1.2.0-alpha01"
@@ -43,6 +44,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 [libraries]
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+code-scanner = { module = "com.github.yuriy-budiyev:code-scanner", version.ref = "code-scanner" }
 core-ktx = {group = "androidx.core", name="core-ktx", version.ref="ktx"}
 miniequalizer = { group = "com.github.claucookie.miniequalizer", name = "library", version.ref = "miniequalizer" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
