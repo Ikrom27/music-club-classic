@@ -15,6 +15,7 @@ import ru.ikrom.base_adapter.ThumbnailItem
 import ru.ikrom.adapter_delegates.delegates.ThumbnailMediumAdapter
 import ru.ikrom.adapter_delegates.delegates.TitleDelegate
 import ru.ikrom.adapter_delegates.delegates.TitleItem
+import ru.ikrom.library.dialogs.AudioQualityDialog
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +23,8 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
     @Inject
     lateinit var navigator: Navigator
     override val mViewModel: LibraryViewModel by viewModels()
+
+    private var audioQuality = AudioQualityDialog.AudioQuality.AUTO
     private val compositeAdapter = CompositeAdapter.Builder()
         .add(TitleDelegate())
         .add(MenuNavigateDelegate())
@@ -42,7 +45,7 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         listOf(
             TitleItem("Управление"),
             MenuNavigateItem(AppDrawableIds.STORAGE, "Удалить историю прослушивания", { resetItems() }, false),
-            MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, "Выбор качества аудио", { }, false),
+            MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, "Выбор качества аудио", { showQualityDialog(audioQuality) }, false),
         )
     }
 
@@ -76,6 +79,18 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
         compositeAdapter.setItems(emptyList())
         compositeAdapter.addAll(screens)
         compositeAdapter.addAll(options)
+    }
+
+    fun showQualityDialog(currentQuality: AudioQualityDialog.AudioQuality) {
+        val dialog = AudioQualityDialog().apply {
+            setParams(currentQuality, object : AudioQualityDialog.QualitySelectionListener {
+                override fun onQualitySelected(quality: AudioQualityDialog.AudioQuality) {
+                    audioQuality = quality
+//                    viewModel.setAudioQuality(quality)
+                }
+            })
+        }
+        dialog.show(parentFragmentManager, "AudioQualityDialog")
     }
 
     interface Navigator{
