@@ -30,29 +30,37 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
 
     private val screens by lazy {
         listOf(
+            TitleItem(getString(R.string.title_library)),
             MenuNavigateItem(AppDrawableIds.FAVORITE, getString(R.string.menu_liked_tracks), { navigator.toFavoriteTracks() }),
             MenuNavigateItem(AppDrawableIds.ALBUM, getString(R.string.menu_liked_albums), { navigator.toFavoriteAlbums() }),
             MenuNavigateItem(AppDrawableIds.ARTIST, getString(R.string.menu_liked_artists), { navigator.toFavoriteArtists() }),
             MenuNavigateItem(AppDrawableIds.PLAYLIST, getString(R.string.menu_playlist), { navigator.toPlaylists() })
         )
     }
+
+    private val options by lazy {
+        listOf(
+            TitleItem("Управление"),
+            MenuNavigateItem(AppDrawableIds.STORAGE, "Удалить историю прослушивания", { resetItems() }, false),
+            MenuNavigateItem(AppDrawableIds.AUDIO_QUALITY, "Выбор качества аудио", { }, false),
+        )
+    }
+
     override fun getAdapter(): RecyclerView.Adapter<*> = compositeAdapter
     override fun getRecyclerViewId() = R.id.rv_main
     override fun getLayoutManager() = LinearLayoutManager(context)
     override fun handleState(state: UiState) {
-        compositeAdapter.setItems(listOf(
-            TitleItem(getString(R.string.title_library))
-        ))
-        compositeAdapter.addAll(screens)
+        compositeAdapter.setItems(screens)
         when(state){
             is UiState.Success -> onSuccessState(state)
             else -> {}
         }
+        compositeAdapter.addAll(options)
     }
 
     private fun onSuccessState(data: UiState.Success){
         if(data.data.isNotEmpty()){
-            compositeAdapter.add(TitleItem(getString(R.string.title_favorite)))
+            compositeAdapter.add(TitleItem("В последний раз слушали"))
             compositeAdapter.add(NestedItems(
                 items = data.data,
                 adapter = CompositeAdapter.Builder()
@@ -62,6 +70,12 @@ class LibraryFragment : DefaultListFragment<UiState, LibraryViewModel>(R.layout.
                 )).build()
             ))
         }
+    }
+
+    private fun resetItems(){
+        compositeAdapter.setItems(emptyList())
+        compositeAdapter.addAll(screens)
+        compositeAdapter.addAll(options)
     }
 
     interface Navigator{
